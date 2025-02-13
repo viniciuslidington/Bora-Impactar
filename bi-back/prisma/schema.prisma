@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model RelocationProduct {
+  id         Int      @id @default(autoincrement())
+  title      String
+  category   Categoria
+  number     Int      
+  description String?
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Request {
+  id          Int      @id @default(autoincrement())
+  title       String
+  category    Categoria
+  urgency     UrgencyLevel
+  description String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Enum para níveis de urgência da solicitação
+enum UrgencyLevel {
+  LOW      // Baixa prioridade
+  MEDIUM   // Prioridade média
+  HIGH     // Alta prioridade
+  CRITICAL // Crítica
+}
+
+enum Categoria { 
+  ALIMENTO
+  SERVICOS
+  UTENSILIOS
+  MEDICAMENTOS_HIGIENE
+  BRINQUEDOS_LIVROS
+  MOVEIS
+  ITEMPET
+  AJUDAFINANCEIRA
+  OUTRA
+}
