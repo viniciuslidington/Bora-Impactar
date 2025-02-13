@@ -3,6 +3,7 @@ import Logo from "../components/Logo/logo";
 import Button from "../components/Button/Button";
 import styles from "../styles/login.module.css";
 import { useState } from "react";
+import api from "../services/api";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -26,12 +27,14 @@ export default function Login() {
       console.log(loginData);
       // Faz a requisição POST para a API
       // Mexe aqui vini, lembra de botar await na requisição :)
-      const response = await fetch("rota da requisição", {
+      const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": "true"
         },
         body: JSON.stringify(loginData),
+        credentials: "include",
       });
 
       // Verifica se a resposta foi bem-sucedida

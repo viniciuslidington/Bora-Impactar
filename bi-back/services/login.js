@@ -5,16 +5,18 @@ import cors from "cors";
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({credentials: true, origin: "http://localhost:5173"}));
 app.use(session({ 
     secret: "0a81fe9aab38c9011ed6542b2eb9a3db62a0c48dc496699bde624e1c5dbe4232",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 } // 1 dia  // secure: true quando for rodar em hml e prd
+    //cookie: { secure: false, maxAge: 1 * 60 * 60 * 1000 }
+    // 1 minuto  // secure: true quando for rodar em hml e prd
+    cookie: { secure: false, maxAge: 1 * 60 * 1000 }
 }));
 
 
-app.get("/login", async (req, res) => {
+app.post("/login", async (req, res) => {
 
     const { email, password } = req.body;
 
@@ -22,7 +24,8 @@ app.get("/login", async (req, res) => {
         const response = await fetch("https://bora-impactar-prd.setd.rdmapps.com.br/api/login.json", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": "true"
             },
             body: JSON.stringify({ email, password })
         });
