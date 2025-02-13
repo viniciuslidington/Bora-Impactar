@@ -1,17 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header/header";
 import Footer from "../components/Footer/Footer";
-import Button from "../components/Button/button";
+import Button from "../components/Button/Button";
 import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
 import styles from "../styles/mainpage.module.css";
 
 export default function MainPage() {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.mainPage}>
       <div className={styles.fundo}></div>
       <Header>
-        <Link to="/" className={styles.link}>
+        <Link to="/login" className={styles.link}>
           Logar como Ong
         </Link>
       </Header>
@@ -27,7 +29,12 @@ export default function MainPage() {
         </p>
         <div className={styles.buttonGroup}>
           <Button customClass={styles.customClass1}>Sou Voluntário</Button>
-          <Button customClass={styles.customClass2}>Sou Ong</Button>
+          <Button
+            customClass={styles.customClass2}
+            onClick={() => navigate("/login")}
+          >
+            Sou Ong
+          </Button>
         </div>
         <div className={styles.dadosGrid}>
           <div className={styles.dados}>
@@ -91,7 +98,12 @@ export default function MainPage() {
         <h3>Faça parte dessa mudança. Bora Impactar!</h3>
         <div className={styles.buttonGroup}>
           <Button customClass={styles.customClass1}>Sou Voluntário</Button>
-          <Button customClass={styles.customClass2}>Sou Ong</Button>
+          <Button
+            customClass={styles.customClass2}
+            onClick={() => navigate("/login")}
+          >
+            Sou Ong
+          </Button>
         </div>
       </div>
       <Footer />
