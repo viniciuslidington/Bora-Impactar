@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/DMSans-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+:root {
+  font-family: "DM Sans", sans-serif;
+  line-height: 1.5;
+  font-weight: 500;
+  color: #292929;
+  background-color: #fff;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  width: 100%;
+}

@@ -1,0 +1,74 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #a8dff7;
+  gap: 16px;
+}
+.login img {
+  width: 256px;
+}
+.login a:last-child img {
+  width: 124px;
+}
+.loginTab {
+  background-color: white;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 48px;
+  gap: 16px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.loginTab h2 {
+  font-size: 24px;
+  font-weight: 900;
+}
+.inputField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 264px;
+}
+.inputField p {
+  color: red;
+  font-size: 14px;
+}
+.inputField input {
+  width: 264px;
+  height: 48px;
+  border: 2px solid #b6b6b6;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+.inputField a {
+  font-size: 14px;
+}
+.buttonField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.buttonField:last-child {
+  align-items: center;
+}
+
+.customClass1 {
+  width: 264px;
+  height: 48px;
+}
+.customClass2 {
+  width: 264px;
+  height: 48px;
+  background: none;
+  border: 2px solid #294bb6;
+  color: #294bb6;
+}
+.customClass2:hover {
+  background-color: #294ab61e;
+}
