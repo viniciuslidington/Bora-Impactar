@@ -1,0 +1,19 @@
+
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #009FE3;
+  width: 100%;
+  height: 100px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1366px;
+  padding: 0 123px;
+}

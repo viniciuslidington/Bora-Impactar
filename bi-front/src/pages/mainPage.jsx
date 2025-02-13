@@ -1,11 +1,15 @@
-function Home() {
+import Header from '../components/common/Header/header'; 
+import { Link } from 'react-router-dom';
+
+export default function MainPage() {
     return (
-      <div className="home">
-        <h1>🏠 Bem-vindo à Página Inicial!</h1>
-        <p>Este é um site de exemplo usando React Router no Vite.</p>
-        <button text="Clique Aqui" />
-      </div>
+      <>
+      <Header>
+        <Link to="/">Logar como Ong</Link>
+        
+      </Header>
+      <heroSection/>
+      </>
     );
   }
   
-  export default Home;

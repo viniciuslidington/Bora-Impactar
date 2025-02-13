@@ -1,18 +1,12 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/mainPage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MainPage from "./pages/MainPage";
 
 function App() {
 
   return (
-    <Router>
-      <nav>
-        <Link to="/">Home</Link> |  
-        
-      </nav>
-
+    <Router>  
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<MainPage />} />
         
       </Routes>
     </Router>
