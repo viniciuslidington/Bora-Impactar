@@ -1,0 +1,195 @@
+.link {
+  color: white;
+}
+
+.fundo {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 708px;
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.64) 0%,
+      rgba(255, 255, 255, 0.64) 100%
+    ),
+    linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #fff 64.5%),
+    url(/RecifeAntigo.jpg) lightgray 238.135px 0px / 100.006% 126.568% no-repeat;
+  background-size: cover;
+  background-position-y: -10px;
+
+  z-index: -1;
+}
+
+.mainPage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heroSection {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 1366px;
+  max-width: 100%;
+  padding: 40px 123px;
+  gap: 32px;
+}
+
+.heroSection img {
+  width: 351px;
+  margin-bottom: -16px;
+}
+.heroSection h1 {
+  font-size: 56px;
+  font-weight: 700;
+}
+.heroSection p {
+  width: 816px;
+  max-width: 100%;
+  line-height: 1.8;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 32px;
+}
+
+.customClass1 {
+  width: 256px;
+  height: 80px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.customClass2 {
+  width: 256px;
+  height: 80px;
+  font-size: 18px;
+  font-weight: 700;
+  background: none;
+  border: 3px solid #009fe3;
+  color: #009fe3;
+}
+.customClass2:hover {
+  background-color: hsla(198, 69%, 59%, 0.075);
+}
+
+.dadosGrid {
+  margin-top: 64px;
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  align-self: center;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.dados {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 116px;
+  background-color: #009fe3;
+  border-radius: 4px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.dados span {
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.dados p {
+  width: auto;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.causasSection {
+  padding: 40px 123px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+.causasSection h2 {
+  font-size: 48px;
+  font-weight: 500;
+}
+
+.customClass3 {
+  width: 256px;
+  height: 64px;
+  font-size: 18px;
+  font-weight: 700;
+  background: none;
+  border: 3px solid #1b2e35;
+  color: #1b2e35;
+}
+.customClass3:hover {
+  background-color: rgba(27, 46, 53, 0.075);
+}
+
+.aboutSection {
+  margin-top: 40px;
+  height: 460px;
+  background-color: #d9d9d9;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.aboutContainer {
+  width: 1366px;
+  padding: 40px 123px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+.aboutContainer h2 {
+  font-size: 48px;
+  font-weight: 500;
+}
+.aboutContentGrid {
+  display: flex;
+  gap: 48px;
+}
+.aboutContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.aboutContent img {
+  width: 80px;
+}
+.aboutContent h3 {
+  font-size: 24px;
+  font-weight: 700;
+}
+.aboutContent p {
+  width: 256px;
+  text-align: justify;
+}
+
+.ctaSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1366px;
+  padding: 64px 123px;
+  gap: 48px;
+}
+
+.ctaSection h3 {
+  font-size: 36px;
+  font-weight: 500;
+}

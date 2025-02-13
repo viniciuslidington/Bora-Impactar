@@ -1,0 +1,38 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #009fe3;
+  width: 100%;
+}
+.content {
+  display: flex;
+  width: 1366px;
+  padding: 64px 123px;
+  gap: 64px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 224px;
+}
+.container h3 {
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+}
+.container p {
+  width: 224px;
+  color: white;
+  font-size: 20px;
+}
+
+.container ul {
+  list-style-type: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-decoration: underline;
+}
