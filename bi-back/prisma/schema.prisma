@@ -17,7 +17,7 @@ model RelocationProduct {
   id         Int      @id @default(autoincrement())
   title      String
   category   Categoria
-  number     Int      @unique
+  number     Int      
   description String?
 
   createdAt  DateTime @default(now())
@@ -52,4 +52,5 @@ enum Categoria {
   MOVEIS
   ITEMPET
   AJUDAFINANCEIRA
+  OUTRA
 }
