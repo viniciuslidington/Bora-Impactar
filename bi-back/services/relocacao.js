@@ -41,5 +41,33 @@ app.get("/relocacoes", async (req, res) => {
 
 });  
 
+app.put('/relocacoes/:id', async (req, res) => {
+    
+  await prisma.RelocationProduct.update({
+      where : {   
+          id : req.params.id
+      },
+      data: {
+        title: req.body.title,
+        category: req.body.category,
+        number: req.body.number,
+        description: req.body.description,
+      }
+  })
+  res.status(201).json(req.body)
 
-app.listen(3000)
+})
+
+app.delete('/relocacoes/:id', async (req, res) => {
+
+  await prisma.RelocationProduct.delete({
+    where: {
+      id: req.params.id
+    }
+  })
+
+  res.status(201).json(req.body , { message: 'Relocation deleted' })
+
+})
+
+app.listen(3002)
