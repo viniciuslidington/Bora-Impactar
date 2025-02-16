@@ -1,9 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header/header";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Button/Button";
 import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
+import Profile from "../components/Profile/Profile";
 import styles from "../styles/mainpage.module.css";
 
 export default function MainPage() {
@@ -13,9 +14,7 @@ export default function MainPage() {
     <div className={styles.mainPage}>
       <div className={styles.fundo}></div>
       <Header>
-        <Link to="/login" className={styles.link}>
-          Logar como Ong
-        </Link>
+        <Profile />
       </Header>
       <div className={styles.heroSection}>
         <img src="/BoraImpactar.png" alt="" />
