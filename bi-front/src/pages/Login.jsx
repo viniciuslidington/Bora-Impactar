@@ -10,10 +10,23 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const { login, alerta, isLoading, isAuthenticated } = useContext(AuthContext);
+  const { login, alerta, isLoading, isAuthenticated, cleanUpAlerta } =
+    useContext(AuthContext);
 
   useEffect(() => {
     isAuthenticated && navigate("/ong", { replace: true });
+
+    function handleEnter(e) {
+      if (e.key === "Enter") {
+        handleSubmit();
+      }
+    }
+
+    document.addEventListener("keypress", handleEnter);
+    return () => {
+      document.removeEventListener("keypress", handleEnter);
+      cleanUpAlerta();
+    };
   }, [isAuthenticated, navigate]);
 
   function handleSubmit() {

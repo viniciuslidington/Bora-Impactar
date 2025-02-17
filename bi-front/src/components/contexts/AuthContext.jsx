@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 import PropTypes from "prop-types";
 
 const AuthContext = createContext();
@@ -35,6 +35,39 @@ function reducer(state, action) {
 function AuthProvider({ children }) {
   const [{ user, isAuthenticated, isLoading, alerta, userData }, dispatch] =
     useReducer(reducer, initialState);
+
+  //Autenticação de sessão ao usuario abrir o navegador e cada 15 minutos
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const response = await fetch("http://localhost:3000/auth", {
+          credentials: "include",
+        });
+        if (response.ok) {
+          const data = await response.json();
+          dispatch({
+            type: "login",
+            payload: { user: data.user.name, userData: data },
+          });
+        } else {
+          // Se a resposta não for ok (por exemplo, 401 Unauthorized), efetua o logout
+          dispatch({ type: "logout" });
+        }
+      } catch (error) {
+        console.error("Erro ao verificar autenticação:", error);
+        dispatch({ type: "logout" });
+      }
+    }
+
+    // Verifica a autenticação imediatamente ao carregar o componente
+    checkAuth();
+
+    // Cria um intervalo que verifica a sessão a cada 15 minutos (15 * 60 * 1000 ms)
+    const intervalId = setInterval(checkAuth, 15 * 60 * 1000);
+
+    // Limpa o intervalo quando o componente é desmontado
+    return () => clearInterval(intervalId);
+  }, []);
 
   async function login(email, password) {
     if (email === "" || password === "") {
@@ -94,6 +127,9 @@ function AuthProvider({ children }) {
   function logout() {
     dispatch({ type: "logout" });
   }
+  function cleanUpAlerta() {
+    dispatch({ type: "alerta", payload: { alerta: "" } });
+  }
 
   return (
     <AuthContext.Provider
@@ -105,6 +141,7 @@ function AuthProvider({ children }) {
         login,
         logout,
         userData,
+        cleanUpAlerta,
       }}
     >
       {children}
