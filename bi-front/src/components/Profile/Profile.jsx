@@ -35,7 +35,7 @@ export default function Profile() {
         {dropdown && (
           <div className={styles.dropdown}>
             <div className={styles.section}>
-              <img src="./userIconPlaceholder.png" alt="userLogo" />
+              <img src="/userIconPlaceholder.png" alt="userLogo" />
               <div className={styles.sectionContent}>
                 <p>{user}</p>
                 <p>{userData.user.email}</p>
@@ -45,10 +45,10 @@ export default function Profile() {
               className={styles.homePageBtn}
               onClick={() => navigate("/ong")}
             >
-              <img src="./home.svg" alt="homeIcon" /> <p>Home</p>
+              <img src="/home.svg" alt="homeIcon" /> <p>Home</p>
             </button>
             <button className={styles.logout} onClick={logout}>
-              <img src="./logout.svg" alt="logoutIcon" /> <p>Logout</p>
+              <img src="/logout.svg" alt="logoutIcon" /> <p>Logout</p>
             </button>
           </div>
         )}
