@@ -27,7 +27,7 @@ export default function Login() {
       document.removeEventListener("keypress", handleEnter);
       cleanUpAlerta();
     };
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated]);
 
   function handleSubmit() {
     login(email, password);
@@ -41,7 +41,7 @@ export default function Login() {
         <img src="./BoraImpactar.png" alt="BoraImpactarLogo" />
       </Link>
       <div className={styles.loginTab}>
-        <h2>Entrar como Ong</h2>
+        <h2>Entrar como ONG</h2>
         <div className={styles.inputField}>
           <input
             type="text"

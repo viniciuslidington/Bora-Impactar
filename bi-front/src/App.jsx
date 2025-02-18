@@ -6,10 +6,10 @@ import {
 } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import Login from "./pages/Login";
-import HomeOng from "./pages/HomeOng";
+import Ong from "./pages/Ong";
 import { AuthProvider } from "./components/contexts/AuthContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
-import Solicitacoes from "./pages/Solicitacoes";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -22,13 +22,18 @@ function App() {
             path="ong"
             element={
               <ProtectedRoute>
-                <HomeOng />
+                <Ong />
               </ProtectedRoute>
             }
           >
-            <Route index element={<Navigate replace to={"solicitacoes"} />} />
-            <Route path="solicitacoes" element={<Solicitacoes />} />
+            <Route index element={<Navigate replace to={"home"} />} />
+            <Route path="home" element={<Home />}>
+              <Route index element={<Navigate replace to={"solicitacoes"} />} />
+              <Route path="solicitacoes" element={<p>solicitacoes</p>} />
+              <Route path="trocas" element={<p>trocas</p>} />
+            </Route>
           </Route>
+          <Route path="*" element={<p>404 Página não encontrada</p>} />
         </Routes>
       </Router>
     </AuthProvider>

@@ -32,13 +32,13 @@ export default function MainPage() {
             customClass={styles.customClass2}
             onClick={() => navigate("/login")}
           >
-            Sou Ong
+            Sou ONG
           </Button>
         </div>
         <div className={styles.dadosGrid}>
           <div className={styles.dados}>
             <span>350</span>
-            <p>Ongs Registradas</p>
+            <p>ONGs Registradas</p>
           </div>
           <div className={styles.dados}>
             <span>29.157</span>
@@ -51,7 +51,7 @@ export default function MainPage() {
         </div>
       </div>
       <div className={styles.causasSection}>
-        <h2>Ajude as causas das ongs</h2>
+        <h2>Ajude as causas das ONGs</h2>
         <Grid>
           <GridBox imgUrl={"./Alimentos.jpg"}>Doar Alimentos</GridBox>
           <GridBox imgUrl={"./Serviço.jpg"}>Doar Alimentos</GridBox>
@@ -64,7 +64,7 @@ export default function MainPage() {
       </div>
       <div className={styles.aboutSection}>
         <div className={styles.aboutContainer}>
-          <h2>Sou Ong, como funciona?</h2>
+          <h2>Sou ONG, como funciona?</h2>
           <div className={styles.aboutContentGrid}>
             <div className={styles.aboutContent}>
               <img src="./Recursos.svg" alt="" />
@@ -101,7 +101,7 @@ export default function MainPage() {
             customClass={styles.customClass2}
             onClick={() => navigate("/login")}
           >
-            Sou Ong
+            Sou ONG
           </Button>
         </div>
       </div>

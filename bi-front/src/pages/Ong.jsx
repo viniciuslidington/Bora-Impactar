@@ -5,7 +5,7 @@ import Profile from "../components/Profile/Profile";
 import SearchBar from "../components/SearchBar/SearchBar";
 import styles from "../styles/homeong.module.css";
 
-export default function HomeOng() {
+export default function Ong() {
   return (
     <div className={styles.homeOng}>
       <Header>
