@@ -1,0 +1,108 @@
+.profile {
+  display: flex;
+  flex-direction: row;
+}
+
+.profileMainContent {
+  height: 88px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.profileMainContent p {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+.dropdown {
+  position: absolute;
+  top: 80px;
+  background-color: #cef0ff;
+  border: 2px solid #92deff79;
+  border-radius: 4px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+}
+
+.section {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 12px;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 2px solid #92deff79;
+}
+
+.section img {
+  width: 56px;
+}
+
+.sectionContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logout {
+  background: none;
+  border: none;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  cursor: pointer;
+  align-items: center;
+  transition: 0.1s ease;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.logout img {
+  width: 28px;
+  height: 28px;
+}
+
+.logout p {
+  text-decoration: underline;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.logout:hover {
+  background-color: #f8fdff;
+}
+.homePageBtn {
+  background: none;
+  border: none;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  cursor: pointer;
+  align-items: center;
+  transition: 0.1s ease;
+}
+
+.homePageBtn img {
+  width: 28px;
+  height: 28px;
+}
+
+.homePageBtn p {
+  text-decoration: underline;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.homePageBtn:hover {
+  background-color: #f8fdff;
+}
+
+.link {
+  color: white;
+}

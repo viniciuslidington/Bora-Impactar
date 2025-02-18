@@ -1,9 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header/header";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Button/Button";
 import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
+import Profile from "../components/Profile/Profile";
 import styles from "../styles/mainpage.module.css";
 
 export default function MainPage() {
@@ -13,9 +14,7 @@ export default function MainPage() {
     <div className={styles.mainPage}>
       <div className={styles.fundo}></div>
       <Header>
-        <Link to="/login" className={styles.link}>
-          Logar como Ong
-        </Link>
+        <Profile />
       </Header>
       <div className={styles.heroSection}>
         <img src="/BoraImpactar.png" alt="" />
@@ -33,13 +32,13 @@ export default function MainPage() {
             customClass={styles.customClass2}
             onClick={() => navigate("/login")}
           >
-            Sou Ong
+            Sou ONG
           </Button>
         </div>
         <div className={styles.dadosGrid}>
           <div className={styles.dados}>
             <span>350</span>
-            <p>Ongs Registradas</p>
+            <p>ONGs Registradas</p>
           </div>
           <div className={styles.dados}>
             <span>29.157</span>
@@ -52,7 +51,7 @@ export default function MainPage() {
         </div>
       </div>
       <div className={styles.causasSection}>
-        <h2>Ajude as causas das ongs</h2>
+        <h2>Ajude as causas das ONGs</h2>
         <Grid>
           <GridBox imgUrl={"./Alimentos.jpg"}>Doar Alimentos</GridBox>
           <GridBox imgUrl={"./Serviço.jpg"}>Doar Alimentos</GridBox>
@@ -65,7 +64,7 @@ export default function MainPage() {
       </div>
       <div className={styles.aboutSection}>
         <div className={styles.aboutContainer}>
-          <h2>Sou Ong, como funciona?</h2>
+          <h2>Sou ONG, como funciona?</h2>
           <div className={styles.aboutContentGrid}>
             <div className={styles.aboutContent}>
               <img src="./Recursos.svg" alt="" />
@@ -102,7 +101,7 @@ export default function MainPage() {
             customClass={styles.customClass2}
             onClick={() => navigate("/login")}
           >
-            Sou Ong
+            Sou ONG
           </Button>
         </div>
       </div>

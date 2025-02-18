@@ -1,0 +1,42 @@
+.homeSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 123px;
+  width: 1366px;
+}
+
+.postsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.postsNav {
+  display: flex;
+  gap: 16px;
+}
+
+.navLink {
+  display: flex;
+  height: 48px;
+  width: 252px;
+  justify-content: center;
+  align-items: center;
+  background-color: #d0d0d0;
+  border-bottom: 4px solid #bcbcbc;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 4px;
+  color: #292929;
+  text-decoration: none;
+  transition: 0.1s ease;
+}
+.navLink:hover {
+  background-color: #eaeaea;
+}
+
+.navLink:global(.active) {
+  border-bottom: 4px solid #2288c9;
+  background-color: #eaeaea;
+}

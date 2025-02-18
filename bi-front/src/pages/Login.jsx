@@ -1,60 +1,38 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo/logo";
 import Button from "../components/Button/Button";
 import styles from "../styles/login.module.css";
-import { useState } from "react";
-import api from "../services/api";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../components/contexts/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [alerta, setAlerta] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  async function handleEntrar() {
-    if (email === "" || senha === "") {
-      setAlerta("Preencha os campos corretamente!");
-      return;
-    }
-    if (!email.includes("@") || !email.includes(".")) {
-      setAlerta("Por favor, insira um email válido.");
-      return;
-    }
+  const { login, alerta, isLoading, isAuthenticated, cleanUpAlerta } =
+    useContext(AuthContext);
 
-    try {
-      setIsLoading(true);
-      const loginData = { email: email, password: senha };
-      console.log(loginData);
-      // Faz a requisição POST para a API
-      // Mexe aqui vini, lembra de botar await na requisição :)
-      const response = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": "true"
-        },
-        body: JSON.stringify(loginData),
-        credentials: "include",
-      });
+  useEffect(() => {
+    isAuthenticated && navigate("/ong", { replace: true });
 
-      // Verifica se a resposta foi bem-sucedida
-      if (!response.ok) {
-        throw new Error(`Erro na requisição: ${response.statusText}`);
+    function handleEnter(e) {
+      if (e.key === "Enter") {
+        handleSubmit();
       }
-
-      // Converte a reposta em JSON
-      const data = await response.json();
-      // Ver resposta no log
-      console.log(data);
-    } catch (error) {
-      // Trata erros de rede ou da API
-      setAlerta("Erro ao fazer login, credenciais incorretas.");
-      console.error("Erro durante o login:", error);
-    } finally {
-      setIsLoading(false);
-      setEmail("");
-      setSenha("");
     }
+
+    document.addEventListener("keypress", handleEnter);
+    return () => {
+      document.removeEventListener("keypress", handleEnter);
+      cleanUpAlerta();
+    };
+  }, [isAuthenticated]);
+
+  function handleSubmit() {
+    login(email, password);
+    setEmail("");
+    setPassword("");
   }
 
   return (
@@ -63,7 +41,7 @@ export default function Login() {
         <img src="./BoraImpactar.png" alt="BoraImpactarLogo" />
       </Link>
       <div className={styles.loginTab}>
-        <h2>Entrar como Ong</h2>
+        <h2>Entrar como ONG</h2>
         <div className={styles.inputField}>
           <input
             type="text"
@@ -75,8 +53,8 @@ export default function Login() {
           <input
             type="password"
             placeholder="Senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             disabled={isLoading}
           />
           {alerta !== "" && <p>{alerta}</p>}
@@ -84,7 +62,7 @@ export default function Login() {
         <div className={styles.inputField}>
           <Button
             customClass={styles.customClass1}
-            onClick={handleEntrar}
+            onClick={handleSubmit}
             disabled={isLoading}
           >
             Entrar
