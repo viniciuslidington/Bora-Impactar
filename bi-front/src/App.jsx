@@ -10,6 +10,7 @@ import Ong from "./pages/Ong";
 import { AuthProvider } from "./components/contexts/AuthContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import Home from "./pages/Home";
+import OngPosts from "./components/OngPosts/OngPosts";
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
             <Route index element={<Navigate replace to={"home"} />} />
             <Route path="home" element={<Home />}>
               <Route index element={<Navigate replace to={"solicitacoes"} />} />
-              <Route path="solicitacoes" element={<p>solicitacoes</p>} />
+              <Route path="solicitacoes" element={<OngPosts />} />
               <Route path="trocas" element={<p>trocas</p>} />
             </Route>
           </Route>

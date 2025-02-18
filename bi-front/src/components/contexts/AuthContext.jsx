@@ -36,7 +36,7 @@ function AuthProvider({ children }) {
   const [{ user, isAuthenticated, isLoading, alerta, userData }, dispatch] =
     useReducer(reducer, initialState);
 
-  //Autenticação de sessão ao usuario abrir o navegador e cada 15 minutos
+  //Autenticação de sessão ao usuario abrir o navegador e intervalo de autenticação a cada 60 minutos
   useEffect(() => {
     async function checkAuth() {
       try {
@@ -62,8 +62,8 @@ function AuthProvider({ children }) {
     // Verifica a autenticação imediatamente ao carregar o componente
     checkAuth();
 
-    // Cria um intervalo que verifica a sessão a cada 15 minutos (15 * 60 * 1000 ms)
-    const intervalId = setInterval(checkAuth, 15 * 60 * 1000);
+    // Cria um intervalo que verifica a sessão a cada 60 minutos
+    const intervalId = setInterval(checkAuth, 60 * 60 * 1000);
 
     // Limpa o intervalo quando o componente é desmontado
     return () => clearInterval(intervalId);
