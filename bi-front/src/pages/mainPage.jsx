@@ -54,13 +54,17 @@ export default function MainPage() {
         <h2>Ajude as causas das ONGs</h2>
         <Grid>
           <GridBox imgUrl={"./Alimentos.jpg"}>Doar Alimentos</GridBox>
-          <GridBox imgUrl={"./Serviço.jpg"}>Doar Alimentos</GridBox>
-          <GridBox imgUrl={"./Medicamentos.jpg"}>Doar Alimentos</GridBox>
-          <GridBox imgUrl={"./Brinquedos.jpg"}>Doar Alimentos</GridBox>
-          <GridBox imgUrl={"./Roupas.jpg"}>Doar Alimentos</GridBox>
+          <GridBox imgUrl={"./Serviço.jpg"}>Voluntariar Horas</GridBox>
+          <GridBox imgUrl={"./Medicamentos.jpg"}>
+            Doar Medicamentos e Itens de Higiene
+          </GridBox>
+          <GridBox imgUrl={"./Brinquedos.jpg"}>
+            Doar brinquedos e livros
+          </GridBox>
+          <GridBox imgUrl={"./Roupas.jpg"}>Doar Roupas</GridBox>
           <GridBox imgUrl={"./Móveis.jpg"}>Doar Alimentos</GridBox>
         </Grid>
-        <Button customClass={styles.customClass3}>Ver outras categorias</Button>
+        <Button customClass={styles.customClass3}>Doar Móveis</Button>
       </div>
       <div className={styles.aboutSection}>
         <div className={styles.aboutContainer}>

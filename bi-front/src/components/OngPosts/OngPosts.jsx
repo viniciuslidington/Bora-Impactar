@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Button from "../Button/Button";
 import postsDatabase from "./postsDatabase";
+import styles from "./ongPosts.module.css";
 
 export default function OngPosts() {
   const { sortPosts, setSortPosts } = useState("data");
 
   return (
-    <div className="ongPosts">
+    <div className={styles.ongPosts}>
       <Button>Adicionar</Button>
       <select
         name="sortPosts"
