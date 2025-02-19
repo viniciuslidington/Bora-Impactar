@@ -16,7 +16,7 @@ export default function Footer() {
             <li>Home</li>
             <li>Sou Ong</li>
             <li>Sou Voluntário</li>
-            <li>Plataforma de Estoque</li>
+            <li>Conecta Recife</li>
           </ul>
         </div>
       </div>
