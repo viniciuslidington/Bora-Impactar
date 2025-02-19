@@ -2,14 +2,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 123px;
-  width: 1366px;
+  padding: 64px 0123px;
+  width: 100%;
+  max-width: 1366px;
+  gap: 64px;
 }
 
 .postsSection {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 48px;
   width: 100%;
   align-items: center;
 }
