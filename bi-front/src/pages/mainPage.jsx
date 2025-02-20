@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import Header from "../components/Header/header";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Button/Button";
@@ -6,9 +7,11 @@ import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
 import Profile from "../components/Profile/Profile";
 import styles from "../styles/mainpage.module.css";
+import { AuthContext } from "../components/contexts/AuthContext";
 
 export default function MainPage() {
   const navigate = useNavigate();
+  const { isAuthenticated } = useContext(AuthContext);
 
   return (
     <div className={styles.mainPage}>
@@ -17,7 +20,7 @@ export default function MainPage() {
         <Profile />
       </Header>
       <div className={styles.heroSection}>
-        <img src="/BoraImpactar.png" alt="" />
+        <img src="/BoraImpactar.png" alt="Logo" />
         <h1>Doe hoje, transforme vidas para sempre!</h1>
         <p>
           No Bora Impactar, você pode doar recursos diretamente para ONGs que
@@ -30,7 +33,11 @@ export default function MainPage() {
           <Button customClass={styles.customClass1}>Sou Voluntário</Button>
           <Button
             customClass={styles.customClass2}
-            onClick={() => navigate("/login")}
+            onClick={() =>
+              isAuthenticated
+                ? navigate("/ong/home/solicitacoes")
+                : navigate("/login")
+            }
           >
             Sou ONG
           </Button>
@@ -64,14 +71,14 @@ export default function MainPage() {
           <GridBox imgUrl={"./Roupas.jpg"}>Doar Roupas</GridBox>
           <GridBox imgUrl={"./Móveis.jpg"}>Doar Alimentos</GridBox>
         </Grid>
-        <Button customClass={styles.customClass3}>Doar Móveis</Button>
+        <Button customClass={styles.customClass3}>Ver outras categorias</Button>
       </div>
       <div className={styles.aboutSection}>
         <div className={styles.aboutContainer}>
           <h2>Sou ONG, como funciona?</h2>
           <div className={styles.aboutContentGrid}>
             <div className={styles.aboutContent}>
-              <img src="./Recursos.svg" alt="" />
+              <img src="./Recursos.svg" alt="recursos" />
               <h3>Realocação de Recursos</h3>
               <p>
                 Aproveite ao máximo os itens próximos da data de validade,
@@ -79,7 +86,7 @@ export default function MainPage() {
               </p>
             </div>
             <div className={styles.aboutContent}>
-              <img src="./Trocas.svg" alt="" />
+              <img src="./Trocas.svg" alt="trocas" />
               <h3>Realocação de Recursos</h3>
               <p>
                 Aproveite ao máximo os itens próximos da data de validade,
@@ -87,7 +94,7 @@ export default function MainPage() {
               </p>
             </div>
             <div className={styles.aboutContent}>
-              <img src="./Doações.svg" alt="" />
+              <img src="./Doações.svg" alt="doações" />
               <h3>Realocação de Recursos</h3>
               <p>
                 Aproveite ao máximo os itens próximos da data de validade,
@@ -103,7 +110,11 @@ export default function MainPage() {
           <Button customClass={styles.customClass1}>Sou Voluntário</Button>
           <Button
             customClass={styles.customClass2}
-            onClick={() => navigate("/login")}
+            onClick={() =>
+              isAuthenticated
+                ? navigate("/ong/home/solicitacoes")
+                : navigate("/login")
+            }
           >
             Sou ONG
           </Button>

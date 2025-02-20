@@ -73,3 +73,8 @@
 .plusIcon {
   font-size: 24px;
 }
+
+.verMais {
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -11,11 +11,15 @@ export default function Home() {
           <NavLink to={"solicitacoes"} className={styles.navLink}>
             Solicitações
           </NavLink>
-          <NavLink to={"trocas"} className={styles.navLink}>
-            Trocas
+          <NavLink to={"repasse"} className={styles.navLink}>
+            Repasse
           </NavLink>
         </div>
         <Outlet />
+      </div>
+      <div className={styles.gridTitle}>
+        <h2>Encontrar recursos compartilhados por outras ONGs</h2>
+        <p>Categorais Recorrentes</p>
       </div>
       <Grid>
         <GridBox imgUrl={"/Alimentos.jpg"}>Alimentos</GridBox>

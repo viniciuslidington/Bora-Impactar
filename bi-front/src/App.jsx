@@ -30,8 +30,11 @@ function App() {
             <Route index element={<Navigate replace to={"home"} />} />
             <Route path="home" element={<Home />}>
               <Route index element={<Navigate replace to={"solicitacoes"} />} />
-              <Route path="solicitacoes" element={<OngPosts />} />
-              <Route path="trocas" element={<p>trocas</p>} />
+              <Route
+                path="solicitacoes"
+                element={<OngPosts tipo={"solicitacao"} />}
+              />
+              <Route path="repasse" element={<OngPosts tipo={"repasse"} />} />
             </Route>
           </Route>
           <Route path="*" element={<p>404 Página não encontrada</p>} />

@@ -16,7 +16,7 @@ export default function Post({ selected, post }) {
       className={styles.post}
       style={postExpirado ? { pointerEvents: "none", opacity: 0.5 } : null}
     >
-      <img src="/placeholder-image.jpg" alt="postImage" />
+      <img src="/placeholder-image.jpg" alt="imagem do post" />
       <p className={styles.title}>{post.titulo}</p>
       <span>|</span>
       <p>Publicado: {publicacaoFormatada}</p>
