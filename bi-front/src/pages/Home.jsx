@@ -11,22 +11,28 @@ export default function Home() {
           <NavLink to={"solicitacoes"} className={styles.navLink}>
             Solicitações
           </NavLink>
-          <NavLink to={"trocas"} className={styles.navLink}>
-            Trocas
+          <NavLink to={"repasse"} className={styles.navLink}>
+            Repasse
           </NavLink>
         </div>
         <Outlet />
       </div>
+      <div className={styles.gridTitle}>
+        <h2>Encontrar recursos compartilhados por outras ONGs</h2>
+        <p>Categorais Recorrentes</p>
+      </div>
       <Grid>
-        <GridBox imgUrl={"/Alimentos.jpg"}>Doar Alimentos</GridBox>
-        <GridBox imgUrl={"/Serviço.jpg"}>Doar Alimentos</GridBox>
-        <GridBox imgUrl={"/Medicamentos.jpg"}>Doar Alimentos</GridBox>
-        <GridBox imgUrl={"/Brinquedos.jpg"}>Doar Alimentos</GridBox>
-        <GridBox imgUrl={"/Roupas.jpg"}>Doar Alimentos</GridBox>
-        <GridBox imgUrl={"/Móveis.jpg"}>Doar Alimentos</GridBox>
-        <GridBox imgUrl={"/Alimentos.jpg"}>Doar Alimentos</GridBox>
-        <GridBox imgUrl={"/Serviço.jpg"}>Doar Alimentos</GridBox>
-        <GridBox imgUrl={"/Medicamentos.jpg"}>Doar Alimentos</GridBox>
+        <GridBox imgUrl={"/Alimentos.jpg"}>Alimentos</GridBox>
+        <GridBox imgUrl={"/Serviço.jpg"}>Serviços</GridBox>
+        <GridBox imgUrl={"/Medicamentos.jpg"}>
+          Medicamentos e Itens de Higiene
+        </GridBox>
+        <GridBox imgUrl={"/Brinquedos.jpg"}>brinquedos e livros</GridBox>
+        <GridBox imgUrl={"/Roupas.jpg"}>Roupas</GridBox>
+        <GridBox imgUrl={"/Móveis.jpg"}>Móveis</GridBox>
+        <GridBox imgUrl={"/pet.jpg"}>Alimentos e itens para pet</GridBox>
+        <GridBox imgUrl={"/financeiro.jpg"}>Ajuda financeira</GridBox>
+        <GridBox imgUrl={"/utensilio.jpg"}>Utensílios</GridBox>
       </Grid>
     </div>
   );

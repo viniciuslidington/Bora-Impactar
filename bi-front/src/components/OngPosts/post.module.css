@@ -1,0 +1,203 @@
+.post {
+  display: flex;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  border-radius: 4px;
+  background-color: white;
+  padding: 8px;
+  gap: 8px;
+}
+.post img {
+  width: 72px;
+  height: 54px;
+  border: 1px solid #eaeaea;
+  border-radius: 4px;
+  object-fit: cover;
+  object-position: center;
+  margin-right: 8px;
+}
+.post span {
+}
+
+.postBtns {
+  display: flex;
+  gap: 16px;
+  position: absolute;
+  right: 8px;
+}
+
+.title {
+  max-width: 224px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.editarBtn {
+  padding: 12px 32px;
+  background-color: #009fe3;
+}
+.editarBtn:hover {
+  background-color: #43bef3;
+}
+
+.encerrarBtn {
+  height: 38px;
+  width: 179px;
+  border: 2.5px solid #f37171;
+  background: none;
+  color: #f37171;
+}
+.encerrarBtn:hover {
+  background-color: #f38e8e2d;
+}
+
+.selectedPost {
+  display: flex;
+  background-color: white;
+  width: 100%;
+  padding: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: start;
+}
+
+.selectedPost label {
+  position: relative;
+  cursor: pointer;
+  border-radius: 4px;
+  height: fit-content;
+}
+
+.selectedPost label img:first-child {
+  width: 148px;
+  height: 128px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 4px;
+  border: 1px solid #eaeaea;
+}
+.selectedPost label img:last-child {
+  position: absolute;
+  background-color: hsla(20, 1%, 50%, 0.8);
+  z-index: 10;
+  bottom: 12px;
+  right: 4px;
+  width: 28px;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.mainContentSelected {
+  display: flex;
+  width: calc(100% - 160px);
+  flex-wrap: wrap;
+  column-gap: 36px;
+  row-gap: 8px;
+}
+
+.publicadoSelected {
+  width: calc(50% - 36px);
+}
+.xSelected {
+  width: calc(50%);
+  text-align: end;
+}
+.xSelected img {
+  width: 16px;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.labelSelected {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.labelSelected p {
+  font-size: 14px;
+  font-weight: 500;
+}
+.labelSelected input {
+  width: 280px;
+  height: 38px;
+  padding: 0px 8px;
+  border-radius: 4px;
+  border: none;
+  background-color: #eaeaea;
+  font-size: 16px;
+}
+.labelSelected input:focus {
+  outline: 2px solid #2323235b;
+}
+
+.labelSelected select {
+  height: 38px !important;
+  border: 2px solid #adadad !important;
+}
+.labelSelected select:focus {
+  outline: none !important;
+}
+
+.radiosSelected {
+  display: flex;
+  flex-wrap: wrap;
+  width: 64px;
+  column-gap: 4px;
+  row-gap: 2px;
+}
+
+.radiosSelected p {
+  width: calc(100% - 17px);
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+}
+.urgenciaSelected {
+  width: auto !important;
+  height: auto !important;
+}
+.urgenciaSelected:focus {
+  outline: none !important;
+}
+
+.divEncerrarBtn {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  align-items: end;
+  gap: 4px;
+  flex: 1;
+}
+.divEncerrarBtn p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.labelSelected textarea {
+  resize: none;
+  width: 772px;
+  border: none;
+  border-radius: 4px;
+  background-color: #eaeaea;
+  padding: 8px;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+.labelSelected textarea:focus {
+  outline: 2px solid #2323235b;
+}
+
+.divSalvarBtn {
+  display: flex;
+  flex: 1;
+  align-self: end;
+  justify-content: end;
+}
+
+.salvarBtn {
+  padding: 12px 16px;
+  width: 179px;
+}

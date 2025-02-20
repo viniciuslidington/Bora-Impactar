@@ -30,7 +30,7 @@ export default function Profile() {
           onClick={() => setDropdown(!dropdown)}
         >
           <p>{userData.ngo.name}</p>
-          <img src="./userIconPlaceholder.png" alt="userLogo" />
+          <img src="/userIconPlaceholder.png" alt="userLogo" />
         </div>
         {dropdown && (
           <div className={styles.dropdown}>
@@ -43,7 +43,7 @@ export default function Profile() {
             </div>
             <button
               className={styles.homePageBtn}
-              onClick={() => navigate("/ong")}
+              onClick={() => navigate("/ong/home/solicitacoes")}
             >
               <img src="/home.svg" alt="homeIcon" /> <p>Home</p>
             </button>
@@ -57,7 +57,7 @@ export default function Profile() {
   } else {
     return (
       <Link to="/login" className={styles.link}>
-        Logar como Ong
+        Logar como ONG
       </Link>
     );
   }

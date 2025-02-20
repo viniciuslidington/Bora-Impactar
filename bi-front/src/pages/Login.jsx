@@ -14,7 +14,7 @@ export default function Login() {
     useContext(AuthContext);
 
   useEffect(() => {
-    isAuthenticated && navigate("/ong", { replace: true });
+    isAuthenticated && navigate("/ong/home/solicitacoes", { replace: true });
 
     function handleEnter(e) {
       if (e.key === "Enter") {
