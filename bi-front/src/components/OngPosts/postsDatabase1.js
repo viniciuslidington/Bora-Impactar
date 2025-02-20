@@ -25,7 +25,7 @@ const postsDatabase = [
     id: 3,
     titulo: "Apoio Educacional",
     categoria: "Educação",
-    urgencia: "média",
+    urgencia: "media",
     descricao:
       "Buscamos doações para compra de material escolar para crianças.",
     dataPublicacao: "2025-02-05",
@@ -47,7 +47,7 @@ const postsDatabase = [
     id: 5,
     titulo: "Coleta de Roupas",
     categoria: "Solidariedade",
-    urgencia: "média",
+    urgencia: "media",
     descricao:
       "Campanha para arrecadação de roupas para famílias em situação de risco.",
     dataPublicacao: "2025-02-25",
@@ -91,7 +91,7 @@ const postsDatabase = [
     id: 9,
     titulo: "Reabilitação de Espaços Públicos",
     categoria: "Urbanismo",
-    urgencia: "média",
+    urgencia: "media",
     descricao:
       "Projeto para revitalizar praças e parques da cidade, tornando-os mais seguros.",
     dataPublicacao: "2025-02-25",
@@ -113,7 +113,7 @@ const postsDatabase = [
     id: 11,
     titulo: "Inclusão Digital",
     categoria: "Tecnologia",
-    urgencia: "média",
+    urgencia: "media",
     descricao:
       "Projeto para fornecer computadores e acesso à internet a estudantes.",
     dataPublicacao: "2025-02-05",
@@ -146,7 +146,7 @@ const postsDatabase = [
     id: 14,
     titulo: "Apoio à Saúde Mental",
     categoria: "Saúde",
-    urgencia: "média",
+    urgencia: "media",
     descricao:
       "Projeto voltado para oferecer suporte e terapia para pessoas em crise.",
     dataPublicacao: "2025-01-20",

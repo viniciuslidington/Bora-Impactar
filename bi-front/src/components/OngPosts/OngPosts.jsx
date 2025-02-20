@@ -14,7 +14,7 @@ export default function OngPosts({ tipo }) {
 
   const descricao =
     tipo === "solicitacao"
-      ? "Encontre oportunidades! Aqui, ONGs publicam pedidos de diversas atividades para os voluntários"
+      ? "Encontre oportunidades! Aqui, ONGs publicam solicitações de diversas atividades para os voluntários"
       : "Dê uma nova utilidade aos itens parados! Nesta seção, ONGs podem doar recursos que não utilizam mais para outras organizações.";
 
   //Tipos de ordenação dos posts
@@ -24,10 +24,10 @@ export default function OngPosts({ tipo }) {
     alfabetica: (a, b) => a.titulo.localeCompare(b.titulo),
   };
 
-  const database = tipo === "solicitacao" ? postsDatabase1 : postsDatabase2; //Database com base no tipo da sessão (Temporário até o banco de dados ser disponibilizado para utilizarmos requisição http)
+  const [databaseState, setDatabaseState] = useState([]); //  No futuro o useEffect com a requisição ira reagir o editar sendo confirmado e irá dar setDatabaseState
 
   const sortFunc = sortFunctions[sortPosts]; // Função de ordenação escolhida com base no estado
-  const posts = [...database] //Copia do array do database para não editar o database diretamente
+  const posts = [...databaseState] //Copia do array do database para não editar o database diretamente
     .sort(sortFunc)
     .filter(
       (post) =>
@@ -49,6 +49,9 @@ export default function OngPosts({ tipo }) {
   }
 
   useEffect(() => {
+    tipo === "solicitacao" //Database com base no tipo da sessão (Temporário até o banco de dados ser disponibilizado para utilizarmos requisição http)
+      ? setDatabaseState(postsDatabase1)
+      : setDatabaseState(postsDatabase2);
     setPostVisiveis(8);
     setSelectedId("");
   }, [tipo, searchPosts]); // retornar os postsVisiveis e selectedId ao estado inicial toda vez que trocar entre solicitação e repasse
@@ -74,6 +77,7 @@ export default function OngPosts({ tipo }) {
             type="text"
             value={searchPosts}
             onChange={(e) => setSearchPosts(e.target.value)}
+            placeholder="Pesquisar Publicação"
           />
           <img src="/search.svg" alt="pesquisar icone" />
         </div>
@@ -86,6 +90,9 @@ export default function OngPosts({ tipo }) {
                   post={post}
                   handleEditar={handleEditar}
                   selected={selectedId === post.id ? true : false}
+                  setSelectedId={setSelectedId}
+                  setDatabaseState={setDatabaseState} //Enquanto não houver backend
+                  databaseState={databaseState} //Enquanto não houver backend
                 ></Post>
               );
             })

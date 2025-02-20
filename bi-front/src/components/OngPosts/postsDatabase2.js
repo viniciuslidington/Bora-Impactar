@@ -25,7 +25,7 @@ const postsDatabase = [
     id: 3,
     titulo: "Material Escolar para Repasse",
     categoria: "Educação",
-    urgencia: "média",
+    urgencia: "media",
     descricao:
       "Kits de material escolar excedentes disponíveis para instituições que apoiam crianças carentes.",
     dataPublicacao: "2025-02-05",
@@ -47,7 +47,7 @@ const postsDatabase = [
     id: 5,
     titulo: "Doação de Roupas Usadas",
     categoria: "Solidariedade",
-    urgencia: "média",
+    urgencia: "media",
     descricao:
       "Roupas em bom estado disponíveis para ONGs que atendem pessoas em situação de risco.",
     dataPublicacao: "2025-02-25",
@@ -91,7 +91,7 @@ const postsDatabase = [
     id: 9,
     titulo: "Materiais para Revitalização de Espaços Públicos",
     categoria: "Urbanismo",
-    urgencia: "média",
+    urgencia: "media",
     descricao:
       "Tintas, ferramentas e outros materiais disponíveis para ONGs que atuam na recuperação de praças e parques.",
     dataPublicacao: "2025-02-25",
@@ -113,7 +113,7 @@ const postsDatabase = [
     id: 11,
     titulo: "Computadores e Acessórios para Inclusão Digital",
     categoria: "Tecnologia",
-    urgencia: "média",
+    urgencia: "media",
     descricao:
       "Dispositivos eletrônicos disponíveis para ONGs que promovem a inclusão digital.",
     dataPublicacao: "2025-02-05",
