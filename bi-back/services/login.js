@@ -36,6 +36,7 @@ app.post("/login", async (req, res) => {
         }
 
         const data = await response.json();
+        console.log(data.ngo);
 
         // Armazena o usuário na sessão
         req.session.user = {
@@ -43,7 +44,7 @@ app.post("/login", async (req, res) => {
             token: data.token // Se a API retornar um token, armazenamos ele
         };
 
-        return res.status(200).json(data);
+        return res.status(200).json(data.ngo);
 
     } catch (error) {
         return res.status(500).json({ error: "Internal server error" });
