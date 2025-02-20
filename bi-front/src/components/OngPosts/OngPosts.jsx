@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "../Button/Button";
 import postsDatabase1 from "./postsDatabase1";
@@ -10,6 +10,7 @@ export default function OngPosts({ tipo }) {
   const [sortPosts, setSortPosts] = useState("data");
   const [searchPosts, setSearchPosts] = useState("");
   const [postsVisiveis, setPostVisiveis] = useState(8); //Limite de posts visíveis
+  const [selectedId, setSelectedId] = useState("");
 
   const descricao =
     tipo === "solicitacao"
@@ -43,6 +44,15 @@ export default function OngPosts({ tipo }) {
     }
   }
 
+  function handleEditar(id) {
+    setSelectedId(id);
+  }
+
+  useEffect(() => {
+    setPostVisiveis(8);
+    setSelectedId("");
+  }, [tipo, searchPosts]); // retornar os postsVisiveis e selectedId ao estado inicial toda vez que trocar entre solicitação e repasse
+
   return (
     <>
       <p>{descricao}</p>
@@ -70,10 +80,17 @@ export default function OngPosts({ tipo }) {
         <div className={styles.postsList}>
           {posts.length > 0 ? (
             posts.slice(0, postsVisiveis).map((post) => {
-              return <Post key={post.id} post={post}></Post>;
+              return (
+                <Post
+                  key={post.id}
+                  post={post}
+                  handleEditar={handleEditar}
+                  selected={selectedId === post.id ? true : false}
+                ></Post>
+              );
             })
           ) : (
-            <p>Nenhum post encontrado!</p>
+            <p>Nenhuma publicação encontrada!</p>
           )}
           <p className={styles.verMais} onClick={handleVerMais}>
             {posts.length > 8 && verMaisTxt}

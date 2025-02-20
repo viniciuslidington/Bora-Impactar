@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import Button from "../Button/Button";
 import styles from "./post.module.css";
 
-export default function Post({ selected, post }) {
+export default function Post({ selected = false, post, handleEditar }) {
   const dataPublicacao = new Date(post.dataPublicacao);
   const dataExpiracao = new Date(post.dataExpiracao);
 
@@ -11,12 +11,101 @@ export default function Post({ selected, post }) {
 
   const postExpirado = expiracaoFormatada === "Post Expirado!" ? true : false;
 
-  return (
+  return selected ? (
+    <form className={styles.selectedPost}>
+      <label htmlFor="fileInput">
+        <img src="/placeholder-image.jpg" alt="Editar Imagem do Post" />
+        <img src="/edit.svg" alt="Icone de Editar Imagem" />
+      </label>
+      <input
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }}
+        id="fileInput"
+      />
+      <div className={styles.mainContentSelected}>
+        <p className={styles.publicadoSelected}>
+          Publicado: {publicacaoFormatada}
+        </p>
+        <span className={styles.xSelected}>
+          <img src="/x.svg" alt="x" />
+        </span>
+        <label htmlFor="tituloSelected" className={styles.labelSelected}>
+          <p>Titulo</p>
+          <input
+            type="text"
+            placeholder="Informe um título breve e claro..."
+            id="tituloSelected"
+          />
+        </label>
+        <label htmlFor="categoriaSelected" className={styles.labelSelected}>
+          <p>Categoria</p>
+          <select name="editSelect" id="categoriaSelected" value="alimentos">
+            <option value="alimentos">Alimentos</option>
+            <option value="kit_de_casa">Kit de casa</option>
+            <option value="saude_e_higiene">Saúde e higiene</option>
+            <option value="brinquedos_e_livros">Brinquedos e livros</option>
+            <option value="moveis">Móveis</option>
+            <option value="utensilios">Utensílios</option>
+            <option value="itens_para_pets">Itens para pets</option>
+            <option value="servicos">Serviços</option>
+            <option value="eletrodomesticos">Eletrodomésticos</option>
+            <option value="roupas">Roupas</option>
+            <option value="ajuda_financeira">Ajuda Financeira</option>
+            <option value="geral">Outra opção</option>
+          </select>
+        </label>
+        <label className={styles.labelSelected}>
+          <p>Urgência</p>
+          <div className={styles.radiosSelected}>
+            <input
+              type="radio"
+              name="urgenciaSelected"
+              className={styles.urgenciaSelected}
+              value="alta"
+            />
+            <p>Alta</p>
+            <input
+              type="radio"
+              name="urgenciaSelected"
+              className={styles.urgenciaSelected}
+              value="media"
+            />
+            <p>Média</p>
+            <input
+              type="radio"
+              name="urgenciaSelected"
+              className={styles.urgenciaSelected}
+              value="baixa"
+            />
+            <p>Baixa</p>
+          </div>
+        </label>
+        <div className={styles.divEncerrarBtn}>
+          <p>{expiracaoFormatada}</p>
+          <Button customClass={styles.encerrarBtn}>Encerrar Solicitação</Button>
+        </div>
+      </div>
+      <label htmlFor="tituloSelected" className={styles.labelSelected}>
+        <p>Descrição</p>
+        <textarea
+          rows="7"
+          type="text"
+          placeholder="Informe um título breve e claro..."
+          id="tituloSelected"
+        />
+      </label>
+      <div className={styles.divSalvarBtn}>
+        <p></p>
+        <Button customClass={styles.salvarBtn}>Salvar Alterações</Button>
+      </div>
+    </form>
+  ) : (
     <div
       className={styles.post}
       style={postExpirado ? { pointerEvents: "none", opacity: 0.5 } : null}
     >
-      <img src="/placeholder-image.jpg" alt="imagem do post" />
+      <img src="/placeholder-image.jpg" alt="Imagem do Post" />
       <p className={styles.title}>{post.titulo}</p>
       <span>|</span>
       <p>Publicado: {publicacaoFormatada}</p>
@@ -24,7 +113,12 @@ export default function Post({ selected, post }) {
       <p>{expiracaoFormatada}</p>
       <div className={styles.postBtns}>
         <Button customClass={styles.encerrarBtn}>Encerrar Solicitação</Button>
-        <Button customClass={styles.editarBtn}>Editar</Button>
+        <Button
+          customClass={styles.editarBtn}
+          onClick={() => handleEditar(post.id)}
+        >
+          Editar
+        </Button>
       </div>
     </div>
   );
@@ -33,6 +127,7 @@ export default function Post({ selected, post }) {
 Post.propTypes = {
   selected: PropTypes.bool,
   post: PropTypes.object,
+  handleEditar: PropTypes.func,
 };
 
 function calcularTempoRestante(dataExpiracao) {
