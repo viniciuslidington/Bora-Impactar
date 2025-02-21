@@ -1,7 +1,7 @@
+import { Outlet, NavLink } from "react-router-dom";
 import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
 import styles from "../styles/home.module.css";
-import { Outlet, NavLink } from "react-router-dom";
 
 export default function Home() {
   return (

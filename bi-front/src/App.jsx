@@ -8,6 +8,7 @@ import MainPage from "./pages/MainPage";
 import Login from "./pages/Login";
 import Ong from "./pages/Ong";
 import { AuthProvider } from "./components/contexts/AuthContext";
+import { ModalProvider } from "./components/contexts/ModalContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import Home from "./pages/Home";
 import OngPosts from "./components/OngPosts/OngPosts";
@@ -15,31 +16,36 @@ import OngPosts from "./components/OngPosts/OngPosts";
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="ong"
-            element={
-              <ProtectedRoute>
-                <Ong />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate replace to={"home"} />} />
-            <Route path="home" element={<Home />}>
-              <Route index element={<Navigate replace to={"solicitacoes"} />} />
-              <Route
-                path="solicitacoes"
-                element={<OngPosts tipo={"solicitacao"} />}
-              />
-              <Route path="repasse" element={<OngPosts tipo={"repasse"} />} />
+      <ModalProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="ong"
+              element={
+                <ProtectedRoute>
+                  <Ong />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate replace to={"home"} />} />
+              <Route path="home" element={<Home />}>
+                <Route
+                  index
+                  element={<Navigate replace to={"solicitacoes"} />}
+                />
+                <Route
+                  path="solicitacoes"
+                  element={<OngPosts tipo={"solicitacao"} />}
+                />
+                <Route path="repasse" element={<OngPosts tipo={"repasse"} />} />
+              </Route>
             </Route>
-          </Route>
-          <Route path="*" element={<p>404 Página não encontrada</p>} />
-        </Routes>
-      </Router>
+            <Route path="*" element={<p>404 Página não encontrada</p>} />
+          </Routes>
+        </Router>
+      </ModalProvider>
     </AuthProvider>
   );
 }
