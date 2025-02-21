@@ -127,6 +127,7 @@
   border: none;
   background-color: #eaeaea;
   font-size: 16px;
+  font-weight: 400;
 }
 .labelSelected input:focus {
   outline: 2px solid #2323235b;

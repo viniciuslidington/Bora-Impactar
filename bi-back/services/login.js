@@ -85,7 +85,7 @@ app.post("/login", async (req, res) => {
             token: data.token, // Se a API retornar um token, armazenamos ele
         };
 
-        return res.status(200).json("Logged In Successfully");
+        return res.status(200).json(data);
 
     } catch (error) {
         console.error("Error during login:", error);

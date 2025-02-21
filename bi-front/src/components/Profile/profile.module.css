@@ -17,6 +17,14 @@
   color: white;
 }
 
+.profileMainContent img {
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  object-position: center;
+}
+
 .dropdown {
   position: absolute;
   top: 80px;
@@ -37,7 +45,11 @@
 }
 
 .section img {
+  border-radius: 50%;
   width: 56px;
+  height: 56px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .sectionContent {
@@ -66,7 +78,7 @@
 }
 
 .logout p {
-  text-decoration: underline;
+  text-decoration: none;
   font-size: 16px;
   font-weight: 600;
   opacity: 0.8;
@@ -93,7 +105,7 @@
 }
 
 .homePageBtn p {
-  text-decoration: underline;
+  text-decoration: none;
   font-size: 16px;
   font-weight: 600;
   opacity: 0.8;

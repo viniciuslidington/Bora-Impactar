@@ -9,6 +9,11 @@ export default function Profile() {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
+  const logoUrl = `https://bora-impactar-prd.setd.rdmapps.com.br${userData?.ngo.gallery_images_url[0]}`
+  const img1Url = `https://bora-impactar-prd.setd.rdmapps.com.br${userData?.ngo.gallery_images_url[1]}`
+  const img2Url = `https://bora-impactar-prd.setd.rdmapps.com.br${userData?.ngo.gallery_images_url[2]}`
+  
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -30,12 +35,12 @@ export default function Profile() {
           onClick={() => setDropdown(!dropdown)}
         >
           <p>{userData.ngo.name}</p>
-          <img src="/userIconPlaceholder.png" alt="userLogo" />
+          <img src= {logoUrl} alt="userLogo" />
         </div>
         {dropdown && (
           <div className={styles.dropdown}>
             <div className={styles.section}>
-              <img src="/userIconPlaceholder.png" alt="userLogo" />
+              <img src={img1Url} alt="userLogo" />
               <div className={styles.sectionContent}>
                 <p>{user}</p>
                 <p>{userData.user.email}</p>
