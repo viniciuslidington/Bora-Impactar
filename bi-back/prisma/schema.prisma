@@ -28,9 +28,9 @@ model Request {
   id          Int      @id @default(autoincrement())
   title       String
   category    Categoria
-  number      Int
   urgency     UrgencyLevel
   description String?
+  requestTime DateTime?
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -64,7 +64,6 @@ enum UrgencyLevel {
   LOW      // Baixa prioridade
   MEDIUM   // Prioridade média
   HIGH     // Alta prioridade
-  CRITICAL // Crítica
 }
 
 enum Categoria { 
