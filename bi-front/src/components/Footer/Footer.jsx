@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Logo from "../Logo/logo";
 import styles from "./footer.module.css";
 
@@ -13,10 +14,18 @@ export default function Footer() {
         <div className={styles.container}>
           <h3>Links Rápidos</h3>
           <ul>
-            <li>Home</li>
-            <li>Sou Ong</li>
-            <li>Sou Voluntário</li>
-            <li>Conecta Recife</li>
+            <Link to={"/"}>
+              <li>MainPage</li>
+            </Link>
+            <Link to={"/voluntario/home"}>
+              <li>Sou Voluntário</li>
+            </Link>
+            <Link to={"/login"}>
+              <li>Sou ONG</li>
+            </Link>
+            <a href="https://conecta.recife.pe.gov.br/" target="blank">
+              <li>Conecta Recife</li>
+            </a>
           </ul>
         </div>
       </div>

@@ -1,15 +1,14 @@
-import { useContext } from "react";
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { ModalContext } from "../components/contexts/ModalContext";
 import Header from "../components/Header/header";
 import Footer from "../components/Footer/Footer";
 import Profile from "../components/Profile/Profile";
 import SearchBar from "../components/SearchBar/SearchBar";
-import ModalAdicionar from "../components/ModalAdicionar/ModalAdicionar";
 
-export default function Ong() {
-  const { modalAdicionar } = useContext(ModalContext);
-
+export default function Voluntario() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div
       style={{
@@ -20,12 +19,11 @@ export default function Ong() {
       }}
     >
       <Header>
-        <SearchBar placeholder={"Pesquisar repasse de outras ONGS..."} />
+        <SearchBar placeholder={"Pesquisar demandas das ONGS..."} />
         <Profile />
       </Header>
       <Outlet />
       <Footer />
-      {modalAdicionar && <ModalAdicionar />}
     </div>
   );
 }

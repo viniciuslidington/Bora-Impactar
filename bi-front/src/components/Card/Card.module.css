@@ -1,0 +1,110 @@
+.title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: black;
+  height: 32px;
+  margin-top: 64px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: black;
+  height: 32px;
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 colunas para os cards */
+  gap: 24px; /* Espaçamento de 24px entre os cards */
+  margin-top: 12px;
+  justify-content: center;
+}
+
+.card {
+  width: 400px;
+  height: auto;
+  background-color: #ebebeb;
+  border-radius: 4px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #d9d9d9;
+}
+
+.cardImage {
+  width: 360px;
+  height: 150px;
+  object-fit: cover; /* Mantém a proporção da imagem */
+  border-radius: 4px;
+}
+
+.cardOngs {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap; /* Quebra as ONGs em várias linhas se necessário */
+  align-items: center;
+  justify-content: center;
+  gap: 12px; /* Espaçamento entre os nomes das ONGs */
+  padding: 12px 0px;
+  border-top: 2px solid #d9d9d9;
+  min-height: 100px;
+}
+
+.cardOngs p {
+  font-size: 14px;
+  font-weight: 400; /* Fonte mais fina */
+  color: #000000;
+  display: flex;
+  align-items: center; /* Alinha a bolinha e o texto na vertical */
+  gap: 8px; /* Espaço entre a bolinha e o texto */
+}
+
+.ongItem {
+  display: flex;
+  align-items: center; /* Centraliza verticalmente os itens */
+  justify-content: center; /* Centraliza horizontalmente */
+  gap: 8px; /* Espaço entre o nome e a bolinha */
+}
+
+.dot {
+  width: 6px; /* Tamanho da bolinha */
+  height: 6px;
+  background-color: #009fe3; /* Cor azul */
+  border-radius: 50%; /* Deixa a bolinha circular */
+  display: inline-block;
+  flex-shrink: 0; /* Impede que a bolinha seja redimensionada */
+}
+
+.cardButton {
+  background-color: #009fe3; /* Azul */
+  color: white;
+  padding: 16px 0; /* Aumenta a altura do botão */
+  width: 100%; /* Ocupa 100% da largura do card */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: auto; /* Mantém o botão na parte inferior */
+  text-align: center;
+  transition: 0.1s ease;
+}
+
+.cardButton:hover {
+  background-color: #47b4e2; /* Azul mais escuro no hover */
+}

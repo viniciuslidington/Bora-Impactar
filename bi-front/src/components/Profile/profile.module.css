@@ -12,9 +12,13 @@
 }
 
 .profileMainContent p {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: white;
+  max-width: 196px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .profileMainContent img {
@@ -26,6 +30,7 @@
 }
 
 .dropdown {
+  transform: translateX(-36px);
   position: absolute;
   top: 80px;
   background-color: #cef0ff;

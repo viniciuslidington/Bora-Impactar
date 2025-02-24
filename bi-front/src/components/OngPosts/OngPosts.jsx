@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "../Button/Button";
 import postsDatabase1 from "./postsDatabase1";
 import postsDatabase2 from "./postsDatabase2";
 import Post from "./Post";
 import styles from "./ongPosts.module.css";
+import { ModalContext } from "../contexts/ModalContext";
 
 export default function OngPosts({ tipo }) {
   const [sortPosts, setSortPosts] = useState("data");
   const [searchPosts, setSearchPosts] = useState("");
   const [postsVisiveis, setPostVisiveis] = useState(8); //Limite de posts visíveis
   const [selectedId, setSelectedId] = useState("");
+
+  const { setModalAdicionar, modalAdicionar } = useContext(ModalContext);
 
   const descricao =
     tipo === "solicitacao"
@@ -54,19 +57,22 @@ export default function OngPosts({ tipo }) {
       : setDatabaseState(postsDatabase2);
     setPostVisiveis(8);
     setSelectedId("");
-  }, [tipo, searchPosts]); // retornar os postsVisiveis e selectedId ao estado inicial toda vez que trocar entre solicitação e repasse
+  }, [tipo, searchPosts, modalAdicionar]); // retornar os postsVisiveis e selectedId ao estado inicial toda vez que trocar entre solicitação e repasse
 
   return (
     <>
       <p>{descricao}</p>
       <div className={styles.ongPosts}>
-        <Button customClass={styles.customClass}>
+        <Button
+          customClass={styles.customClass}
+          onClick={() => setModalAdicionar(true)}
+        >
           Adicionar <span className={styles.plusIcon}>+</span>
         </Button>
         <select
           name="sortPosts"
           value={sortPosts}
-          onChange={(e) => setSortPosts(e.target.value)}
+          onChange={(e) => setSortPosts(e.target.value)} //Adicionar tipo no futuro
         >
           <option value="data">Data de Publicação</option>
           <option value="expiracao">Prestes a Expirar</option>

@@ -63,7 +63,7 @@
   width: 256px;
   height: 80px;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
   background: none;
   border: 3px solid #009fe3;
   color: #009fe3;
@@ -123,10 +123,10 @@
   width: 256px;
   height: 64px;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 500;
   background: none;
-  border: 3px solid #1b2e35;
-  color: #1b2e35;
+  border: 3px solid #232323b6;
+  color: #232323;
 }
 .customClass3:hover {
   background-color: rgba(27, 46, 53, 0.075);
@@ -173,6 +173,7 @@
 .aboutContent p {
   width: 256px;
   text-align: justify;
+  hyphens: auto;
 }
 
 .ctaSection {
