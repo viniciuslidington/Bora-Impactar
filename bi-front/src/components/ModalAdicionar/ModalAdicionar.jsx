@@ -105,7 +105,7 @@ export default function ModaAdicionar() {
               <option value="geral">Outra opção</option>
             </select>
           </label>
-          <label className={styles.label}>
+          <div className={styles.radioDiv} style={{ zIndex: 15 }}>
             <p>Urgência</p>
             <div className={styles.radios}>
               <input
@@ -142,7 +142,7 @@ export default function ModaAdicionar() {
               />
               <p>Baixa</p>
             </div>
-          </label>
+          </div>
           <label htmlFor="descricao" className={styles.label}>
             <p>Descrição</p>
             <textarea

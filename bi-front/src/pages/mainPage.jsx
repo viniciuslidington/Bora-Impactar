@@ -30,7 +30,12 @@ export default function MainPage() {
           transformação!
         </p>
         <div className={styles.buttonGroup}>
-          <Button customClass={styles.customClass1}>Sou Voluntário</Button>
+          <Button
+            customClass={styles.customClass1}
+            onClick={() => navigate("voluntario")}
+          >
+            Sou Voluntário
+          </Button>
           <Button
             customClass={styles.customClass2}
             onClick={() =>

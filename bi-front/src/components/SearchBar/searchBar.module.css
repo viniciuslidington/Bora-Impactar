@@ -1,0 +1,26 @@
+.searchBar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.searchBar input {
+  width: 500px;
+  height: 48px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 12px;
+  padding-right: 44px;
+}
+
+.searchBar img {
+  width: 24px;
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.85;
+}
