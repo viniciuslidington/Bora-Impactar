@@ -173,6 +173,7 @@
 .aboutContent p {
   width: 256px;
   text-align: justify;
+  hyphens: auto;
 }
 
 .ctaSection {

@@ -13,7 +13,7 @@ export default function OngPosts({ tipo }) {
   const [postsVisiveis, setPostVisiveis] = useState(8); //Limite de posts visíveis
   const [selectedId, setSelectedId] = useState("");
 
-  const { setModalAdicionar } = useContext(ModalContext);
+  const { setModalAdicionar, modalAdicionar } = useContext(ModalContext);
 
   const descricao =
     tipo === "solicitacao"
@@ -57,7 +57,7 @@ export default function OngPosts({ tipo }) {
       : setDatabaseState(postsDatabase2);
     setPostVisiveis(8);
     setSelectedId("");
-  }, [tipo, searchPosts]); // retornar os postsVisiveis e selectedId ao estado inicial toda vez que trocar entre solicitação e repasse
+  }, [tipo, searchPosts, modalAdicionar]); // retornar os postsVisiveis e selectedId ao estado inicial toda vez que trocar entre solicitação e repasse
 
   return (
     <>
@@ -72,7 +72,7 @@ export default function OngPosts({ tipo }) {
         <select
           name="sortPosts"
           value={sortPosts}
-          onChange={(e) => setSortPosts(e.target.value)}
+          onChange={(e) => setSortPosts(e.target.value)} //Adicionar tipo no futuro
         >
           <option value="data">Data de Publicação</option>
           <option value="expiracao">Prestes a Expirar</option>

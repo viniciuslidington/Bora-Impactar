@@ -89,16 +89,16 @@ export default function MainPage() {
               <img src="./Trocas.svg" alt="trocas" />
               <h3>Realocação de Recursos</h3>
               <p>
-                Aproveite ao máximo os itens próximos da data de validade,
-                garantindo seu rápido consumo e evitando desperdícios.
+                Conecte-se a outras ONGs para trocar recursos e atender
+                necessidades específicas.
               </p>
             </div>
             <div className={styles.aboutContent}>
               <img src="./Doações.svg" alt="doações" />
               <h3>Realocação de Recursos</h3>
               <p>
-                Aproveite ao máximo os itens próximos da data de validade,
-                garantindo seu rápido consumo e evitando desperdícios.
+                Permita que voluntários contribuam com itens ou serviços,
+                fortalecendo sua causa.
               </p>
             </div>
           </div>
