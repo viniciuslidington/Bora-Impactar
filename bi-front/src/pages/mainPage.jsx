@@ -112,7 +112,12 @@ export default function MainPage() {
       <div className={styles.ctaSection}>
         <h3>Faça parte dessa mudança. Bora Impactar!</h3>
         <div className={styles.buttonGroup}>
-          <Button customClass={styles.customClass1}>Sou Voluntário</Button>
+          <Button
+            customClass={styles.customClass1}
+            onClick={() => navigate("/voluntario/home")}
+          >
+            Sou Voluntário
+          </Button>
           <Button
             customClass={styles.customClass2}
             onClick={() =>

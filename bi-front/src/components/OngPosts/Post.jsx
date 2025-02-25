@@ -36,9 +36,9 @@ export default function Post({
       <img src="/placeholder-image.jpg" alt="Imagem do Post" />
       <p className={styles.title}>{post.titulo}</p>
       <span>|</span>
-      <p>Publicado: {publicacaoFormatada}</p>
+      <p className={styles.dataPublicado}>Publicado: {publicacaoFormatada}</p>
       <span>|</span>
-      <p>{expiracaoFormatada}</p>
+      <p className={styles.dataExpiracao}>{expiracaoFormatada}</p>
       <div className={styles.postBtns}>
         <Button
           customClass={styles.editarBtn}
@@ -78,10 +78,12 @@ function calcularTempoRestante(dataExpiracao) {
   let resposta = null;
   if (horasRestantes !== 0 && diasRestantes !== 0) {
     resposta = `Tempo restante: ${diasRestantes} dias e ${horasRestantes} horas`;
-  } else if (horasRestantes == 0 && diasRestantes !== 0) {
-    resposta = `Tempo restante: ${diasRestantes}`;
-  } else if (horasRestantes !== 0 && diasRestantes == 0) {
+  } else if (horasRestantes === 0 && diasRestantes !== 0) {
+    resposta = `Tempo restante: ${diasRestantes} dias`;
+  } else if (horasRestantes !== 0 && diasRestantes === 0) {
     resposta = `Tempo restante: ${horasRestantes} horas`;
+  } else {
+    resposta = "Menos de 1 hora restante";
   }
 
   return resposta;

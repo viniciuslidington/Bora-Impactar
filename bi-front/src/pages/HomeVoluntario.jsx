@@ -16,7 +16,7 @@ export default function Home() {
         <GridBox imgUrl={"/Medicamentos.jpg"}>
           Medicamentos e Itens de Higiene
         </GridBox>
-        <GridBox imgUrl={"/Brinquedos.jpg"}>brinquedos e livros</GridBox>
+        <GridBox imgUrl={"/Brinquedos.jpg"}>Brinquedos e livros</GridBox>
         <GridBox imgUrl={"/Roupas.jpg"}>Roupas</GridBox>
         <GridBox imgUrl={"/Móveis.jpg"}>Móveis</GridBox>
         <GridBox imgUrl={"/pet.jpg"}>Alimentos e itens para pet</GridBox>

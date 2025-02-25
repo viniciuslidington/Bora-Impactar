@@ -6,7 +6,7 @@
   border-radius: 4px;
   background-color: white;
   padding: 8px;
-  gap: 8px;
+  gap: 16px;
 }
 .post img {
   width: 72px;
@@ -28,10 +28,18 @@
 }
 
 .title {
-  max-width: 224px;
+  width: 224px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.dataPublicado {
+  width: 156px;
+}
+
+.dataExpiracao {
+  width: 186px;
 }
 
 .editarBtn {
