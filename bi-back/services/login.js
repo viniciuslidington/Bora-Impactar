@@ -37,60 +37,52 @@ const processData = (data) => {
 };
 
 app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const response = await fetch(
-      "https://bora-impactar-prd.setd.rdmapps.com.br/api/login.json",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": "true",
-        },
-        body: JSON.stringify({ email, password }),
+    const { email, password } = req.body;
+  
+    try {
+      let response;
+      try {
+        response = await fetch("https://bora-impactar-prd.setd.rdmapps.com.br/api/login.json", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
+      } catch (fetchError) {
+        console.error("Network error:", fetchError);
+        return res.status(500).json({ error: "External service unavailable" });
       }
-    );
-
-    if (!response.ok) {
-      console.error("Failed to login:", response.statusText);
-      return res
-        .status(response.status)
-        .json({ error: "Invalid login or password" });
-    }
-
-    const data = await response.json();
-    const processedData = processData(data.ngo); // Trata o JSON usando a função processData
-
-    const existingData = await prisma.ONGdata.findUnique({
-      where: { id: processedData.id },
-    });
-
-    if (existingData) {
-      await prisma.ONGdata.update({
+  
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        console.error("Failed to login:", errorResponse);
+        return res.status(response.status).json({ error: errorResponse.message || "Invalid login or password" });
+      }
+  
+      const data = await response.json();
+      const processedData = processData(data.ngo);
+  
+      await prisma.ONGdata.upsert({
         where: { id: processedData.id },
-        data: processedData,
+        update: processedData,
+        create: processedData,
       });
-    } else {
-      await prisma.ONGdata.create({
-        data: processedData,
+  
+      const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: "30s" });
+  
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "Strict",
       });
+  
+      return res.status(200).json({ user: { name: data.ngo.name }, id: data.ngo.id });
+    } catch (error) {
+      console.error("Error during login:", error);
+      return res.status(500).json({ error: "Internal server error" });
     }
-
-    //criando token para validacao
-    const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: "1h" });
-    //salvando token no cookie
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-    });
-
-    return res.status(200).json(data);
-  } catch (error) {
-    console.error("Error during login:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-});
+  });
 
 app.get("/auth", async (req, res) => {
   const token = req.cookies.token;
@@ -103,7 +95,6 @@ app.get("/auth", async (req, res) => {
     if (err) {
       return res.status(401).json({ error: "Token inválido" });
     }
-
     res.json({ message: "Rota protegida", user: decoded.username });
   });
 });
