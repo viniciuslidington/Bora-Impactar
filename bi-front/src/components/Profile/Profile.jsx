@@ -13,7 +13,6 @@ export default function Profile() {
   const img1Url = userData?.ngo.gallery_images_url[1]
   const img2Url = userData?.ngo.gallery_images_url[2]
   
-
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
