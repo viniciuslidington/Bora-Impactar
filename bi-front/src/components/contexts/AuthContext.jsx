@@ -47,10 +47,13 @@ function AuthProvider({ children }) {
           const data = await response.json();
           console.log("Resposta da API:", data); // Verifique os dados retornados
 
-          if (data.user?.name) {
+          if (data) {
             dispatch({
               type: "login",
-              payload: { user: data.user.name, userData: data },
+              payload: {
+                user: data.userData.user.name,
+                userData: data.userData,
+              },
             });
           } else {
             dispatch({ type: "logout" });
