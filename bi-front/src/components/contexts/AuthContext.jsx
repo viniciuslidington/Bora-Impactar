@@ -36,7 +36,6 @@ function AuthProvider({ children }) {
   const [{ user, isAuthenticated, isLoading, alerta, userData }, dispatch] =
     useReducer(reducer, initialState);
 
-  // Verifica a autenticação ao carregar o componente e em intervalos regulares
   useEffect(() => {
     async function checkAuth() {
       try {
@@ -46,12 +45,17 @@ function AuthProvider({ children }) {
 
         if (response.ok) {
           const data = await response.json();
-          dispatch({
-            type: "login",
-            payload: { user: data.user.name, userData: data },
-          });
+          console.log("Resposta da API:", data); // Verifique os dados retornados
+
+          if (data.user?.name) {
+            dispatch({
+              type: "login",
+              payload: { user: data.user.name, userData: data },
+            });
+          } else {
+            dispatch({ type: "logout" });
+          }
         } else {
-          // Se a resposta não for ok (por exemplo, 401 Unauthorized), efetua o logout
           dispatch({ type: "logout" });
         }
       } catch (error) {
