@@ -9,9 +9,9 @@ export default function Profile() {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  const logoUrl = `https://bora-impactar-prd.setd.rdmapps.com.br${userData?.ngo.gallery_images_url[0]}`
-  const img1Url = `https://bora-impactar-prd.setd.rdmapps.com.br${userData?.ngo.gallery_images_url[1]}`
-  const img2Url = `https://bora-impactar-prd.setd.rdmapps.com.br${userData?.ngo.gallery_images_url[2]}`
+  const logoUrl = userData?.ngo.gallery_images_url[0]
+  const img1Url = userData?.ngo.gallery_images_url[1]
+  const img2Url = userData?.ngo.gallery_images_url[2]
   
 
   useEffect(() => {
