@@ -43,13 +43,19 @@ app.get("/request", async (req, res) => {
         const filters = {};
         if (req.query.title) filters.title = req.query.title;
         if (req.query.category) filters.category = req.query.category;
+        if (req.query.urgency) filters.urgency = req.urgency.category;
 
         if (req.query.category && !["ALIMENTO", "SERVICOS", "UTENSILIOS", "MEDICAMENTOS_HIGIENE", "BRINQUEDOS_LIVROS", "MOVEIS", "ITEMPET", "AJUDAFINANCEIRA", "OUTRA"].includes(req.query.category)) {
           return res.status(400).json({ error: "Categoria inválida." });
         }
 
+        if (req.query.urgency && !["LOW", "MEDIUM", "HIGH"].includes(req.query.category)) {
+          return res.status(400).json({ error: "Urgencia inválida." });
+        }
+
         const requests = await prisma.request.findMany({ where: filters });
         return res.status(200).json(requests);
+
     } catch (error) {
         return res.status(500).json({ error: "Erro ao buscar solicitações" });
     }
@@ -114,4 +120,3 @@ app.delete("/request", async (req, res) => {
 app.listen(3001, () => {
   console.log("Servidor rodando na porta 3001");
 });
-
