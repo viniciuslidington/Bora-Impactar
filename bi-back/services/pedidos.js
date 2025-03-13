@@ -13,12 +13,11 @@ app.post("/request", async (req, res) => {
         data: {
             title: req.body.title,
             category: req.body.category,
-            number: req.body.number,
             urgency: req.body.urgency,
             description: req.body.description,
         }
     });
-    res.status(201).json(req.body);
+    return res.status(201).json(req.body);
 });
 
 
