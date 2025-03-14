@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo/logo";
 import Button from "../components/Button/Button";
 import styles from "../styles/login.module.css";
@@ -9,12 +9,14 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/ong/home/solicitacoes"; // Redireciona para a página principal se não vier de uma rota protegida
 
   const { login, alerta, isLoading, isAuthenticated, cleanUpAlerta } =
     useContext(AuthContext);
 
   useEffect(() => {
-    isAuthenticated && navigate("/ong/home/solicitacoes", { replace: true });
+    isAuthenticated && navigate(from, { replace: true });
 
     function handleEnter(e) {
       if (e.key === "Enter") {

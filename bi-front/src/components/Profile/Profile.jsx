@@ -9,10 +9,9 @@ export default function Profile() {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  const logoUrl = userData?.ngo.gallery_images_url[0]
-  const img1Url = userData?.ngo.gallery_images_url[1]
-  const img2Url = userData?.ngo.gallery_images_url[2]
-  
+  const logoUrl = userData?.ngo?.gallery_images_url[0];
+  const img1Url = userData?.ngo?.gallery_images_url[1];
+  const img2Url = userData?.ngo?.gallery_images_url[2];
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -35,7 +34,7 @@ export default function Profile() {
           onClick={() => setDropdown(!dropdown)}
         >
           <p>{userData.ngo.name}</p>
-          <img src= {logoUrl} alt="userLogo" />
+          <img src={logoUrl} alt="userLogo" />
         </div>
         {dropdown && (
           <div className={styles.dropdown}>
