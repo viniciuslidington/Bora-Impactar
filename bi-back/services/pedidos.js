@@ -1,7 +1,6 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 import cors from "cors";
-import { z } from "zod";
 
 const prisma = new PrismaClient();
 const app = express();
@@ -9,28 +8,36 @@ app.use(express.json());
 app.use(cors());
 
 // Definindo os esquemas de validação
-const requestSchema = z.object({
-    title: z.string().min(3, "O título deve ter pelo menos 3 caracteres"),
-    category: z.enum(["ALIMENTO", "SERVICOS", "UTENSILIOS", "MEDICAMENTOS_HIGIENE", "BRINQUEDOS_LIVROS", "MOVEIS", "ITEMPET", "AJUDAFINANCEIRA", "OUTRA"], {
-        errorMap: () => ({ message: "Categoria inválida." }),
-    }),
-    urgency: z.enum(["LOW", "MEDIUM", "HIGH"], {
-        errorMap: () => ({ message: "Nível de urgência inválido. Escolha entre: Low, Medium, High" }),
-    }),
-    description: z.string().optional(),
-    requestTime: z.coerce.date().optional(), // Converte strings para Date automaticamente
-});
+const listOfCategory = ["ALIMENTO", "SERVICOS", "UTENSILIOS", "MEDICAMENTOS_HIGIENE", "BRINQUEDOS_LIVROS", "MOVEIS", "ITEMPET", "AJUDAFINANCEIRA", "OUTRA"];
+const listOfUrgency = ["LOW", "MEDIUM", "HIGH"];
 
-// Criar um request
-app.post("/request", async (req, res) => {
-    const result = requestSchema.safeParse(req.body);
+// Middleware de validação
+const validateRequest = (req, res, next) => {
+    const { title, category, urgency, description, requestTime } = req.body;
 
-    if (!result.success) {
-        return res.status(400).json({ error: "Dados inválidos", details: result.error.format() });
+    if (!title || !category || !urgency) {
+        return res.status(400).json({ error: "Os campos Title, Category e Urgency são obrigatórios" });
     }
 
+    if (typeof title !== "string" || title.length < 3) {
+        return res.status(400).json({ error: "O título deve ter pelo menos 3 caracteres e ser uma string" });
+    }
+
+    if (!listOfCategory.includes(category)) {
+        return res.status(400).json({ error: "Categoria inválida." });
+    }
+
+    if (!listOfUrgency.includes(urgency)) {
+        return res.status(400).json({ error: "Nível de urgência inválido. Escolha entre: LOW, MEDIUM, HIGH" });
+    }
+
+    next();
+};
+
+// Criar um request
+app.post("/request", validateRequest, async (req, res) => {
     try {
-        const newRequest = await prisma.request.create({ data: result.data });
+        const newRequest = await prisma.request.create({ data: req.body });
         return res.status(201).json(newRequest);
     } catch (error) {
         return res.status(500).json({ error: "Erro ao criar solicitação" });
@@ -39,79 +46,82 @@ app.post("/request", async (req, res) => {
 
 // Buscar requests com filtros opcionais
 app.get("/request", async (req, res) => {
-    try {
-        const filters = {};
-        if (req.query.title) filters.title = req.query.title;
-        if (req.query.category) filters.category = req.query.category;
+  try {
+      const filters = {};
 
-        if (req.query.category && !["ALIMENTO", "SERVICOS", "UTENSILIOS", "MEDICAMENTOS_HIGIENE", "BRINQUEDOS_LIVROS", "MOVEIS", "ITEMPET", "AJUDAFINANCEIRA", "OUTRA"].includes(req.query.category)) {
-          return res.status(400).json({ error: "Categoria inválida." });
-        }
+      if (req.query.title) filters.title = req.query.title
+      if (req.query.category && listOfCategory.includes(req.query.category)) filters.category = req.query.category;
+      if (req.query.urgency && listOfUrgency.includes(req.query.urgency)) filters.urgency = req.query.urgency;
 
-        const requests = await prisma.request.findMany({ where: filters });
-        return res.status(200).json(requests);
-    } catch (error) {
-        return res.status(500).json({ error: "Erro ao buscar solicitações" });
-    }
+      const requests = await prisma.request.findMany({ where: filters });
+      return res.status(200).json(requests);
+  } catch (error) {
+      return res.status(500).json({ error: "Erro ao buscar solicitações" });
+  }
 });
+
 
 // Atualizar request
-app.put("/request", async (req, res) => {
-  const id = req.query.id || req.body.id;  // Tenta pegar o ID primeiro pela query string, depois pelo corpo
+app.put("/request", validateRequest, async (req, res) => {
+  const id = Number(req.query.id || req.body.id);
 
-  if (!id) {
-    return res.status(400).json({ error: "ID não fornecido na query nem no corpo da requisição" });
-  }
-
-  const result = requestSchema.safeParse(req.body);
-  if (!result.success) {
-    return res.status(400).json({ error: "Dados inválidos", details: result.error.format() });
+  if (!id || isNaN(id)) {
+      return res.status(400).json({ error: "ID inválido ou não fornecido" });
   }
 
   try {
-    const requestId = parseInt(id, 10);  // Converte o ID para número
-    const existingRequest = await prisma.request.findUnique({ where: { id: requestId } });
-    if (!existingRequest) {
-      return res.status(404).json({ error: "Solicitação não encontrada" });
-    }
+      const existingRequest = await prisma.request.findUnique({ where: { id } });
 
-    const updatedRequest = await prisma.request.update({
-      where: { id: requestId },
-      data: result.data,
-    });
+      if (!existingRequest) {
+          return res.status(404).json({ error: "Solicitação não encontrada" });
+      }
 
-    return res.status(200).json(updatedRequest);
+      const { title, category, urgency, description } = req.body;
+      const updateData = {};
+
+      if (title) updateData.title = title;
+      if (category && listOfCategory.includes(category)) updateData.category = category;
+      if (urgency && listOfUrgency.includes(urgency)) updateData.urgency = urgency;
+      if (description) updateData.description = description;
+
+      if (Object.keys(updateData).length === 0) {
+          return res.status(400).json({ error: "Nenhum campo válido para atualização" });
+      }
+
+      const updatedRequest = await prisma.request.update({
+          where: { id },
+          data: updateData,
+      });
+
+      return res.status(200).json(updatedRequest);
   } catch (error) {
-    return res.status(500).json({ error: "Erro ao atualizar solicitação" });
+      return res.status(500).json({ error: "Erro ao atualizar solicitação" });
   }
 });
 
 
-// Deletar request
 app.delete("/request", async (req, res) => {
-  const id = req.query.id || req.body.id;  // Tenta pegar o ID primeiro pela query string, depois pelo corpo
+  const id = Number(req.query.id || req.body.id);
 
-  if (!id) {
-    return res.status(400).json({ error: "ID não fornecido na query nem no corpo da requisição" });
+  if (!id || isNaN(id)) {
+      return res.status(400).json({ error: "ID inválido ou não fornecido" });
   }
 
   try {
-    const requestId = parseInt(id, 10);  // Converte o ID para número
-    const existingRequest = await prisma.request.findUnique({ where: { id: requestId } });
-    if (!existingRequest) {
-      return res.status(404).json({ error: "Solicitação não encontrada" });
-    }
+      const existingRequest = await prisma.request.findUnique({ where: { id } });
 
-    await prisma.request.delete({ where: { id: requestId } });
-    return res.status(200).json({ message: "Solicitação deletada com sucesso" });
+      if (!existingRequest) {
+          return res.status(404).json({ error: "Solicitação não encontrada" });
+      }
+
+      await prisma.request.delete({ where: { id } });
+      return res.status(200).json({ message: "Solicitação deletada com sucesso" });
   } catch (error) {
-    return res.status(500).json({ error: "Erro ao deletar solicitação" });
+      return res.status(500).json({ error: "Erro ao deletar solicitação" });
   }
 });
-
 
 
 app.listen(3001, () => {
-  console.log("Servidor rodando na porta 3001");
+    console.log("Servidor rodando na porta 3001");
 });
-
