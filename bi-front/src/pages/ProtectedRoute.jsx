@@ -11,7 +11,7 @@ export default function ProtectedRoute({ children }) {
     if (!isPending) {
       if (!data && isFetched) navigate("/login", { state: { from: location } });
     }
-  }, [data, navigate, location, isFetched]);
+  }, [data, navigate, location, isFetched, isPending]);
 
   return children;
 }

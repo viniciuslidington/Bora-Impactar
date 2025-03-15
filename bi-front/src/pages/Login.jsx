@@ -1,4 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import Logo from "../components/Logo/logo";
 import Button from "../components/Button/Button";
 import styles from "../styles/login.module.css";
@@ -34,17 +35,17 @@ export default function Login() {
   useEffect(() => {
     if (isError === true) {
       error.response.status === 401
-        ? alert("Email ou senha incorretos.")
-        : alert("Erro ao tentar fazer login.");
+        ? toast.error("Email ou senha incorretos.")
+        : toast.error("Erro ao tentar fazer login.");
     }
   }, [isError, error]);
 
   function handleSubmit() {
     if (email === "" || password === "") {
-      return alert("Preencha os campos corretamente.");
+      return toast.error("Preencha os campos corretamente.");
     }
     if (!email.includes("@") || !email.includes(".")) {
-      return alert("Por favor, insira um email válido.");
+      return toast.error("Por favor, insira um email válido.");
     }
     login({ email: email, password: password });
     setEmail("");
