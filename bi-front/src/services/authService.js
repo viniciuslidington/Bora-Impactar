@@ -8,11 +8,17 @@ const fetchLogin = async (credentials) => {
   return response.data;
 };
 const fetchLogout = async () => {
-  return await api.post("/logout");
+  try {
+    const response = await api.post("/logout");
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      `Logout failed: ${error.response?.status || error.message}`
+    );
+  }
 };
 const fetchUserData = async () => {
   const response = await api.get("auth");
-  console.log(response.data);
   return response.data;
 };
 
@@ -31,18 +37,23 @@ const useLogout = () => {
     mutationFn: fetchLogout,
     onSuccess: () => {
       queryClient.setQueryData(["user"], null);
-      queryClient.invalidateQueries(["user"]);
     },
   });
 };
 
 const useUserData = () => {
+  const queryClient = useQueryClient();
   return useQuery({
     queryKey: ["user"],
     queryFn: fetchUserData,
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 10,
     retry: false,
-    refetchInterval: 1000 * 60 * 15,
+    throwOnError: (error) => {
+      // Se receber um erro 401 (não autorizado), define o usuário como não autenticado
+      if (error.response && error.response.status === 401) {
+        queryClient.setQueryData(["user"], null);
+      }
+    },
   });
 };
 
