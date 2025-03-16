@@ -11,36 +11,49 @@ app.use(cors());
 const listOfCategory = ["ALIMENTO", "SERVICOS", "UTENSILIOS", "MEDICAMENTOS_HIGIENE", "BRINQUEDOS_LIVROS", "MOVEIS", "ITEMPET", "AJUDAFINANCEIRA", "OUTRA"];
 const listOfUrgency = ["LOW", "MEDIUM", "HIGH"];
 
-// Middleware de validação
-const validateRequest = (req, res, next) => {
-    const { title, category, urgency, description, requestTime } = req.body;
+const validateRequest = (data) => {
+    const { title, category, urgency, description, quantity } = data;
 
     if (!title || !category || !urgency) {
-        return res.status(400).json({ error: "Os campos Title, Category e Urgency são obrigatórios" });
+        return "Os campos Title, Category e Urgency são obrigatórios";
     }
 
     if (typeof title !== "string" || title.length < 3) {
-        return res.status(400).json({ error: "O título deve ter pelo menos 3 caracteres e ser uma string" });
+        return "O título deve ter pelo menos 3 caracteres e ser uma string";
     }
 
     if (!listOfCategory.includes(category)) {
-        return res.status(400).json({ error: "Categoria inválida." });
+        return "Categoria inválida.";
     }
 
     if (!listOfUrgency.includes(urgency)) {
-        return res.status(400).json({ error: "Nível de urgência inválido. Escolha entre: LOW, MEDIUM, HIGH" });
+        return "Nível de urgência inválido. Escolha entre: LOW, MEDIUM, HIGH";
+    }
+    
+    if (description && typeof description !== "string") {
+        return "A descrição deve ser uma string";
     }
 
-    next();
+    if (quantity && (typeof quantity !== "number" || quantity < 1)) {
+        return "A quantidade deve ser um número inteiro positivo";
+    }
+
+    return null;
 };
 
 // Criar um request
-app.post("/request", validateRequest, async (req, res) => {
+app.post("/request", async (req, res) => {
+    const validationError = validateRequest(req.body);
+    if (validationError) {
+        return res.status(400).json({ error: validationError });
+    }
+
     try {
         const newRequest = await prisma.request.create({ data: req.body });
         return res.status(201).json(newRequest);
     } catch (error) {
-        return res.status(500).json({ error: "Erro ao criar solicitação" });
+        console.error(error);
+        return res.status(500).json({ error: error.message || "Erro ao criar solicitação" });
     }
 });
 
@@ -62,41 +75,35 @@ app.get("/request", async (req, res) => {
 
 
 // Atualizar request
-app.put("/request", validateRequest, async (req, res) => {
-  const id = Number(req.query.id || req.body.id);
+app.put("/request", async (req, res) => {
+    const id = Number(req.query.id || req.body.id);
 
-  if (!id || isNaN(id)) {
-      return res.status(400).json({ error: "ID inválido ou não fornecido" });
-  }
+    if (!id || isNaN(id)) {
+        return res.status(400).json({ error: "ID inválido ou não fornecido" });
+    }
 
-  try {
-      const existingRequest = await prisma.request.findUnique({ where: { id } });
+    try {
+        const existingRequest = await prisma.request.findUnique({ where: { id } });
 
-      if (!existingRequest) {
-          return res.status(404).json({ error: "Solicitação não encontrada" });
-      }
+        if (!existingRequest) {
+            return res.status(404).json({ error: "Solicitação não encontrada" });
+        }
 
-      const { title, category, urgency, description } = req.body;
-      const updateData = {};
+        const validationError = validateRequest(req.body);
+        if (validationError) {
+            return res.status(400).json({ error: validationError });
+        }
 
-      if (title) updateData.title = title;
-      if (category && listOfCategory.includes(category)) updateData.category = category;
-      if (urgency && listOfUrgency.includes(urgency)) updateData.urgency = urgency;
-      if (description) updateData.description = description;
+        const updatedRequest = await prisma.request.update({
+            where: { id },
+            data: req.body,
+        });
 
-      if (Object.keys(updateData).length === 0) {
-          return res.status(400).json({ error: "Nenhum campo válido para atualização" });
-      }
-
-      const updatedRequest = await prisma.request.update({
-          where: { id },
-          data: updateData,
-      });
-
-      return res.status(200).json(updatedRequest);
-  } catch (error) {
-      return res.status(500).json({ error: "Erro ao atualizar solicitação" });
-  }
+        return res.status(200).json(updatedRequest);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: error.message || "Erro ao atualizar solicitação" });
+    }
 });
 
 

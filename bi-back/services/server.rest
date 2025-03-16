@@ -1,0 +1,28 @@
+GET http://localhost:3001/request?urgency=HIGH
+
+###
+POST http://localhost:3001/request
+Content-Type: application/json
+
+ {
+    "title": "Mouse",
+    "category": "BRINQUEDOS_LIVROS",
+    "urgency": "HIGH",
+    "description": "Os mouses tem que vim com pilha"
+  }
+
+###
+PUT http://localhost:3001/request?id=6
+Content-Type: application/json
+
+{
+    "title": "Boneca",
+    "category": "BRINQUEDOS_LIVROS",
+    "urgency": "MEDIUM",
+    "quantity": 5
+}
+
+###
+DELETE  http://localhost:3001/request?id=5
+Content-Type: application/json
+
