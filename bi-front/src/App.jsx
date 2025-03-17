@@ -7,7 +7,7 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
-import MainPage from "./pages/MainPage";
+import MainPage from "./pages/mainPage";
 import Login from "./pages/Login";
 import Ong from "./pages/Ong";
 import { ModalProvider } from "./components/contexts/ModalContext";
