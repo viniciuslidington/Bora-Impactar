@@ -1,14 +1,17 @@
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../components/contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useUserData } from "../services/authService";
 
 export default function ProtectedRoute({ children }) {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { data, isFetched, isPending } = useUserData();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    !isAuthenticated && navigate("/login");
-  }, [isAuthenticated, navigate]);
+    if (!isPending) {
+      if (!data && isFetched) navigate("/login", { state: { from: location } });
+    }
+  }, [data, navigate, location, isFetched, isPending]);
 
   return children;
 }

@@ -4,8 +4,9 @@ import Button from "../Button/Button";
 import postsDatabase1 from "./postsDatabase1";
 import postsDatabase2 from "./postsDatabase2";
 import Post from "./Post";
-import styles from "./ongPosts.module.css";
 import { ModalContext } from "../contexts/ModalContext";
+import { formatarString } from "../../utils/formatString";
+import styles from "./ongPosts.module.css";
 
 export default function OngPosts({ tipo }) {
   const [sortPosts, setSortPosts] = useState("data");
@@ -112,14 +113,6 @@ export default function OngPosts({ tipo }) {
       </div>
     </>
   );
-}
-
-// Função auxiliar para normalizar e remover acentos
-function formatarString(str) {
-  return str
-    .toLowerCase() // Formata a string para minúsculo
-    .normalize("NFD") // Normaliza a string
-    .replace(/[\u0300-\u036f]/g, ""); // Remove a acentuação
 }
 
 OngPosts.propTypes = {

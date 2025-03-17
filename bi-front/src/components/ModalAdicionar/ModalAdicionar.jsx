@@ -1,4 +1,5 @@
 import { useContext, useRef, useReducer } from "react";
+import toast from "react-hot-toast";
 import { ModalContext } from "../contexts/ModalContext";
 import Button from "../Button/Button";
 import styles from "./modalAdicionar.module.css";
@@ -29,7 +30,7 @@ export default function ModaAdicionar() {
       descricao === "" ||
       tempo === ""
     ) {
-      return alert("Preencha todos os campos!");
+      return toast.error("Preencha todos os campos!");
     }
     console.log({ titulo, categoria, urgencia, descricao, tempo, imageUrl });
     setModalAdicionar(false);
