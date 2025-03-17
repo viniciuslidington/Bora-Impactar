@@ -1,17 +1,22 @@
-GET http://localhost:3001/request?urgency=HIGH
+### Testes para a API de `request`
+
+# Buscar requests com filtro de categoria
+GET http://localhost:3001/request?category=ALIMENTO
 
 ###
+# Criar um novo request
 POST http://localhost:3001/request
 Content-Type: application/json
 
- {
+{
     "title": "Mouse",
     "category": "BRINQUEDOS_LIVROS",
     "urgency": "HIGH",
-    "description": "Os mouses tem que vim com pilha"
-  }
+    "description": "Os mouses têm que vir com pilha"
+}
 
 ###
+# Atualizar um request existente
 PUT http://localhost:3001/request?id=6
 Content-Type: application/json
 
@@ -23,6 +28,69 @@ Content-Type: application/json
 }
 
 ###
-DELETE  http://localhost:3001/request?id=5
+# Deletar um request
+DELETE http://localhost:3001/request?id=5
+Content-Type: application/json
+
+### Testes para a API de `relocacoes`
+
+# Buscar relocações com filtro de categoria
+GET http://localhost:3002/relocacoes?category=ALIMENTO
+
+###
+# Criar uma nova relocação
+POST http://localhost:3002/relocacoes
+Content-Type: application/json
+
+{
+    "title": "Cadeira",
+    "category": "MOVEIS",
+    "number": 10,
+    "description": "Cadeiras de escritório em bom estado"
+}
+
+###
+# Criar uma relocação com dados inválidos
+POST http://localhost:3002/relocacoes
+Content-Type: application/json
+
+{
+    "title": "C",
+    "category": "INVALID_CATEGORY",
+    "number": -5
+}
+
+###
+# Atualizar uma relocação existente
+PUT http://localhost:3002/relocacoes?id=3
+Content-Type: application/json
+
+{
+    "title": "Mesa",
+    "category": "MOVEIS",
+    "number": 2,
+    "description": "Mesas de madeira"
+}
+
+###
+# Atualizar uma relocação inexistente
+PUT http://localhost:3002/relocacoes?id=999
+Content-Type: application/json
+
+{
+    "title": "Mesa",
+    "category": "MOVEIS",
+    "number": 2,
+    "description": "Mesas de madeira"
+}
+
+###
+# Deletar uma relocação existente
+DELETE http://localhost:3002/relocacoes?id=3
+Content-Type: application/json
+
+###
+# Deletar uma relocação inexistente
+DELETE http://localhost:3002/relocacoes?id=999
 Content-Type: application/json
 
