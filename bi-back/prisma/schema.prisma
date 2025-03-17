@@ -29,6 +29,7 @@ model Request {
   title       String
   category    Categoria
   urgency     UrgencyLevel
+  quantity    Int?
   description String?
   requestTime DateTime?
 
