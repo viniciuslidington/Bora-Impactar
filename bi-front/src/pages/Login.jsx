@@ -1,22 +1,24 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import Logo from "../components/Logo/logo";
 import Button from "../components/Button/Button";
 import styles from "../styles/login.module.css";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../components/contexts/AuthContext";
+import { useEffect, useState } from "react";
+import { useLogin, useUserData } from "../services/authService";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || "/ong/home/solicitacoes"; // Redireciona para a página principal se não vier de uma rota protegida
 
-  const { login, alerta, isLoading, isAuthenticated, cleanUpAlerta } =
-    useContext(AuthContext);
+  const { data } = useUserData();
+  const { mutate: login, isPending, isError, error } = useLogin();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
-    isAuthenticated && navigate(from, { replace: true });
+    data && navigate(from, { replace: true });
 
     function handleEnter(e) {
       if (e.key === "Enter") {
@@ -27,12 +29,25 @@ export default function Login() {
     document.addEventListener("keypress", handleEnter);
     return () => {
       document.removeEventListener("keypress", handleEnter);
-      cleanUpAlerta();
     };
-  }, [isAuthenticated]);
+  }, [data]);
+
+  useEffect(() => {
+    if (isError === true) {
+      error.response.status === 401
+        ? toast.error("Email ou senha incorretos.")
+        : toast.error("Erro ao tentar fazer login.");
+    }
+  }, [isError, error]);
 
   function handleSubmit() {
-    login(email, password);
+    if (email === "" || password === "") {
+      return toast.error("Preencha os campos corretamente.");
+    }
+    if (!email.includes("@") || !email.includes(".")) {
+      return toast.error("Por favor, insira um email válido.");
+    }
+    login({ email: email, password: password });
     setEmail("");
     setPassword("");
   }
@@ -50,22 +65,21 @@ export default function Login() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            disabled={isLoading}
+            disabled={isPending}
           />
           <input
             type="password"
             placeholder="Senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            disabled={isLoading}
+            disabled={isPending}
           />
-          {alerta !== "" && <p>{alerta}</p>}
         </div>
         <div className={styles.inputField}>
           <Button
             customClass={styles.customClass1}
             onClick={handleSubmit}
-            disabled={isLoading}
+            disabled={isPending}
           >
             Entrar
           </Button>

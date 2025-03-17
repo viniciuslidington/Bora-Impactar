@@ -1,17 +1,20 @@
-import { useContext, useState, useRef, useEffect } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { useState, useRef, useEffect } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./profile.module.css";
+import { useLogout, useUserData } from "../../services/authService";
+import "ldrs/ring2";
 
 export default function Profile() {
-  const { isAuthenticated, user, userData, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { data: authData, isPending: isUserDataLoading } = useUserData();
+  const { mutate: logout } = useLogout();
+
   const [dropdown, setDropdown] = useState(false);
   const dropdownRef = useRef(null);
-  const navigate = useNavigate();
 
-  const logoUrl = userData?.ngo?.gallery_images_url[0];
-  const img1Url = userData?.ngo?.gallery_images_url[1];
-  const img2Url = userData?.ngo?.gallery_images_url[2];
+  const logoUrl = authData?.userData?.ngo?.gallery_images_url[0];
+  const img1Url = authData?.userData?.ngo?.gallery_images_url[1];
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -26,14 +29,14 @@ export default function Profile() {
     };
   }, [dropdownRef]);
 
-  if (isAuthenticated === true) {
+  if (authData) {
     return (
       <div className={styles.profile} ref={dropdownRef}>
         <div
           className={styles.profileMainContent}
           onClick={() => setDropdown(!dropdown)}
         >
-          <p>{userData.ngo.name}</p>
+          <p>{authData.userData.ngo.name}</p>
           <img src={logoUrl} alt="userLogo" />
         </div>
         {dropdown && (
@@ -41,8 +44,8 @@ export default function Profile() {
             <div className={styles.section}>
               <img src={img1Url} alt="userLogo" />
               <div className={styles.sectionContent}>
-                <p>{user}</p>
-                <p>{userData.user.email}</p>
+                <p>{authData.user}</p>
+                <p>{authData.userData.user.email}</p>
               </div>
             </div>
             <button
@@ -51,12 +54,23 @@ export default function Profile() {
             >
               <img src="/home.svg" alt="homeIcon" /> <p>Home</p>
             </button>
-            <button className={styles.logout} onClick={logout}>
+            <button className={styles.logout} onClick={() => logout()}>
               <img src="/logout.svg" alt="logoutIcon" /> <p>Logout</p>
             </button>
           </div>
         )}
       </div>
+    );
+  } else if (isUserDataLoading) {
+    return (
+      <l-ring-2
+        size="40"
+        stroke="5"
+        stroke-length="0.25"
+        bg-opacity="0.1"
+        speed="0.8"
+        color="white"
+      ></l-ring-2>
     );
   } else {
     return (

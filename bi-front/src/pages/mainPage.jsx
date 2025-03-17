@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import Header from "../components/Header/header";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Button/Button";
@@ -7,11 +6,11 @@ import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
 import Profile from "../components/Profile/Profile";
 import styles from "../styles/mainpage.module.css";
-import { AuthContext } from "../components/contexts/AuthContext";
+import { useUserData } from "../services/authService";
 
 export default function MainPage() {
   const navigate = useNavigate();
-  const { isAuthenticated } = useContext(AuthContext);
+  const { data } = useUserData();
 
   return (
     <div className={styles.mainPage}>
@@ -39,9 +38,7 @@ export default function MainPage() {
           <Button
             customClass={styles.customClass2}
             onClick={() =>
-              isAuthenticated
-                ? navigate("/ong/home/solicitacoes")
-                : navigate("/login")
+              data ? navigate("/ong/home/solicitacoes") : navigate("/login")
             }
           >
             Sou ONG
@@ -121,9 +118,7 @@ export default function MainPage() {
           <Button
             customClass={styles.customClass2}
             onClick={() =>
-              isAuthenticated
-                ? navigate("/ong/home/solicitacoes")
-                : navigate("/login")
+              data ? navigate("/ong/home/solicitacoes") : navigate("/login")
             }
           >
             Sou ONG
