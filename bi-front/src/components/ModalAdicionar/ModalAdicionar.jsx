@@ -179,7 +179,10 @@ export default function ModaAdicionar() {
               <option value="90">90 dias</option>
             </select>
           </label>
-          <Button customClass={styles.publicarBtn} onClick={handlePublicar}>
+          <Button
+            addClassName="absolute right-[40px] bottom-[40px] w-[179px] px-4 py-3"
+            onClick={handlePublicar}
+          >
             Publicar
           </Button>
         </div>

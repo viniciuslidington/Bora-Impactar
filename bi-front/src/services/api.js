@@ -12,7 +12,7 @@ api.interceptors.response.use(
       console.error("Erro de autenticação! Faça login novamente.");
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

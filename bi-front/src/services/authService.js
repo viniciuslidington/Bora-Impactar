@@ -8,14 +8,8 @@ const fetchLogin = async (credentials) => {
   return response.data;
 };
 const fetchLogout = async () => {
-  try {
-    const response = await api.post("/logout");
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      `Logout failed: ${error.response?.status || error.message}`
-    );
-  }
+  const response = await api.post("/logout");
+  return response.data;
 };
 const fetchUserData = async () => {
   const response = await api.get("auth");
@@ -35,7 +29,7 @@ const useLogout = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: fetchLogout,
-    onSuccess: () => {
+    onSettled: () => {
       queryClient.setQueryData(["user"], null);
     },
   });
