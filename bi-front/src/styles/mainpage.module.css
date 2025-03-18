@@ -4,7 +4,8 @@
   top: 0;
   left: 0;
   height: 708px;
-  background: linear-gradient(
+  background:
+    linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.64) 0%,
       rgba(255, 255, 255, 0.64) 100%
@@ -69,7 +70,7 @@
   color: #009fe3;
 }
 .customClass2:hover {
-  background-color: hsla(198, 69%, 59%, 0.075);
+  background-color: #4eb3df13;
 }
 
 .dadosGrid {

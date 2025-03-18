@@ -46,7 +46,7 @@ export default function PostSelected({
         if (p.id === post.id) {
           return { ...p, titulo, categoria, urgencia, descricao, imageUrl };
         } else return p;
-      })
+      }),
     );
     setSelectedId(""); //Fechar form após salvar
   }
@@ -58,7 +58,7 @@ export default function PostSelected({
           if (p.id === post.id) {
             return;
           } else return p;
-        })
+        }),
       );
     }
 
@@ -81,8 +81,13 @@ export default function PostSelected({
         <p className={styles.publicadoSelected}>
           Publicado: {publicacaoFormatada}
         </p>
-        <span className={styles.xSelected}>
-          <img src="/x.svg" alt="x" onClick={() => setSelectedId("")} />
+        <span className="flex w-1/2 justify-end">
+          <img
+            src="/x.svg"
+            alt="x"
+            onClick={() => setSelectedId("")}
+            className="w-4 cursor-pointer opacity-90"
+          />
         </span>
         <label htmlFor="tituloSelected" className={styles.labelSelected}>
           <p>Titulo</p>
@@ -161,7 +166,7 @@ export default function PostSelected({
         <div className={styles.divEncerrarBtn}>
           <p>{expiracaoFormatada}</p>
           <Button
-            customClass={styles.encerrarBtn}
+            className="flex h-[38px] w-[179px] cursor-pointer items-center justify-center rounded-sm border-[2.5px] border-solid border-[#f37171] bg-none px-2 py-3 text-base font-medium text-[#f37171] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#f38e8e2d] disabled:opacity-70"
             onClick={(e) => handleEncerrar(e)}
           >
             Encerrar Solicitação
@@ -183,7 +188,10 @@ export default function PostSelected({
       </label>
       <div className={styles.divSalvarBtn}>
         <p></p>
-        <Button customClass={styles.salvarBtn} onClick={(e) => handleSalvar(e)}>
+        <Button
+          addClassName=" py-[12px] px-[16px] w-[179px]"
+          onClick={(e) => handleSalvar(e)}
+        >
           Salvar Alterações
         </Button>
       </div>

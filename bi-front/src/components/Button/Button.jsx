@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
-import styles from "./button.module.css";
 
 export default function Button({
   children,
-  customClass,
+  className = `cursor-pointer rounded-sm border-none bg-[#294bb6] px-2 py-3 text-base font-medium text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70`,
+  addClassName = "",
   onClick,
   disabled = false,
 }) {
   return (
     <button
-      className={`${styles.button} ${customClass}`}
+      className={addClassName + " " + className}
       onClick={onClick}
       disabled={disabled}
     >
@@ -20,7 +20,8 @@ export default function Button({
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  customClass: PropTypes.node.isRequired,
+  className: PropTypes.string.isRequired,
+  addClassName: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
 };

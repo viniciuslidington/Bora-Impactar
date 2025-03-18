@@ -74,7 +74,7 @@ export default function Profile() {
     );
   } else {
     return (
-      <Link to="/login" className={styles.link}>
+      <Link to="/login" className={"text-base text-white underline"}>
         Logar como ONG
       </Link>
     );

@@ -42,7 +42,7 @@ export default function Post({
       <p className={styles.dataExpiracao}>{expiracaoFormatada}</p>
       <div className={styles.postBtns}>
         <Button
-          customClass={styles.editarBtn}
+          addClassName="py-[12px] px-[32px] bg-[#009fe3]! hover:bg-[#43bef3]!"
           onClick={() => handleEditar(post.id)}
         >
           Editar

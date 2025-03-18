@@ -54,22 +54,18 @@ export default function Login() {
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center gap-4 bg-[#a8dff7]">
       <Link to={"/"}>
-        <img
-          src="./BoraImpactar.png"
-          alt="BoraImpactarLogo"
-          className="w-52 md:w-64"
-        />
+        <img src="./BoraImpactar.png" alt="BoraImpactarLogo" className="w-64" />
       </Link>
-      <div className="md: flex min-h-[392px] w-[308px] flex-col items-center justify-center gap-6 rounded-md bg-white p-12 shadow-md md:min-h-[400px] md:w-[340px] md:gap-5">
+      <div className="flex max-w-[90%] flex-col items-center justify-center gap-4 rounded-sm bg-white px-12 py-8 shadow-md">
         <h2 className="text-2xl font-bold">Entrar como ONG</h2>
-        <div className="flex w-3/4 flex-col gap-2">
+        <div className="flex w-full flex-col gap-2">
           <input
             type="text"
             placeholder=" Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={isPending}
-            className="h-12 rounded-md border-2 border-gray-400 p-2"
+            className="flex h-12 w-[264px] max-w-full rounded-sm border-2 border-gray-400 p-2"
           />
           <input
             type="password"
@@ -77,30 +73,30 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isPending}
-            className="h-12 rounded-md border-2 border-gray-400 p-2"
+            className="h-12 w-[264px] max-w-full rounded-sm border-2 border-gray-400 p-2"
           />
         </div>
-        <div className="flex w-full flex-col items-center gap-2">
+        <div className="flex w-full flex-col gap-2">
           <Button
-            className="h-16 w-[320] max-w-xs rounded-md bg-[#294bb6] font-bold text-white hover:bg-[#294ab61e]"
             onClick={handleSubmit}
             disabled={isPending}
+            addClassName="h-12 w-[264px] max-w-full"
           >
             Entrar
           </Button>
-          <a href="#" className="pl-2 text-sm text-[#294bb6]">
+          <a href="#" className="w-fit text-sm text-[#294bb6] underline">
             Esqueceu a senha?
           </a>
         </div>
-        <div className="flex w-full flex-col items-center gap-2">
-          <h3 className="text-sm">Não possui conta?</h3>
-          <Button className="h-16 w-full rounded-md border-2 border-[#294bb6] text-[#294bb6] hover:bg-[#294ab61e]">
+        <div className="flex w-full max-w-full flex-col items-center gap-2">
+          <h3 className="text-base">Não possui conta?</h3>
+          <Button className="flex h-12 w-[264px] max-w-full cursor-pointer items-center justify-center rounded-sm border-2 bg-none px-2 py-3 text-base font-medium text-[#294bb6] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#294ab61e] disabled:opacity-70">
             Criar Conta
           </Button>
         </div>
       </div>
       <div className="flex w-full justify-center">
-        <Logo className="w-32 md:w-40" />
+        <Logo className="w-40" />
       </div>
     </div>
   );
