@@ -35,7 +35,7 @@ export default function OngPosts({ tipo }) {
     .sort(sortFunc)
     .filter(
       (post) =>
-        formatarString(post.titulo).startsWith(formatarString(searchPosts)) //startwith para a barra de pesquisa procurar os primeiros caracteres
+        formatarString(post.titulo).startsWith(formatarString(searchPosts)), //startwith para a barra de pesquisa procurar os primeiros caracteres
     ); //Limitar quantidade de posts visíveis
 
   const verMaisTxt = postsVisiveis >= posts.length ? "Ver Menos" : "Ver Mais";
@@ -65,7 +65,7 @@ export default function OngPosts({ tipo }) {
       <p>{descricao}</p>
       <div className={styles.ongPosts}>
         <Button
-          customClass={styles.customClass}
+          className="flex h-[48px] w-[172px] cursor-pointer items-center justify-center gap-4 rounded-sm border-none bg-[#294bb6] px-2 py-3 text-base font-medium text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
           onClick={() => setModalAdicionar(true)}
         >
           Adicionar <span className={styles.plusIcon}>+</span>

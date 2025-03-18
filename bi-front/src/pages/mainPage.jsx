@@ -30,13 +30,13 @@ export default function MainPage() {
         </p>
         <div className={styles.buttonGroup}>
           <Button
-            customClass={styles.customClass1}
+            className="h-[80px] w-[256px] cursor-pointer rounded-sm border-none bg-[#294bb6] px-2 py-3 text-[18px] font-bold text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
             onClick={() => navigate("voluntario")}
           >
             Sou Voluntário
           </Button>
           <Button
-            customClass={styles.customClass2}
+            className="h-[80px] w-[256px] cursor-pointer rounded-sm border-3 border-solid border-[#009fe3] bg-transparent px-2 py-3 text-[18px] font-[600] text-[#009fe3] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#4eb3df13] disabled:opacity-70"
             onClick={() =>
               data ? navigate("/ong/home/solicitacoes") : navigate("/login")
             }
@@ -73,7 +73,9 @@ export default function MainPage() {
           <GridBox imgUrl={"./Roupas.jpg"}>Doar Roupas</GridBox>
           <GridBox imgUrl={"./Móveis.jpg"}>Doar Alimentos</GridBox>
         </Grid>
-        <Button customClass={styles.customClass3}>Ver outras categorias</Button>
+        <Button className="h-[64px] w-[256px] cursor-pointer rounded-sm border-3 border-solid border-[#232323b6] bg-none px-2 py-3 text-[18px] font-medium text-[#232323] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[rgba(27,46,53,0.075)] disabled:opacity-70">
+          Ver outras categorias
+        </Button>
       </div>
       <div className={styles.aboutSection}>
         <div className={styles.aboutContainer}>
@@ -110,13 +112,13 @@ export default function MainPage() {
         <h3>Faça parte dessa mudança. Bora Impactar!</h3>
         <div className={styles.buttonGroup}>
           <Button
-            customClass={styles.customClass1}
+            className="h-[80px] w-[256px] cursor-pointer rounded-sm border-none bg-[#294bb6] px-2 py-3 text-[18px] font-bold text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
             onClick={() => navigate("/voluntario/home")}
           >
             Sou Voluntário
           </Button>
           <Button
-            customClass={styles.customClass2}
+            className="h-[80px] w-[256px] cursor-pointer rounded-sm border-3 border-solid border-[#009fe3] bg-transparent px-2 py-3 text-[18px] font-[600] text-[#009fe3] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#4eb3df13] disabled:opacity-70"
             onClick={() =>
               data ? navigate("/ong/home/solicitacoes") : navigate("/login")
             }
