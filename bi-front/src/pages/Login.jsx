@@ -2,7 +2,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Logo from "../components/Logo/logo";
 import Button from "../components/Button/Button";
-import styles from "../styles/login.module.css";
 import { useEffect, useState } from "react";
 import { useLogin, useUserData } from "../services/authService";
 
@@ -53,44 +52,56 @@ export default function Login() {
   }
 
   return (
-    <div className={styles.login}>
+    <div className="flex h-screen w-full flex-col items-center justify-center gap-4 bg-[#a8dff7]">
       <Link to={"/"}>
-        <img src="./BoraImpactar.png" alt="BoraImpactarLogo" />
+        <img
+          src="./BoraImpactar.png"
+          alt="BoraImpactarLogo"
+          className="w-52 md:w-64"
+        />
       </Link>
-      <div className={styles.loginTab}>
-        <h2>Entrar como ONG</h2>
-        <div className={styles.inputField}>
+      <div className="md: flex min-h-[392px] w-[308px] flex-col items-center justify-center gap-6 rounded-md bg-white p-12 shadow-md md:min-h-[400px] md:w-[340px] md:gap-5">
+        <h2 className="text-2xl font-bold">Entrar como ONG</h2>
+        <div className="flex w-3/4 flex-col gap-2">
           <input
             type="text"
-            placeholder="Email"
+            placeholder=" Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={isPending}
+            className="h-12 rounded-md border-2 border-gray-400 p-2"
           />
           <input
             type="password"
-            placeholder="Senha"
+            placeholder=" Senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isPending}
+            className="h-12 rounded-md border-2 border-gray-400 p-2"
           />
         </div>
-        <div className={styles.inputField}>
+        <div className="flex w-full flex-col items-center gap-2">
           <Button
-            customClass={styles.customClass1}
+            className="h-16 w-[320] max-w-xs rounded-md bg-[#294bb6] font-bold text-white hover:bg-[#294ab61e]"
             onClick={handleSubmit}
             disabled={isPending}
           >
             Entrar
           </Button>
-          <a href="">Esqueceu a senha?</a>
+          <a href="#" className="pl-2 text-sm text-[#294bb6]">
+            Esqueceu a senha?
+          </a>
         </div>
-        <div className={styles.buttonField}>
-          <h3>Não possui a conta?</h3>
-          <Button customClass={styles.customClass2}>Criar Conta</Button>
+        <div className="flex w-full flex-col items-center gap-2">
+          <h3 className="text-sm">Não possui conta?</h3>
+          <Button className="h-16 w-full rounded-md border-2 border-[#294bb6] text-[#294bb6] hover:bg-[#294ab61e]">
+            Criar Conta
+          </Button>
         </div>
       </div>
-      <Logo />
+      <div className="flex w-full justify-center">
+        <Logo className="w-32 md:w-40" />
+      </div>
     </div>
   );
 }
