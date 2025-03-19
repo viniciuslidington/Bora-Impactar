@@ -1,68 +1,88 @@
 ### Testes para a API de `request`
 
 # Buscar requests com filtro de categoria
-GET http://localhost:3001/request?category=ALIMENTO
+GET http://localhost:3001/solicitacao?ong_Id=3
 
 ###
+# Buscar solicitacoes com filtro
+GET http://localhost:3001/search-solicitacao
+###
 # Criar um novo request
-POST http://localhost:3001/request
+POST http://localhost:3001/solicitacao
 Content-Type: application/json
 
 {
-    "title": "Mouse",
-    "category": "BRINQUEDOS_LIVROS",
+    "title": "Meias",
+    "category": "UTENSILIOS",
     "urgency": "HIGH",
-    "description": "Os mouses têm que vir com pilha"
+    "ong_Id": 3
 }
 
 ###
 # Atualizar um request existente
-PUT http://localhost:3001/request?id=6
+PUT http://localhost:3001/solicitacao
 Content-Type: application/json
 
 {
+    "id": 3,
     "title": "Boneca",
-    "category": "BRINQUEDOS_LIVROS",
+    "category": "MANGA",
     "urgency": "MEDIUM",
-    "quantity": 5
+    "quantity": 5,
+    "ong_Id": 3
 }
 
 ###
 # Deletar um request
-DELETE http://localhost:3001/request?id=5
+DELETE http://localhost:3001/solicitacao
 Content-Type: application/json
 
-### Testes para a API de `relocacoes`
+### Testes para a API de `repasse`
 
-# Buscar relocações com filtro de categoria
-GET http://localhost:3002/relocacoes?category=ALIMENTO
-
-###
-# Criar uma nova relocação
-POST http://localhost:3002/relocacoes
-Content-Type: application/json
-
-{
-    "title": "Cadeira",
-    "category": "MOVEIS",
-    "number": 10,
-    "description": "Cadeiras de escritório em bom estado"
-}
+# Buscar repasses da ong pelo ong_Id
+GET http://localhost:3002/repasse?ong_Id=88
 
 ###
-# Criar uma relocação com dados inválidos
-POST http://localhost:3002/relocacoes
+# Buscar repasse com filtro
+GET http://localhost:3002/search-repasse
+
+###
+# Criar uma nova repasse
+POST http://localhost:3002/repasse
 Content-Type: application/json
 
 {
-    "title": "C",
-    "category": "INVALID_CATEGORY",
-    "number": -5
+    "title": "Manteiga",
+    "category": "ALIMENTO",
+    "description": "Cadeiras de escritório em bom estado",
+    "ong_Id": 88
 }
 
 ###
-# Atualizar uma relocação existente
-PUT http://localhost:3002/relocacoes?id=3
+# Criar uma repasse com dados inválidos
+POST http://localhost:3002/repasse
+Content-Type: application/json
+
+{
+    "title": "Cachorro",
+    "category": "ALIMENT",
+    "ong_Id": 99
+}
+
+###
+# Atualizar uma repasse existente
+PUT http://localhost:3002/repasse?id=4
+Content-Type: application/json
+
+{
+    "title": "mesa",
+    "category": "UTENSILIOS",
+    "ong_Id": 100
+}
+
+###
+# Atualizar uma repasse inexistente
+PUT http://localhost:3002/repasse?id=999
 Content-Type: application/json
 
 {
@@ -73,24 +93,12 @@ Content-Type: application/json
 }
 
 ###
-# Atualizar uma relocação inexistente
-PUT http://localhost:3002/relocacoes?id=999
-Content-Type: application/json
-
-{
-    "title": "Mesa",
-    "category": "MOVEIS",
-    "number": 2,
-    "description": "Mesas de madeira"
-}
-
-###
-# Deletar uma relocação existente
-DELETE http://localhost:3002/relocacoes?id=3
+# Deletar uma repasse existente
+DELETE http://localhost:3002/repasse?id=3
 Content-Type: application/json
 
 ###
-# Deletar uma relocação inexistente
-DELETE http://localhost:3002/relocacoes?id=999
+# Deletar uma repasse inexistente
+DELETE http://localhost:3002/repasse?id=999
 Content-Type: application/json
 
