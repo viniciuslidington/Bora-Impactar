@@ -12,7 +12,7 @@ const listOfCategory = ["ALIMENTO", "SERVICOS", "UTENSILIOS", "MEDICAMENTOS_HIGI
 const listOfUrgency = ["LOW", "MEDIUM", "HIGH"];
 
 const validateRequest = (data) => {
-    const { title, category, urgency, description, quantity } = data;
+    const { title, category, urgency, description, quantity, ong_Id } = data;
 
     if (!title || !category || !urgency) {
         return "Os campos Title, Category e Urgency são obrigatórios";
@@ -38,11 +38,17 @@ const validateRequest = (data) => {
         return "A quantidade deve ser um número inteiro positivo";
     }
 
+    if (!ong_Id) {
+        return "Ong_Id é obrigatório";
+    } else if (typeof ong_Id !== "number" || ong_Id < 1) {
+        return "Ong_Id deve ser um número inteiro positivo";
+    }
+
     return null;
 };
 
-// Criar um request
-app.post("/request", async (req, res) => {
+// Criar uma solicitacao
+app.post("/solicitacao", async (req, res) => {
     const validationError = validateRequest(req.body);
     if (validationError) {
         return res.status(400).json({ error: validationError });
@@ -57,25 +63,42 @@ app.post("/request", async (req, res) => {
     }
 });
 
-// Buscar requests com filtros opcionais
-app.get("/request", async (req, res) => {
-  try {
-      const filters = {};
-
-      if (req.query.title) filters.title = req.query.title
-      if (req.query.category && listOfCategory.includes(req.query.category)) filters.category = req.query.category;
-      if (req.query.urgency && listOfUrgency.includes(req.query.urgency)) filters.urgency = req.query.urgency;
-
-      const requests = await prisma.request.findMany({ where: filters });
+// Buscar todas as soliciações da ong que está logada
+app.get("/solicitacao", async (req, res) => {
+    try {
+      const id = Number(req.query.ong_Id);
+  
+      if (!id || isNaN(id)) {
+        return res.status(400).json({ error: "Ong_Id é obrigatório e deve ser um número válido" });
+      }
+  
+      const requests = await prisma.request.findMany({ where: { ong_Id: id } });
       return res.status(200).json(requests);
-  } catch (error) {
+    } catch (error) {
       return res.status(500).json({ error: "Erro ao buscar solicitações" });
-  }
-});
+    }
+  });
+  
+
+// Fazer uma busca entre as solicitações com filtros
+app.get("/search-solicitacao", async (req, res) => {
+    try {
+        const filters = {};
+    
+        if (req.query.title) filters.title = req.query.title
+        if (req.query.category && listOfCategory.includes(req.query.category)) filters.category = req.query.category;
+        if (req.query.urgency && listOfUrgency.includes(req.query.urgency)) filters.urgency = req.query.urgency;
+
+        const requests = await prisma.request.findMany({ where: filters });
+        return res.status(200).json(requests);
+    } catch (error) {
+        return res.status(500).json({ error: "Erro ao buscar solicitações" });
+    }
+  });
 
 
-// Atualizar request
-app.put("/request", async (req, res) => {
+// Atualizar solicitacao
+app.put("/solicitacao", async (req, res) => {
     const id = Number(req.query.id || req.body.id);
 
     if (!id || isNaN(id)) {
@@ -106,8 +129,8 @@ app.put("/request", async (req, res) => {
     }
 });
 
-
-app.delete("/request", async (req, res) => {
+// Deletar solicitacao
+app.delete("/solicitacao", async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {

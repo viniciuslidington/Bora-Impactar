@@ -16,9 +16,9 @@ datasource db {
 model RelocationProduct {
   id         Int      @id @default(autoincrement())
   title      String
-  category   Categoria
-  number     Int      
+  category   Categoria   
   description String?
+  ong_Id     Int?
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -31,6 +31,7 @@ model Request {
   urgency     UrgencyLevel
   quantity    Int?
   description String?
+  ong_Id      Int?
   requestTime DateTime?
 
   createdAt   DateTime @default(now())
