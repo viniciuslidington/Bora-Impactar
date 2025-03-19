@@ -1,28 +1,28 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "./api.js";
 
-const getRealocacoes = async () => {
-  const response = await api.get("/Realocacoes");
+const getRepasse = async () => {
+  const response = await api.get("/Repasse");
   return response.data;
 };
-const postRealocacoes = async () => {
-  const response = await api.post("/Realocacoes");
+const postRepasse = async () => {
+  const response = await api.post("/Repasse");
   return response.data;
 };
-const putRealocacoes = async () => {
-  const response = await api.put("/Realocacoes");
+const putRepasse = async () => {
+  const response = await api.put("/Repasse");
   return response.data;
 };
-const deleteRealocacoes = async () => {
-  const response = await api.delete("/Realocacoes");
+const deleteRepasse = async () => {
+  const response = await api.delete("/Repasse");
   return response.data;
 };
 
-const useRealocacoes = () => {
+const useRepasse = () => {
   const queryClient = useQueryClient();
   return useQuery({
-    queryKey: ["Realocacoes"],
-    queryFn: getRealocacoes,
+    queryKey: ["Repasse"],
+    queryFn: getRepasse,
     throwOnError: (error) => {
       // Se receber um erro 401 (não autorizado), define o usuário como não autenticado
       if (error.response && error.response.status === 401) {
@@ -32,10 +32,10 @@ const useRealocacoes = () => {
   });
 };
 
-const useAddRealocacoes = () => {
+const useAddRepasse = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: postRealocacoes,
+    mutationFn: postRepasse,
     throwOnError: (error) => {
       // Se receber um erro 401 (não autorizado), define o usuário como não autenticado
       if (error.response && error.response.status === 401) {
@@ -45,10 +45,10 @@ const useAddRealocacoes = () => {
   });
 };
 
-const useEditRealocacoes = () => {
+const useEditRepasse = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: putRealocacoes,
+    mutationFn: putRepasse,
     throwOnError: (error) => {
       // Se receber um erro 401 (não autorizado), define o usuário como não autenticado
       if (error.response && error.response.status === 401) {
@@ -58,10 +58,10 @@ const useEditRealocacoes = () => {
   });
 };
 
-const useDelRealocacoes = () => {
+const useDelRepasse = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: deleteRealocacoes,
+    mutationFn: deleteRepasse,
     throwOnError: (error) => {
       // Se receber um erro 401 (não autorizado), define o usuário como não autenticado
       if (error.response && error.response.status === 401) {
@@ -71,9 +71,4 @@ const useDelRealocacoes = () => {
   });
 };
 
-export {
-  useRealocacoes,
-  useAddRealocacoes,
-  useEditRealocacoes,
-  useDelRealocacoes,
-};
+export { useRepasse, useAddRepasse, useEditRepasse, useDelRepasse };

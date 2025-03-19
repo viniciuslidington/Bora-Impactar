@@ -33,7 +33,7 @@ export default function Login() {
 
   useEffect(() => {
     if (isError === true) {
-      error.response.status === 401
+      error.response?.status === 401
         ? toast.error("Email ou senha incorretos.")
         : toast.error("Erro ao tentar fazer login.");
     }

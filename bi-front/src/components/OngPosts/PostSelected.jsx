@@ -2,15 +2,21 @@ import { useReducer } from "react";
 import styles from "./post.module.css";
 import Button from "../Button/Button";
 import PropTypes from "prop-types";
+import toast from "react-hot-toast";
+import {
+  useDelSolicitacoes,
+  useEditSolicitacoes,
+} from "../../services/userSolicitacoesService";
 
 export default function PostSelected({
   publicacaoFormatada,
   expiracaoFormatada,
   setSelectedId,
   post,
-  setDatabaseState,
-  databaseState,
 }) {
+  const { mutate: salvar } = useEditSolicitacoes();
+  const { mutate: remover } = useDelSolicitacoes();
+
   const initialState = {
     titulo: post.titulo,
     categoria: post.categoria,
@@ -38,28 +44,17 @@ export default function PostSelected({
       descricao === "" ||
       imageUrl === ""
     ) {
-      return alert("Preencha todos os campos!");
+      return toast.error("Preencha todos os campos!");
     }
 
-    setDatabaseState(
-      databaseState.map((p) => {
-        if (p.id === post.id) {
-          return { ...p, titulo, categoria, urgencia, descricao, imageUrl };
-        } else return p;
-      }),
-    );
+    salvar({ titulo, categoria, urgencia, descricao, imageUrl, id: post.id }); // falta o id da ong
+
     setSelectedId(""); //Fechar form após salvar
   }
   function handleEncerrar(e) {
     e.preventDefault();
     if (confirm("Tem certeza que deseja encerrar publicação?")) {
-      setDatabaseState(
-        databaseState.filter((p) => {
-          if (p.id === post.id) {
-            return;
-          } else return p;
-        }),
-      );
+      remover({ id: post.id });
     }
 
     setSelectedId(""); //Fechar form após salvar

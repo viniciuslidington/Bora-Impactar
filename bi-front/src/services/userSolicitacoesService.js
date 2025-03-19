@@ -1,28 +1,28 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "./api.js";
 
-const getPedidos = async () => {
-  const response = await api.get("/pedidos");
+const getSolicitacoes = async () => {
+  const response = await api.get("/Solicitacoes");
   return response.data;
 };
-const postPedidos = async () => {
-  const response = await api.post("/pedidos");
+const postSolicitacoes = async (conteudo) => {
+  const response = await api.post("/Solicitacoes", conteudo);
   return response.data;
 };
-const putPedidos = async () => {
-  const response = await api.put("/pedidos");
+const putSolicitacoes = async (conteudo) => {
+  const response = await api.put("/Solicitacoes", conteudo);
   return response.data;
 };
-const deletePedidos = async () => {
-  const response = await api.delete("/pedidos");
+const deleteSolicitacoes = async (id) => {
+  const response = await api.delete("/Solicitacoes", id);
   return response.data;
 };
 
-const usePedidos = () => {
+const useSolicitacoes = () => {
   const queryClient = useQueryClient();
   return useQuery({
-    queryKey: ["pedidos"],
-    queryFn: getPedidos,
+    queryKey: ["Solicitacoes"],
+    queryFn: getSolicitacoes,
     throwOnError: (error) => {
       // Se receber um erro 401 (não autorizado), define o usuário como não autenticado
       if (error.response && error.response.status === 401) {
@@ -32,10 +32,10 @@ const usePedidos = () => {
   });
 };
 
-const useAddPedidos = () => {
+const useAddSolicitacoes = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: postPedidos,
+    mutationFn: postSolicitacoes,
     throwOnError: (error) => {
       // Se receber um erro 401 (não autorizado), define o usuário como não autenticado
       if (error.response && error.response.status === 401) {
@@ -45,10 +45,10 @@ const useAddPedidos = () => {
   });
 };
 
-const useEditPedidos = () => {
+const useEditSolicitacoes = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: putPedidos,
+    mutationFn: putSolicitacoes,
     throwOnError: (error) => {
       // Se receber um erro 401 (não autorizado), define o usuário como não autenticado
       if (error.response && error.response.status === 401) {
@@ -58,10 +58,10 @@ const useEditPedidos = () => {
   });
 };
 
-const useDelPedidos = () => {
+const useDelSolicitacoes = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: deletePedidos,
+    mutationFn: deleteSolicitacoes,
     throwOnError: (error) => {
       // Se receber um erro 401 (não autorizado), define o usuário como não autenticado
       if (error.response && error.response.status === 401) {
@@ -71,4 +71,9 @@ const useDelPedidos = () => {
   });
 };
 
-export { usePedidos, useAddPedidos, useEditPedidos, useDelPedidos };
+export {
+  useSolicitacoes,
+  useAddSolicitacoes,
+  useEditSolicitacoes,
+  useDelSolicitacoes,
+};

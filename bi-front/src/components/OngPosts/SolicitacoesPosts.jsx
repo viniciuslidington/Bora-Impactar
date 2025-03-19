@@ -1,14 +1,22 @@
 import { useContext, useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import Button from "../Button/Button";
-import postsDatabase1 from "./postsDatabase1";
-import postsDatabase2 from "./postsDatabase2";
 import Post from "./Post";
 import { ModalContext } from "../contexts/ModalContext";
 import { formatarString } from "../../utils/formatString";
 import styles from "./ongPosts.module.css";
+import { useSolicitacoes } from "../../services/userSolicitacoesService";
+import toast from "react-hot-toast";
 
-export default function OngPosts({ tipo }) {
+//Tipos de ordenação dos posts
+const sortFunctions = {
+  data: (a, b) => new Date(b.dataPublicacao) - new Date(a.dataPublicacao),
+  expiracao: (a, b) => new Date(a.dataExpiracao) - new Date(b.dataExpiracao),
+  alfabetica: (a, b) => a.titulo.localeCompare(b.titulo),
+};
+
+export default function OngPosts() {
+  const { data = [], isPending, isError, error } = useSolicitacoes();
+
   const [sortPosts, setSortPosts] = useState("data");
   const [searchPosts, setSearchPosts] = useState("");
   const [postsVisiveis, setPostVisiveis] = useState(8); //Limite de posts visíveis
@@ -16,22 +24,8 @@ export default function OngPosts({ tipo }) {
 
   const { setModalAdicionar, modalAdicionar } = useContext(ModalContext);
 
-  const descricao =
-    tipo === "solicitacao"
-      ? "Encontre oportunidades! Aqui, ONGs publicam solicitações de diversas atividades para os voluntários"
-      : "Dê uma nova utilidade aos itens parados! Nesta seção, ONGs podem doar recursos que não utilizam mais para outras organizações.";
-
-  //Tipos de ordenação dos posts
-  const sortFunctions = {
-    data: (a, b) => new Date(b.dataPublicacao) - new Date(a.dataPublicacao),
-    expiracao: (a, b) => new Date(a.dataExpiracao) - new Date(b.dataExpiracao),
-    alfabetica: (a, b) => a.titulo.localeCompare(b.titulo),
-  };
-
-  const [databaseState, setDatabaseState] = useState([]); //  No futuro o useEffect com a requisição ira reagir o editar sendo confirmado e irá dar setDatabaseState
-
   const sortFunc = sortFunctions[sortPosts]; // Função de ordenação escolhida com base no estado
-  const posts = [...databaseState] //Copia do array do database para não editar o database diretamente
+  const posts = [...data] //Copia do array do database para não editar o database diretamente
     .sort(sortFunc)
     .filter(
       (post) =>
@@ -53,16 +47,26 @@ export default function OngPosts({ tipo }) {
   }
 
   useEffect(() => {
-    tipo === "solicitacao" //Database com base no tipo da sessão (Temporário até o banco de dados ser disponibilizado para utilizarmos requisição http)
-      ? setDatabaseState(postsDatabase1)
-      : setDatabaseState(postsDatabase2);
     setPostVisiveis(8);
     setSelectedId("");
-  }, [tipo, searchPosts, modalAdicionar]); // retornar os postsVisiveis e selectedId ao estado inicial toda vez que trocar entre solicitação e repasse
+  }, [searchPosts, modalAdicionar]); // retornar os postsVisiveis e selectedId ao estado inicial toda vez que trocar entre solicitação e repasse
+
+  useEffect(() => {
+    if (isError) {
+      if (isError === true) {
+        error.response?.status === 401
+          ? toast.error("Realize login novamente!")
+          : toast.error("Erro ao carregar solicitações");
+      }
+    }
+  }, [error, isError]);
 
   return (
     <>
-      <p>{descricao}</p>
+      <p>
+        Encontre oportunidades! Aqui, ONGs publicam solicitações de diversas
+        atividades para os voluntários
+      </p>
       <div className={styles.ongPosts}>
         <Button
           className="flex h-[48px] w-[172px] cursor-pointer items-center justify-center gap-4 rounded-sm border-none bg-[#294bb6] px-2 py-3 text-base font-medium text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
@@ -89,7 +93,18 @@ export default function OngPosts({ tipo }) {
           <img src="/search.svg" alt="pesquisar icone" />
         </div>
         <div className={styles.postsList}>
-          {posts.length > 0 ? (
+          {isPending ? (
+            <div className="flex h-full items-center justify-center">
+              <l-ring-2
+                size="64"
+                stroke="6"
+                stroke-length="0.25"
+                bg-opacity="0.1"
+                speed="0.8"
+                color="#009fe3;"
+              ></l-ring-2>
+            </div>
+          ) : posts.length > 0 ? (
             posts.slice(0, postsVisiveis).map((post) => {
               return (
                 <Post
@@ -98,13 +113,13 @@ export default function OngPosts({ tipo }) {
                   handleEditar={handleEditar}
                   selected={selectedId === post.id ? true : false}
                   setSelectedId={setSelectedId}
-                  setDatabaseState={setDatabaseState} //Enquanto não houver backend
-                  databaseState={databaseState} //Enquanto não houver backend
                 ></Post>
               );
             })
           ) : (
-            <p>Nenhuma publicação encontrada!</p>
+            <div className="flex h-full items-center justify-center">
+              <p>Nenhuma publicação encontrada!</p>
+            </div>
           )}
           <p className={styles.verMais} onClick={handleVerMais}>
             {posts.length > 8 && verMaisTxt}
@@ -114,7 +129,3 @@ export default function OngPosts({ tipo }) {
     </>
   );
 }
-
-OngPosts.propTypes = {
-  tipo: PropTypes.string.isRequired,
-};

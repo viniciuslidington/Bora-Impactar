@@ -13,7 +13,8 @@ import Ong from "./pages/Ong";
 import { ModalProvider } from "./components/contexts/ModalContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import HomeOng from "./pages/HomeOng";
-import OngPosts from "./components/OngPosts/OngPosts";
+import SolicitacoesPosts from "./components/OngPosts/SolicitacoesPosts";
+import RepassePosts from "./components/OngPosts/RepassePosts";
 import Voluntario from "./pages/Voluntario";
 import HomeVoluntario from "./pages/HomeVoluntario";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
@@ -23,7 +24,7 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      {/*<ReactQueryDevtools initialIsOpen={false} />*/}
+      <ReactQueryDevtools initialIsOpen={false} />
       <ModalProvider>
         <Toaster
           toastOptions={{
@@ -50,11 +51,8 @@ function App() {
                   index
                   element={<Navigate replace to={"solicitacoes"} />}
                 />
-                <Route
-                  path="solicitacoes"
-                  element={<OngPosts tipo={"solicitacao"} />}
-                />
-                <Route path="repasse" element={<OngPosts tipo={"repasse"} />} />
+                <Route path="solicitacoes" element={<SolicitacoesPosts />} />
+                <Route path="repasse" element={<RepassePosts />} />
               </Route>
             </Route>
             <Route path="voluntario" element={<Voluntario />}>

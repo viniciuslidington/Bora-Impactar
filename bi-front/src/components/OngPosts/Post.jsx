@@ -4,21 +4,15 @@ import styles from "./post.module.css";
 import PostSelected from "./PostSelected";
 import { formatarData, calcularTempoRestante } from "../../utils/formatDate";
 
-export default function Post({
-  selected,
-  post,
-  handleEditar,
-  setSelectedId,
-  setDatabaseState,
-  databaseState,
-}) {
+export default function Post({ selected, post, handleEditar, setSelectedId }) {
   const dataPublicacao = new Date(post.dataPublicacao);
   const dataExpiracao = new Date(post.dataExpiracao);
 
   const publicacaoFormatada = formatarData(dataPublicacao);
   const expiracaoFormatada = calcularTempoRestante(dataExpiracao);
 
-  const postExpirado = expiracaoFormatada === "Post Expirado!" ? true : false;
+  const postExpirado =
+    expiracaoFormatada === "Postagem Expirada" ? true : false;
 
   return selected ? (
     <PostSelected
@@ -26,8 +20,6 @@ export default function Post({
       expiracaoFormatada={expiracaoFormatada}
       setSelectedId={setSelectedId}
       post={post}
-      setDatabaseState={setDatabaseState}
-      databaseState={databaseState}
     />
   ) : (
     <div
@@ -57,6 +49,4 @@ Post.propTypes = {
   post: PropTypes.object.isRequired,
   handleEditar: PropTypes.func.isRequired,
   setSelectedId: PropTypes.node.isRequired,
-  databaseState: PropTypes.array.isRequired,
-  setDatabaseState: PropTypes.func.isRequired,
 };
