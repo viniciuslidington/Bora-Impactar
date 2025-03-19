@@ -1,35 +1,37 @@
 import { useContext, useEffect, useState } from "react";
 import Button from "../Button/Button";
-import Post from "./Post";
+import Post from "./RepassePost";
 import { ModalContext } from "../contexts/ModalContext";
 import { formatarString } from "../../utils/formatString";
 import styles from "./ongPosts.module.css";
-import { useSolicitacoes } from "../../services/userSolicitacoesService";
-import toast from "react-hot-toast";
+import { handleError, useRepasse } from "../../services/userRepasseService";
+import { useQueryClient } from "@tanstack/react-query";
 
 //Tipos de ordenação dos posts
 const sortFunctions = {
-  data: (a, b) => new Date(b.dataPublicacao) - new Date(a.dataPublicacao),
+  data: (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
   expiracao: (a, b) => new Date(a.dataExpiracao) - new Date(b.dataExpiracao),
-  alfabetica: (a, b) => a.titulo.localeCompare(b.titulo),
+  alfabetica: (a, b) => a.title.localeCompare(b.title),
 };
 
 export default function OngPosts() {
-  const { data = [], isPending, isError, error } = useSolicitacoes();
+  const { data = [], isPending, isError, error } = useRepasse();
+  const queryClient = useQueryClient();
 
   const [sortPosts, setSortPosts] = useState("data");
   const [searchPosts, setSearchPosts] = useState("");
   const [postsVisiveis, setPostVisiveis] = useState(8); //Limite de posts visíveis
   const [selectedId, setSelectedId] = useState("");
 
-  const { setModalAdicionar, modalAdicionar } = useContext(ModalContext);
+  const { setModalAdicionarRepasse, modalAdicionarRepasse } =
+    useContext(ModalContext);
 
   const sortFunc = sortFunctions[sortPosts]; // Função de ordenação escolhida com base no estado
   const posts = [...data] //Copia do array do database para não editar o database diretamente
     .sort(sortFunc)
     .filter(
       (post) =>
-        formatarString(post.titulo).startsWith(formatarString(searchPosts)), //startwith para a barra de pesquisa procurar os primeiros caracteres
+        formatarString(post.title).startsWith(formatarString(searchPosts)), //startwith para a barra de pesquisa procurar os primeiros caracteres
     ); //Limitar quantidade de posts visíveis
 
   const verMaisTxt = postsVisiveis >= posts.length ? "Ver Menos" : "Ver Mais";
@@ -49,28 +51,24 @@ export default function OngPosts() {
   useEffect(() => {
     setPostVisiveis(8);
     setSelectedId("");
-  }, [searchPosts, modalAdicionar]); // retornar os postsVisiveis e selectedId ao estado inicial toda vez que trocar entre solicitação e repasse
+  }, [searchPosts, modalAdicionarRepasse]); // retornar os postsVisiveis e selectedId ao estado inicial toda vez que trocar entre solicitação e repasse
 
   useEffect(() => {
     if (isError) {
-      if (isError === true) {
-        error.response?.status === 401
-          ? toast.error("Realize login novamente!")
-          : toast.error("Erro ao carregar solicitações");
-      }
+      handleError(error, queryClient); // Usando a função utilitária para lidar com erros
     }
-  }, [error, isError]);
+  }, [isError, error, queryClient]);
 
   return (
     <>
       <p>
-        Encontre oportunidades! Aqui, ONGs publicam solicitações de diversas
-        atividades para os voluntários
+        Dê uma nova utilidade aos itens parados! Nesta seção, ONGs podem doar
+        recursos que não utilizam mais para outras organizações.
       </p>
       <div className={styles.ongPosts}>
         <Button
           className="flex h-[48px] w-[172px] cursor-pointer items-center justify-center gap-4 rounded-sm border-none bg-[#294bb6] px-2 py-3 text-base font-medium text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
-          onClick={() => setModalAdicionar(true)}
+          onClick={() => setModalAdicionarRepasse(true)}
         >
           Adicionar <span className={styles.plusIcon}>+</span>
         </Button>

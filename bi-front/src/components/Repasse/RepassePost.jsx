@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import Button from "../Button/Button";
 import styles from "./post.module.css";
-import PostSelected from "./PostSelected";
+import PostSelected from "./RepasseEditar";
 import { formatarData, calcularTempoRestante } from "../../utils/formatDate";
 
 export default function Post({ selected, post, handleEditar, setSelectedId }) {
-  const dataPublicacao = new Date(post.dataPublicacao);
+  const dataPublicacao = new Date(post.createdAt);
   const dataExpiracao = new Date(post.dataExpiracao);
 
   const publicacaoFormatada = formatarData(dataPublicacao);
@@ -27,7 +27,7 @@ export default function Post({ selected, post, handleEditar, setSelectedId }) {
       style={postExpirado ? { pointerEvents: "none", opacity: 0.5 } : null}
     >
       <img src="/placeholder-image.jpg" alt="Imagem do Post" />
-      <p className={styles.title}>{post.titulo}</p>
+      <p className={styles.title}>{post.title}</p>
       <span>|</span>
       <p className={styles.dataPublicado}>Publicado: {publicacaoFormatada}</p>
       <span>|</span>

@@ -3,8 +3,13 @@ import toast from "react-hot-toast";
 import { ModalContext } from "../contexts/ModalContext";
 import Button from "../Button/Button";
 import styles from "./modalAdicionar.module.css";
+import { useAddSolicitacoes } from "../../services/userSolicitacoesService";
+import { useUserData } from "../../services/authService";
 
 export default function ModaAdicionar() {
+  const { mutate: adicionar } = useAddSolicitacoes();
+  const { data } = useUserData();
+
   const initialState = {
     titulo: "",
     categoria: "",
@@ -14,7 +19,7 @@ export default function ModaAdicionar() {
     imageUrl: "/placeholder-image.jpg",
   };
 
-  const { setModalAdicionar } = useContext(ModalContext);
+  const { setModalAdicionarSolicitacao } = useContext(ModalContext);
   const modalOverlay = useRef();
 
   const [
@@ -32,15 +37,22 @@ export default function ModaAdicionar() {
     ) {
       return toast.error("Preencha todos os campos!");
     }
-    console.log({ titulo, categoria, urgencia, descricao, tempo, imageUrl });
-    setModalAdicionar(false);
+    adicionar({
+      title: titulo,
+      category: categoria,
+      urgency: urgencia,
+      description: descricao,
+      ong_Id: data?.userData.ngo.id,
+    });
+    setModalAdicionarSolicitacao(false);
   }
 
   return (
     <div
       className={styles.modalOverlay}
       onClick={(e) => {
-        modalOverlay.current === e.target && setModalAdicionar(false);
+        modalOverlay.current === e.target &&
+          setModalAdicionarSolicitacao(false);
       }}
       ref={modalOverlay}
     >
@@ -49,7 +61,7 @@ export default function ModaAdicionar() {
           <img
             src="/x.svg"
             alt="fechar"
-            onClick={() => setModalAdicionar(false)}
+            onClick={() => setModalAdicionarSolicitacao(false)}
           />
         </span>
         <label htmlFor="fileInputAdd" className={styles.imageContent}>
@@ -82,28 +94,37 @@ export default function ModaAdicionar() {
           <label htmlFor="categoria" className={styles.label}>
             <p>Categoria</p>
             <select
-              name="Select"
-              id="categoria"
+              name="editSelect"
+              id="categoriaSelected"
               value={categoria}
               onChange={(e) =>
-                dispatch({ type: "categoria", payload: e.target.value })
+                dispatch({ type: "categoria", payload: `${e.target.value}` })
               }
             >
-              <option value="" disabled={true} selected={true}>
-                Escolha uma Categoria
+              <option value="" disabled={true}>
+                Alimentos
               </option>
-              <option value="alimentos">Alimentos</option>
-              <option value="kit_de_casa">Kit de casa</option>
-              <option value="saude_e_higiene">Saúde e higiene</option>
-              <option value="brinquedos_e_livros">Brinquedos e livros</option>
-              <option value="moveis">Móveis</option>
-              <option value="utensilios">Utensílios</option>
-              <option value="itens_para_pets">Itens para pets</option>
-              <option value="servicos">Serviços</option>
-              <option value="eletrodomesticos">Eletrodomésticos</option>
-              <option value="roupas">Roupas</option>
-              <option value="ajuda_financeira">Ajuda Financeira</option>
-              <option value="geral">Outra opção</option>
+              <option value="" disabled={true}>
+                Kit de casa
+              </option>
+              <option value="MEDICAMENTOS_HIGIENE">Saúde e higiene</option>
+              <option value="BRINQUEDOS_LIVROS">Brinquedos e livros</option>
+              <option value="MOVEIS">Móveis</option>
+              <option value="UTENSILIOS">Utensílios gerais</option>
+              <option value="ITEMPET">Itens para pets</option>
+              <option value="" disabled={true}>
+                Serviços
+              </option>
+              <option value="" disabled={true}>
+                Eletrodomésticos e móveis
+              </option>
+              <option value="" disabled={true}>
+                Roupas e calçados
+              </option>
+              <option value="" disabled={true}>
+                Ajuda Financeira
+              </option>
+              <option value="OUTRA">Outra opção</option>
             </select>
           </label>
           <div className={styles.radioDiv} style={{ zIndex: 15 }}>
@@ -113,8 +134,8 @@ export default function ModaAdicionar() {
                 type="radio"
                 name="urgencia"
                 className={styles.urgencia}
-                value="alta"
-                checked={urgencia === "alta"}
+                value="HIGH"
+                checked={urgencia === "HIGH"}
                 onChange={(e) =>
                   dispatch({ type: "urgencia", payload: e.target.value })
                 }
@@ -124,8 +145,8 @@ export default function ModaAdicionar() {
                 type="radio"
                 name="urgencia"
                 className={styles.urgencia}
-                value="media"
-                checked={urgencia === "media"}
+                value="MEDIUM"
+                checked={urgencia === "MEDIUM"}
                 onChange={(e) =>
                   dispatch({ type: "urgencia", payload: e.target.value })
                 }
@@ -135,8 +156,8 @@ export default function ModaAdicionar() {
                 type="radio"
                 name="urgencia"
                 className={styles.urgencia}
-                value="baixa"
-                checked={urgencia === "baixa"}
+                value="LOW"
+                checked={urgencia === "LOW"}
                 onChange={(e) =>
                   dispatch({ type: "urgencia", payload: e.target.value })
                 }

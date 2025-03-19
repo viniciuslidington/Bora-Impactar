@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "./api.js";
+import toast from "react-hot-toast";
 
 //Requisições
 
@@ -23,6 +24,19 @@ const useLogin = () => {
   return useMutation({
     mutationFn: fetchLogin,
     onSuccess: () => queryClient.invalidateQueries(["user"]),
+    onError: (error) => {
+      // Verifica se o erro possui uma resposta e um código de status 401
+      if (error.response && error.response.status === 401) {
+        queryClient.setQueryData(["user"], null);
+        toast.error("Email ou senha incorretos. Tente novamente.");
+      } else {
+        // Para outros erros, exibe uma mensagem de erro geral
+        toast.error(
+          error?.response?.data?.message ||
+            "Erro ao conectar com servidor. Tente novamente.",
+        );
+      }
+    },
   });
 };
 const useLogout = () => {
@@ -42,11 +56,9 @@ const useUserData = () => {
     queryFn: fetchUserData,
     staleTime: 1000 * 60 * 10,
     retry: false,
-    throwOnError: (error) => {
+    throwOnError: () => {
       // Se receber um erro 401 (não autorizado), define o usuário como não autenticado
-      if (error.response && error.response.status === 401) {
-        queryClient.setQueryData(["user"], null);
-      }
+      queryClient.setQueryData(["user"], null);
     },
   });
 };

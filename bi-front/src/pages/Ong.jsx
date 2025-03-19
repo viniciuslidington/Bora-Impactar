@@ -5,12 +5,14 @@ import Header from "../components/Header/header";
 import Footer from "../components/Footer/Footer";
 import Profile from "../components/Profile/Profile";
 import SearchBar from "../components/SearchBar/SearchBar";
-import ModalAdicionar from "../components/ModalAdicionar/ModalAdicionar";
+import ModalAdicionarSol from "../components/ModalAdicionar/ModalAdicionarSolicitacao";
+import ModalAdicionarRep from "../components/ModalAdicionar/ModalAdicionarRepasse";
 import { useUserData } from "../services/authService";
 import "ldrs/ring2";
 
 export default function Ong() {
-  const { modalAdicionar } = useContext(ModalContext);
+  const { modalAdicionarSolicitacao, modalAdicionarRepasse } =
+    useContext(ModalContext);
   const { isPending } = useUserData();
 
   return (
@@ -49,7 +51,8 @@ export default function Ong() {
         <Outlet />
       )}
       <Footer />
-      {modalAdicionar && <ModalAdicionar />}
+      {modalAdicionarSolicitacao && <ModalAdicionarSol />}
+      {modalAdicionarRepasse && <ModalAdicionarRep />}
     </div>
   );
 }
