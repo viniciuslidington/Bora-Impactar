@@ -1,4 +1,4 @@
-.gridBox {
+/*.gridBox {
   flex: 1 1 calc(33.333% - 32px);
   color: white;
   display: flex;
@@ -11,4 +11,4 @@
 }
 .gridBox:hover {
   transform: scale(1.02);
-}
+} */
