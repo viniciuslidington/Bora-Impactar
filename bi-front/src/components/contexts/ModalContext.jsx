@@ -4,10 +4,19 @@ import PropTypes from "prop-types";
 const ModalContext = createContext();
 
 function ModalProvider({ children }) {
-  const [modalAdicionar, setModalAdicionar] = useState(false);
+  const [modalAdicionarSolicitacao, setModalAdicionarSolicitacao] =
+    useState(false);
+  const [modalAdicionarRepasse, setModalAdicionarRepasse] = useState(false);
 
   return (
-    <ModalContext.Provider value={{ modalAdicionar, setModalAdicionar }}>
+    <ModalContext.Provider
+      value={{
+        modalAdicionarSolicitacao,
+        setModalAdicionarSolicitacao,
+        modalAdicionarRepasse,
+        setModalAdicionarRepasse,
+      }}
+    >
       {children}
     </ModalContext.Provider>
   );

@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "./api.js";
+import toast from "react-hot-toast";
 
 //Requisições
 
@@ -8,14 +9,8 @@ const fetchLogin = async (credentials) => {
   return response.data;
 };
 const fetchLogout = async () => {
-  try {
-    const response = await api.post("/logout");
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      `Logout failed: ${error.response?.status || error.message}`
-    );
-  }
+  const response = await api.post("/logout");
+  return response.data;
 };
 const fetchUserData = async () => {
   const response = await api.get("auth");
@@ -29,13 +24,26 @@ const useLogin = () => {
   return useMutation({
     mutationFn: fetchLogin,
     onSuccess: () => queryClient.invalidateQueries(["user"]),
+    onError: (error) => {
+      // Verifica se o erro possui uma resposta e um código de status 401
+      if (error.response && error.response.status === 401) {
+        queryClient.setQueryData(["user"], null);
+        toast.error("Email ou senha incorretos. Tente novamente.");
+      } else {
+        // Para outros erros, exibe uma mensagem de erro geral
+        toast.error(
+          error?.response?.data?.message ||
+            "Erro ao conectar com servidor. Tente novamente.",
+        );
+      }
+    },
   });
 };
 const useLogout = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: fetchLogout,
-    onSuccess: () => {
+    onSettled: () => {
       queryClient.setQueryData(["user"], null);
     },
   });
@@ -48,11 +56,9 @@ const useUserData = () => {
     queryFn: fetchUserData,
     staleTime: 1000 * 60 * 10,
     retry: false,
-    throwOnError: (error) => {
+    throwOnError: () => {
       // Se receber um erro 401 (não autorizado), define o usuário como não autenticado
-      if (error.response && error.response.status === 401) {
-        queryClient.setQueryData(["user"], null);
-      }
+      queryClient.setQueryData(["user"], null);
     },
   });
 };

@@ -1,8 +1,11 @@
 import PropTypes from "prop-types";
-import styles from "./grid.module.css";
 
 export default function Grid({ children }) {
-  return <div className={styles.grid}>{children}</div>;
+  return (
+    <div className={`flex w-[928px] max-w-full flex-wrap gap-8`}>
+      {children}
+    </div>
+  );
 }
 
 Grid.propTypes = {
