@@ -63,7 +63,7 @@ export default function MainPage() {
         <div className="mt-16 flex w-full flex-nowrap justify-center gap-8 self-center">
           <div className="flex h-[116px] flex-1 flex-col items-center justify-center rounded-sm bg-[#009fe3] shadow-md">
             <span className="text-4xl font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
-              Doar:
+              Doar
             </span>
             <p className="w-auto text-[20px] font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
               Doe e transforme vidas.
@@ -71,7 +71,7 @@ export default function MainPage() {
           </div>
           <div className="flex h-[116px] flex-1 flex-col items-center justify-center rounded-sm bg-[#009fe3] shadow-md">
             <span className="text-4xl font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
-              Pedir:
+              Pedir
             </span>
             <p className="w-auto text-[20px] font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
               ONGs pedem, a ajuda vem.
@@ -79,10 +79,10 @@ export default function MainPage() {
           </div>
           <div className="flex h-[116px] flex-1 flex-col items-center justify-center rounded-sm bg-[#009fe3] shadow-md">
             <span className="text-4xl font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
-              Repassar:
+              Repassar
             </span>
             <p className="w-auto text-[20px] font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
-              ONGs compartilham com ONGs.
+              ONGs compartilham entre ONGs.
             </p>
           </div>
         </div>
