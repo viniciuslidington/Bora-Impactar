@@ -4,7 +4,6 @@ import { useSolicitacoes } from "../services/userSolicitacoesService";
 
 export default function SearchVol() {
   const { data, isPending } = useSolicitacoes();
-  console.log(data);
   return (
     <div className="flex w-[1366px] gap-16 px-[123px] py-16">
       <div className="flex min-w-max flex-col gap-8">
