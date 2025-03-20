@@ -23,6 +23,7 @@
 .modalContent .imageContent {
   position: relative;
   height: 346px;
+  width: 700px;
   cursor: pointer;
 }
 
@@ -33,6 +34,8 @@
   border-radius: 4px;
   object-fit: cover;
   object-position: center;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 .modalContent .adicionarIcon {
   position: absolute;
@@ -126,7 +129,7 @@
 
 .label textarea {
   resize: none;
-  width: 100%;
+  width: auto;
   border: none;
   border-radius: 4px;
   background-color: #eaeaea;

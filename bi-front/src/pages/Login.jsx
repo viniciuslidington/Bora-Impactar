@@ -4,6 +4,7 @@ import Logo from "../components/Logo/logo";
 import Button from "../components/Button/Button";
 import { useEffect, useState } from "react";
 import { useLogin, useUserData } from "../services/authService";
+import { Toaster } from "react-hot-toast";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ export default function Login() {
   const from = location.state?.from || "/ong/home/solicitacoes"; // Redireciona para a página principal se não vier de uma rota protegida
 
   const { data } = useUserData();
-  const { mutate: login, isPending, isError, error } = useLogin();
+  const { mutate: login, isPending } = useLogin();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,14 +32,6 @@ export default function Login() {
     };
   }, [data]);
 
-  useEffect(() => {
-    if (isError === true) {
-      error.response.status === 401
-        ? toast.error("Email ou senha incorretos.")
-        : toast.error("Erro ao tentar fazer login.");
-    }
-  }, [isError, error]);
-
   function handleSubmit() {
     if (email === "" || password === "") {
       return toast.error("Preencha os campos corretamente.");
@@ -53,6 +46,12 @@ export default function Login() {
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center gap-4 bg-[#a8dff7]">
+      <Toaster
+        toastOptions={{
+          style: { borderRadius: "4px" },
+          position: "top-right",
+        }}
+      />
       <Link to={"/"}>
         <img src="./BoraImpactar.png" alt="BoraImpactarLogo" className="w-64" />
       </Link>

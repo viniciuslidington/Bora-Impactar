@@ -1,0 +1,129 @@
+import { useContext, useEffect, useState } from "react";
+import Button from "../Button/Button";
+import Post from "./RepassePost";
+import { ModalContext } from "../contexts/ModalContext";
+import { formatarString } from "../../utils/formatString";
+import styles from "./ongPosts.module.css";
+import { handleError, useRepasse } from "../../services/userRepasseService";
+import { useQueryClient } from "@tanstack/react-query";
+
+//Tipos de ordenação dos posts
+const sortFunctions = {
+  data: (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+  expiracao: (a, b) => new Date(a.dataExpiracao) - new Date(b.dataExpiracao),
+  alfabetica: (a, b) => a.title.localeCompare(b.title),
+};
+
+export default function OngPosts() {
+  const { data = [], isPending, isError, error } = useRepasse();
+  const queryClient = useQueryClient();
+
+  const [sortPosts, setSortPosts] = useState("data");
+  const [searchPosts, setSearchPosts] = useState("");
+  const [postsVisiveis, setPostVisiveis] = useState(8); //Limite de posts visíveis
+  const [selectedId, setSelectedId] = useState("");
+
+  const { setModalAdicionarRepasse, modalAdicionarRepasse } =
+    useContext(ModalContext);
+
+  const sortFunc = sortFunctions[sortPosts]; // Função de ordenação escolhida com base no estado
+  const posts = [...data] //Copia do array do database para não editar o database diretamente
+    .sort(sortFunc)
+    .filter(
+      (post) =>
+        formatarString(post.title).startsWith(formatarString(searchPosts)), //startwith para a barra de pesquisa procurar os primeiros caracteres
+    ); //Limitar quantidade de posts visíveis
+
+  const verMaisTxt = postsVisiveis >= posts.length ? "Ver Menos" : "Ver Mais";
+
+  function handleVerMais() {
+    if (postsVisiveis >= posts.length) {
+      setPostVisiveis(8); //Ver menos
+    } else {
+      setPostVisiveis((prev) => Math.min(prev + 8, posts.length)); //Ver mais
+    }
+  }
+
+  function handleEditar(id) {
+    setSelectedId(id);
+  }
+
+  useEffect(() => {
+    setPostVisiveis(8);
+    setSelectedId("");
+  }, [searchPosts, modalAdicionarRepasse]); // retornar os postsVisiveis e selectedId ao estado inicial toda vez que trocar entre solicitação e repasse
+
+  useEffect(() => {
+    if (isError) {
+      handleError(error, queryClient); // Usando a função utilitária para lidar com erros
+    }
+  }, [isError, error, queryClient]);
+
+  return (
+    <>
+      <p>
+        Dê uma nova utilidade aos itens parados! Nesta seção, ONGs podem doar
+        recursos que não utilizam mais para outras organizações.
+      </p>
+      <div className={styles.ongPosts}>
+        <Button
+          className="flex h-[48px] w-[172px] cursor-pointer items-center justify-center gap-4 rounded-sm border-none bg-[#294bb6] px-2 py-3 text-base font-medium text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
+          onClick={() => setModalAdicionarRepasse(true)}
+        >
+          Adicionar <span className={styles.plusIcon}>+</span>
+        </Button>
+        <select
+          name="sortPosts"
+          value={sortPosts}
+          onChange={(e) => setSortPosts(e.target.value)} //Adicionar tipo no futuro
+        >
+          <option value="data">Data de Publicação</option>
+          <option value="expiracao">Prestes a Expirar</option>
+          <option value="alfabetica">Ordem Alfabética</option>
+        </select>
+        <div className={styles.input}>
+          <input
+            type="text"
+            value={searchPosts}
+            onChange={(e) => setSearchPosts(e.target.value)}
+            placeholder="Pesquisar Publicação"
+          />
+          <img src="/search.svg" alt="pesquisar icone" />
+        </div>
+        <div className={styles.postsList}>
+          {isPending ? (
+            <div className="flex h-full items-center justify-center">
+              <l-ring-2
+                size="64"
+                stroke="6"
+                stroke-length="0.25"
+                bg-opacity="0.1"
+                speed="0.8"
+                color="#009fe3;"
+              ></l-ring-2>
+            </div>
+          ) : posts.length > 0 ? (
+            posts.slice(0, postsVisiveis).map((post) => {
+              return (
+                <Post
+                  key={post.id}
+                  post={post}
+                  handleEditar={handleEditar}
+                  selected={selectedId === post.id ? true : false}
+                  setSelectedId={setSelectedId}
+                ></Post>
+              );
+            })
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <p>Nenhuma publicação encontrada!</p>
+            </div>
+          )}
+          <p className={styles.verMais} onClick={handleVerMais}>
+            {posts.length > 8 && verMaisTxt}
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}

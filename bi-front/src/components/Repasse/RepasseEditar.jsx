@@ -2,20 +2,30 @@ import { useReducer } from "react";
 import styles from "./post.module.css";
 import Button from "../Button/Button";
 import PropTypes from "prop-types";
+import toast from "react-hot-toast";
+import {
+  useDelRepasse,
+  useEditRepasse,
+} from "../../services/userRepasseService";
+import { useUserData } from "../../services/authService";
 
 export default function PostSelected({
   publicacaoFormatada,
   expiracaoFormatada,
   setSelectedId,
   post,
-  setDatabaseState,
-  databaseState,
 }) {
+  const { mutate: salvar } = useEditRepasse();
+  const { mutate: remover } = useDelRepasse();
+  const { data } = useUserData();
+
+  const ong_Id = data?.userData.ngo.id;
+
   const initialState = {
-    titulo: post.titulo,
-    categoria: post.categoria,
-    urgencia: post.urgencia,
-    descricao: post.descricao,
+    titulo: post.title,
+    categoria: post.category,
+    urgencia: post.urgency,
+    descricao: post.description,
     imageUrl: post.imageUrl,
   };
 
@@ -38,28 +48,24 @@ export default function PostSelected({
       descricao === "" ||
       imageUrl === ""
     ) {
-      return alert("Preencha todos os campos!");
+      return toast.error("Preencha todos os campos!");
     }
 
-    setDatabaseState(
-      databaseState.map((p) => {
-        if (p.id === post.id) {
-          return { ...p, titulo, categoria, urgencia, descricao, imageUrl };
-        } else return p;
-      }),
-    );
+    salvar({
+      title: titulo,
+      category: categoria,
+      urgency: urgencia,
+      description: descricao,
+      ong_Id: ong_Id,
+      id: post.id,
+    });
+
     setSelectedId(""); //Fechar form após salvar
   }
   function handleEncerrar(e) {
     e.preventDefault();
     if (confirm("Tem certeza que deseja encerrar publicação?")) {
-      setDatabaseState(
-        databaseState.filter((p) => {
-          if (p.id === post.id) {
-            return;
-          } else return p;
-        }),
-      );
+      remover(post.id);
     }
 
     setSelectedId(""); //Fechar form após salvar
@@ -111,18 +117,30 @@ export default function PostSelected({
               dispatch({ type: "categoria", payload: `${e.target.value}` })
             }
           >
-            <option value="alimentos">Alimentos</option>
-            <option value="kit_de_casa">Kit de casa</option>
-            <option value="saude_e_higiene">Saúde e higiene</option>
-            <option value="brinquedos_e_livros">Brinquedos e livros</option>
-            <option value="moveis">Móveis</option>
-            <option value="utensilios">Utensílios</option>
-            <option value="itens_para_pets">Itens para pets</option>
-            <option value="servicos">Serviços</option>
-            <option value="eletrodomesticos">Eletrodomésticos</option>
-            <option value="roupas">Roupas</option>
-            <option value="ajuda_financeira">Ajuda Financeira</option>
-            <option value="geral">Outra opção</option>
+            <option value="" disabled={true}>
+              Alimentos
+            </option>
+            <option value="" disabled={true}>
+              Kit de casa
+            </option>
+            <option value="MEDICAMENTOS_HIGIENE">Saúde e higiene</option>
+            <option value="BRINQUEDOS_LIVROS">Brinquedos e livros</option>
+            <option value="MOVEIS">Móveis</option>
+            <option value="UTENSILIOS">Utensílios gerais</option>
+            <option value="ITEMPET">Itens para pets</option>
+            <option value="" disabled={true}>
+              Serviços
+            </option>
+            <option value="" disabled={true}>
+              Eletrodomésticos e móveis
+            </option>
+            <option value="" disabled={true}>
+              Roupas e calçados
+            </option>
+            <option value="" disabled={true}>
+              Ajuda Financeira
+            </option>
+            <option value="OUTRA">Outra opção</option>
           </select>
         </label>
         <label className={styles.labelSelected}>
@@ -132,8 +150,8 @@ export default function PostSelected({
               type="radio"
               name="urgenciaSelected"
               className={styles.urgenciaSelected}
-              value="alta"
-              checked={urgencia === "alta"}
+              value="HIGH"
+              checked={urgencia === "HIGH"}
               onChange={(e) =>
                 dispatch({ type: "urgencia", payload: e.target.value })
               }
@@ -143,8 +161,8 @@ export default function PostSelected({
               type="radio"
               name="urgenciaSelected"
               className={styles.urgenciaSelected}
-              value="media"
-              checked={urgencia === "media"}
+              value="MEDIUM"
+              checked={urgencia === "MEDIUM"}
               onChange={(e) =>
                 dispatch({ type: "urgencia", payload: e.target.value })
               }
@@ -154,8 +172,8 @@ export default function PostSelected({
               type="radio"
               name="urgenciaSelected"
               className={styles.urgenciaSelected}
-              value="baixa"
-              checked={urgencia === "baixa"}
+              value="LOW"
+              checked={urgencia === "LOW"}
               onChange={(e) =>
                 dispatch({ type: "urgencia", payload: e.target.value })
               }
@@ -169,7 +187,7 @@ export default function PostSelected({
             className="flex h-[38px] w-[179px] cursor-pointer items-center justify-center rounded-sm border-[2.5px] border-solid border-[#f37171] bg-none px-2 py-3 text-base font-medium text-[#f37171] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#f38e8e2d] disabled:opacity-70"
             onClick={(e) => handleEncerrar(e)}
           >
-            Encerrar Solicitação
+            Encerrar Repasse
           </Button>
         </div>
       </div>
