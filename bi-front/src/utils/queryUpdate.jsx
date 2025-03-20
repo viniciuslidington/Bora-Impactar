@@ -14,10 +14,17 @@ const useQueryUpdate = () => {
       updatedParams.delete(key); // Remove se o valor for vazio
     }
 
-    if (location.pathname !== "/voluntario/search") {
+    if (
+      location.pathname.includes("/voluntario") &&
+      location.pathname !== "/voluntario/search"
+    ) {
+      console.log(location.pathname);
       return navigate(`/voluntario/search?${updatedParams.toString()}`);
     }
-    if (location.pathname !== "/ong/search") {
+    if (
+      location.pathname.includes("/ong") &&
+      location.pathname !== "/ong/search"
+    ) {
       return navigate(`/ong/search?${updatedParams.toString()}`);
     }
     setSearchParams(updatedParams); // Atualiza a URL
