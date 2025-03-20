@@ -1,7 +1,7 @@
 ### Testes para a API de `request`
 
 # Buscar requests com filtro de categoria
-GET http://localhost:3001/solicitacao?ong_Id=3
+GET http://localhost:3001/solicitacao?ong_Id=21
 
 ###
 # Buscar solicitacoes com filtro
@@ -12,24 +12,25 @@ POST http://localhost:3001/solicitacao
 Content-Type: application/json
 
 {
-    "title": "Meias",
+    "title": "QUADRO2",
     "category": "UTENSILIOS",
     "urgency": "HIGH",
-    "ong_Id": 3
+    "ong_Id": 3,
+    "expirationDuration": "2 semanas"
 }
 
 ###
 # Atualizar um request existente
-PUT http://localhost:3001/solicitacao
+PUT http://localhost:3001/solicitacao?id=9
 Content-Type: application/json
 
 {
-    "id": 3,
-    "title": "Boneca",
-    "category": "MANGA",
-    "urgency": "MEDIUM",
+    "title": "QUARO2UPDATED",
+    "category": "UTENSILIOS",
+    "urgency": "HIGH",
     "quantity": 5,
-    "ong_Id": 3
+    "ong_Id": 3,
+    "expirationDuration": "4 semanas"
 }
 
 ###
