@@ -1,10 +1,9 @@
 import PropTypes from "prop-types";
-import styles from "./gridBox.module.css";
 
 export default function GridBox({ children, imgUrl }) {
   return (
     <div
-      className={styles.gridBox}
+      className={`flex h-[160px] flex-1 basis-[calc(33.333%-32px)] cursor-pointer items-center justify-center gap-8 rounded-sm text-white transition duration-200 ease-in-out hover:scale-[1.02] lg:h-[200px] bg-[url(${imgUrl})]`}
       style={{ backgroundImage: `url(${imgUrl})` }}
     >
       {children}
@@ -14,5 +13,6 @@ export default function GridBox({ children, imgUrl }) {
 
 GridBox.propTypes = {
   children: PropTypes.string.isRequired,
-  imgUrl: PropTypes.node,
+  imgUrl: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };

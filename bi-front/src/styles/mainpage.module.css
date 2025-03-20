@@ -1,3 +1,4 @@
+/*
 .fundo {
   position: absolute;
   width: 100%;
@@ -17,14 +18,14 @@
 
   z-index: -1;
 }
-
+/*
 .mainPage {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
+} */
+/*
 .heroSection {
   display: flex;
   justify-content: center;
@@ -33,27 +34,27 @@
   max-width: 100%;
   padding: 40px 123px;
   gap: 32px;
-}
-
+} */
+/*
 .heroSection img {
   width: 351px;
   margin-bottom: -16px;
-}
+} */ /*
 .heroSection h1 {
   font-size: 56px;
   font-weight: 700;
-}
+} */ /*
 .heroSection p {
   width: 816px;
   max-width: 100%;
   line-height: 1.8;
-}
-
+} */
+/*
 .buttonGroup {
   display: flex;
   gap: 32px;
-}
-
+} */
+/*
 .customClass1 {
   width: 256px;
   height: 80px;
@@ -72,7 +73,7 @@
 .customClass2:hover {
   background-color: #4eb3df13;
 }
-
+/*
 .dadosGrid {
   margin-top: 64px;
   display: flex;
@@ -81,8 +82,8 @@
   align-self: center;
   width: 100%;
   flex-wrap: nowrap;
-}
-
+} */
+/*
 .dados {
   flex: 1;
   display: flex;
@@ -92,34 +93,34 @@
   height: 116px;
   background-color: #009fe3;
   border-radius: 4px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); //coloquei somente shadow-md
+} */ /*
 .dados span {
   font-size: 36px;
   font-weight: 700;
   color: white;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); //tive que tirar o shadow pq tava esqusito
+} */ /*
 .dados p {
   width: auto;
   font-size: 20px;
   font-weight: 700;
   color: white;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); //tive que tirar o shadow pq tava esqusito
+} */
+/*
 .causasSection {
   padding: 40px 123px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 32px;
-}
+} */ /*
 .causasSection h2 {
   font-size: 48px;
   font-weight: 500;
-}
-
+} */
+/*
 .customClass3 {
   width: 256px;
   height: 64px;
@@ -132,7 +133,7 @@
 .customClass3:hover {
   background-color: rgba(27, 46, 53, 0.075);
 }
-
+/*
 .aboutSection {
   margin-top: 40px;
   height: 460px;
@@ -140,7 +141,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-}
+} */ /*
 .aboutContainer {
   width: 1366px;
   padding: 40px 123px;
@@ -149,15 +150,16 @@
   align-items: center;
   justify-content: center;
   gap: 40px;
-}
+} */ /*
 .aboutContainer h2 {
   font-size: 48px;
   font-weight: 500;
-}
+} */ /*
 .aboutContentGrid {
   display: flex;
   gap: 48px;
-}
+} */
+
 .aboutContent {
   display: flex;
   flex-direction: column;
