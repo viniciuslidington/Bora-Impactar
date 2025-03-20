@@ -1,11 +1,8 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import cors from "cors";
 
 const prisma = new PrismaClient();
-const app = express();
-app.use(express.json());
-app.use(cors());
+const router = express.Router(); // Usando Router ao invés de app
 
 // Definindo os esquemas de validação
 const listOfCategory = ["ALIMENTO", "SERVICOS", "UTENSILIOS", "MEDICAMENTOS_HIGIENE", "BRINQUEDOS_LIVROS", "MOVEIS", "ITEMPET", "AJUDAFINANCEIRA", "OUTRA"];
@@ -42,7 +39,7 @@ const validateRequest = (data) => {
 };
 
 // Criar um request
-app.post("/request", async (req, res) => {
+router.post("/request", async (req, res) => {
     const validationError = validateRequest(req.body);
     if (validationError) {
         return res.status(400).json({ error: validationError });
@@ -58,11 +55,11 @@ app.post("/request", async (req, res) => {
 });
 
 // Buscar requests com filtros opcionais
-app.get("/request", async (req, res) => {
+router.get("/request", async (req, res) => {
   try {
       const filters = {};
 
-      if (req.query.title) filters.title = req.query.title
+      if (req.query.title) filters.title = req.query.title;
       if (req.query.category && listOfCategory.includes(req.query.category)) filters.category = req.query.category;
       if (req.query.urgency && listOfUrgency.includes(req.query.urgency)) filters.urgency = req.query.urgency;
 
@@ -73,9 +70,8 @@ app.get("/request", async (req, res) => {
   }
 });
 
-
 // Atualizar request
-app.put("/request", async (req, res) => {
+router.put("/request", async (req, res) => {
     const id = Number(req.query.id || req.body.id);
 
     if (!id || isNaN(id)) {
@@ -106,8 +102,8 @@ app.put("/request", async (req, res) => {
     }
 });
 
-
-app.delete("/request", async (req, res) => {
+// Deletar request
+router.delete("/request", async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {
@@ -128,7 +124,5 @@ app.delete("/request", async (req, res) => {
   }
 });
 
-
-app.listen(3001, () => {
-    console.log("Servidor rodando na porta 3001");
-});
+// Exporta o router
+export default router;

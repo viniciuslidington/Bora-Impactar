@@ -1,11 +1,8 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import cors from "cors";
 
 const prisma = new PrismaClient();
-const app = express();
-app.use(express.json());
-app.use(cors());
+const router = express.Router(); // Usando Router ao invés de app
 
 // Definindo os esquemas de validação
 const listOfCategory = ["ALIMENTO", "SERVICOS", "UTENSILIOS", "MEDICAMENTOS_HIGIENE", "BRINQUEDOS_LIVROS", "MOVEIS", "ITEMPET", "AJUDAFINANCEIRA", "OUTRA"];
@@ -37,7 +34,7 @@ const validateRelocation = (data) => {
 };
 
 // Criar uma relocação
-app.post("/relocacoes", async (req, res) => {
+router.post("/relocacoes", async (req, res) => {
     const validationError = validateRelocation(req.body);
     if (validationError) {
         return res.status(400).json({ error: validationError });
@@ -53,7 +50,7 @@ app.post("/relocacoes", async (req, res) => {
 });
 
 // Buscar relocações com filtros opcionais
-app.get("/relocacoes", async (req, res) => {
+router.get("/relocacoes", async (req, res) => {
     try {
         const filters = {};
 
@@ -68,7 +65,7 @@ app.get("/relocacoes", async (req, res) => {
 });
 
 // Atualizar relocação
-app.put("/relocacoes", async (req, res) => {
+router.put("/relocacoes", async (req, res) => {
     const id = Number(req.query.id || req.body.id);
 
     if (!id || isNaN(id)) {
@@ -100,7 +97,7 @@ app.put("/relocacoes", async (req, res) => {
 });
 
 // Deletar relocação
-app.delete("/relocacoes", async (req, res) => {
+router.delete("/relocacoes", async (req, res) => {
     const id = Number(req.query.id || req.body.id);
 
     if (!id || isNaN(id)) {
@@ -121,6 +118,5 @@ app.delete("/relocacoes", async (req, res) => {
     }
 });
 
-app.listen(3002, () => {
-    console.log("Servidor rodando na porta 3002");
-});
+// Exporta o router
+export default router;

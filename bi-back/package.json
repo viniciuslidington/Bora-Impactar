@@ -24,13 +24,14 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
+    "http-proxy-middleware": "^3.0.3",
     "jsonwebtoken": "^9.0.2",
     "node-fetch": "^3.3.2",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
-    "@prisma/client": "^6.4.1",
+    "@prisma/client": "^6.5.0",
     "concurrently": "^9.1.2",
-    "prisma": "^6.4.1"
+    "prisma": "^6.5.0"
   }
 }
