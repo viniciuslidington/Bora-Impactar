@@ -1,14 +1,15 @@
 import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
 import Card from "../components/Card/Card";
-import styles from "../styles/homeVoluntario.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.homeSection}>
-      <div className={styles.headings}>
-        <h2>Saiba como você pode ajudar as Ongs</h2>
-        <p>Categorias mais recorrentes</p>
+    <div className="flex w-full max-w-[1366px] flex-col items-center gap-16 px-[123px] py-16">
+      <div className="-mb-10 flex flex-col items-center gap-3">
+        <h2 className="text-2xl font-bold">
+          Saiba como você pode ajudar as Ongs
+        </h2>
+        <p className="text-base font-normal">Categorias mais recorrentes</p>
       </div>
       <Grid>
         <GridBox imgUrl={"/Roupas.jpg"}>Roupas e Calçados</GridBox>
@@ -25,9 +26,9 @@ export default function Home() {
         <GridBox imgUrl={"/Eletronicos.jpg"}>Eletrônicos</GridBox>
         <GridBox imgUrl={"/Outrosgrid.jpg"}>Outros</GridBox>
       </Grid>
-      <div className={styles.headings}>
-        <h2>Conheça nossos parceiros</h2>
-        <p>
+      <div className="-mb-10 flex flex-col items-center gap-3">
+        <h2 className="text-2xl font-bold">Conheça nossos parceiros</h2>
+        <p className="text-base font-normal">
           Conheça mais sobre as ONGs e os projetos que fazem parte da nossa
           conexão.
         </p>
