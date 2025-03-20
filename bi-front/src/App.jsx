@@ -17,6 +17,8 @@ import RepassePosts from "./components/Repasse/RepassePosts";
 import Voluntario from "./pages/Voluntario";
 import HomeVoluntario from "./pages/HomeVoluntario";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import SearchVol from "./pages/SearchVol";
+import SearchOng from "./pages/SearchOng";
 
 const queryClient = new QueryClient();
 
@@ -47,10 +49,12 @@ function App() {
                 <Route path="solicitacoes" element={<SolicitacoesPosts />} />
                 <Route path="repasse" element={<RepassePosts />} />
               </Route>
+              <Route path="search" element={<SearchOng />} />
             </Route>
             <Route path="voluntario" element={<Voluntario />}>
               <Route index element={<Navigate replace to={"home"} />} />
               <Route path="home" element={<HomeVoluntario />} />
+              <Route path="search" element={<SearchVol />} />
             </Route>
             <Route path="*" element={<p>404 Página não encontrada</p>} />
           </Routes>

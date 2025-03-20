@@ -47,7 +47,7 @@ export default function MainPage() {
         <div className="flex gap-8">
           <Button
             className="h-[80px] w-[256px] cursor-pointer rounded-sm border-none bg-[#294bb6] px-2 py-3 text-[18px] font-bold text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
-            onClick={() => navigate("voluntario")}
+            onClick={() => navigate("voluntario/home")}
           >
             Sou Voluntário
           </Button>

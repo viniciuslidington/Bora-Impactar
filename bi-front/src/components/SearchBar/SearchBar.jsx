@@ -1,9 +1,11 @@
 import { useState } from "react";
 import styles from "./searchBar.module.css";
 import propTypes from "prop-types";
+import { useQueryUpdate } from "../../utils/queryUpdate";
 
-export default function SearchBar({ placeholder, handleSearch }) {
+export default function SearchBar({ placeholder }) {
   const [input, setInput] = useState("");
+  const updateQuery = useQueryUpdate();
 
   return (
     <div className={styles.searchBar}>
@@ -13,15 +15,19 @@ export default function SearchBar({ placeholder, handleSearch }) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
-          e.key === "Enter" && handleSearch;
+          e.key === "Enter" && updateQuery("q", input);
         }}
       />
-      <img src="/search.svg" alt="Pesquisar" onClick={handleSearch} />
+      <img
+        src="/search.svg"
+        onClick={() => {
+          updateQuery("q", input);
+        }}
+      />
     </div>
   );
 }
 
 SearchBar.propTypes = {
   placeholder: propTypes.string,
-  handleSearch: propTypes.func,
 };
