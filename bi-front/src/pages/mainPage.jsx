@@ -14,7 +14,7 @@ export default function MainPage() {
   return (
     <div className="flex w-full flex-col items-center">
       <div
-        className="absolute top-0 left-0 -z-10 h-[708px] w-full bg-cover bg-center bg-no-repeat"
+        className="absolute top-0 left-0 -z-10 h-[708px] w-full"
         style={{
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.64) 0%, rgba(255, 255, 255, 0.64) 100%),
@@ -23,10 +23,8 @@ export default function MainPage() {
         `,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "center top",
         }}
       ></div>{" "}
-      {/* essas linhas de back tiveram quer ser feitas, pq quando adptei para tailwind ficou uma linha da foto em baixo sem a sobreposição branca */}
       <Header>
         <Profile />
       </Header>
@@ -34,7 +32,7 @@ export default function MainPage() {
         <img
           src="/BoraImpactar.png"
           alt="Logo"
-          className="-mb-[16px] h-[92px] w-[351px]"
+          className="-mb-[16px] w-[351px]"
         />
         <h1 className="text-[56px] font-bold">
           Doe hoje, transforme vidas para sempre!
@@ -64,22 +62,26 @@ export default function MainPage() {
         </div>
         <div className="mt-16 flex w-full flex-nowrap justify-center gap-8 self-center">
           <div className="flex h-[116px] flex-1 flex-col items-center justify-center rounded-sm bg-[#009fe3] shadow-md">
-            <span className="text-4xl font-bold text-white drop-shadow-md">
+            <span className="text-4xl font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
               Doar:
             </span>
-            <p className="w-auto text-lg font-bold text-white">
+            <p className="w-auto text-[20px] font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
               Doe e transforme vidas.
             </p>
           </div>
           <div className="flex h-[116px] flex-1 flex-col items-center justify-center rounded-sm bg-[#009fe3] shadow-md">
-            <span className="text-4xl font-bold text-white">Pedir:</span>
-            <p className="w-auto text-lg font-bold text-white">
+            <span className="text-4xl font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
+              Pedir:
+            </span>
+            <p className="w-auto text-[20px] font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
               ONGs pedem, a ajuda vem.
             </p>
           </div>
           <div className="flex h-[116px] flex-1 flex-col items-center justify-center rounded-sm bg-[#009fe3] shadow-md">
-            <span className="text-4xl font-bold text-white">Repassar:</span>
-            <p className="w-auto text-lg font-bold text-white">
+            <span className="text-4xl font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
+              Repassar:
+            </span>
+            <p className="w-auto text-[20px] font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
               ONGs compartilham com ONGs.
             </p>
           </div>
@@ -88,7 +90,7 @@ export default function MainPage() {
       <div className="flex flex-col items-center gap-8 px-[20px] py-10 md:px-[123px]">
         <h2 className="text-5xl font-medium">Ajude as causas das ONGs</h2>
         {/* controlando largura total do grid */}
-        <Grid className="w-[640px] lg:w-[928px]">
+        <Grid>
           <GridBox imgUrl={"./Alimentos.jpg"}>Doar Alimentos</GridBox>
           <GridBox imgUrl={"./Serviço.jpg"}>Voluntariar Horas</GridBox>
           <GridBox imgUrl={"./Medicamentos.jpg"}>
@@ -140,8 +142,6 @@ export default function MainPage() {
           Faça parte dessa mudança. Bora Impactar!
         </h3>
         <div className="flex gap-8">
-          {" "}
-          {/* achar onde separar os botões, gap entre */}
           <Button
             className="h-[80px] w-[256px] cursor-pointer rounded-sm border-none bg-[#294bb6] px-2 py-3 text-[18px] font-bold text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
             onClick={() => navigate("/voluntario/home")}
