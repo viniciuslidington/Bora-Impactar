@@ -19,11 +19,25 @@ const listOfCategory = [
   "AJUDAFINANCEIRA",
   "OUTRA",
 ];
-const validateRelocation = (data) => {
-  const { title, category, description, ong_Id } = data;
 
-  if (!title || !category) {
-    return "Os campos Title e Category  são obrigatórios";
+const expirationMapping = {
+  "7 dias" : 7,
+  "2 semanas" : 14,
+  "4 semanas": 28,
+  "12 semanas": 84,
+};
+
+const calculateExpirationDate = (createdAt, duration) => {
+  const daysToAdd = expirationMapping[duration];
+  if (!daysToAdd) return null;
+  return new Date(createdAt.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
+};
+
+const validateRelocation = (data) => {
+  const { title, category, description, ong_Id, expirationDuration } = data;
+
+  if (!title || !category|| !expirationDuration) {
+    return "Os campos Title, expirationDuration e  Category  são obrigatórios";
   }
 
   if (typeof title !== "string" || title.length < 3) {
@@ -32,6 +46,10 @@ const validateRelocation = (data) => {
 
   if (!listOfCategory.includes(category)) {
     return "Categoria inválida.";
+  }
+
+  if(!expirationMapping[expirationDuration]){
+    return "Valor inválido para ExpirationDuration. Escolha entre: '7 dias', '2 semanas', '4 semanas', '12 semanas'.";
   }
 
   if (description && typeof description !== "string") {
@@ -55,10 +73,21 @@ app.post("/repasse", async (req, res) => {
   }
 
   try {
-    const newRelocation = await prisma.RelocationProduct.create({
-      data: req.body,
+    const createdAt = new Date();
+    const expirationDate = calculateExpirationDate(createdAt, req.body.expirationDuration);
+
+    const { expirationDuration, ...requestData } = req.body;
+
+    const newRequest = await prisma.relocationProduct.create({
+      data: {
+        ...requestData, // Inclui title, category, urgency, etc.
+        createdAt,      // Define a data de criação
+        expirationDate  // Define a data de expiração correta
+      }
     });
-    return res.status(201).json(newRelocation);
+
+
+    return res.status(201).json(newRequest);
   } catch (error) {
     console.error(error);
     return res
@@ -113,7 +142,7 @@ app.put("/repasse", async (req, res) => {
   }
 
   try {
-    const existingRelocation = await prisma.RelocationProduct.findUnique({
+    const existingRelocation = await prisma.relocationProduct.findUnique({
       where: { id },
     });
 
@@ -126,9 +155,20 @@ app.put("/repasse", async (req, res) => {
       return res.status(400).json({ error: validationError });
     }
 
-    const updatedRelocation = await prisma.RelocationProduct.update({
+    const{expirationDuration, ...updateData} = req.body;
+
+    let expirationDate = existingRelocation.expirationDate;
+    if(expirationDuration){
+      expirationDate = calculateExpirationDate(existingRelocation.createdAt,expirationDuration)
+    }
+
+    const updatedRelocation = await prisma.relocationProduct.update({
       where: { id },
-      data: req.body,
+      data: {
+        ...updateData,
+        expirationDate,
+      },
+
     });
 
     return res.status(200).json(updatedRelocation);
