@@ -1,6 +1,6 @@
 import { spawn } from "child_process";
 
-const services = ["services/data.js", "services/login.js", "services/pedidos.js", "services/relocacao.js"];
+const services = ["services/data.js", "services/login.js", "services/solicitacoes.js", "services/repasse.js"];
 
 services.forEach((service) => {
   const proc = spawn("node", [service], { stdio: "inherit" });
