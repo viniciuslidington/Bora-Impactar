@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Logo from "../components/Logo/logo";
 import Button from "../components/Button/Button";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLogin, useUserData } from "../services/authService";
 import { Toaster } from "react-hot-toast";
 
@@ -17,9 +17,23 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleSubmit = useCallback(() => {
+    if (email === "" || password === "") {
+      return toast.error("Preencha os campos corretamente.");
+    }
+    if (!email.includes("@") || !email.includes(".")) {
+      return toast.error("Por favor, insira um email válido.");
+    }
+    login({ email: email, password: password });
+    setEmail("");
+    setPassword("");
+  }, [email, password, login]);
+
   useEffect(() => {
     data && navigate(from, { replace: true });
+  }, [data, from, navigate]);
 
+  useEffect(() => {
     function handleEnter(e) {
       if (e.key === "Enter") {
         handleSubmit();
@@ -30,19 +44,7 @@ export default function Login() {
     return () => {
       document.removeEventListener("keypress", handleEnter);
     };
-  }, [data]);
-
-  function handleSubmit() {
-    if (email === "" || password === "") {
-      return toast.error("Preencha os campos corretamente.");
-    }
-    if (!email.includes("@") || !email.includes(".")) {
-      return toast.error("Por favor, insira um email válido.");
-    }
-    login({ email: email, password: password });
-    setEmail("");
-    setPassword("");
-  }
+  }, [handleSubmit]);
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center gap-4 bg-[#a8dff7]">

@@ -18,7 +18,6 @@ const useQueryUpdate = () => {
       location.pathname.includes("/voluntario") &&
       location.pathname !== "/voluntario/search"
     ) {
-      console.log(location.pathname);
       return navigate(`/voluntario/search?${updatedParams.toString()}`);
     }
     if (
