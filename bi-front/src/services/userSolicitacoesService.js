@@ -38,15 +38,18 @@ const useSolicitacoes = () => {
 };
 
 // para erros no useQuery
-export const handleError = (error, queryClient) => {
-  if (error.response && error.response.status === 401) {
-    queryClient.setQueryData(["user"], null);
-    toast.error("Sessão expirada, por favor, faça login novamente.");
-  } else {
-    toast.error(
-      error?.response?.data?.message || "Erro ao carregar solicitações.",
-    );
-  }
+export const useHandleError = (error) => {
+  const queryClient = useQueryClient();
+  return (error) => {
+    if (error?.response && error?.response.status === 401) {
+      queryClient.setQueryData(["user"], null);
+      toast.error("Sessão expirada, por favor, faça login novamente.");
+    } else {
+      toast.error(
+        error?.response?.data?.message || "Erro ao carregar solicitações.",
+      );
+    }
+  };
 };
 
 const useAddSolicitacoes = () => {

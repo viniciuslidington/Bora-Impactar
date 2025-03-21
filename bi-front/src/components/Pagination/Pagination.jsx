@@ -1,68 +1,59 @@
 import PropTypes from "prop-types";
 
-const Pagination = ({
-  totalPages = 1,
-  currentPage = 1,
-  onPageChange,
-  showFirstButton = false,
-  showLastButton = false,
-}) => {
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+const getPaginationItems = (currentPage, totalPages) => {
+  if (totalPages <= 5) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  } else if (currentPage <= 3) {
+    return [1, 2, 3, "...", totalPages];
+  } else if (currentPage >= totalPages - 2) {
+    return [1, "...", totalPages - 2, totalPages - 1, totalPages];
+  } else {
+    return [1, "...", currentPage, "...", totalPages];
+  }
+};
+
+const Pagination = ({ totalPages = 1, currentPage = 1, onPageChange }) => {
+  const items = getPaginationItems(currentPage, totalPages);
 
   return (
-    <nav aria-label="pagination navigation" className="flex gap-2">
-      {/* Primeiro */}
-      {showFirstButton && (
-        <button
-          className="rounded bg-gray-200 px-3 py-1 disabled:opacity-50"
-          onClick={() => onPageChange(1)}
-          disabled={currentPage === 1}
-        >
-          {"<<"}
-        </button>
-      )}
-
-      {/* Anterior */}
+    <nav aria-label="pagination navigation" className="flex items-center gap-2">
+      {/* Botão Anterior */}
       <button
-        className="rounded bg-gray-200 px-3 py-1 disabled:opacity-50"
+        className="cursor-pointer rounded border-2 border-gray-300 bg-gray-300 px-3 py-1 text-gray-700 outline-gray-500 disabled:cursor-auto disabled:opacity-40"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
-        {"<"}
+        &lt;
       </button>
 
-      {/* Páginas */}
-      {pages.map((page) => (
-        <button
-          key={page}
-          onClick={() => onPageChange(page)}
-          className={`rounded px-3 py-1 ${
-            currentPage === page ? "bg-blue-500 text-white" : "bg-gray-200"
-          }`}
-        >
-          {page}
-        </button>
+      {/* Itens de paginação */}
+      {items.map((item, index) => (
+        <span key={index}>
+          {item === "..." ? (
+            <span className="px-3 py-1">...</span>
+          ) : (
+            <button
+              onClick={() => onPageChange(item)}
+              className={`cursor-pointer rounded px-3 py-1 ${
+                currentPage === item
+                  ? "border-2 border-[#009fe3] bg-[#009fe3] text-white outline-white"
+                  : "border-2 border-gray-300 text-gray-700 outline-gray-500 transition-colors duration-100 hover:border-[#009fe3] hover:bg-[#009fe3] hover:text-white"
+              }`}
+            >
+              {item}
+            </button>
+          )}
+        </span>
       ))}
 
-      {/* Próximo */}
+      {/* Botão Próximo */}
       <button
-        className="rounded bg-gray-200 px-3 py-1 disabled:opacity-50"
+        className="cursor-pointer rounded border-2 border-gray-300 bg-gray-300 px-3 py-1 text-gray-700 outline-gray-500 disabled:cursor-auto disabled:opacity-40"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
       >
-        {">"}
+        &gt;
       </button>
-
-      {/* Último */}
-      {showLastButton && (
-        <button
-          className="rounded bg-gray-200 px-3 py-1 disabled:opacity-50"
-          onClick={() => onPageChange(totalPages)}
-          disabled={currentPage === totalPages}
-        >
-          {">>"}
-        </button>
-      )}
     </nav>
   );
 };
@@ -71,8 +62,6 @@ Pagination.propTypes = {
   totalPages: PropTypes.number,
   currentPage: PropTypes.number,
   onPageChange: PropTypes.func.isRequired,
-  showFirstButton: PropTypes.bool,
-  showLastButton: PropTypes.bool,
 };
 
 export default Pagination;
