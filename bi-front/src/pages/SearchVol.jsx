@@ -2,7 +2,7 @@ import Filter from "../components/Filter/Filter";
 import SearchPostVol from "../components/SearchPosts/SearchPostVol";
 import { useSearchSolicitacao } from "../services/searchService";
 import Pagination from "../components/Pagination/pagination";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useQueryUpdate } from "../utils/queryUpdate";
 
@@ -18,6 +18,12 @@ export default function SearchVol() {
   const pageRef = useRef(Number(queryPage));
   const sortRef = useRef(querySort);
 
+  useEffect(() => {
+    pageRef.current = Number(
+      new URLSearchParams(location.search).get("page") || 1,
+    );
+  }, [location.search]);
+
   return (
     <div className="flex w-[1366px] justify-between px-[123px] py-16">
       <div className="flex min-w-[289px] flex-col gap-8">
@@ -29,13 +35,13 @@ export default function SearchVol() {
             <p className="w-full text-[14px] opacity-90">Carregando...</p>
           ) : (
             <p className="text-[14px] opacity-90">
-              {data.totalRequests}{" "}
-              {data.totalRequests === 1 ? "solicitação" : "solicitações"} de
+              {data ? data?.totalRequests : "0"}{" "}
+              {data?.totalRequests === 1 ? "solicitação" : "solicitações"} de
               ONGs foram encontradas
             </p>
           )}
         </span>
-        <Filter></Filter>
+        <Filter showUrgency={true}></Filter>
       </div>
       <div className="flex w-[768px] flex-col gap-8">
         <div className="flex min-h-14 w-full items-center justify-between">
@@ -70,15 +76,17 @@ export default function SearchVol() {
             </p>
           </div>
         ) : isPending ? (
-          <div className="flex h-full w-full items-center justify-center">
-            <l-ring-2
-              size="64"
-              stroke="6"
-              stroke-length="0.25"
-              bg-opacity="0.1"
-              speed="0.8"
-              color="#009fe3"
-            ></l-ring-2>
+          <div className="flex h-[1744px] w-full items-start justify-center">
+            <span className="sticky top-[240px] flex h-[563px] items-center">
+              <l-ring-2
+                size="64"
+                stroke="6"
+                stroke-length="0.25"
+                bg-opacity="0.1"
+                speed="0.8"
+                color="#009fe3"
+              ></l-ring-2>
+            </span>
           </div>
         ) : data.requests?.length > 0 ? (
           <div className="flex flex-col gap-8">
@@ -98,6 +106,7 @@ export default function SearchVol() {
             onPageChange={(e) => {
               pageRef.current = e;
               updateQuery("page", e);
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           />
         </span>

@@ -14,6 +14,10 @@ const useQueryUpdate = () => {
       updatedParams.delete(key); // Remove se o valor for vazio
     }
 
+    if (key !== "page") {
+      updatedParams.set("page", 1); // Volta para pagina 1 ao mudar categoria ou urgencia
+    }
+
     if (
       location.pathname.includes("/voluntario") &&
       location.pathname !== "/voluntario/search"

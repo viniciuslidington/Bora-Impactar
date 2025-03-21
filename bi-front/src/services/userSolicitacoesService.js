@@ -38,7 +38,7 @@ const useSolicitacoes = () => {
 };
 
 // para erros no useQuery
-export const useHandleError = (error) => {
+export const useHandleError = () => {
   const queryClient = useQueryClient();
   return (error) => {
     if (error?.response && error?.response.status === 401) {
@@ -46,7 +46,7 @@ export const useHandleError = (error) => {
       toast.error("Sessão expirada, por favor, faça login novamente.");
     } else {
       toast.error(
-        error?.response?.data?.message || "Erro ao carregar solicitações.",
+        error?.response?.data?.message || "Erro ao carregar solicitações!",
       );
     }
   };
@@ -65,7 +65,7 @@ const useAddSolicitacoes = () => {
         // Para outros erros, exibe uma mensagem de erro geral
         toast.error(
           error?.response?.data?.message ||
-            "Erro ao criar solicitação. Tente novamente.",
+            "Erro ao criar solicitação! Tente novamente.",
         );
       }
     },
@@ -88,7 +88,7 @@ const useEditSolicitacoes = () => {
         // Para outros erros, exibe uma mensagem de erro geral
         toast.error(
           error?.response?.data?.message ||
-            "Erro ao salvar solicitação. Tente novamente.",
+            "Erro ao salvar solicitação! Tente novamente.",
         );
       }
     },
@@ -111,7 +111,7 @@ const useDelSolicitacoes = () => {
         // Para outros erros, exibe uma mensagem de erro geral
         toast.error(
           error?.response?.data?.message ||
-            "Erro ao encerrar solicitação. Tente novamente.",
+            "Erro ao encerrar solicitação! Tente novamente.",
         );
       }
     },

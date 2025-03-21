@@ -60,7 +60,7 @@ export default function OngPosts() {
     if (isError) {
       handleError(error); // Usando a função utilitária para lidar com erros
     }
-  }, [isError, error]);
+  }, [isError, error, handleError]);
 
   return (
     <>
@@ -94,7 +94,11 @@ export default function OngPosts() {
           <img src="/search.svg" alt="pesquisar icone" />
         </div>
         <div className={styles.postsList}>
-          {isPending ? (
+          {isError ? (
+            <div className="flex h-full items-center justify-center">
+              <p className="text-red-500">Erro ao carregar solicitações!</p>
+            </div>
+          ) : isPending ? (
             <div className="flex h-full items-center justify-center">
               <l-ring-2
                 size="64"

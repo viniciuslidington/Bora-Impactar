@@ -6,7 +6,7 @@ import { formatarData, calcularTempoRestante } from "../../utils/formatDate";
 
 export default function Post({ selected, post, handleEditar, setSelectedId }) {
   const dataPublicacao = new Date(post.createdAt);
-  const dataExpiracao = new Date(post.dataExpiracao);
+  const dataExpiracao = new Date(post.expirationDate);
 
   const publicacaoFormatada = formatarData(dataPublicacao);
   const expiracaoFormatada = calcularTempoRestante(dataExpiracao);
