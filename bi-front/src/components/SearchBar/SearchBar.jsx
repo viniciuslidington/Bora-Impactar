@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styles from "./searchBar.module.css";
 import propTypes from "prop-types";
 import { useQueryUpdate } from "../../utils/queryUpdate";
 import { useLocation } from "react-router-dom";
@@ -12,9 +11,10 @@ export default function SearchBar({ placeholder }) {
   const updateQuery = useQueryUpdate();
 
   return (
-    <div className={styles.searchBar}>
+    <div className="absolute left-1/2 -translate-x-1/2 transform">
       <input
         type="text"
+        className="h-12 w-[500px] rounded-sm border-none bg-white p-3 pr-11 text-base"
         placeholder={placeholder}
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -28,6 +28,15 @@ export default function SearchBar({ placeholder }) {
           updateQuery("q", input);
         }}
       />
+
+      <img
+        src="/search.svg"
+        onClick={() => {
+          updateQuery("q", input);
+        }}
+        className="absolute top-1/2 right-3 w-6 -translate-y-1/2 transform cursor-pointer object-cover object-center opacity-85"
+      />
+
     </div>
   );
 }
