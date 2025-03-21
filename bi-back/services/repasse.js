@@ -118,16 +118,44 @@ app.get("/repasse", async (req, res) => {
 // Fazer uma busca entre as relocacoes com filtros
 app.get("/search-repasse", async (req, res) => {
   try {
-    const filters = {};
+    const {category,title,sort} = req.query;
 
-    if (req.query.title) filters.title = req.query.title;
-    if (req.query.category && listOfCategory.includes(req.query.category))
-      filters.category = req.query.category;
+    const filters= {}
+
+    if (req.query.title) filters.title = title;
+    if (req.query.category && listOfCategory.includes(req.query.category)) filters.category = category;
+
+    const totalRequests = await prisma.request.count({ where: filters });
+
+    const limit = parseInt(req.query.limit) || 6;
+    const totalPages = Math.max(1, Math.ceil(totalRequests / limit)); 
+
+    let page = parseInt(req.query.page) || 1;
+    if(page<1) page=1;
+    if(page>totalPages) page=totalPages;
+
+    const skip = (page - 1) * limit;
+
+    let orderBy = [];
+    if (sort === "recentes") {
+      orderBy = [{ createdAt: "desc" }]; // Mais recentes primeiro
+    } else if (sort === "expirar") {
+      orderBy = [{ expirationDate: "asc" }]; // Mais perto de expirar primeiro
+    }
 
     const requests = await prisma.relocationProduct.findMany({
       where: filters,
+      skip,
+      take: limit,
+      orderBy,
     });
-    return res.status(200).json(requests);
+    
+    return res.status(200).json({
+      requests,
+      totalRequests,
+      totalPages
+    });
+
   } catch (error) {
     return res.status(500).json({ error: "Erro ao buscar solicitações" });
   }
