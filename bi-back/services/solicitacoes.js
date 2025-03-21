@@ -9,15 +9,15 @@ app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 
 // Definindo os esquemas de validação
 const listOfCategory = [
-  "eletrodomesticosemoveis",
-  "utensiliosgerais",
-  "roupasecalcados",
-  "saudeehigiene",
-  "materiaiseducativoseculturais",
-  "itensdeinclusaoemobilidade",
-  "eletronicos",
-  "itenspet",
-  "outros",
+  "ELETRODOMESTICOS_E_MOVEIS",
+  "UTENSILIOS_GERAIS",
+  "ROUPAS_E_CALCADOS",
+  "SAUDE_E_HIGIENE",
+  "MATERIAIS_EDUCATIVOS_E_CULTURAIS",
+ "ITENS_DE_INCLUSAO_E_MOBILIDADE",
+  "ELETRONICOS",
+  "ITENS_PET",
+  "OUTROS",
 ];
 const listOfUrgency = ["LOW", "MEDIUM", "HIGH"];
 
@@ -42,11 +42,15 @@ const validateRequest = (data) => {
     description,
     quantity,
     ong_Id,
-    expirationDuration,
+    ong_Nome,
+    ong_Imagem,
+    ong_Phone,
+    ong_Email,
+    expirationDuration
   } = data;
 
-  if (!title || !category || !urgency || !expirationDuration) {
-    return "Os campos Title, Category, Urgency e ExpirationDuration são obrigatórios";
+  if (!title || !category || !urgency || !expirationDuration || !ong_Id || !ong_Nome) {
+    return "Os campos Title, Category, Urgency, expirationDuration, ong_Id e ong_Nome são obrigatórios";
   }
 
   if (typeof title !== "string" || title.length < 3) {
@@ -65,18 +69,32 @@ const validateRequest = (data) => {
     return "Valor inválido para ExpirationDuration. Escolha entre: '7 dias', '2 semanas', '4 semanas', '12 semanas'.";
   }
 
+  if (typeof ong_Id !== "number" || ong_Id < 1) {
+    return "Ong_Id deve ser um número inteiro positivo";
+  }
+
+  if (typeof ong_Nome !== "string" ) {
+    return "Ong_Nome deve ser uma string";
+  }
+
+  if (ong_Imagem && typeof ong_Imagem !== "string" ) {
+    return "Ong_Imagem deve ser uma string";
+  }
+
+  if (ong_Phone && typeof ong_Phone !== "string" ) {
+    return "Ong_Phone deve ser uma string";
+  }
+
+  if (ong_Email && typeof ong_Email !== "string" ) {
+    return "ong_Email deve ser uma string";
+  }
+
   if (description && typeof description !== "string") {
     return "A descrição deve ser uma string";
   }
 
   if (quantity && (typeof quantity !== "number" || quantity < 1)) {
     return "A quantidade deve ser um número inteiro positivo";
-  }
-
-  if (!ong_Id) {
-    return "Ong_Id é obrigatório";
-  } else if (typeof ong_Id !== "number" || ong_Id < 1) {
-    return "Ong_Id deve ser um número inteiro positivo";
   }
 
   return null;

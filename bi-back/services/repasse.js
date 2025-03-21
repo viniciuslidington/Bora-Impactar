@@ -9,15 +9,15 @@ app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 
 // Definindo os esquemas de validação
 const listOfCategory = [
-  "eletrodomesticosemoveis",
-  "utensiliosgerais",
-  "roupasecalcados",
-  "saudeehigiene",
-  "materiaiseducativoseculturais",
-  "itensdeinclusaoemobilidade",
-  "eletronicos",
-  "itenspet",
-  "outros",
+  "ELETRODOMESTICOS_E_MOVEIS",
+  "UTENSILIOS_GERAIS",
+  "ROUPAS_E_CALCADOS",
+  "SAUDE_E_HIGIENE",
+  "MATERIAIS_EDUCATIVOS_E_CULTURAIS",
+ "ITENS_DE_INCLUSAO_E_MOBILIDADE",
+  "ELETRONICOS",
+  "ITENS_PET",
+  "OUTROS",
 ];
 
 const expirationMapping = {
@@ -34,10 +34,21 @@ const calculateExpirationDate = (createdAt, duration) => {
 };
 
 const validateRelocation = (data) => {
-  const { title, category, description, ong_Id, expirationDuration } = data;
+  const {
+    title,
+    category,
+    description,
+    quantity,
+    ong_Id,
+    ong_Nome,
+    ong_Imagem,
+    ong_Phone,
+    ong_Email,
+    expirationDuration
+  } = data;
 
-  if (!title || !category || !expirationDuration) {
-    return "Os campos Title, expirationDuration e  Category  são obrigatórios";
+  if (!title || !category || !expirationDuration || !ong_Id || !ong_Nome) {
+    return "Os campos Title, Category, expirationDuration, ong_Id e ong_Nome são obrigatórios";
   }
 
   if (typeof title !== "string" || title.length < 3) {
@@ -52,14 +63,32 @@ const validateRelocation = (data) => {
     return "Valor inválido para ExpirationDuration. Escolha entre: '7 dias', '2 semanas', '4 semanas', '12 semanas'.";
   }
 
+  if (typeof ong_Id !== "number" || ong_Id < 1) {
+    return "Ong_Id deve ser um número inteiro positivo";
+  }
+
+  if (typeof ong_Nome !== "string" ) {
+    return "Ong_Nome deve ser uma string";
+  }
+
+  if (ong_Imagem && typeof ong_Imagem !== "string" ) {
+    return "Ong_Imagem deve ser uma string";
+  }
+
+  if (ong_Phone && typeof ong_Phone !== "string" ) {
+    return "Ong_Phone deve ser uma string";
+  }
+
+  if (ong_Email && typeof ong_Email !== "string" ) {
+    return "ong_Email deve ser uma string";
+  }
+
   if (description && typeof description !== "string") {
     return "A descrição deve ser uma string";
   }
 
-  if (!ong_Id) {
-    return "Ong_Id é obrigatório";
-  } else if (typeof ong_Id !== "number" || ong_Id < 1) {
-    return "Ong_Id deve ser um número inteiro positivo";
+  if (quantity && (typeof quantity !== "number" || quantity < 1)) {
+    return "A quantidade deve ser um número inteiro positivo";
   }
 
   return null;
@@ -128,10 +157,10 @@ app.get("/search-repasse", async (req, res) => {
     if (req.query.category && listOfCategory.includes(req.query.category))
       filters.category = category;
 
-    const totalRequests = await prisma.request.count({ where: filters });
+    const totalRepasses = await prisma.relocationProduct.count({ where: filters });
 
     const limit = parseInt(req.query.limit) || 6;
-    const totalPages = Math.max(1, Math.ceil(totalRequests / limit));
+    const totalPages = Math.max(1, Math.ceil(totalRepasses / limit));
 
     let page = parseInt(req.query.page) || 1;
     if (page < 1) page = 1;
@@ -155,7 +184,7 @@ app.get("/search-repasse", async (req, res) => {
 
     return res.status(200).json({
       requests,
-      totalRequests,
+      totalRepasses,
       totalPages,
     });
   } catch (error) {

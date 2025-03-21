@@ -19,6 +19,10 @@ model RelocationProduct {
   category   Categoria   
   description String?
   ong_Id     Int?
+  ong_Nome   String?
+  ong_Imagem String?
+  ong_Phone  String?
+  ong_Email  String?
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -33,8 +37,12 @@ model Request {
   quantity    Int?
   description String?
   ong_Id      Int?
-  requestTime DateTime?
+  ong_Nome    String?
+  ong_Imagem  String?
+  ong_Phone   String?
+  ong_Email   String?
 
+  requestTime DateTime?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   expirationDate DateTime?
@@ -71,13 +79,13 @@ enum UrgencyLevel {
 }
 
 enum Categoria { 
-  ALIMENTO
-  SERVICOS
-  UTENSILIOS
-  MEDICAMENTOS_HIGIENE
-  BRINQUEDOS_LIVROS
-  MOVEIS
-  ITEMPET
-  AJUDAFINANCEIRA
-  OUTRA
+  ELETRODOMESTICOS_E_MOVEIS
+  UTENSILIOS_GERAIS
+  ROUPAS_E_CALCADOS
+  SAUDE_E_HIGIENE
+  MATERIAIS_EDUCATIVOS_E_CULTURAIS
+  ITENS_DE_INCLUSAO_E_MOBILIDADE
+  ELETRONICOS
+  ITENS_PET
+  OUTROS
 }
