@@ -47,7 +47,7 @@ export default function MainPage() {
         <div className="flex gap-8">
           <Button
             className="h-[80px] w-[256px] cursor-pointer rounded-sm border-none bg-[#294bb6] px-2 py-3 text-[18px] font-bold text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
-            onClick={() => navigate("voluntario")}
+            onClick={() => navigate("/voluntario/home")}
           >
             Sou Voluntário
           </Button>
@@ -91,16 +91,16 @@ export default function MainPage() {
         <h2 className="text-5xl font-medium">Ajude as causas das ONGs</h2>
         {/* controlando largura total do grid */}
         <Grid>
-          <GridBox imgUrl={"./Alimentos.jpg"}>Doar Alimentos</GridBox>
-          <GridBox imgUrl={"./Serviço.jpg"}>Voluntariar Horas</GridBox>
-          <GridBox imgUrl={"./Medicamentos.jpg"}>
-            Doar Medicamentos e Itens de Higiene
+          <GridBox imgUrl={"./Roupas.jpg"}>Roupas e Calçados</GridBox>
+          <GridBox imgUrl={"./financeiro.jpg"}>
+            Materiais Educativos e Culturais
           </GridBox>
-          <GridBox imgUrl={"./Brinquedos.jpg"}>
-            Doar brinquedos e livros
+          <GridBox imgUrl={"./Medicamentos.jpg"}>Saúde e Higiene</GridBox>
+          <GridBox imgUrl={"./UtensiliosP.jpg"}>Utensílios Gerais</GridBox>
+          <GridBox imgUrl={"./Inclusaoemobilidade.jpg"}>
+            Itens de Inclusão e Mobilidade
           </GridBox>
-          <GridBox imgUrl={"./Roupas.jpg"}>Doar Roupas</GridBox>
-          <GridBox imgUrl={"./Móveis.jpg"}>Doar Alimentos</GridBox>
+          <GridBox imgUrl={"./Móveis.jpg"}>Eletrodomésticos e Móveis</GridBox>
         </Grid>
         <Button className="h-[64px] w-[256px] cursor-pointer rounded-sm border-3 border-solid border-[#232323b6] bg-none px-2 py-3 text-[18px] font-medium text-[#232323] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[rgba(27,46,53,0.075)] disabled:opacity-70">
           Ver outras categorias
