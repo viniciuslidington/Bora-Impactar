@@ -1,27 +1,27 @@
 ### Testes para a API de `request`
 
 # Buscar requests com filtro de categoria
-GET http://localhost:3001/solicitacao?ong_Id=21
+GET http://localhost:3001/solicitacao?ong_Id=100
 
 ###
 # Buscar solicitacoes com filtro
-GET http://localhost:3001/search-solicitacao
+GET http://localhost:3001/search-solicitacao?page=-1&sort=
 ###
 # Criar um novo request
 POST http://localhost:3001/solicitacao
 Content-Type: application/json
 
 {
-    "title": "QUADRO2",
+    "title": "TESTE28",
     "category": "UTENSILIOS",
     "urgency": "HIGH",
-    "ong_Id": 3,
-    "expirationDuration": "2 semanas"
+    "ong_Id": 100,
+    "expirationDuration": "4 semanas"
 }
 
 ###
 # Atualizar um request existente
-PUT http://localhost:3001/solicitacao?id=9
+PUT http://localhost:3001/solicitacao?id=30
 Content-Type: application/json
 
 {
@@ -35,7 +35,7 @@ Content-Type: application/json
 
 ###
 # Deletar um request
-DELETE http://localhost:3001/solicitacao
+DELETE http://localhost:3001/solicitacao?id=29
 Content-Type: application/json
 
 ### Testes para a API de `repasse`
