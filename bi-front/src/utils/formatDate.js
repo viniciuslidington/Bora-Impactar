@@ -17,7 +17,7 @@ function calcularTempoRestante(dataExpiracao) {
 
   const diasRestantes = Math.floor(diferencaEmMilissegundos / umDia);
   const horasRestantes = Math.floor(
-    (diferencaEmMilissegundos % umDia) / umaHora
+    (diferencaEmMilissegundos % umDia) / umaHora,
   );
 
   let resposta = null;

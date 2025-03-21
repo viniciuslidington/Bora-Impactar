@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useQueryUpdate } from "../../utils/queryUpdate";
+import { formatarString2 } from "../../utils/formatString";
 
 const categorias = [
-  "Todas as categorias",
   "Eletrodomésticos e Móveis",
   "Utensílios Gerais",
   "Roupas e Calçados",
@@ -39,7 +39,7 @@ export default function Filter() {
               <li
                 className="cursor-pointer"
                 key={c}
-                onClick={() => updateQuery("category", c)}
+                onClick={() => updateQuery("category", formatarString2(c))}
               >
                 {c}
               </li>
@@ -66,10 +66,10 @@ export default function Filter() {
               <input
                 type="radio"
                 name="urgency"
-                value="alta"
+                value="HIGH"
                 className="form-radio text-red-500"
-                checked={selectedUrgency === "alta"}
-                onChange={() => handleSelect("alta")}
+                checked={selectedUrgency === "HIGH"}
+                onChange={() => handleSelect("HIGH")}
               />
               <span className="ml-2">Alta</span>
             </label>
@@ -79,10 +79,10 @@ export default function Filter() {
               <input
                 type="radio"
                 name="urgency"
-                value="media"
+                value="MEDIUM"
                 className="form-radio text-yellow-500"
-                checked={selectedUrgency === "media"}
-                onChange={() => handleSelect("media")}
+                checked={selectedUrgency === "MEDIUM"}
+                onChange={() => handleSelect("MEDIUM")}
               />
               <span className="ml-2">Média</span>
             </label>
@@ -92,10 +92,10 @@ export default function Filter() {
               <input
                 type="radio"
                 name="urgency"
-                value="baixa"
+                value="LOW"
                 className="form-radio text-green-500"
-                checked={selectedUrgency === "baixa"}
-                onChange={() => handleSelect("baixa")}
+                checked={selectedUrgency === "LOW"}
+                onChange={() => handleSelect("LOW")}
               />
               <span className="ml-2">Baixa</span>
             </label>

@@ -9,15 +9,15 @@ app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 
 // Definindo os esquemas de validação
 const listOfCategory = [
-  "ALIMENTO",
-  "SERVICOS",
-  "UTENSILIOS",
-  "MEDICAMENTOS_HIGIENE",
-  "BRINQUEDOS_LIVROS",
-  "MOVEIS",
-  "ITEMPET",
-  "AJUDAFINANCEIRA",
-  "OUTRA",
+  "eletrodomesticosemoveis",
+  "utensiliosgerais",
+  "roupasecalcados",
+  "saudehigiene",
+  "materiaiseducativoseculturais",
+  "itensdeinclusaomobilidade",
+  "eletronicos",
+  "itenspet",
+  "outros",
 ];
 const listOfUrgency = ["LOW", "MEDIUM", "HIGH"];
 

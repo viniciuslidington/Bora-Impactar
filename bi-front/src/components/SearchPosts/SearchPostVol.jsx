@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
-import { formatarData } from "../../utils/formatDate";
+import { calcularTempoRestante, formatarData } from "../../utils/formatDate";
 import UrgencyIcon from "../UrgencyIcon/UrgencyIcon";
 
 export default function SearchPostVol({ data }) {
-  const { category, createdAt, description, title, urgency } = data;
+  const { category, createdAt, description, title, urgency, expirationDate } =
+    data;
 
   const urgencia = {
     HIGH: "Urgência Alta",
@@ -12,7 +13,18 @@ export default function SearchPostVol({ data }) {
   };
 
   return (
-    <div className="flex w-[768px] cursor-pointer flex-wrap gap-2 rounded-sm border-2 border-[#9C9C9C] bg-white p-4 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] transition-all duration-200 ease-in-out hover:scale-101">
+    <div
+      className="flex w-[768px] cursor-pointer flex-wrap gap-2 rounded-sm border-2 border-[#9C9C9C] bg-white p-4 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] transition-all duration-200 ease-in-out hover:scale-101"
+      style={
+        expirationDate &&
+        calcularTempoRestante(expirationDate) === "Postagem Expirada"
+          ? {
+              pointerEvents: "none",
+              opacity: 0.7,
+            }
+          : {}
+      }
+    >
       <div className="relative flex w-full items-center gap-2">
         <img
           src="/placeholder-image.jpg"
@@ -35,7 +47,11 @@ export default function SearchPostVol({ data }) {
           <span className="opacity-95">|</span>
           <p className="opacity-95">{urgencia[urgency]}</p>
           <span className="opacity-95">|</span>
-          <p className="opacity-95">Tempo restatante: 7 dias e 4 horas</p>
+          <p className="opacity-95">
+            {expirationDate
+              ? calcularTempoRestante(new Date(expirationDate))
+              : "Sem data de Expiração"}
+          </p>
         </div>
         <p
           className="w-full overflow-hidden break-words text-ellipsis opacity-70"
