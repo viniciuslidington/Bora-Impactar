@@ -34,9 +34,16 @@ const calculateExpirationDate = (createdAt, duration) => {
   return new Date(createdAt.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
 };
 
-
 const validateRequest = (data) => {
-  const { title, category, urgency, description, quantity, ong_Id, expirationDuration } = data;
+  const {
+    title,
+    category,
+    urgency,
+    description,
+    quantity,
+    ong_Id,
+    expirationDuration,
+  } = data;
 
   if (!title || !category || !urgency || !expirationDuration) {
     return "Os campos Title, Category, Urgency e ExpirationDuration são obrigatórios";
@@ -91,18 +98,20 @@ app.post("/solicitacao", async (req, res) => {
 
   try {
     const createdAt = new Date();
-    const expirationDate = calculateExpirationDate(createdAt, req.body.expirationDuration);
+    const expirationDate = calculateExpirationDate(
+      createdAt,
+      req.body.expirationDuration
+    );
 
     const { expirationDuration, ...requestData } = req.body;
 
     const newRequest = await prisma.request.create({
       data: {
         ...requestData, // Inclui title, category, urgency, etc.
-        createdAt,      // Define a data de criação
-        expirationDate  // Define a data de expiração correta
-      }
+        createdAt, // Define a data de criação
+        expirationDate, // Define a data de expiração correta
+      },
     });
-
 
     return res.status(201).json(newRequest);
   } catch (error) {
@@ -124,7 +133,7 @@ app.get("/solicitacao", async (req, res) => {
         .json({ error: "Ong_Id é obrigatório e deve ser um número válido" });
     }
 
-    const requests = await prisma.request.findMany({ where: { ong_Id: id }, skip, take: limit });
+    const requests = await prisma.request.findMany({ where: { ong_Id: id } });
     return res.status(200).json(requests);
   } catch (error) {
     return res.status(500).json({ error: "Erro ao buscar solicitações" });
@@ -134,25 +143,25 @@ app.get("/solicitacao", async (req, res) => {
 // Fazer uma busca entre as solicitações com filtros
 app.get("/search-solicitacao", async (req, res) => {
   try {
-    const { category, urgency, sort} = req.query; 
-    
+    const { category, urgency, sort } = req.query;
+
     // Constrói os filtros diretamente para a consulta no banco
     const filters = {};
-    if (category && listOfCategory.includes(category)) filters.category = category;
+    if (category && listOfCategory.includes(category))
+      filters.category = category;
     if (urgency && listOfUrgency.includes(urgency)) filters.urgency = urgency;
 
     const totalRequests = await prisma.request.count({ where: filters });
-    
-    const limit = parseInt(req.query.limit) || 6;
-    const totalPages = Math.max(1, Math.ceil(totalRequests / limit)); 
 
-      // Tratamento do parâmetro "page"
+    const limit = parseInt(req.query.limit) || 6;
+    const totalPages = Math.max(1, Math.ceil(totalRequests / limit));
+
+    // Tratamento do parâmetro "page"
     let page = parseInt(req.query.page) || 1; // Se for inválido, assume 1
     if (page < 1) page = 1; // Impede valores negativos ou zero
     if (page > totalPages) page = totalPages; // Impede páginas maiores que o total
-    
-    const skip = (page - 1) * limit;
 
+    const skip = (page - 1) * limit;
 
     let orderBy = [];
     if (sort === "recentes") {
@@ -172,15 +181,15 @@ app.get("/search-solicitacao", async (req, res) => {
     return res.status(200).json({
       requests,
       totalRequests,
-      totalPages
+      totalPages,
     });
-
   } catch (error) {
     console.error("Erro no banco de dados:", error); // Exibe o erro no terminal
-    return res.status(500).json({ error: "Erro interno ao buscar solicitações" });
+    return res
+      .status(500)
+      .json({ error: "Erro interno ao buscar solicitações" });
   }
 });
-
 
 // Atualizar solicitacao
 app.put("/solicitacao", async (req, res) => {
@@ -207,7 +216,10 @@ app.put("/solicitacao", async (req, res) => {
 
     let expirationDate = existingRequest.expirationDate;
     if (expirationDuration) {
-      expirationDate = calculateExpirationDate(existingRequest.createdAt, expirationDuration);
+      expirationDate = calculateExpirationDate(
+        existingRequest.createdAt,
+        expirationDuration
+      );
     }
 
     const updatedRequest = await prisma.request.update({
@@ -221,7 +233,9 @@ app.put("/solicitacao", async (req, res) => {
     return res.status(200).json(updatedRequest);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: error.message || "Erro ao atualizar solicitação" });
+    return res
+      .status(500)
+      .json({ error: error.message || "Erro ao atualizar solicitação" });
   }
 });
 
