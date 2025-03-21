@@ -21,14 +21,12 @@ function calcularTempoRestante(dataExpiracao) {
   );
 
   let resposta = null;
-  if (horasRestantes !== 0 && diasRestantes !== 0) {
-    resposta = `Tempo restante: ${diasRestantes} dias e ${horasRestantes} horas`;
-  } else if (horasRestantes === 0 && diasRestantes !== 0) {
-    resposta = `Tempo restante: ${diasRestantes} dias`;
-  } else if (horasRestantes !== 0 && diasRestantes === 0) {
-    resposta = `Tempo restante: ${horasRestantes} horas`;
+  if (diasRestantes > 0) {
+    resposta = `${diasRestantes} dias restantes`;
+  } else if (horasRestantes > 0) {
+    resposta = `${horasRestantes} horas restantes`;
   } else {
-    resposta = "Menos de 1 hora restante";
+    resposta = "1 hora restante";
   }
 
   return resposta;

@@ -7,10 +7,10 @@ function formatarString(str) {
 }
 function formatarString2(str) {
   return str
-    .toLowerCase() // Formata a string para minúsculo
+    .toUpperCase() // Formata a string para minúsculo
     .normalize("NFD") // Normaliza a string
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s+/g, ""); // Remove todos os espaços; // Remove a acentuação
+    .replace(/\s+/g, "_"); // Remove todos os espaços; // Remove a acentuação
 }
 
 export { formatarString, formatarString2 };

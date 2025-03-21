@@ -22,12 +22,6 @@ export default function SearchBar({ placeholder }) {
           e.key === "Enter" && updateQuery("q", input);
         }}
       />
-      <img
-        src="/search.svg"
-        onClick={() => {
-          updateQuery("q", input);
-        }}
-      />
 
       <img
         src="/search.svg"
@@ -36,7 +30,6 @@ export default function SearchBar({ placeholder }) {
         }}
         className="absolute top-1/2 right-3 w-6 -translate-y-1/2 transform cursor-pointer object-cover object-center opacity-85"
       />
-
     </div>
   );
 }

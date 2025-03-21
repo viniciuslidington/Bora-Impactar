@@ -6,6 +6,18 @@ export default function SearchPostVol({ data }) {
   const { category, createdAt, description, title, urgency, expirationDate } =
     data;
 
+  const categorias = {
+    ELETRODOMESTICOS_E_MOVEIS: "Eletrodomésticos e Móveis",
+    UTENSILIOS_GERAIS: "Utensílios Gerais",
+    ROUPAS_E_CALCADOS: "Roupas e Calçados",
+    SAUDE_E_HIGIENE: "Saúde e Higiene",
+    MATERIAIS_EDUCATIVOS_E_CULTURAIS: "Materiais Educativos e Culturais",
+    ITENS_DE_INCLUSAO_E_MOBILIDADE: "Itens de Inclusão e Mobilidade",
+    ELETRONICOS: "Eletrônicos",
+    ITENS_PET: "Itens Pet",
+    OUTROS: "Outros",
+  };
+
   const urgencia = {
     HIGH: "Urgência Alta",
     MEDIUM: "Urgência Média",
@@ -43,7 +55,7 @@ export default function SearchPostVol({ data }) {
           {title}
         </h3>
         <div className="flex gap-2">
-          <p className="opacity-95">{category}</p>
+          <p className="opacity-95">{categorias[category]}</p>
           <span className="opacity-95">|</span>
           <p className="opacity-95">{urgencia[urgency]}</p>
           <span className="opacity-95">|</span>
