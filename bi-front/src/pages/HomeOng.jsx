@@ -33,17 +33,19 @@ export default function Home() {
           <p>Categorais Recorrentes</p>
         </div>
         <Grid>
-          <GridBox imgUrl={"/Alimentos.jpg"}>Alimentos</GridBox>
-          <GridBox imgUrl={"/Serviço.jpg"}>Serviços</GridBox>
-          <GridBox imgUrl={"/Medicamentos.jpg"}>
-            Medicamentos e Itens de Higiene
+          <GridBox imgUrl={"/Roupas.jpg"}>Roupas e Calçados</GridBox>
+          <GridBox imgUrl={"/financeiro.jpg"}>
+            Materiais Educativos e Culturais
           </GridBox>
-          <GridBox imgUrl={"/Brinquedos.jpg"}>brinquedos e livros</GridBox>
-          <GridBox imgUrl={"/Roupas.jpg"}>Roupas</GridBox>
-          <GridBox imgUrl={"/Móveis.jpg"}>Móveis</GridBox>
-          <GridBox imgUrl={"/pet.jpg"}>Alimentos e itens para pet</GridBox>
-          <GridBox imgUrl={"/financeiro.jpg"}>Ajuda financeira</GridBox>
-          <GridBox imgUrl={"/utensilio.jpg"}>Utensílios</GridBox>
+          <GridBox imgUrl={"/Medicamentos.jpg"}>Saúde e Higiene</GridBox>
+          <GridBox imgUrl={"/UtensiliosP.jpg"}>Utensílios Gerais</GridBox>
+          <GridBox imgUrl={"/Inclusaoemobilidade.jpg"}>
+            Itens de Inclusão e Mobilidade
+          </GridBox>
+          <GridBox imgUrl={"/Móveis.jpg"}>Eletrodomésticos e Móveis</GridBox>
+          <GridBox imgUrl={"/pet.jpg"}>Itens Pet</GridBox>
+          <GridBox imgUrl={"/Eletronicos.jpg"}>Eletrônicos</GridBox>
+          <GridBox imgUrl={"/Outrosgrid.jpg"}>Outros</GridBox>
         </Grid>
       </div>
     </>
