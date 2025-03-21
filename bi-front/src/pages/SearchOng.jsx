@@ -13,8 +13,7 @@ export default function SearchOng() {
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search); // Converte a string da URL em um objeto manipulável
-  const queryPage = searchParams.get("page") || 1;
-  const pageRef = useRef(Number(queryPage));
+
   const querySort = searchParams.get("sort") || "";
   const sortRef = useRef(querySort);
 
@@ -54,14 +53,7 @@ export default function SearchOng() {
             <option value="recentes">Recentes</option>
             <option value="expirar">Prestes a Expirar</option>
           </select>
-          <Pagination
-            totalPages={data?.totalPages}
-            currentPage={pageRef.current}
-            onPageChange={(e) => {
-              pageRef.current = e;
-              updateQuery("page", e);
-            }}
-          />
+          <Pagination totalPages={data?.totalPages} />
         </div>
         {isError ? (
           <div className="flex h-full w-full items-center justify-center">
@@ -94,15 +86,7 @@ export default function SearchOng() {
           </div>
         )}
         <span className="flex w-full justify-end">
-          <Pagination
-            totalPages={data?.totalPages}
-            currentPage={pageRef.current}
-            onPageChange={(e) => {
-              pageRef.current = e;
-              updateQuery("page", e);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          />
+          <Pagination totalPages={data?.totalPages} />
         </span>
       </div>
     </div>

@@ -1,4 +1,7 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useQueryUpdate } from "../../utils/queryUpdate";
 
 const getPaginationItems = (currentPage, totalPages) => {
   if (totalPages <= 5) {
@@ -12,8 +15,24 @@ const getPaginationItems = (currentPage, totalPages) => {
   }
 };
 
-const Pagination = ({ totalPages = 1, currentPage = 1, onPageChange }) => {
+const Pagination = ({ totalPages = 1 }) => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search); // Converte a string da URL em um objeto manipulável
+  const queryPage = searchParams.get("page") || 1;
+  const [currentPage, setCurrentPage] = useState(Number(queryPage));
+  const updateQuery = useQueryUpdate();
+
+  const onPageChange = (p) => {
+    updateQuery("page", p);
+  };
+
   const items = getPaginationItems(currentPage, totalPages);
+
+  useEffect(() => {
+    setCurrentPage(
+      Number(new URLSearchParams(location.search).get("page") || 1),
+    );
+  }, [location.search]);
 
   return (
     <nav aria-label="pagination navigation" className="flex items-center gap-2">

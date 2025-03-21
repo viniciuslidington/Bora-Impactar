@@ -2,7 +2,7 @@ import Filter from "../components/Filter/Filter";
 import SearchPostVol from "../components/SearchPosts/SearchPostVol";
 import { useSearchSolicitacao } from "../services/searchService";
 import Pagination from "../components/Pagination/pagination";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useQueryUpdate } from "../utils/queryUpdate";
 
@@ -13,16 +13,9 @@ export default function SearchVol() {
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search); // Converte a string da URL em um objeto manipulável
-  const queryPage = searchParams.get("page") || 1;
-  const querySort = searchParams.get("sort") || "";
-  const pageRef = useRef(Number(queryPage));
-  const sortRef = useRef(querySort);
 
-  useEffect(() => {
-    pageRef.current = Number(
-      new URLSearchParams(location.search).get("page") || 1,
-    );
-  }, [location.search]);
+  const querySort = searchParams.get("sort") || "";
+  const sortRef = useRef(querySort);
 
   return (
     <div className="flex w-[1366px] justify-between px-[123px] py-16">
@@ -60,14 +53,7 @@ export default function SearchVol() {
             <option value="recentes">Recentes</option>
             <option value="expirar">Prestes a Expirar</option>
           </select>
-          <Pagination
-            totalPages={data?.totalPages}
-            currentPage={pageRef.current}
-            onPageChange={(e) => {
-              pageRef.current = e;
-              updateQuery("page", e);
-            }}
-          />
+          <Pagination totalPages={data?.totalPages} />
         </div>
         {isError ? (
           <div className="flex h-full w-full items-center justify-center">
@@ -100,15 +86,7 @@ export default function SearchVol() {
           </div>
         )}
         <span className="flex w-full justify-end">
-          <Pagination
-            totalPages={data?.totalPages}
-            currentPage={pageRef.current}
-            onPageChange={(e) => {
-              pageRef.current = e;
-              updateQuery("page", e);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          />
+          <Pagination totalPages={data?.totalPages} />
         </span>
       </div>
     </div>
