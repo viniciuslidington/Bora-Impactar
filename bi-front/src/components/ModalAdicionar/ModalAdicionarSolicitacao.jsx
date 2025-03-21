@@ -2,7 +2,6 @@ import { useContext, useRef, useReducer } from "react";
 import toast from "react-hot-toast";
 import { ModalContext } from "../contexts/ModalContext";
 import Button from "../Button/Button";
-import styles from "./modalAdicionar.module.css";
 import { useAddSolicitacoes } from "../../services/userSolicitacoesService";
 import { useUserData } from "../../services/authService";
 
@@ -22,10 +21,8 @@ export default function ModaAdicionar() {
   const { setModalAdicionarSolicitacao } = useContext(ModalContext);
   const modalOverlay = useRef();
 
-  const [
-    { titulo, categoria, urgencia, descricao, tempo, imageUrl },
-    dispatch,
-  ] = useReducer(reduce, initialState);
+  const [{ titulo, categoria, urgencia, descricao, tempo }, dispatch] =
+    useReducer(reduce, initialState);
 
   function handlePublicar() {
     if (

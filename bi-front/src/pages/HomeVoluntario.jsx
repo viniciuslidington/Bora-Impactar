@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="flex w-full flex-col items-center">
       <div
-        className="absolute top-0 left-0 -z-10 h-[708px] w-full"
+        className="absolute top-[88px] left-0 -z-10 h-[620px] w-full"
         style={{
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.64) 0%, rgba(255, 255, 255, 0.64) 100%),
@@ -20,13 +20,12 @@ export default function Home() {
           backgroundRepeat: "no-repeat",
         }}
       ></div>{" "}
-      <div className="flex w-[1366px] max-w-full flex-col justify-center gap-4 px-[123px] py-[40px]">
-        {/*mt-[80px] fiz isso para completar os 120px de gap que tem no protótipo do figma*/}
-        <h1 className="mt-[80px] text-[56px] font-bold">
+      <div className="flex h-[620px] w-[1366px] max-w-full flex-col justify-center gap-8 px-[123px]">
+        <h1 className="text-[56px] font-bold">
           Encontre a Oportunidade Perfeita para Ajudar
         </h1>
-        {/*mb-10 gap de 51px que tem no protótipo do figma*/}
-        <p className="mb-13 w-[816px] max-w-full leading-[1.8]">
+
+        <p className="w-[816px] max-w-full leading-[1.8]">
           Conecte-se com ONGs que precisam do seu apoio. Explore as publicações
           e descubra onde suas habilidades e vontade de fazer a diferença são
           mais necessárias.
@@ -40,7 +39,7 @@ export default function Home() {
           </Button>
         </div>
       </div>
-      <div className="mt-[120px] flex w-full max-w-[1366px] flex-col items-center gap-16 px-[123px] py-16">
+      <div className="flex w-full max-w-[1366px] flex-col items-center gap-16 px-[123px] py-16">
         <div className="-mb-10 flex flex-col items-center gap-3">
           <h2 className="text-2xl font-bold">
             Saiba como você pode ajudar as Ongs
