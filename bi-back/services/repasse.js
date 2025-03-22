@@ -14,7 +14,7 @@ const listOfCategory = [
   "ROUPAS_E_CALCADOS",
   "SAUDE_E_HIGIENE",
   "MATERIAIS_EDUCATIVOS_E_CULTURAIS",
- "ITENS_DE_INCLUSAO_E_MOBILIDADE",
+  "ITENS_DE_INCLUSAO_E_MOBILIDADE",
   "ELETRONICOS",
   "ITENS_PET",
   "OUTROS",
@@ -44,7 +44,7 @@ const validateRelocation = (data) => {
     ong_Imagem,
     ong_Phone,
     ong_Email,
-    expirationDuration
+    expirationDuration,
   } = data;
 
   if (!title || !category || !expirationDuration || !ong_Id || !ong_Nome) {
@@ -67,24 +67,50 @@ const validateRelocation = (data) => {
     return "Ong_Id deve ser um número inteiro positivo";
   }
 
-  if (typeof ong_Nome !== "string" ) {
+  if (typeof ong_Nome !== "string") {
     return "Ong_Nome deve ser uma string";
   }
 
-  if (ong_Imagem && typeof ong_Imagem !== "string" ) {
+  if (ong_Imagem && typeof ong_Imagem !== "string") {
     return "Ong_Imagem deve ser uma string";
   }
 
-  if (ong_Phone && typeof ong_Phone !== "string" ) {
+  if (ong_Phone && typeof ong_Phone !== "string") {
     return "Ong_Phone deve ser uma string";
   }
 
-  if (ong_Email && typeof ong_Email !== "string" ) {
+  if (ong_Email && typeof ong_Email !== "string") {
     return "ong_Email deve ser uma string";
   }
 
   if (description && typeof description !== "string") {
     return "A descrição deve ser uma string";
+  }
+
+  if (quantity && (typeof quantity !== "number" || quantity < 1)) {
+    return "A quantidade deve ser um número inteiro positivo";
+  }
+
+  return null;
+};
+
+const validatePartialUpdate = (data) => {
+  const { category, urgency, expirationDuration, title, quantity } = data;
+
+  if (title && (typeof title !== "string" || title.length < 3)) {
+    return "O título deve ter pelo menos 3 caracteres e ser uma string";
+  }
+
+  if (category && !listOfCategory.includes(category)) {
+    return "Categoria inválida.";
+  }
+
+  if (urgency && !listOfUrgency.includes(urgency)) {
+    return "Nível de urgência inválido. Escolha entre: LOW, MEDIUM, HIGH";
+  }
+
+  if (expirationDuration && !expirationMapping[expirationDuration]) {
+    return "Valor inválido para ExpirationDuration. Escolha entre: '7 dias', '2 semanas', '4 semanas', '12 semanas'.";
   }
 
   if (quantity && (typeof quantity !== "number" || quantity < 1)) {
@@ -157,7 +183,9 @@ app.get("/search-repasse", async (req, res) => {
     if (req.query.category && listOfCategory.includes(req.query.category))
       filters.category = category;
 
-    const totalRepasses = await prisma.relocationProduct.count({ where: filters });
+    const totalRepasses = await prisma.relocationProduct.count({
+      where: filters,
+    });
 
     const limit = parseInt(req.query.limit) || 6;
     const totalPages = Math.max(1, Math.ceil(totalRepasses / limit));
@@ -193,7 +221,7 @@ app.get("/search-repasse", async (req, res) => {
 });
 
 // Atualizar repasse
-app.put("/repasse", async (req, res) => {
+app.patch("/repasse", async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {
@@ -209,7 +237,7 @@ app.put("/repasse", async (req, res) => {
       return res.status(404).json({ error: "repasse não encontrada" });
     }
 
-    const validationError = validateRelocation(req.body);
+    const validationError = validatePartialUpdate(req.body);
     if (validationError) {
       return res.status(400).json({ error: validationError });
     }

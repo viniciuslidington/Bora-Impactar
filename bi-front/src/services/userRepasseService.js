@@ -19,7 +19,7 @@ const postRepasse = async (content) => {
   return response.data;
 };
 const putRepasse = async (content) => {
-  const response = await api.put("/repasse", content, {
+  const response = await api.patch("/repasse", content, {
     params: { id: content.id },
   });
   return response.data;
@@ -68,6 +68,7 @@ const useAddRepasse = () => {
           error?.response?.data?.message ||
             "Erro ao criar repasse! Tente novamente.",
         );
+        console.log(error);
       }
     },
     onSuccess: () => {

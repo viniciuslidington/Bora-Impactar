@@ -40,6 +40,8 @@ export default function ModaAdicionar() {
       urgency: urgencia,
       description: descricao,
       ong_Id: data?.userData.ngo.id,
+      ong_Nome: data?.userData.ngo.name,
+      expirationDuration: tempo,
     });
     setModalAdicionarSolicitacao(false);
   }

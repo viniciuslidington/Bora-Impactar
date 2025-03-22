@@ -3,11 +3,11 @@ import toast from "react-hot-toast";
 import { ModalContext } from "../contexts/ModalContext";
 import Button from "../Button/Button";
 import styles from "./modalAdicionar.module.css";
-import { useAddSolicitacoes } from "../../services/userSolicitacoesService";
 import { useUserData } from "../../services/authService";
+import { useAddRepasse } from "../../services/userRepasseService";
 
 export default function ModaAdicionar() {
-  const { mutate: adicionar } = useAddSolicitacoes();
+  const { mutate: adicionar } = useAddRepasse();
   const { data } = useUserData();
 
   const initialState = {
@@ -22,10 +22,8 @@ export default function ModaAdicionar() {
   const { setModalAdicionarRepasse } = useContext(ModalContext);
   const modalOverlay = useRef();
 
-  const [
-    { titulo, categoria, urgencia, descricao, tempo, imageUrl },
-    dispatch,
-  ] = useReducer(reduce, initialState);
+  const [{ titulo, categoria, urgencia, descricao, tempo }, dispatch] =
+    useReducer(reduce, initialState);
 
   function handlePublicar() {
     if (
@@ -42,6 +40,8 @@ export default function ModaAdicionar() {
       category: categoria,
       description: descricao,
       ong_Id: data?.userData.ngo.id,
+      ong_Nome: data?.userData.ngo.name,
+      expirationDuration: tempo,
     });
     setModalAdicionarRepasse(false);
   }

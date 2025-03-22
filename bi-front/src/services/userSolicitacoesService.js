@@ -19,7 +19,7 @@ const postSolicitacoes = async (content) => {
   return response.data;
 };
 const putSolicitacoes = async (content) => {
-  const response = await api.put("/solicitacao", content, {
+  const response = await api.patch("/solicitacao", content, {
     params: { id: content.id },
   });
   return response.data;
