@@ -19,6 +19,7 @@ import HomeVoluntario from "./pages/HomeVoluntario";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import SearchVol from "./pages/SearchVol";
 import SearchOng from "./pages/SearchOng";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 const queryClient = new QueryClient();
 
@@ -56,7 +57,7 @@ function App() {
               <Route path="home" element={<HomeVoluntario />} />
               <Route path="search" element={<SearchVol />} />
             </Route>
-            <Route path="*" element={<p>404 Página não encontrada</p>} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Router>
       </ModalProvider>
