@@ -1,19 +1,13 @@
 import express from "express";
-import cors from "cors";
 import fetch from "node-fetch";
 import jwt from "jsonwebtoken";
 // import dotenv from "dotenv"; ADICIONAR DEPOIS EM HOMOLOGAÇÃO
-import cookieParser from "cookie-parser";
 import { PrismaClient } from "@prisma/client";
 
-const app = express();
+const router = express.Router();
 const prisma = new PrismaClient();
 const SECRET_KEY =
   "0a81fe9aab38c9011ed6542b2eb9a3db62a0c48dc496699bde624e1c5dbe4232";
-
-app.use(express.json());
-app.use(cookieParser());
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 
 const processData = (data) => {
   return {
@@ -36,7 +30,7 @@ const processData = (data) => {
   };
 };
 
-app.post("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
     const { email, password } = req.body;
   
     try {
@@ -84,7 +78,7 @@ app.post("/login", async (req, res) => {
     }
   });
 
-  app.get("/auth", async (req, res) => {
+  router.get("/auth", async (req, res) => {
     const token = req.cookies.token;
     if (!token) {
       return res.status(401).json({ error: "Token não fornecido" });
@@ -102,11 +96,9 @@ app.post("/login", async (req, res) => {
     });
   });
 
-app.post("/logout", (req, res) => {
+router.post("/logout", (req, res) => {
     res.clearCookie('token');
     res.json({ message: 'Logout bem-sucedido' });
 });
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
+export default router

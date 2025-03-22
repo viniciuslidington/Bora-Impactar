@@ -1,11 +1,8 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import cors from "cors";
 
 const prisma = new PrismaClient();
-const app = express();
-app.use(express.json());
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+const router = express.Router();
 
 // Definindo os esquemas de validação
 const listOfCategory = [
@@ -95,7 +92,7 @@ const validateRelocation = (data) => {
 };
 
 // Criar uma repasse
-app.post("/repasse", async (req, res) => {
+router.post("/repasse", async (req, res) => {
   const validationError = validateRelocation(req.body);
   if (validationError) {
     return res.status(400).json({ error: validationError });
@@ -128,7 +125,7 @@ app.post("/repasse", async (req, res) => {
 });
 
 // Buscar todas as relocacoes da ong que está logada
-app.get("/repasse", async (req, res) => {
+router.get("/repasse", async (req, res) => {
   try {
     const id = Number(req.query.ong_Id);
 
@@ -147,7 +144,7 @@ app.get("/repasse", async (req, res) => {
   }
 });
 // Fazer uma busca entre as relocacoes com filtros
-app.get("/search-repasse", async (req, res) => {
+router.get("/search-repasse", async (req, res) => {
   try {
     const { category, title, sort } = req.query;
 
@@ -193,7 +190,7 @@ app.get("/search-repasse", async (req, res) => {
 });
 
 // Atualizar repasse
-app.put("/repasse", async (req, res) => {
+router.put("/repasse", async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {
@@ -242,7 +239,7 @@ app.put("/repasse", async (req, res) => {
 });
 
 // Deletar repasse
-app.delete("/repasse", async (req, res) => {
+router.delete("/repasse", async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {
@@ -265,6 +262,4 @@ app.delete("/repasse", async (req, res) => {
   }
 });
 
-app.listen(3002, () => {
-  console.log("Servidor rodando na porta 3002");
-});
+export default router;

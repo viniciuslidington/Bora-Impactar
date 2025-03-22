@@ -1,11 +1,8 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import cors from "cors";
 
 const prisma = new PrismaClient();
-const app = express();
-app.use(express.json());
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+const router = express.Router();
 
 // Definindo os esquemas de validação
 const listOfCategory = [
@@ -108,7 +105,7 @@ function formatarString(str) {
 }
 
 // Criar uma solicitacao
-app.post("/solicitacao", async (req, res) => {
+router.post("/solicitacao", async (req, res) => {
   const validationError = validateRequest(req.body);
   if (validationError) {
     return res.status(400).json({ error: validationError });
@@ -141,7 +138,7 @@ app.post("/solicitacao", async (req, res) => {
 });
 
 // Buscar todas as soliciações da ong que está logada
-app.get("/solicitacao", async (req, res) => {
+router.get("/solicitacao", async (req, res) => {
   try {
     const id = Number(req.query.ong_Id);
 
@@ -159,7 +156,7 @@ app.get("/solicitacao", async (req, res) => {
 });
 
 // Fazer uma busca entre as solicitações com filtros
-app.get("/search-solicitacao", async (req, res) => {
+router.get("/search-solicitacao", async (req, res) => {
   try {
     const { category, urgency, sort } = req.query;
 
@@ -210,7 +207,7 @@ app.get("/search-solicitacao", async (req, res) => {
 });
 
 // Atualizar solicitacao
-app.put("/solicitacao", async (req, res) => {
+router.put("/solicitacao", async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {
@@ -258,7 +255,7 @@ app.put("/solicitacao", async (req, res) => {
 });
 
 // Deletar solicitacao
-app.delete("/solicitacao", async (req, res) => {
+router.delete("/solicitacao", async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {
@@ -281,6 +278,4 @@ app.delete("/solicitacao", async (req, res) => {
   }
 });
 
-app.listen(3001, () => {
-  console.log("Servidor rodando na porta 3001");
-});
+export default router;
