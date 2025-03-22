@@ -47,9 +47,7 @@ export default function MainPage() {
         <div className="flex gap-8">
           <Button
             className="h-[80px] w-[256px] cursor-pointer rounded-sm border-none bg-[#294bb6] px-2 py-3 text-[18px] font-bold text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
-
             onClick={() => navigate("/voluntario/home")}
-
           >
             Sou Voluntário
           </Button>
@@ -93,18 +91,54 @@ export default function MainPage() {
         <h2 className="text-5xl font-medium">Ajude as causas das ONGs</h2>
         {/* controlando largura total do grid */}
         <Grid>
-          <GridBox imgUrl={"./Roupas.jpg"}>Roupas e Calçados</GridBox>
-          <GridBox imgUrl={"./financeiro.jpg"}>
+          <GridBox
+            imgUrl={"/Roupas.jpg"}
+            link={"/voluntario/search?page=1&category=ROUPAS_E_CALCADOS"}
+          >
+            Roupas e Calçados
+          </GridBox>
+          <GridBox
+            imgUrl={"/financeiro.jpg"}
+            link={
+              "/voluntario/search?page=1&category=MATERIAIS_EDUCATIVOS_E_CULTURAIS"
+            }
+          >
             Materiais Educativos e Culturais
           </GridBox>
-          <GridBox imgUrl={"./Medicamentos.jpg"}>Saúde e Higiene</GridBox>
-          <GridBox imgUrl={"./UtensiliosP.jpg"}>Utensílios Gerais</GridBox>
-          <GridBox imgUrl={"./Inclusaoemobilidade.jpg"}>
+          <GridBox
+            imgUrl={"/Medicamentos.jpg"}
+            link={"/voluntario/search?page=1&category=SAUDE_E_HIGIENE"}
+            s
+          >
+            Saúde e Higiene
+          </GridBox>
+          <GridBox
+            imgUrl={"/UtensiliosP.jpg"}
+            link={"/voluntario/search?page=1&category=UTENSILIOS_GERAIS"}
+          >
+            Utensílios Gerais
+          </GridBox>
+          <GridBox
+            imgUrl={"/Inclusaoemobilidade.jpg"}
+            link={
+              "/voluntario/search?page=1&category=ITENS_DE_INCLUSAO_E_MOBILIDADE"
+            }
+          >
             Itens de Inclusão e Mobilidade
           </GridBox>
-          <GridBox imgUrl={"./Móveis.jpg"}>Eletrodomésticos e Móveis</GridBox>
+          <GridBox
+            imgUrl={"/Móveis.jpg"}
+            link={
+              "/voluntario/search?page=1&category=ELETRODOMESTICOS_E_MOVEIS"
+            }
+          >
+            Eletrodomésticos e Móveis
+          </GridBox>
         </Grid>
-        <Button className="h-[64px] w-[256px] cursor-pointer rounded-sm border-3 border-solid border-[#232323b6] bg-none px-2 py-3 text-[18px] font-medium text-[#232323] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[rgba(27,46,53,0.075)] disabled:opacity-70">
+        <Button
+          className="h-[64px] w-[256px] cursor-pointer rounded-sm border-3 border-solid border-[#232323b6] bg-none px-2 py-3 text-[18px] font-medium text-[#232323] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[rgba(27,46,53,0.075)] disabled:opacity-70"
+          onClick={() => navigate("/voluntario/home")}
+        >
           Ver outras categorias
         </Button>
       </div>
