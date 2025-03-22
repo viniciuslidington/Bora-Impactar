@@ -1,0 +1,56 @@
+#PASSO A PASSO PARA A MIGRACAO DO BANCO DE DADOS
+(pasta: bi-back)
+1º- alterar a dot env no back-end 
+DATABASE_URL="postgresql://docker:docker@localhost:5432/bi_banco"
+
+2º- Rodar para atualizar as dependencias do projeto 
+    (
+        npm install
+    )
+
+(pasta: bi-banco)
+3º- Verificar se o Docker está instalado na sua máquina. Se não, baixe!!!!!
+4º- Rodar o docker-compose.yml 
+    (
+        No terminal, na pasta do bi-banco, excecute essa linha de código
+            ->          docker-compose up -d
+     )
+
+5º- Se der BO, se vire, fizesse algo errado. 
+
+
+(pasta: bi-back)
+6º- Gere a migraçao do banco, para inserir as colunas que possuimos no nosso projeto. 
+    O banco virá em branco (não consegui mandar os itens antigos para ele, a sintaxe é diferente do sqlite e postgres)
+    (
+        No terminal, na pasta bi-back, rode a migração do banco. Ele vai ler o arquivo schema do prisma e criar as tabelas lá. 
+            ->           npx prisma migrate dev --name init_{botateunomeai}
+                                                    MERMAO PRESTE ATENCAO AQUI, É PRA BOTAR TEU NOME NO LOCAL, SEM ESPACO E SEM ESSAS CHAVES.
+    
+        Se der erro, rodar esse comando: (prov vai dar kkkk)
+                    npx prisma migrate reset
+                    
+                Depois de resetar, rode novamente o comando: 
+
+                ->              npx prisma migrate dev --name init_{botateunomeai}
+    )
+
+
+
+7º Testar conecxão: 
+
+        ->         npx prisma studio
+
+
+--DEU BOM--
+
+FIM.
+
+
+
+Nos teremos um banco para cada pessoa em ambiente de desenvolvimento, pq estamos rodando um container no localhost. Não se assutem pq um ta diferente do outro. 
+Quando formos para homologacao, e producao esse banco será hospedado pelo servidor do CIN e teremos nossos dados salvos em um único lugar.
+
+
+Toda vez que alterar o prisma.schema temos que fazer a migracao para o banco ler as modificacoes feitas. 
+
