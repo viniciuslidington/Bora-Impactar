@@ -13,7 +13,7 @@ const fetchLogout = async () => {
   return response.data;
 };
 const fetchUserData = async () => {
-  const response = await api.get("auth");
+  const response = await api.get("/login");
   return response.data;
 };
 

@@ -30,7 +30,7 @@ const processData = (data) => {
   };
 };
 
-router.post("/login", async (req, res) => {
+router.post("/", async (req, res) => {
     const { email, password } = req.body;
   
     try {
@@ -63,7 +63,7 @@ router.post("/login", async (req, res) => {
         create: processedData,
       });
   
-      const token = jwt.sign({ email, user: data.user.name, userData: data }, SECRET_KEY, { expiresIn: "1h" });
+      const token = jwt.sign({ email, user: data.user.name, userData: data }, SECRET_KEY, { expiresIn: "60s" });
   
       res.cookie("token", token, {
         httpOnly: true,
@@ -78,7 +78,7 @@ router.post("/login", async (req, res) => {
     }
   });
 
-  router.get("/auth", async (req, res) => {
+router.get("/", async (req, res) => {
     const token = req.cookies.token;
     if (!token) {
       return res.status(401).json({ error: "Token não fornecido" });
@@ -95,10 +95,5 @@ router.post("/login", async (req, res) => {
       res.json({user: decoded.user, userData: decoded.userData });
     });
   });
-
-router.post("/logout", (req, res) => {
-    res.clearCookie('token');
-    res.json({ message: 'Logout bem-sucedido' });
-});
 
 export default router

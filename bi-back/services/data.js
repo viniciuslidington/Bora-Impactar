@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const router = express.Router(); 
 
-router.get("/ONGdata", async (req, res) => {
+router.get("/", async (req, res) => {
   let requests = [];
 
   if (req.query.id) {

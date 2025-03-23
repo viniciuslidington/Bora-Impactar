@@ -1,0 +1,1 @@
+//pasta para funcoes que ajudam o codigo, botar ela nessa pasta faz o codigo ficar mais organizado
