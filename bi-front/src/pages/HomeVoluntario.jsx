@@ -47,7 +47,7 @@ export default function Home() {
           </Button>
         </div>
         <svg
-          className="mt-auto h-12 w-12 cursor-pointer self-center fill-current text-[#292929]"
+          className="mt-[36px] h-12 w-12 cursor-pointer self-center fill-current text-[#292929]"
           viewBox="0 0 48 48"
           onClick={scrollToComponent}
         >
