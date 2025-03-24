@@ -9,21 +9,46 @@ app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 
 // Definindo os esquemas de validação
 const listOfCategory = [
-  "ALIMENTO",
-  "SERVICOS",
-  "UTENSILIOS",
-  "MEDICAMENTOS_HIGIENE",
-  "BRINQUEDOS_LIVROS",
-  "MOVEIS",
-  "ITEMPET",
-  "AJUDAFINANCEIRA",
-  "OUTRA",
+  "ELETRODOMESTICOS_E_MOVEIS",
+  "UTENSILIOS_GERAIS",
+  "ROUPAS_E_CALCADOS",
+  "SAUDE_E_HIGIENE",
+  "MATERIAIS_EDUCATIVOS_E_CULTURAIS",
+  "ITENS_DE_INCLUSAO_E_MOBILIDADE",
+  "ELETRONICOS",
+  "ITENS_PET",
+  "OUTROS",
 ];
-const validateRelocation = (data) => {
-  const { title, category, description, ong_Id } = data;
 
-  if (!title || !category) {
-    return "Os campos Title e Category  são obrigatórios";
+const expirationMapping = {
+  "7 dias": 7,
+  "2 semanas": 14,
+  "4 semanas": 28,
+  "12 semanas": 84,
+};
+
+const calculateExpirationDate = (createdAt, duration) => {
+  const daysToAdd = expirationMapping[duration];
+  if (!daysToAdd) return null;
+  return new Date(createdAt.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
+};
+
+const validateRelocation = (data) => {
+  const {
+    title,
+    category,
+    description,
+    quantity,
+    ong_Id,
+    ong_Nome,
+    ong_Imagem,
+    ong_Phone,
+    ong_Email,
+    expirationDuration,
+  } = data;
+
+  if (!title || !category || !expirationDuration || !ong_Id || !ong_Nome) {
+    return "Os campos Title, Category, expirationDuration, ong_Id e ong_Nome são obrigatórios";
   }
 
   if (typeof title !== "string" || title.length < 3) {
@@ -34,14 +59,62 @@ const validateRelocation = (data) => {
     return "Categoria inválida.";
   }
 
+  if (!expirationMapping[expirationDuration]) {
+    return "Valor inválido para ExpirationDuration. Escolha entre: '7 dias', '2 semanas', '4 semanas', '12 semanas'.";
+  }
+
+  if (typeof ong_Id !== "number" || ong_Id < 1) {
+    return "Ong_Id deve ser um número inteiro positivo";
+  }
+
+  if (typeof ong_Nome !== "string") {
+    return "Ong_Nome deve ser uma string";
+  }
+
+  if (ong_Imagem && typeof ong_Imagem !== "string") {
+    return "Ong_Imagem deve ser uma string";
+  }
+
+  if (ong_Phone && typeof ong_Phone !== "string") {
+    return "Ong_Phone deve ser uma string";
+  }
+
+  if (ong_Email && typeof ong_Email !== "string") {
+    return "ong_Email deve ser uma string";
+  }
+
   if (description && typeof description !== "string") {
     return "A descrição deve ser uma string";
   }
 
-  if (!ong_Id) {
-    return "Ong_Id é obrigatório";
-  } else if (typeof ong_Id !== "number" || ong_Id < 1) {
-    return "Ong_Id deve ser um número inteiro positivo";
+  if (quantity && (typeof quantity !== "number" || quantity < 1)) {
+    return "A quantidade deve ser um número inteiro positivo";
+  }
+
+  return null;
+};
+
+const validatePartialUpdate = (data) => {
+  const { category, urgency, expirationDuration, title, quantity } = data;
+
+  if (title && (typeof title !== "string" || title.length < 3)) {
+    return "O título deve ter pelo menos 3 caracteres e ser uma string";
+  }
+
+  if (category && !listOfCategory.includes(category)) {
+    return "Categoria inválida.";
+  }
+
+  if (urgency && !listOfUrgency.includes(urgency)) {
+    return "Nível de urgência inválido. Escolha entre: LOW, MEDIUM, HIGH";
+  }
+
+  if (expirationDuration && !expirationMapping[expirationDuration]) {
+    return "Valor inválido para ExpirationDuration. Escolha entre: '7 dias', '2 semanas', '4 semanas', '12 semanas'.";
+  }
+
+  if (quantity && (typeof quantity !== "number" || quantity < 1)) {
+    return "A quantidade deve ser um número inteiro positivo";
   }
 
   return null;
@@ -55,10 +128,23 @@ app.post("/repasse", async (req, res) => {
   }
 
   try {
-    const newRelocation = await prisma.RelocationProduct.create({
-      data: req.body,
+    const createdAt = new Date();
+    const expirationDate = calculateExpirationDate(
+      createdAt,
+      req.body.expirationDuration
+    );
+
+    const { expirationDuration, ...requestData } = req.body;
+
+    const newRequest = await prisma.relocationProduct.create({
+      data: {
+        ...requestData, // Inclui title, category, urgency, etc.
+        createdAt, // Define a data de criação
+        expirationDate, // Define a data de expiração correta
+      },
     });
-    return res.status(201).json(newRelocation);
+
+    return res.status(201).json(newRequest);
   } catch (error) {
     console.error(error);
     return res
@@ -89,23 +175,53 @@ app.get("/repasse", async (req, res) => {
 // Fazer uma busca entre as relocacoes com filtros
 app.get("/search-repasse", async (req, res) => {
   try {
+    const { category, title, sort } = req.query;
+
     const filters = {};
 
-    if (req.query.title) filters.title = req.query.title;
+    if (req.query.title) filters.title = title;
     if (req.query.category && listOfCategory.includes(req.query.category))
-      filters.category = req.query.category;
+      filters.category = category;
+
+    const totalRepasses = await prisma.relocationProduct.count({
+      where: filters,
+    });
+
+    const limit = parseInt(req.query.limit) || 6;
+    const totalPages = Math.max(1, Math.ceil(totalRepasses / limit));
+
+    let page = parseInt(req.query.page) || 1;
+    if (page < 1) page = 1;
+    if (page > totalPages) page = totalPages;
+
+    const skip = (page - 1) * limit;
+
+    let orderBy = [];
+    if (sort === "recentes") {
+      orderBy = [{ createdAt: "desc" }]; // Mais recentes primeiro
+    } else if (sort === "expirar") {
+      orderBy = [{ expirationDate: "asc" }]; // Mais perto de expirar primeiro
+    }
 
     const requests = await prisma.relocationProduct.findMany({
       where: filters,
+      skip,
+      take: limit,
+      orderBy,
     });
-    return res.status(200).json(requests);
+
+    return res.status(200).json({
+      requests,
+      totalRepasses,
+      totalPages,
+    });
   } catch (error) {
     return res.status(500).json({ error: "Erro ao buscar solicitações" });
   }
 });
 
 // Atualizar repasse
-app.put("/repasse", async (req, res) => {
+app.patch("/repasse", async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {
@@ -113,7 +229,7 @@ app.put("/repasse", async (req, res) => {
   }
 
   try {
-    const existingRelocation = await prisma.RelocationProduct.findUnique({
+    const existingRelocation = await prisma.relocationProduct.findUnique({
       where: { id },
     });
 
@@ -121,14 +237,27 @@ app.put("/repasse", async (req, res) => {
       return res.status(404).json({ error: "repasse não encontrada" });
     }
 
-    const validationError = validateRelocation(req.body);
+    const validationError = validatePartialUpdate(req.body);
     if (validationError) {
       return res.status(400).json({ error: validationError });
     }
 
-    const updatedRelocation = await prisma.RelocationProduct.update({
+    const { expirationDuration, ...updateData } = req.body;
+
+    let expirationDate = existingRelocation.expirationDate;
+    if (expirationDuration) {
+      expirationDate = calculateExpirationDate(
+        existingRelocation.createdAt,
+        expirationDuration
+      );
+    }
+
+    const updatedRelocation = await prisma.relocationProduct.update({
       where: { id },
-      data: req.body,
+      data: {
+        ...updateData,
+        expirationDate,
+      },
     });
 
     return res.status(200).json(updatedRelocation);

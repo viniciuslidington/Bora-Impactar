@@ -1,40 +1,43 @@
 ### Testes para a API de `request`
 
 # Buscar requests com filtro de categoria
-GET http://localhost:3001/solicitacao?ong_Id=3
+GET http://localhost:3001/solicitacao?ong_Id=100
 
 ###
 # Buscar solicitacoes com filtro
-GET http://localhost:3001/search-solicitacao
+GET http://localhost:3001/search-solicitacao?page=3
 ###
 # Criar um novo request
 POST http://localhost:3001/solicitacao
 Content-Type: application/json
 
 {
-    "title": "Meias",
-    "category": "UTENSILIOS",
-    "urgency": "HIGH",
-    "ong_Id": 3
+    "title": "TESTE28",
+    "category": "ELETRONICOS",
+    "urgency": "MEDIUM",
+    "ong_Id": 200,
+    "ong_Nome": "ONG Teste2",
+    "expirationDuration": "4 semanas"
 }
 
 ###
 # Atualizar um request existente
-PUT http://localhost:3001/solicitacao
+PUT http://localhost:3001/solicitacao?id=35
 Content-Type: application/json
 
 {
-    "id": 3,
-    "title": "Boneca",
-    "category": "MANGA",
-    "urgency": "MEDIUM",
+    "title": "QUARO2UPDATED",
+    "category": "MATERIAIS_EDUCATIVOS_E_CULTURAIS",
+    "urgency": "HIGH",
     "quantity": 5,
-    "ong_Id": 3
+    "ong_Id": 3,
+    "ong_Nome": "ONG Teste",
+    "expirationDuration": "4 semanas"
 }
 
 ###
 # Deletar um request
-DELETE http://localhost:3001/solicitacao
+DELETE http://localhost:3001/solicitacao?id=35
 Content-Type: application/json
 
 ### Testes para a API de `repasse`
@@ -44,7 +47,7 @@ GET http://localhost:3002/repasse?ong_Id=88
 
 ###
 # Buscar repasse com filtro
-GET http://localhost:3002/search-repasse
+GET http://localhost:3002/search-repasse?page=2
 
 ###
 # Criar uma nova repasse
@@ -52,10 +55,12 @@ POST http://localhost:3002/repasse
 Content-Type: application/json
 
 {
-    "title": "Manteiga",
-    "category": "ALIMENTO",
+    "title": "Osso de cachorro",
+    "category": "ITENS_PET",
     "description": "Cadeiras de escritório em bom estado",
-    "ong_Id": 88
+    "ong_Id": 88,
+    "ong_Nome": "ONG Teste",
+    "expirationDuration": "4 semanas"
 }
 
 ###
@@ -71,13 +76,16 @@ Content-Type: application/json
 
 ###
 # Atualizar uma repasse existente
-PUT http://localhost:3002/repasse?id=4
+PUT http://localhost:3002/repasse?id=19
 Content-Type: application/json
 
 {
-    "title": "mesa",
-    "category": "UTENSILIOS",
-    "ong_Id": 100
+    "title": "Osso de gato",
+    "category": "ITENS_PET",
+    "description": "Ossos nao podem ter sido usados anteriormente",
+    "ong_Id": 90,
+    "ong_Nome": "ONG Teste",
+    "expirationDuration": "4 semanas"
 }
 
 ###

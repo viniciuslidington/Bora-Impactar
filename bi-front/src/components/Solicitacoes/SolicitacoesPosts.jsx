@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import Button from "../Button/Button";
 import Post from "./SolicitacaoPost";
 import { ModalContext } from "../contexts/ModalContext";
@@ -7,7 +6,7 @@ import { formatarString } from "../../utils/formatString";
 import styles from "./ongPosts.module.css";
 import {
   useSolicitacoes,
-  handleError,
+  useHandleError,
 } from "../../services/userSolicitacoesService";
 
 //Tipos de ordenação dos posts
@@ -19,7 +18,8 @@ const sortFunctions = {
 
 export default function OngPosts() {
   const { data = [], isPending, isError, error } = useSolicitacoes();
-  const queryClient = useQueryClient();
+
+  const handleError = useHandleError();
 
   const [sortPosts, setSortPosts] = useState("data");
   const [searchPosts, setSearchPosts] = useState("");
@@ -58,9 +58,9 @@ export default function OngPosts() {
 
   useEffect(() => {
     if (isError) {
-      handleError(error, queryClient); // Usando a função utilitária para lidar com erros
+      handleError(error); // Usando a função utilitária para lidar com erros
     }
-  }, [isError, error, queryClient]);
+  }, [isError, error, handleError]);
 
   return (
     <>
@@ -94,7 +94,11 @@ export default function OngPosts() {
           <img src="/search.svg" alt="pesquisar icone" />
         </div>
         <div className={styles.postsList}>
-          {isPending ? (
+          {isError ? (
+            <div className="flex h-full items-center justify-center">
+              <p className="text-red-500">Erro ao carregar solicitações!</p>
+            </div>
+          ) : isPending ? (
             <div className="flex h-full items-center justify-center">
               <l-ring-2
                 size="64"

@@ -3,11 +3,11 @@ import toast from "react-hot-toast";
 import { ModalContext } from "../contexts/ModalContext";
 import Button from "../Button/Button";
 import styles from "./modalAdicionar.module.css";
-import { useAddSolicitacoes } from "../../services/userSolicitacoesService";
 import { useUserData } from "../../services/authService";
+import { useAddRepasse } from "../../services/userRepasseService";
 
 export default function ModaAdicionar() {
-  const { mutate: adicionar } = useAddSolicitacoes();
+  const { mutate: adicionar } = useAddRepasse();
   const { data } = useUserData();
 
   const initialState = {
@@ -22,10 +22,8 @@ export default function ModaAdicionar() {
   const { setModalAdicionarRepasse } = useContext(ModalContext);
   const modalOverlay = useRef();
 
-  const [
-    { titulo, categoria, urgencia, descricao, tempo, imageUrl },
-    dispatch,
-  ] = useReducer(reduce, initialState);
+  const [{ titulo, categoria, urgencia, descricao, tempo }, dispatch] =
+    useReducer(reduce, initialState);
 
   function handlePublicar() {
     if (
@@ -42,6 +40,8 @@ export default function ModaAdicionar() {
       category: categoria,
       description: descricao,
       ong_Id: data?.userData.ngo.id,
+      ong_Nome: data?.userData.ngo.name,
+      expirationDuration: tempo,
     });
     setModalAdicionarRepasse(false);
   }
@@ -99,30 +99,24 @@ export default function ModaAdicionar() {
                 dispatch({ type: "categoria", payload: `${e.target.value}` })
               }
             >
-              <option value="" disabled={true}>
-                Alimentos
+              <option value="" disabled={true} selected={true}>
+                Selecionar
               </option>
-              <option value="" disabled={true}>
-                Kit de casa
+              <option value="ELETRODOMESTICOS_E_MOVEIS">
+                Eletrodomésticos e Móveis
               </option>
-              <option value="MEDICAMENTOS_HIGIENE">Saúde e higiene</option>
-              <option value="BRINQUEDOS_LIVROS">Brinquedos e livros</option>
-              <option value="MOVEIS">Móveis</option>
-              <option value="UTENSILIOS">Utensílios gerais</option>
-              <option value="ITEMPET">Itens para pets</option>
-              <option value="" disabled={true}>
-                Serviços
+              <option value="UTENSILIOS_GERAIS">Utensílios Gerais</option>
+              <option value="ROUPAS_E_CALCADOS">Roupas e Calçados</option>
+              <option value="SAUDE_E_HIGIENE">Saúde e Higiene</option>
+              <option value="MATERIAIS_EDUCATIVOS_E_CULTURAIS">
+                Materiais Educativos e Culturais
               </option>
-              <option value="" disabled={true}>
-                Eletrodomésticos e móveis
+              <option value="ITENS_DE_INCLUSAO_E_MOBILIDADE">
+                Itens de Inclusão e Mobilidade
               </option>
-              <option value="" disabled={true}>
-                Roupas e calçados
-              </option>
-              <option value="" disabled={true}>
-                Ajuda Financeira
-              </option>
-              <option value="OUTRA">Outra opção</option>
+              <option value="ELETRONICOS">Eletrônicos</option>
+              <option value="ITENS_PET">Itens para Pets</option>
+              <option value="OUTROS">Outros</option>
             </select>
           </label>
           <div className={styles.radioDiv} style={{ zIndex: 15 }}>
@@ -192,10 +186,10 @@ export default function ModaAdicionar() {
               <option value="" disabled={true}>
                 Selecionar
               </option>
-              <option value="7">7 dias</option>
-              <option value="14">14 dias</option>
-              <option value="30">30 dias</option>
-              <option value="90">90 dias</option>
+              <option value="7 dias">7 dias</option>
+              <option value="2 semanas">14 dias</option>
+              <option value="4 semanas">30 dias</option>
+              <option value="12 semanas">90 dias</option>
             </select>
           </label>
           <Button

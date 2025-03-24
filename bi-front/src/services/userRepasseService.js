@@ -19,7 +19,7 @@ const postRepasse = async (content) => {
   return response.data;
 };
 const putRepasse = async (content) => {
-  const response = await api.put("/repasse", content, {
+  const response = await api.patch("/repasse", content, {
     params: { id: content.id },
   });
   return response.data;
@@ -37,16 +37,20 @@ const useRepasse = () => {
     queryFn: () => getRepasse(data?.userData.ngo.id),
   });
 };
+
 // para erros no useQuery
-export const handleError = (error, queryClient) => {
-  if (error.response && error.response.status === 401) {
-    queryClient.setQueryData(["user"], null);
-    toast.error("Sessão expirada, por favor, faça login novamente.");
-  } else {
-    toast.error(
-      error?.response?.data?.message || "Erro ao carregar solicitações.",
-    );
-  }
+export const useHandleError = () => {
+  const queryClient = useQueryClient();
+  return (error) => {
+    if (error?.response && error?.response.status === 401) {
+      queryClient.setQueryData(["user"], null);
+      toast.error("Sessão expirada, por favor, faça login novamente.");
+    } else {
+      toast.error(
+        error?.response?.data?.message || "Erro ao carregar repasses!",
+      );
+    }
+  };
 };
 
 const useAddRepasse = () => {
@@ -62,8 +66,9 @@ const useAddRepasse = () => {
         // Para outros erros, exibe uma mensagem de erro geral
         toast.error(
           error?.response?.data?.message ||
-            "Erro ao criar repasse. Tente novamente.",
+            "Erro ao criar repasse! Tente novamente.",
         );
+        console.log(error);
       }
     },
     onSuccess: () => {
@@ -85,7 +90,7 @@ const useEditRepasse = () => {
         // Para outros erros, exibe uma mensagem de erro geral
         toast.error(
           error?.response?.data?.message ||
-            "Erro ao salvar repasse. Tente novamente.",
+            "Erro ao salvar repasse! Tente novamente.",
         );
       }
     },
@@ -108,7 +113,7 @@ const useDelRepasse = () => {
         // Para outros erros, exibe uma mensagem de erro geral
         toast.error(
           error?.response?.data?.message ||
-            "Erro ao encerrar repasse. Tente novamente.",
+            "Erro ao encerrar repasse! Tente novamente.",
         );
       }
     },

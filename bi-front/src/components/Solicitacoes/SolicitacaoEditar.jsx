@@ -116,30 +116,21 @@ export default function PostSelected({
               dispatch({ type: "categoria", payload: `${e.target.value}` })
             }
           >
-            <option value="" disabled={true}>
-              Alimentos
+            <option value="ELETRODOMESTICOS_E_MOVEIS">
+              Eletrodomésticos e Móveis
             </option>
-            <option value="" disabled={true}>
-              Kit de casa
+            <option value="UTENSILIOS_GERAIS">Utensílios Gerais</option>
+            <option value="ROUPAS_E_CALCADOS">Roupas e Calçados</option>
+            <option value="SAUDE_E_HIGIENE">Saúde e Higiene</option>
+            <option value="MATERIAIS_EDUCATIVOS_E_CULTURAIS">
+              Materiais Educativos e Culturais
             </option>
-            <option value="MEDICAMENTOS_HIGIENE">Saúde e higiene</option>
-            <option value="BRINQUEDOS_LIVROS">Brinquedos e livros</option>
-            <option value="MOVEIS">Móveis</option>
-            <option value="UTENSILIOS">Utensílios gerais</option>
-            <option value="ITEMPET">Itens para pets</option>
-            <option value="" disabled={true}>
-              Serviços
+            <option value="ITENS_DE_INCLUSAO_E_MOBILIDADE">
+              Itens de Inclusão e Mobilidade
             </option>
-            <option value="" disabled={true}>
-              Eletrodomésticos e móveis
-            </option>
-            <option value="" disabled={true}>
-              Roupas e calçados
-            </option>
-            <option value="" disabled={true}>
-              Ajuda Financeira
-            </option>
-            <option value="OUTRA">Outra opção</option>
+            <option value="ELETRONICOS">Eletrônicos</option>
+            <option value="ITENS_PET">Itens para Pets</option>
+            <option value="OUTROS">Outros</option>
           </select>
         </label>
         <label className={styles.labelSelected}>
