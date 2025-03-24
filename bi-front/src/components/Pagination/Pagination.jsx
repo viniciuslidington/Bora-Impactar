@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useQueryUpdate } from "../../utils/queryUpdate";
+import { useQueryUpdate, useQueryUpdateHome } from "../../utils/queryUpdate";
 
 const getPaginationItems = (currentPage, totalPages) => {
   if (totalPages <= 5) {
@@ -15,14 +15,19 @@ const getPaginationItems = (currentPage, totalPages) => {
   }
 };
 
-const Pagination = ({ totalPages = 1 }) => {
+const Pagination = ({ totalPages = 1, homePag = false }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search); // Converte a string da URL em um objeto manipulável
   const queryPage = searchParams.get("page") || 1;
   const [currentPage, setCurrentPage] = useState(Number(queryPage));
   const updateQuery = useQueryUpdate();
+  const updateQueryHome = useQueryUpdateHome();
 
   const onPageChange = (p) => {
+    if (homePag) {
+      updateQueryHome("page", p);
+      return;
+    }
     updateQuery("page", p);
   };
 
@@ -79,6 +84,7 @@ const Pagination = ({ totalPages = 1 }) => {
 
 Pagination.propTypes = {
   totalPages: PropTypes.number,
+  homePag: PropTypes.bool,
 };
 
 export default Pagination;

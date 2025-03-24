@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
 import Button from "../components/Button/Button";
+import HomePosts from "../components/HomePosts/HomePosts";
 import { useRef } from "react";
 
 export default function Home() {
@@ -143,6 +144,7 @@ export default function Home() {
           Ver todas categorias
         </Button>
       </div>
+      <HomePosts />
     </div>
   );
 }
