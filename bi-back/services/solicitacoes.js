@@ -27,10 +27,17 @@ const validateRequest = (data) => {
     ong_Imagem,
     ong_Phone,
     ong_Email,
-    expirationDuration
+    expirationDuration,
   } = data;
 
-  if (!title || !category || !urgency || !expirationDuration || !ong_Id || !ong_Nome) {
+  if (
+    !title ||
+    !category ||
+    !urgency ||
+    !expirationDuration ||
+    !ong_Id ||
+    !ong_Nome
+  ) {
     return "Os campos Title, Category, Urgency, expirationDuration, ong_Id e ong_Nome são obrigatórios";
   }
 
@@ -54,24 +61,50 @@ const validateRequest = (data) => {
     return "Ong_Id deve ser um número inteiro positivo";
   }
 
-  if (typeof ong_Nome !== "string" ) {
+  if (typeof ong_Nome !== "string") {
     return "Ong_Nome deve ser uma string";
   }
 
-  if (ong_Imagem && typeof ong_Imagem !== "string" ) {
+  if (ong_Imagem && typeof ong_Imagem !== "string") {
     return "Ong_Imagem deve ser uma string";
   }
 
-  if (ong_Phone && typeof ong_Phone !== "string" ) {
+  if (ong_Phone && typeof ong_Phone !== "string") {
     return "Ong_Phone deve ser uma string";
   }
 
-  if (ong_Email && typeof ong_Email !== "string" ) {
+  if (ong_Email && typeof ong_Email !== "string") {
     return "ong_Email deve ser uma string";
   }
 
   if (description && typeof description !== "string") {
     return "A descrição deve ser uma string";
+  }
+
+  if (quantity && (typeof quantity !== "number" || quantity < 1)) {
+    return "A quantidade deve ser um número inteiro positivo";
+  }
+
+  return null;
+};
+
+const validatePartialUpdate = (data) => {
+  const { category, urgency, expirationDuration, title, quantity } = data;
+
+  if (title && (typeof title !== "string" || title.length < 3)) {
+    return "O título deve ter pelo menos 3 caracteres e ser uma string";
+  }
+
+  if (category && !listOfCategory.includes(category)) {
+    return "Categoria inválida.";
+  }
+
+  if (urgency && !listOfUrgency.includes(urgency)) {
+    return "Nível de urgência inválido. Escolha entre: LOW, MEDIUM, HIGH";
+  }
+
+  if (expirationDuration && !expirationMapping[expirationDuration]) {
+    return "Valor inválido para ExpirationDuration. Escolha entre: '7 dias', '2 semanas', '4 semanas', '12 semanas'.";
   }
 
   if (quantity && (typeof quantity !== "number" || quantity < 1)) {
@@ -140,7 +173,7 @@ router.get("/", async (req, res) => {
 });
 
 // Atualizar solicitacao
-router.put("/", async (req, res) => {
+router.patch("/", async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {
@@ -154,7 +187,7 @@ router.put("/", async (req, res) => {
       return res.status(404).json({ error: "Solicitação não encontrada" });
     }
 
-    const validationError = validateRequest(req.body);
+    const validationError = validatePartialUpdate(req.body);
     if (validationError) {
       return res.status(400).json({ error: validationError });
     }

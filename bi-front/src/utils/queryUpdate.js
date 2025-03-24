@@ -35,5 +35,26 @@ const useQueryUpdate = () => {
 
   return queryUpdate;
 };
+const useQueryUpdateHome = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
 
-export { useQueryUpdate };
+  const queryUpdate = (key, value) => {
+    const updatedParams = new URLSearchParams(searchParams);
+
+    if (value) {
+      updatedParams.set(key, value); // Adiciona ou atualiza o parâmetro
+    } else {
+      updatedParams.delete(key); // Remove se o valor for vazio
+    }
+
+    if (key !== "page") {
+      updatedParams.set("page", 1); // Volta para pagina 1 ao mudar categoria ou urgencia
+    }
+
+    setSearchParams(updatedParams); // Atualiza a URL
+  };
+
+  return queryUpdate;
+};
+
+export { useQueryUpdate, useQueryUpdateHome };
