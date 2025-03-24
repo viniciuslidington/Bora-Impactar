@@ -1,21 +1,25 @@
-# Usa a imagem oficial do Node.js
-FROM node:18
+# Usa uma imagem otimizada para produção
+FROM node:20-alpine AS build
 
 # Define o diretório de trabalho
 WORKDIR /app
 
-# Copia os arquivos do projeto
-COPY package*.json ./
+# Copia apenas os arquivos essenciais para instalar as dependências
+COPY package.json package-lock.json ./
 
-RUN npm install
+# Instala apenas dependências de produção
+RUN npm ci --only=production
 
 # Copia o restante do código
 COPY . .
 
 RUN npx prisma generate
 
-# Expõe as portas que as APIs usam
-EXPOSE 3000 3001 3002 3100
+# Define a variável de ambiente para produção
+ENV NODE_ENV=production
 
-# Comando para rodar o Node.js (substitua pelo script correto)
-CMD ["node", "server.js"]
+# Expõe a porta da aplicação
+EXPOSE 3000
+
+# Comando para rodar a aplicação
+CMD ["node", "proxy.js"]

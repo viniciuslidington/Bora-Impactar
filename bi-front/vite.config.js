@@ -6,3 +6,5 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: "./", // TENTE ISSO para corrigir o 404 no preview
 });
+
+
