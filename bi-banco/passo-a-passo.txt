@@ -26,11 +26,20 @@ DATABASE_URL="postgresql://docker:docker@localhost:5432/bi_banco"
         No terminal, na pasta bi-back, rode a migração do banco. Ele vai ler o arquivo schema do prisma e criar as tabelas lá. 
             ->           npx prisma migrate dev --name init_{botateunomeai}
                                                     MERMAO PRESTE ATENCAO AQUI, É PRA BOTAR TEU NOME NO LOCAL, SEM ESPACO E SEM ESSAS CHAVES.
+    
+        Se der erro, rodar esse comando: (prov vai dar kkkk)
+                    npx prisma migrate reset
+                    
+                Depois de resetar, rode novamente o comando: 
+
+                ->              npx prisma migrate dev --name init_{botateunomeai}
     )
 
 
 
-7º Testar conecxão: npx prisma studio
+7º Testar conecxão: 
+
+        ->         npx prisma studio
 
 
 --DEU BOM--

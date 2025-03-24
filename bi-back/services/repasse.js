@@ -1,31 +1,11 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import cors from "cors";
+
+import { listOfCategory, expirationMapping } from "../config/config.js";
 
 const prisma = new PrismaClient();
-const app = express();
-app.use(express.json());
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+const router = express.Router();
 
-// Definindo os esquemas de validação
-const listOfCategory = [
-  "ELETRODOMESTICOS_E_MOVEIS",
-  "UTENSILIOS_GERAIS",
-  "ROUPAS_E_CALCADOS",
-  "SAUDE_E_HIGIENE",
-  "MATERIAIS_EDUCATIVOS_E_CULTURAIS",
-  "ITENS_DE_INCLUSAO_E_MOBILIDADE",
-  "ELETRONICOS",
-  "ITENS_PET",
-  "OUTROS",
-];
-
-const expirationMapping = {
-  "7 dias": 7,
-  "2 semanas": 14,
-  "4 semanas": 28,
-  "12 semanas": 84,
-};
 
 const calculateExpirationDate = (createdAt, duration) => {
   const daysToAdd = expirationMapping[duration];
@@ -121,7 +101,7 @@ const validatePartialUpdate = (data) => {
 };
 
 // Criar uma repasse
-app.post("/repasse", async (req, res) => {
+router.post("/", async (req, res) => {
   const validationError = validateRelocation(req.body);
   if (validationError) {
     return res.status(400).json({ error: validationError });
@@ -154,7 +134,7 @@ app.post("/repasse", async (req, res) => {
 });
 
 // Buscar todas as relocacoes da ong que está logada
-app.get("/repasse", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const id = Number(req.query.ong_Id);
 
@@ -172,56 +152,8 @@ app.get("/repasse", async (req, res) => {
     return res.status(500).json({ error: "Erro ao buscar solicitações" });
   }
 });
-// Fazer uma busca entre as relocacoes com filtros
-app.get("/search-repasse", async (req, res) => {
-  try {
-    const { category, title, sort } = req.query;
 
-    const filters = {};
-
-    if (req.query.title) filters.title = title;
-    if (req.query.category && listOfCategory.includes(req.query.category))
-      filters.category = category;
-
-    const totalRepasses = await prisma.relocationProduct.count({
-      where: filters,
-    });
-
-    const limit = parseInt(req.query.limit) || 6;
-    const totalPages = Math.max(1, Math.ceil(totalRepasses / limit));
-
-    let page = parseInt(req.query.page) || 1;
-    if (page < 1) page = 1;
-    if (page > totalPages) page = totalPages;
-
-    const skip = (page - 1) * limit;
-
-    let orderBy = [];
-    if (sort === "recentes") {
-      orderBy = [{ createdAt: "desc" }]; // Mais recentes primeiro
-    } else if (sort === "expirar") {
-      orderBy = [{ expirationDate: "asc" }]; // Mais perto de expirar primeiro
-    }
-
-    const requests = await prisma.relocationProduct.findMany({
-      where: filters,
-      skip,
-      take: limit,
-      orderBy,
-    });
-
-    return res.status(200).json({
-      requests,
-      totalRepasses,
-      totalPages,
-    });
-  } catch (error) {
-    return res.status(500).json({ error: "Erro ao buscar solicitações" });
-  }
-});
-
-// Atualizar repasse
-app.patch("/repasse", async (req, res) => {
+router.patch("/", async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {
@@ -270,7 +202,7 @@ app.patch("/repasse", async (req, res) => {
 });
 
 // Deletar repasse
-app.delete("/repasse", async (req, res) => {
+router.delete("/", async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {
@@ -293,6 +225,4 @@ app.delete("/repasse", async (req, res) => {
   }
 });
 
-app.listen(3002, () => {
-  console.log("Servidor rodando na porta 3002");
-});
+export default router;

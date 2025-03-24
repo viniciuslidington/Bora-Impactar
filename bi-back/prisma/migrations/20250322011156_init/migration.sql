@@ -2,7 +2,7 @@
 CREATE TYPE "UrgencyLevel" AS ENUM ('LOW', 'MEDIUM', 'HIGH');
 
 -- CreateEnum
-CREATE TYPE "Categoria" AS ENUM ('ALIMENTO', 'SERVICOS', 'UTENSILIOS', 'MEDICAMENTOS_HIGIENE', 'BRINQUEDOS_LIVROS', 'MOVEIS', 'ITEMPET', 'AJUDAFINANCEIRA', 'OUTRA');
+CREATE TYPE "Categoria" AS ENUM ('ELETRODOMESTICOS_E_MOVEIS', 'UTENSILIOS_GERAIS', 'ROUPAS_E_CALCADOS', 'SAUDE_E_HIGIENE', 'MATERIAIS_EDUCATIVOS_E_CULTURAIS', 'ITENS_DE_INCLUSAO_E_MOBILIDADE', 'ELETRONICOS', 'ITENS_PET', 'OUTROS');
 
 -- CreateTable
 CREATE TABLE "RelocationProduct" (
@@ -11,8 +11,13 @@ CREATE TABLE "RelocationProduct" (
     "category" "Categoria" NOT NULL,
     "description" TEXT,
     "ong_Id" INTEGER,
+    "ong_Nome" TEXT,
+    "ong_Imagem" TEXT,
+    "ong_Phone" TEXT,
+    "ong_Email" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "expirationDate" TIMESTAMP(3),
 
     CONSTRAINT "RelocationProduct_pkey" PRIMARY KEY ("id")
 );
@@ -26,9 +31,14 @@ CREATE TABLE "Request" (
     "quantity" INTEGER,
     "description" TEXT,
     "ong_Id" INTEGER,
+    "ong_Nome" TEXT,
+    "ong_Imagem" TEXT,
+    "ong_Phone" TEXT,
+    "ong_Email" TEXT,
     "requestTime" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "expirationDate" TIMESTAMP(3),
 
     CONSTRAINT "Request_pkey" PRIMARY KEY ("id")
 );

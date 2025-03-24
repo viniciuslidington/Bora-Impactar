@@ -1,13 +1,10 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import cors from "cors";
 
 const prisma = new PrismaClient();
-const app = express();
-app.use(express.json());
-app.use(cors());
+const router = express.Router(); 
 
-app.get("/ONGdata", async (req, res) => {
+router.get("/", async (req, res) => {
   let requests = [];
 
   if (req.query.id) {
@@ -24,6 +21,4 @@ app.get("/ONGdata", async (req, res) => {
   res.status(200).json(requests);
 });
 
-app.listen(3100, () => {
-  console.log("Server is running on port 3100");
-});
+export default router;

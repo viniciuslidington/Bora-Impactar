@@ -1,32 +1,13 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import cors from "cors";
+
+
+import { listOfCategory, listOfUrgency, expirationMapping } from "../config/config.js";
+
 
 const prisma = new PrismaClient();
-const app = express();
-app.use(express.json());
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+const router = express.Router();
 
-// Definindo os esquemas de validação
-const listOfCategory = [
-  "ELETRODOMESTICOS_E_MOVEIS",
-  "UTENSILIOS_GERAIS",
-  "ROUPAS_E_CALCADOS",
-  "SAUDE_E_HIGIENE",
-  "MATERIAIS_EDUCATIVOS_E_CULTURAIS",
-  "ITENS_DE_INCLUSAO_E_MOBILIDADE",
-  "ELETRONICOS",
-  "ITENS_PET",
-  "OUTROS",
-];
-const listOfUrgency = ["LOW", "MEDIUM", "HIGH"];
-
-const expirationMapping = {
-  "7 dias": 7,
-  "2 semanas": 14,
-  "4 semanas": 28,
-  "12 semanas": 84,
-};
 
 const calculateExpirationDate = (createdAt, duration) => {
   const daysToAdd = expirationMapping[duration];
@@ -141,7 +122,7 @@ function formatarString(str) {
 }
 
 // Criar uma solicitacao
-app.post("/solicitacao", async (req, res) => {
+router.post("/", async (req, res) => {
   const validationError = validateRequest(req.body);
   if (validationError) {
     return res.status(400).json({ error: validationError });
@@ -174,7 +155,7 @@ app.post("/solicitacao", async (req, res) => {
 });
 
 // Buscar todas as soliciações da ong que está logada
-app.get("/solicitacao", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const id = Number(req.query.ong_Id);
 
@@ -191,59 +172,8 @@ app.get("/solicitacao", async (req, res) => {
   }
 });
 
-// Fazer uma busca entre as solicitações com filtros
-app.get("/search-solicitacao", async (req, res) => {
-  try {
-    const { category, urgency, sort } = req.query;
-
-    // Constrói os filtros diretamente para a consulta no banco
-    const filters = {};
-    if (category && listOfCategory.includes(category))
-      filters.category = category;
-    if (urgency && listOfUrgency.includes(urgency)) filters.urgency = urgency;
-
-    const totalRequests = await prisma.request.count({ where: filters });
-
-    const limit = parseInt(req.query.limit) || 6;
-    const totalPages = Math.max(1, Math.ceil(totalRequests / limit));
-
-    // Tratamento do parâmetro "page"
-    let page = parseInt(req.query.page) || 1; // Se for inválido, assume 1
-    if (page < 1) page = 1; // Impede valores negativos ou zero
-    if (page > totalPages) page = totalPages; // Impede páginas maiores que o total
-
-    const skip = (page - 1) * limit;
-
-    let orderBy = [];
-    if (sort === "recentes") {
-      orderBy = [{ createdAt: "desc" }]; // Mais recentes primeiro
-    } else if (sort === "expirar") {
-      orderBy = [{ expirationDate: "asc" }]; // Mais perto de expirar primeiro
-    }
-
-    // Consulta filtrada, paginada e ordenada
-    const requests = await prisma.request.findMany({
-      where: filters,
-      skip,
-      take: limit,
-      orderBy,
-    });
-
-    return res.status(200).json({
-      requests,
-      totalRequests,
-      totalPages,
-    });
-  } catch (error) {
-    console.error("Erro no banco de dados:", error); // Exibe o erro no terminal
-    return res
-      .status(500)
-      .json({ error: "Erro interno ao buscar solicitações" });
-  }
-});
-
 // Atualizar solicitacao
-app.patch("/solicitacao", async (req, res) => {
+router.patch("/", async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {
@@ -291,7 +221,7 @@ app.patch("/solicitacao", async (req, res) => {
 });
 
 // Deletar solicitacao
-app.delete("/solicitacao", async (req, res) => {
+router.delete("/", async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {
@@ -314,6 +244,4 @@ app.delete("/solicitacao", async (req, res) => {
   }
 });
 
-app.listen(3001, () => {
-  console.log("Servidor rodando na porta 3001");
-});
+export default router;

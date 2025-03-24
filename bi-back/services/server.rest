@@ -1,14 +1,14 @@
 ### Testes para a API de `request`
 
 # Buscar requests com filtro de categoria
-GET http://localhost:3001/solicitacao?ong_Id=100
+GET http://localhost:3000/solicitacao?ong_Id=21
 
 ###
 # Buscar solicitacoes com filtro
-GET http://localhost:3001/search-solicitacao?page=3
+GET http://localhost:3000/search-solicitacao?page=3
 ###
 # Criar um novo request
-POST http://localhost:3001/solicitacao
+POST http://localhost:3000/solicitacao
 Content-Type: application/json
 
 {
@@ -22,7 +22,7 @@ Content-Type: application/json
 
 ###
 # Atualizar um request existente
-PUT http://localhost:3001/solicitacao?id=35
+PUT http://localhost:3000/solicitacao?id=35
 Content-Type: application/json
 
 {
@@ -37,21 +37,21 @@ Content-Type: application/json
 
 ###
 # Deletar um request
-DELETE http://localhost:3001/solicitacao?id=35
+DELETE http://localhost:3000/solicitacao?id=35
 Content-Type: application/json
 
 ### Testes para a API de `repasse`
 
 # Buscar repasses da ong pelo ong_Id
-GET http://localhost:3002/repasse?ong_Id=88
+GET http://localhost:3000/repasse?ong_Id=88
 
 ###
 # Buscar repasse com filtro
-GET http://localhost:3002/search-repasse?page=2
+GET http://localhost:3000/search-repasse?page=1
 
 ###
 # Criar uma nova repasse
-POST http://localhost:3002/repasse
+POST http://localhost:3000/repasse
 Content-Type: application/json
 
 {
@@ -65,7 +65,7 @@ Content-Type: application/json
 
 ###
 # Criar uma repasse com dados inválidos
-POST http://localhost:3002/repasse
+POST http://localhost:3000/repasse
 Content-Type: application/json
 
 {
@@ -76,7 +76,7 @@ Content-Type: application/json
 
 ###
 # Atualizar uma repasse existente
-PUT http://localhost:3002/repasse?id=19
+PUT http://localhost:3000/repasse?id=19
 Content-Type: application/json
 
 {
@@ -90,7 +90,7 @@ Content-Type: application/json
 
 ###
 # Atualizar uma repasse inexistente
-PUT http://localhost:3002/repasse?id=999
+PUT http://localhost:3000/repasse?id=999
 Content-Type: application/json
 
 {
@@ -102,11 +102,11 @@ Content-Type: application/json
 
 ###
 # Deletar uma repasse existente
-DELETE http://localhost:3002/repasse?id=3
+DELETE http://localhost:3000/repasse?id=3
 Content-Type: application/json
 
 ###
 # Deletar uma repasse inexistente
-DELETE http://localhost:3002/repasse?id=999
+DELETE http://localhost:3000/repasse?id=999
 Content-Type: application/json
 
