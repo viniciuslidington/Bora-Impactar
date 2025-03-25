@@ -28,11 +28,10 @@
     "jsonwebtoken": "^9.0.2",
     "node-fetch": "^3.3.2",
     "pg": "^8.14.1",
-    "sqlite3": "^5.1.7"
+    "prisma": "^6.5.0",
+    "@prisma/client": "^6.5.0"
   },
   "devDependencies": {
-    "@prisma/client": "^6.5.0",
-    "concurrently": "^9.1.2",
-    "prisma": "^6.5.0"
+    "concurrently": "^9.1.2"
   }
 }

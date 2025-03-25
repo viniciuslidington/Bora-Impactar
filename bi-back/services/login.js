@@ -7,8 +7,7 @@ import {processData} from "../utils/processData.js";
 
 const router = express.Router();
 const prisma = new PrismaClient();
-const SECRET_KEY =
-  "0a81fe9aab38c9011ed6542b2eb9a3db62a0c48dc496699bde624e1c5dbe4232";
+const SECRET_KEY = "0a81fe9aab38c9011ed6542b2eb9a3db62a0c48dc496699bde624e1c5dbe4232";
 
 
 router.post("/", async (req, res) => {
@@ -44,7 +43,7 @@ router.post("/", async (req, res) => {
         create: processedData,
       });
   
-      const token = jwt.sign({ email, user: data.user.name, userData: data }, SECRET_KEY, { expiresIn: "60s" });
+      const token = jwt.sign({ email, user: data.user.name, userData: data }, SECRET_KEY, { expiresIn: "1h" });
   
       res.cookie("token", token, {
         httpOnly: true,

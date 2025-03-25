@@ -1,0 +1,50 @@
+services:
+  # Banco de Dados PostgreSQL (Bitnami)
+  postgres:
+    image: bitnami/postgresql:latest
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRESQL_USERNAME: docker
+      POSTGRESQL_PASSWORD: docker
+      POSTGRESQL_DATABASE: bi_banco
+    volumes:
+      - pgdata:/bitnami/postgresql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U docker -d bi_banco"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend (Node.js)
+  backend:
+    build: 
+      context: ./bi-back
+      dockerfile: Dockerfile
+    container_name: hubdoacoesbackend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://docker:docker@postgres:5432/bi_banco
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+
+  # Frontend (Node.js + Nginx)
+  frontend:
+    build: 
+      context: ./bi-front
+      dockerfile: Dockerfile
+    container_name: hubdoacoesfrontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:
