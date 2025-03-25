@@ -69,16 +69,22 @@ export default function ModaAdicionar() {
       toast.error("Preencha todos os campos obrigatórios!");
       return false;
     }
-    // Valida todos os campos
-
+    // Validação da descrição
+    if (values.description.length < 50) {
+      toast.error("A descrição deve ter pelo menos 5 a 15 palavras");
+    }
+    // Validação do telefone (acessando o valor diretamente)
+    if (!/^\(?\d{2}\)? ?\d{4,5}-?\d{4}$/.test(values.ong_Phone)) {
+      toast.error("Telefone inválido! Exemplo: (99) 99999-9999");
+    }
     // Verifica se o e-mail é válido
     if (!/^[^@]+@[^@]+\.[^@]+$/.test(values.ong_Email)) {
       toast.error("E-mail inválido!");
     }
 
-    // Validação do telefone (acessando o valor diretamente)
-    if (!/^\(?\d{2}\)? ?\d{4,5}-?\d{4}$/.test(values.ong_Phone)) {
-      toast.error("Telefone inválido! Exemplo: (99) 99999-9999");
+    // Validação do nome
+    if (values.title.length < 5) {
+      toast.error("O título deve ter pelo menos 5 caracteres");
     }
 
     return isValid;
@@ -97,7 +103,7 @@ export default function ModaAdicionar() {
         <span className="flex flex-col gap-1">
           <p className="text-[14px] opacity-60">Imagem</p>
           <div
-            className={`relative h-[350px] w-[350px] cursor-pointer rounded ${errors.image ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+            className={`relative flex h-[350px] w-[350px] cursor-pointer items-center justify-center rounded ${errors.image ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
             onClick={() => fileInputRef.current.click()}
           >
             {preview && (
@@ -106,6 +112,11 @@ export default function ModaAdicionar() {
                 alt="Prévia da imagem"
                 className="h-full w-full rounded object-cover"
               />
+            )}
+            {!preview && (
+              <p className="px-4 text-center text-[#8c8a8a]">
+                Adicione uma imagem relacionada à sua publicação
+              </p>
             )}
             <img
               src="/edit.svg"
@@ -131,7 +142,13 @@ export default function ModaAdicionar() {
               type="text"
               placeholder="Informe um título breve e claro..."
               className={`w-[269px] rounded bg-[#eaeaea] p-2 ${errors.title ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
-              {...register("title", { required: "Título é obrigatório" })}
+              {...register("title", {
+                required: "Título é obrigatório",
+                minLength: {
+                  value: 5, // Mínimo de 5 caracteres
+                  message: "O título deve ter pelo menos 5 caracteres",
+                },
+              })}
             />
           </span>
           <span className="flex flex-col gap-1">
@@ -228,6 +245,10 @@ export default function ModaAdicionar() {
               className={`w-full resize-none rounded p-2 ${errors.description ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
               {...register("description", {
                 required: "Descrição é obrigatória",
+                minLength: {
+                  value: 50, // Mínimo de 50 caracteres
+                  message: "A descrição deve ter pelo menos 5 a 15 palavras",
+                },
               })}
             />
           </span>
