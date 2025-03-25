@@ -17,9 +17,10 @@
 }
 
 #root {
-  @apply flex justify-center;
+  display: flex;
+  justify-content: center;
 }
 
 body {
-  @apply w-full;
+  width: 100%;
 }

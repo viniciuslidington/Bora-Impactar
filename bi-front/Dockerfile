@@ -1,32 +1,38 @@
-# Etapa 1: Construção do frontend com Node.js
-FROM node:20-alpine AS build
+# Etapa 1: Construção do frontend
+FROM node:20-alpine AS builder
 
-# Define o diretório de trabalho
 WORKDIR /app
 
-# Copia os arquivos essenciais
+# Copia os arquivos essenciais para instalar as dependências
 COPY package.json package-lock.json ./
 
 # Instala as dependências
 RUN npm ci
 
-# Copia o restante do código
+# Copia o restante do código para o container
 COPY . .
 
 # Gera os arquivos estáticos para produção
 RUN npm run build
 
-# Etapa 2: Servindo o frontend com Nginx
-FROM nginx:1.25-alpine
+# Etapa 2: Servindo o frontend com Node.js
+FROM node:20-alpine
 
-# Copia os arquivos estáticos para a pasta padrão do Nginx
-COPY --from=build /app/dist /usr/share/nginx/html
+WORKDIR /app
 
-# Copia um arquivo de configuração personalizado (opcional)
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Instala apenas as dependências necessárias para rodar o servidor
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
-# Expõe a porta do Nginx
-EXPOSE 80
+# Copia os arquivos estáticos gerados na etapa de build
+COPY --from=builder /app/dist ./dist 
 
-# Inicia o Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Copia o servidor customizado
+COPY server.js ./server.js
+
+# Expõe a porta padrão do servidor
+EXPOSE 8080
+
+# Inicia o servidor customizado
+CMD ["node", "server.js"]
+
