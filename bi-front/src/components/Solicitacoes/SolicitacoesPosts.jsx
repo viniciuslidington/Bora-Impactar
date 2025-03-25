@@ -84,19 +84,24 @@ export default function OngPosts() {
           <option value="expiracao">Prestes a Expirar</option>
           <option value="alfabetica">Ordem Alfabética</option>
         </select>
-        <div className={styles.input}>
+        <div className="relative">
           <input
             type="text"
             value={searchPosts}
             onChange={(e) => setSearchPosts(e.target.value)}
             placeholder="Pesquisar Publicação"
+            className="h-12 w-[300px] rounded border-2 border-[#9c9c9c] px-2 pr-8 text-base text-[#232323]"
           />
-          <img src="/search.svg" alt="pesquisar icone" />
+          <img
+            src="/search.svg"
+            alt="pesquisar icone"
+            className="absolute top-1/2 right-2 -translate-y-1/2"
+          />
         </div>
         <div className={styles.postsList}>
           {isError ? (
             <div className="flex h-full items-center justify-center">
-              <p className="text-red-500">Erro ao carregar solicitações!</p>
+              <p className="text-red-500">Erro ao carregar solicitações</p>
             </div>
           ) : isPending ? (
             <div className="flex h-full items-center justify-center">
@@ -123,7 +128,7 @@ export default function OngPosts() {
             })
           ) : (
             <div className="flex h-full items-center justify-center">
-              <p>Nenhuma publicação encontrada!</p>
+              <p>Nenhuma publicação encontrada</p>
             </div>
           )}
           <p className={styles.verMais} onClick={handleVerMais}>

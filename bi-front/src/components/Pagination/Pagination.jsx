@@ -34,9 +34,8 @@ const Pagination = ({ totalPages = 1, homePag = false }) => {
   const items = getPaginationItems(currentPage, totalPages);
 
   useEffect(() => {
-    setCurrentPage(
-      Number(new URLSearchParams(location.search).get("page") || 1),
-    );
+    const queryPage = Number(new URLSearchParams(location.search).get("page"));
+    setCurrentPage(queryPage || 1);
   }, [location.search]);
 
   return (

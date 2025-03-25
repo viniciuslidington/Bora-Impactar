@@ -5,6 +5,7 @@ export default function UrgencyIcon({ urgency, className }) {
     LOW: "text-[#90C145]",
     MEDIUM: "text-[#FCC30B]",
     HIGH: "text-[#DB1E2F]",
+    isLoading: "text-gray-300",
   };
 
   return (
@@ -32,6 +33,6 @@ export default function UrgencyIcon({ urgency, className }) {
 }
 
 UrgencyIcon.propTypes = {
-  urgency: PropTypes.oneOf(["LOW", "MEDIUM", "HIGH"]).isRequired,
+  urgency: PropTypes.oneOf(["LOW", "MEDIUM", "HIGH", "isLoading"]).isRequired,
   className: PropTypes.string,
 };

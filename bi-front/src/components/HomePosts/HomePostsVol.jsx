@@ -19,11 +19,11 @@ export default function HomePosts() {
 
   return (
     <div className="flex w-[1366px] flex-col gap-8 px-[123px] pb-16">
-      <span>
+      <span className="flex flex-col gap-1">
         <h2 className="text-[36px] font-bold">
           Confira mais solicitações de ONGs
         </h2>
-        <p className="text-[14px]">
+        <p className="text-[16px]">
           Acompanhe as publicações e veja como você pode contribuir para causas
           que fazem a diferença
         </p>
@@ -33,7 +33,7 @@ export default function HomePosts() {
           <select
             name=""
             id=""
-            className="h-12 w-48 rounded border-2 border-gray-400 text-gray-600 outline-gray-600"
+            className="h-12 w-48 rounded border-2 border-[#9c9c9c] text-gray-600 outline-gray-600"
             value={sortRef.current}
             onChange={(e) => {
               const newValue = e.target.value;
@@ -54,23 +54,18 @@ export default function HomePosts() {
           />
         </span>
         {isError ? (
-          <div className="flex h-[558px] w-full items-center justify-center">
+          <div className="flex h-[284px] w-full items-center justify-center">
             <p className="text-[18px] text-red-500">
               Erro ao carregar solicitações
             </p>
           </div>
         ) : isPending ? (
-          <div className="flex h-[1744px] w-full items-start justify-center">
-            <span className="sticky top-[240px] flex h-[563px] items-center">
-              <l-ring-2
-                size="64"
-                stroke="6"
-                stroke-length="0.25"
-                bg-opacity="0.1"
-                speed="0.8"
-                color="#009fe3"
-              ></l-ring-2>
-            </span>
+          <div className="flex flex-wrap gap-8">
+            {Array(6)
+              .fill(0)
+              .map((_, i) => {
+                return <Posts key={i} isLoading={true} />;
+              })}
           </div>
         ) : data.requests?.length > 0 ? (
           <div className="flex flex-wrap gap-8">
@@ -79,7 +74,7 @@ export default function HomePosts() {
             })}
           </div>
         ) : (
-          <div className="flex h-full w-full items-center justify-center">
+          <div className="flex h-[284px] w-full items-center justify-center">
             <p className="text-[18px]">Nenhuma publicação encontrada!</p>
           </div>
         )}
