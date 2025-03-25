@@ -21,5 +21,5 @@ ENV NODE_ENV=production
 # Expõe a porta da aplicação
 EXPOSE 3000
 
-# Comando para rodar a aplicação
-CMD ["node", "proxy.js"]
+# Comando para rodar a aplicação e aplicar as migrações
+CMD ["sh", "-c", "npx prisma migrate deploy && node proxy.js"]
