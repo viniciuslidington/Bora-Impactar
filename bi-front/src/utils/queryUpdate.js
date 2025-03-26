@@ -31,6 +31,11 @@ const useQueryUpdate = () => {
       return navigate(`/ong/search?${updatedParams.toString()}`);
     }
     setSearchParams(updatedParams); // Atualiza a URL
+    //Scroll para o topo da página
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return queryUpdate;
@@ -48,7 +53,7 @@ const useQueryUpdateHome = () => {
     }
 
     if (key !== "page") {
-      updatedParams.set("page", 1); // Volta para pagina 1 ao mudar categoria ou urgencia
+      updatedParams.set("page", 1); // Volta para pagina 1 ao mudar sort
     }
 
     setSearchParams(updatedParams); // Atualiza a URL
@@ -56,5 +61,21 @@ const useQueryUpdateHome = () => {
 
   return queryUpdate;
 };
+const useCleanFilter = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
 
-export { useQueryUpdate, useQueryUpdateHome };
+  const queryUpdate = () => {
+    const updatedParams = new URLSearchParams(searchParams);
+
+    updatedParams.delete("category"); // Remove category
+    updatedParams.delete("urgency"); // Remove urgency
+
+    updatedParams.set("page", 1); // Volta para pagina 1 ao remover categoria ou urgencia
+
+    setSearchParams(updatedParams); // Atualiza a URL
+  };
+
+  return queryUpdate;
+};
+
+export { useQueryUpdate, useQueryUpdateHome, useCleanFilter };

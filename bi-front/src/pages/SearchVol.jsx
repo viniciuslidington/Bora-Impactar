@@ -62,17 +62,12 @@ export default function SearchVol() {
             </p>
           </div>
         ) : isPending ? (
-          <div className="flex h-[1744px] w-full items-start justify-center">
-            <span className="sticky top-[240px] flex h-[563px] items-center">
-              <l-ring-2
-                size="64"
-                stroke="6"
-                stroke-length="0.25"
-                bg-opacity="0.1"
-                speed="0.8"
-                color="#009fe3"
-              ></l-ring-2>
-            </span>
+          <div className="flex flex-col gap-8">
+            {Array(6)
+              .fill(0)
+              .map((_, i) => {
+                return <SearchPostVol isLoading={true} key={i} />;
+              })}
           </div>
         ) : data.requests?.length > 0 ? (
           <div className="flex flex-col gap-8">

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
 import Button from "../components/Button/Button";
-import HomePosts from "../components/HomePosts/HomePosts";
+import HomePosts from "../components/HomePosts/HomePostsVol";
 import { useRef } from "react";
 
 export default function Home() {
@@ -141,7 +141,7 @@ export default function Home() {
           className="h-[64px] w-[256px] cursor-pointer rounded-sm border-3 border-solid border-[#232323b6] bg-none px-2 py-3 text-[18px] font-medium text-[#232323] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[rgba(27,46,53,0.075)] disabled:opacity-70"
           onClick={() => navigate("/voluntario/search")}
         >
-          Ver todas categorias
+          Ver todas publicações
         </Button>
       </div>
       <HomePosts />

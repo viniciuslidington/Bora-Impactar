@@ -54,8 +54,10 @@ export default function Profile() {
                 className="h-14 w-14 rounded-full object-cover object-center"
               />
               <div className="flex flex-col justify-between">
-                <p>{authData.user}</p>
-                <p>{authData.userData.user.email}</p>
+                <p className="max-w-[208px] truncate">{authData.user}</p>
+                <p className="max-w-[208px] truncate">
+                  {authData.userData.user.email}
+                </p>
               </div>
             </div>
             <button
@@ -63,18 +65,14 @@ export default function Profile() {
               onClick={() => navigate("/ong/home/solicitacoes")}
             >
               <img src="/home.svg" alt="homeIcon" className="h-7 w-7" />{" "}
-              <p className="text-base font-semibold no-underline opacity-80">
-                Home
-              </p>
+              <p className="text-base font-semibold no-underline">Home</p>
             </button>
             <button
               className="flex w-full cursor-pointer items-center gap-4 rounded-br-sm rounded-bl-sm border-none bg-none p-5 transition-all duration-100 hover:bg-[#f8fdff]"
               onClick={() => logout()}
             >
               <img src="/logout.svg" alt="logoutIcon" className="h-7 w-7" />{" "}
-              <p className="text-base font-semibold no-underline opacity-80">
-                Logout
-              </p>
+              <p className="text-base font-semibold no-underline">Logout</p>
             </button>
           </div>
         )}
