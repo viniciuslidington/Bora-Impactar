@@ -40,6 +40,7 @@ export default function ModaAdicionar() {
       description: dataForm.description,
       ong_Id: data?.userData.ngo.id,
       ong_Nome: data?.userData.ngo.name,
+      ong_Imagem: data?.userData.ngo.gallery_images_url[0],
       ong_Email: dataForm.ong_Email,
       ong_Phone: dataForm.ong_Phone,
       expirationDuration: dataForm.expirationDuration,
