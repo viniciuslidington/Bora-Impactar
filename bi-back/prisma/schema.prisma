@@ -21,6 +21,7 @@ model RelocationProduct {
   ong_Id     Int?
   ong_Nome   String?
   ong_Imagem String?
+  ong_ImagemId String?
   ong_Phone  String?
   ong_Email  String?
 
@@ -39,6 +40,7 @@ model Request {
   ong_Id      Int?
   ong_Nome    String?
   ong_Imagem  String?
+  ong_ImagemId String?
   ong_Phone   String?
   ong_Email   String?
 
