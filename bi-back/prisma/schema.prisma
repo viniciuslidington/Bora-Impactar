@@ -18,12 +18,16 @@ model RelocationProduct {
   title      String
   category   Categoria   
   description String?
+
+  post_ImagemId String?
+  post_Imagem String?
+
   ong_Id     Int?
   ong_Nome   String?
   ong_Imagem String?
-  ong_ImagemId String?
   ong_Phone  String?
   ong_Email  String?
+
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -37,10 +41,13 @@ model Request {
   urgency     UrgencyLevel
   quantity    Int?
   description String?
+
+  post_ImagemId String?
+  post_Imagem String?
+  
   ong_Id      Int?
   ong_Nome    String?
   ong_Imagem  String?
-  ong_ImagemId String?
   ong_Phone   String?
   ong_Email   String?
 
