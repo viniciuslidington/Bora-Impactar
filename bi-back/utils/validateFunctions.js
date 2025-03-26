@@ -1,4 +1,4 @@
-import { listOfCategory, listOfUrgency } from "../config/config.js";
+import { listOfCategory, listOfUrgency, expirationMapping } from "../config/config.js";
 
 //Funcao de validaçao de entrada tanto para solicitacoes(validateUrgency = true) quanto para repasses(validateUrgency = false)
 export const validateData = (data, validateUrgency = false) => {
