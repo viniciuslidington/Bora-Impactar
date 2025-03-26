@@ -50,7 +50,7 @@ export default function HomePosts() {
             className={
               "h-12 w-[512px] rounded-sm border-2 border-[#9c9c9c] bg-white p-3 pr-11 text-base"
             }
-            placeholder={"Pesquisar demandas das ONGs..."}
+            placeholder={"Pesquisar repasse de outras ONGs..."}
           />
         </span>
         {isError ? (

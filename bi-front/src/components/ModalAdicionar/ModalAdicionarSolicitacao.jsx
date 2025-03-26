@@ -84,8 +84,12 @@ export default function ModaAdicionar() {
     }
 
     // Validação do nome
-    if (values.title.length < 5) {
-      toast.error("O título deve ter pelo menos 5 caracteres");
+    if (values.title.length < 5 || values.title.length > 100) {
+      toast.error(
+        values.title.length < 5
+          ? "O título deve ter pelo menos 5 caracteres"
+          : "O título não pode ter mais que 100 caracteres",
+      );
     }
 
     return isValid;
@@ -148,6 +152,10 @@ export default function ModaAdicionar() {
                 minLength: {
                   value: 5, // Mínimo de 5 caracteres
                   message: "O título deve ter pelo menos 5 caracteres",
+                },
+                maxLength: {
+                  value: 100,
+                  message: "O título não pode ter mais que 100 caracteres",
                 },
               })}
             />

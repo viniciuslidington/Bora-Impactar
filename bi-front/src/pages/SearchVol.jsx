@@ -88,7 +88,7 @@ export default function SearchVol() {
             <Pagination totalPages={data?.totalPages} />
           </span>
         </div>
-        {modalSearch && <ModalSearch />}
+        {modalSearch && <ModalSearch solicitacao={true} />}
       </div>
     </>
   );
