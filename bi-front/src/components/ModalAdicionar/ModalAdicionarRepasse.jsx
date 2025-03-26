@@ -73,7 +73,7 @@ export default function ModaAdicionar() {
       toast.error("A descrição deve ter pelo menos 5 a 15 palavras");
     }
     // Validação do telefone (acessando o valor diretamente)
-    if (!/^\(?\d{2}\)? ?\d{4,5}-?\d{4}$/.test(values.ong_Phone)) {
+    if (!/^\(?\d{2}\)?\s?\d{4,5}[-\s]?\d{4}$/.test(values.ong_Phone)) {
       toast.error("Telefone inválido! Exemplo: (99) 99999-9999");
     }
     // Verifica se o e-mail é válido
@@ -213,7 +213,7 @@ export default function ModaAdicionar() {
               {...register("ong_Phone", {
                 required: "Número de telefone é obrigatório",
                 pattern: {
-                  value: /^\d{2} \d{4,5}-\d{4}$/,
+                  value: /^\(?\d{2}\)?\s?\d{4,5}[-\s]?\d{4}$/,
                   message: "Número de telefone inválido",
                 },
               })}
