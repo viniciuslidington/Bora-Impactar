@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Instala apenas dependências de produção
-RUN npm ci --only=production
+RUN npm ci --only=production --legacy-peer-deps
 
 # Copia o restante do código
 COPY . .
