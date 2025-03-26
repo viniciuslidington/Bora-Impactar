@@ -2,7 +2,7 @@ import { calcularTempoDesdePublicacao } from "../../utils/formatDate";
 import UrgencyIcon from "../UrgencyIcon/UrgencyIcon";
 import PropTypes from "prop-types";
 
-export default function Posts({ data = {}, isLoading = false }) {
+export default function Posts({ data = {}, isLoading = false, onClick }) {
   const { createdAt, description, title, urgency, ong_Imagem, category } = data;
 
   const categorias = {
@@ -42,7 +42,10 @@ export default function Posts({ data = {}, isLoading = false }) {
       </div>
     </div>
   ) : (
-    <div className="flex max-w-[352px] flex-1 basis-[calc(33.333%-32px)] cursor-pointer flex-col rounded border-2 border-[#9c9c9c] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] transition-all duration-100 hover:scale-101">
+    <div
+      className="flex max-w-[352px] flex-1 basis-[calc(33.333%-32px)] cursor-pointer flex-col rounded border-2 border-[#9c9c9c] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] transition-all duration-100 hover:scale-101"
+      onClick={onClick}
+    >
       <img
         src="/placeholder-image.jpg"
         alt=""
@@ -86,4 +89,5 @@ export default function Posts({ data = {}, isLoading = false }) {
 Posts.propTypes = {
   data: PropTypes.object.isRequired,
   isLoading: PropTypes.bool,
+  onClick: PropTypes.func,
 };

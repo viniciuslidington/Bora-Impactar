@@ -1,12 +1,42 @@
-import { Outlet, NavLink, useNavigate } from "react-router-dom";
+import { Outlet, NavLink, useNavigate, useLocation } from "react-router-dom";
 import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
 import { Toaster } from "react-hot-toast";
 import HomePosts from "../components/HomePosts/HomePostsOng";
 import Button from "../components/Button/Button";
+import { useContext, useEffect } from "react";
+import { ModalContext } from "../components/contexts/ModalContext";
+import ModalAdicionarSol from "../components/ModalAdicionar/ModalAdicionarSolicitacao";
+import ModalAdicionarRep from "../components/ModalAdicionar/ModalAdicionarRepasse";
+import ModalSearch from "../components/ModalSearch/ModalSearch";
 
 export default function Home() {
   const navigate = useNavigate();
+  const {
+    modalAdicionarSolicitacao,
+    modalAdicionarRepasse,
+    setModalAdicionarSolicitacao,
+    setModalAdicionarRepasse,
+    modalSearch,
+    setModalSearch,
+  } = useContext(ModalContext);
+
+  const location = useLocation();
+  useEffect(() => {
+    setModalAdicionarRepasse(false);
+    setModalAdicionarSolicitacao(false);
+    setModalSearch(false);
+    return () => {
+      setModalAdicionarRepasse(false);
+      setModalAdicionarSolicitacao(false);
+      setModalSearch(false);
+    };
+  }, [
+    location,
+    setModalAdicionarRepasse,
+    setModalAdicionarSolicitacao,
+    setModalSearch,
+  ]);
 
   return (
     <>
@@ -116,7 +146,11 @@ export default function Home() {
             Ver todas publicações
           </Button>
         </div>
-        <HomePosts />
+        <HomePosts setModalSearch={setModalSearch} />
+
+        {modalAdicionarSolicitacao && <ModalAdicionarSol />}
+        {modalAdicionarRepasse && <ModalAdicionarRep />}
+        {modalSearch && <ModalSearch />}
       </div>
     </>
   );
