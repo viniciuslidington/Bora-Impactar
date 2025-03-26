@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useQueryUpdateHome } from "../../utils/queryUpdate";
 import { useSearchSolicitacao } from "../../services/searchService";
-import Pagination from "../Pagination/pagination";
+import Pagination from "../Pagination/Pagination";
 import SearchBar from "../SearchBar/SearchBar";
 import Posts from "./Posts";
 

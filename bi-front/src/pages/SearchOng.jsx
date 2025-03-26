@@ -1,7 +1,7 @@
 import Filter from "../components/Filter/Filter";
 import SearchPostOng from "../components/SearchPosts/SearchPostOng";
 import { useSearchRepasse } from "../services/searchService";
-import Pagination from "../components/Pagination/pagination";
+import Pagination from "../components/Pagination/Pagination.jsx";
 import { useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useQueryUpdate } from "../utils/queryUpdate";
