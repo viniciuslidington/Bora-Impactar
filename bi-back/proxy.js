@@ -10,6 +10,7 @@ import repasseRoutes from "./services/repasse.js";
 import serchRoutes from "./services/searchrepasse.js";
 import solicitacoesRoutes from "./services/solicitacoes.js";
 import searchSolicitacoesRoutes from "./services/searchsolicitacoes.js";
+import cloudinaryRoutes from "./services/upload.js";
 
 const app = express();
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use("/repasse", repasseRoutes);
 app.use("/search-repasse", serchRoutes);
 app.use("/solicitacao", solicitacoesRoutes);
 app.use('/search-solicitacao', searchSolicitacoesRoutes);
+app.use("/upload", cloudinaryRoutes);
 
 // Definindo a porta 3000
 app.listen(3000, () => {
