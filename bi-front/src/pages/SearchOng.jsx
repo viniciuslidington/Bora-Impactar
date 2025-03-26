@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useQueryUpdate } from "../utils/queryUpdate";
 
-export default function SearchOng() {
+export default function SearchVol() {
   const { data, isPending, isError } = useSearchRepasse();
 
   const updateQuery = useQueryUpdate();
@@ -62,17 +62,12 @@ export default function SearchOng() {
             </p>
           </div>
         ) : isPending ? (
-          <div className="flex h-[1744px] w-full items-start justify-center">
-            <span className="sticky top-[240px] flex h-[563px] items-center">
-              <l-ring-2
-                size="64"
-                stroke="6"
-                stroke-length="0.25"
-                bg-opacity="0.1"
-                speed="0.8"
-                color="#009fe3"
-              ></l-ring-2>
-            </span>
+          <div className="flex flex-col gap-8">
+            {Array(6)
+              .fill(0)
+              .map((_, i) => {
+                return <SearchPostOng isLoading={true} key={i} />;
+              })}
           </div>
         ) : data.requests?.length > 0 ? (
           <div className="flex flex-col gap-8">

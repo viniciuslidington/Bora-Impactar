@@ -3,8 +3,16 @@ import { calcularTempoRestante, formatarData } from "../../utils/formatDate";
 import UrgencyIcon from "../UrgencyIcon/UrgencyIcon";
 
 export default function SearchPostVol({ data = {}, isLoading = false }) {
-  const { category, createdAt, description, title, urgency, expirationDate } =
-    data;
+  const {
+    category,
+    createdAt,
+    description,
+    title,
+    urgency,
+    expirationDate,
+    ong_Nome,
+    ong_Imagem,
+  } = data;
 
   const categorias = {
     ELETRODOMESTICOS_E_MOVEIS: "Eletrodomésticos e Móveis",
@@ -67,11 +75,11 @@ export default function SearchPostVol({ data = {}, isLoading = false }) {
     >
       <div className="relative flex w-full items-center gap-2">
         <img
-          src="/placeholder-image.jpg"
+          src={ong_Imagem ?? "/placeholder-image.jpg"}
           alt=""
-          className="h-14 w-14 rounded-[50%] border border-[#9C9C9C] object-contain"
+          className="h-14 w-14 rounded-[50%] border border-[#9C9C9C] object-cover"
         />
-        <p className="opacity-95">Ong_name</p>
+        <p className="opacity-95">{ong_Nome}</p>
         <span className="opacity-95">|</span>
         <p className="opacity-95">
           Publicado: {formatarData(new Date(createdAt))}

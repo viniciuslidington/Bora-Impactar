@@ -1,5 +1,3 @@
-import { useReducer } from "react";
-import styles from "./post.module.css";
 import Button from "../Button/Button";
 import PropTypes from "prop-types";
 import toast from "react-hot-toast";
@@ -7,115 +5,189 @@ import {
   useDelSolicitacoes,
   useEditSolicitacoes,
 } from "../../services/userSolicitacoesService";
-import { useUserData } from "../../services/authService";
+import { useForm } from "react-hook-form";
+import { useRef, useState } from "react";
 
 export default function PostSelected({
-  publicacaoFormatada,
   expiracaoFormatada,
   setSelectedId,
   post,
 }) {
   const { mutate: salvar } = useEditSolicitacoes();
   const { mutate: remover } = useDelSolicitacoes();
-  const { data } = useUserData();
+  const [preview, setPreview] = useState(null);
+  const fileInputRef = useRef(null);
 
-  const ong_Id = data?.userData.ngo.id;
-
-  const initialState = {
-    titulo: post.title,
-    categoria: post.category,
-    urgencia: post.urgency,
-    descricao: post.description,
-    imageUrl: post.imageUrl,
+  {
+    /*Image ta recebendo ongimage como improviso, mas esta incorreto. Substituir quando existir campo de imagem  */
+  }
+  const initialValues = {
+    title: post.title,
+    category: post.category,
+    urgency: post.urgency,
+    description: post.description,
+    image: post.ong_Imagem,
+    ong_Phone: post.ong_Phone,
+    ong_Email: post.ong_Email,
   };
 
-  const [{ titulo, categoria, urgencia, descricao, imageUrl }, dispatch] =
-    useReducer(reduce, initialState);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    trigger,
+    formState: { errors },
+  } = useForm({
+    defaultValues: initialValues,
+  });
 
-  function handleSalvar(e) {
-    e.preventDefault();
-
-    const state = { titulo, categoria, urgencia, descricao, imageUrl };
-    if (areStatesEqual(state, initialState)) {
+  const onSubmit = (data) => {
+    if (JSON.stringify(data) === JSON.stringify(initialValues)) {
       setSelectedId("");
-      return; // Se não houver edições, a ação é previnida
+      return;
     }
-
-    if (
-      titulo === "" ||
-      categoria === "" ||
-      urgencia === "" ||
-      descricao === "" ||
-      imageUrl === ""
-    ) {
-      return toast.error("Preencha todos os campos!");
+    {
+      /*Faltando imagem enquanto campo não existe  */
     }
-
     salvar({
-      title: titulo,
-      category: categoria,
-      description: descricao,
-      ong_Id: ong_Id,
+      title: data.title,
+      category: data.category,
+      urgency: data.urgency,
+      description: data.description,
+      ong_Phone: data.ong_Phone,
+      ong_Email: data.ong_Email,
       id: post.id,
     });
 
-    setSelectedId(""); //Fechar form após salvar
-  }
-  function handleEncerrar(e) {
-    e.preventDefault();
+    setSelectedId(""); // Fechar form após salvar
+  };
+
+  const handleEncerrar = () => {
     if (confirm("Tem certeza que deseja encerrar publicação?")) {
       remover(post.id);
+      setSelectedId("");
+    }
+  };
+
+  const validate = async () => {
+    const isValid = await trigger();
+    // Verifica se algum campo obrigatório não está preenchido
+    const requiredFields = [
+      "title",
+      "category",
+      "urgency",
+      "description",
+      "ong_Email",
+      "ong_Phone",
+      "image",
+    ];
+
+    const values = getValues();
+
+    const missingFields = requiredFields.filter((field) => !values[field]);
+
+    // Se algum campo obrigatório estiver faltando, exibe o toast
+    if (missingFields.length > 0) {
+      toast.error("Preencha todos os campos obrigatórios!");
+    }
+    // Validação da descrição
+    if (values.description.length < 15) {
+      toast.error("A descrição deve ter pelo menos 5 palavras");
+    }
+    // Validação do telefone (acessando o valor diretamente)
+    if (!/^\(?\d{2}\)?\s?\d{4,5}[-\s]?\d{4}$/.test(values.ong_Phone)) {
+      toast.error("Telefone inválido! Exemplo: (99) 99999-9999");
+    }
+    // Verifica se o e-mail é válido
+    if (!/^[^@]+@[^@]+\.[^@]+$/.test(values.ong_Email)) {
+      toast.error("E-mail inválido!");
     }
 
-    setSelectedId(""); //Fechar form após salvar
-  }
+    // Validação do nome
+    if (values.title.length < 5) {
+      toast.error("O título deve ter pelo menos 5 caracteres");
+    }
+
+    return isValid;
+  };
+
+  // Quando o usuário seleciona uma imagem
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setValue("image", file); // Atualiza o React Hook Form
+      setPreview(URL.createObjectURL(file)); // Cria uma prévia da imagem
+    }
+  };
 
   return (
-    <form className={styles.selectedPost}>
-      <label htmlFor="fileInput">
-        <img src="/placeholder-image.jpg" alt="Editar Imagem do Post" />
-        <img src="/edit.svg" alt="Icone de Editar Imagem" />
-      </label>
-      <input
-        type="file"
-        accept="image/*"
-        style={{ display: "none" }}
-        id="fileInput"
-      />
-      <div className={styles.mainContentSelected}>
-        <p className={styles.publicadoSelected}>
-          Publicado: {publicacaoFormatada}
-        </p>
-        <span className="flex w-1/2 justify-end">
+    <div className="relative z-11 flex w-full max-w-[1120px] items-start gap-6 rounded bg-white p-4">
+      <span className="flex flex-col gap-1">
+        <p className="text-[14px] opacity-60">Imagem</p>
+        <div
+          className={`relative flex h-[350px] w-[350px] cursor-pointer items-center justify-center rounded ${errors.image ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+          onClick={() => fileInputRef.current.click()}
+        >
+          {post.ong_Imagem && !preview && (
+            <img
+              src={post.ong_Imagem}
+              alt="Imagem original"
+              className="h-full w-full rounded object-cover"
+            />
+          )}
+          {preview && (
+            <img
+              src={preview}
+              alt="Prévia da imagem"
+              className="h-full w-full rounded object-cover"
+            />
+          )}
+          {!preview && !post.ong_Imagem && (
+            <p className="px-4 text-center text-[#8c8a8a]">
+              Adicione uma imagem relacionada à sua publicação
+            </p>
+          )}
           <img
-            src="/x.svg"
-            alt="x"
-            onClick={() => setSelectedId("")}
-            className="w-4 cursor-pointer opacity-90"
+            src="/edit.svg"
+            alt="adicionar"
+            className="absolute right-2 bottom-2 h-10 w-10 overflow-visible rounded-full bg-[#ababab] p-2 opacity-80"
           />
-        </span>
-        <label htmlFor="tituloSelected" className={styles.labelSelected}>
-          <p>Titulo</p>
+          <input
+            type="file"
+            accept="image/*"
+            {...register("image", { required: "imagem é obrigatório" })}
+            ref={fileInputRef}
+            onChange={handleImageChange}
+            className="hidden"
+          />
+        </div>
+      </span>
+      <div className="flex flex-wrap items-start justify-between gap-y-[10px]">
+        <span className="flex flex-col gap-1">
+          <p className="text-[14px] opacity-60">Titulo</p>
           <input
             type="text"
             placeholder="Informe um título breve e claro..."
-            id="tituloSelected"
-            value={titulo}
-            onChange={(e) =>
-              dispatch({ type: "titulo", payload: `${e.target.value}` })
-            }
+            className={`w-[269px] rounded bg-[#eaeaea] p-2 ${errors.title ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+            {...register("title", {
+              required: "Título é obrigatório",
+              minLength: {
+                value: 5, // Mínimo de 5 caracteres
+                message: "O título deve ter pelo menos 5 caracteres",
+              },
+            })}
           />
-        </label>
-        <label htmlFor="categoriaSelected" className={styles.labelSelected}>
-          <p>Categoria</p>
+        </span>
+        <span className="flex flex-col gap-1">
+          <p className="text-[14px] opacity-60">Categoria</p>
           <select
-            name="editSelect"
-            id="categoriaSelected"
-            value={categoria}
-            onChange={(e) =>
-              dispatch({ type: "categoria", payload: `${e.target.value}` })
-            }
+            className={`max-h-10 w-[163px] rounded border-2 p-1 ${errors.category ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
+            {...register("category", { required: "Categoria é obrigatório" })}
           >
+            <option value="" disabled={true} selected={true}>
+              Selecionar
+            </option>
             <option value="ELETRODOMESTICOS_E_MOVEIS">
               Eletrodomésticos e Móveis
             </option>
@@ -132,114 +204,106 @@ export default function PostSelected({
             <option value="ITENS_PET">Itens para Pets</option>
             <option value="OUTROS">Outros</option>
           </select>
-        </label>
-        <label className={styles.labelSelected}>
-          <p>Urgência</p>
-          <div className={styles.radiosSelected}>
-            <input
-              type="radio"
-              name="urgenciaSelected"
-              className={styles.urgenciaSelected}
-              value="HIGH"
-              checked={urgencia === "HIGH"}
-              onChange={(e) =>
-                dispatch({ type: "urgencia", payload: e.target.value })
-              }
-            />
-            <p>Alta</p>
-            <input
-              type="radio"
-              name="urgenciaSelected"
-              className={styles.urgenciaSelected}
-              value="MEDIUM"
-              checked={urgencia === "MEDIUM"}
-              onChange={(e) =>
-                dispatch({ type: "urgencia", payload: e.target.value })
-              }
-            />
-            <p>Média</p>
-            <input
-              type="radio"
-              name="urgenciaSelected"
-              className={styles.urgenciaSelected}
-              value="LOW"
-              checked={urgencia === "LOW"}
-              onChange={(e) =>
-                dispatch({ type: "urgencia", payload: e.target.value })
-              }
-            />
-            <p>Baixa</p>
-          </div>
-        </label>
-        <div className={styles.divEncerrarBtn}>
-          <p>{expiracaoFormatada}</p>
+        </span>
+        <span className="flex flex-col gap-1">
+          <p className="text-[14px] opacity-60">{expiracaoFormatada}</p>
           <Button
-            className="flex h-[38px] w-[179px] cursor-pointer items-center justify-center rounded-sm border-[2.5px] border-solid border-[#f37171] bg-none px-2 py-3 text-base font-medium text-[#f37171] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#f38e8e2d] disabled:opacity-70"
-            onClick={(e) => handleEncerrar(e)}
+            className="h-10 w-[163px] cursor-pointer rounded border-2 border-red-400 bg-red-400 text-white transition-all duration-100 hover:bg-red-300"
+            onClick={handleEncerrar}
           >
-            Encerrar Solicitação
+            Encerrar
           </Button>
-        </div>
+        </span>
+        <span className="flex flex-col gap-1">
+          <p className="text-[14px] opacity-60">E-mail para contato</p>
+          <input
+            type="text"
+            placeholder="exemplo@email.com"
+            className={`w-[269px] rounded p-2 ${errors.ong_Email ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+            {...register("ong_Email", {
+              required: "E-mail é obrigatório",
+              pattern: {
+                value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                message: "E-mail inválido",
+              },
+            })}
+          />
+        </span>
+        <span className="flex flex-col gap-1">
+          <p className="text-[14px] opacity-60">Número para contato</p>
+          <input
+            type="tel"
+            placeholder="99 99999-9999"
+            className={`w-[196px] rounded p-2 ${errors.ong_Phone ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+            {...register("ong_Phone", {
+              required: "Número de telefone é obrigatório",
+              pattern: {
+                value: /^\(?\d{2}\)?\s?\d{4,5}[-\s]?\d{4}$/,
+                message: "Número de telefone inválido",
+              },
+            })}
+          />
+        </span>
+        <span className="flex flex-col gap-1">
+          <p className="text-[14px] opacity-60">Urgência</p>
+          <select
+            className={`max-h-10 max-w-[163px] rounded border-2 p-1 ${errors.urgency ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
+            {...register("urgency", { required: true })}
+          >
+            <option value="" disabled={true} selected={true}>
+              Selecionar
+            </option>
+            <option value="HIGH">Alta</option>
+            <option value="MEDIUM">Média</option>
+            <option value="LOW">Baixa</option>
+          </select>
+        </span>
+
+        <span className="flex w-full flex-col gap-1">
+          <p className="text-[14px] opacity-60">Descrição</p>
+          <textarea
+            rows="5"
+            type="text"
+            placeholder="Informe uma descrição completa e clara..."
+            className={`w-full resize-none rounded p-2 ${errors.description ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+            {...register("description", {
+              required: "Descrição é obrigatória",
+              minLength: {
+                value: 15, // Mínimo de 15 caracteres
+                message: "A descrição deve ter pelo menos 5 palavras",
+              },
+            })}
+          />
+        </span>
+
+        <span className="absolute right-4 bottom-4 flex items-start gap-5">
+          <Button
+            className="h-12 w-[180px] cursor-pointer rounded border-2 border-red-400 text-red-400 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.12)] transition-all duration-100 hover:bg-red-100"
+            onClick={() => setSelectedId("")}
+          >
+            Cancelar
+          </Button>
+          <Button
+            addClassName="w-[180px]"
+            onClick={async () => {
+              const isValid = await validate();
+              if (isValid) {
+                handleSubmit(onSubmit)();
+              }
+            }}
+          >
+            Salvar
+          </Button>
+        </span>
       </div>
-      <label htmlFor="tituloSelected" className={styles.labelSelected}>
-        <p>Descrição</p>
-        <textarea
-          rows="7"
-          type="text"
-          placeholder="Informe uma descrição completa e clara..."
-          id="tituloSelected"
-          value={descricao}
-          onChange={(e) =>
-            dispatch({ type: "descricao", payload: e.target.value })
-          }
-        />
-      </label>
-      <div className={styles.divSalvarBtn}>
-        <p></p>
-        <Button
-          addClassName=" py-[12px] px-[16px] w-[179px]"
-          onClick={(e) => handleSalvar(e)}
-        >
-          Salvar Alterações
-        </Button>
-      </div>
-    </form>
+    </div>
   );
 }
 
 PostSelected.propTypes = {
-  publicacaoFormatada: PropTypes.string.isRequired,
   expiracaoFormatada: PropTypes.string.isRequired,
   setSelectedId: PropTypes.node.isRequired,
   post: PropTypes.object.isRequired,
   databaseState: PropTypes.array.isRequired,
   setDatabaseState: PropTypes.func.isRequired,
-};
-
-function reduce(state, action) {
-  switch (action.type) {
-    case "titulo":
-      return { ...state, titulo: action.payload };
-    case "categoria":
-      return { ...state, categoria: action.payload };
-    case "urgencia":
-      return { ...state, urgencia: action.payload };
-    case "descricao":
-      return { ...state, descricao: action.payload };
-    case "imageUrl":
-      return { ...state, imageUrl: action.payload };
-
-    default:
-      return state;
-  }
-}
-
-const areStatesEqual = (state1, state2) => {
-  return (
-    state1.titulo === state2.titulo &&
-    state1.categoria === state2.categoria &&
-    state1.urgencia === state2.urgencia &&
-    state1.descricao === state2.descricao &&
-    state1.imageUrl === state2.imageUrl
-  );
 };
