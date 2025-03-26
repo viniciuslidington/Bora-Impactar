@@ -1,28 +1,28 @@
 ### Testes para a API de `request`
 
 # Buscar requests com filtro de categoria
-GET http://localhost:3000/solicitacao?ong_Id=21
+GET http://localhost:3000/solicitacao?ong_Id=200
 
 ###
 # Buscar solicitacoes com filtro
-GET http://localhost:3000/search-solicitacao?page=3
+GET http://localhost:3000/search-solicitacao?page=2
 ###
 # Criar um novo request
 POST http://localhost:3000/solicitacao
 Content-Type: application/json
 
-{
+{   
     "title": "TESTE28",
     "category": "ELETRONICOS",
-    "urgency": "MEDIUM",
     "ong_Id": 200,
+    "urgency": "HIGH",
     "ong_Nome": "ONG Teste2",
     "expirationDuration": "4 semanas"
 }
 
 ###
 # Atualizar um request existente
-PUT http://localhost:3000/solicitacao?id=35
+PATCH  http://localhost:3000/solicitacao?id=4
 Content-Type: application/json
 
 {
@@ -30,14 +30,14 @@ Content-Type: application/json
     "category": "MATERIAIS_EDUCATIVOS_E_CULTURAIS",
     "urgency": "HIGH",
     "quantity": 5,
-    "ong_Id": 3,
-    "ong_Nome": "ONG Teste",
-    "expirationDuration": "4 semanas"
+    "expirationDuration": "4 semanas",
+    "ong_Id": 1
+    
 }
 
 ###
 # Deletar um request
-DELETE http://localhost:3000/solicitacao?id=35
+DELETE http://localhost:3000/solicitacao?id=28
 Content-Type: application/json
 
 ### Testes para a API de `repasse`
@@ -76,16 +76,15 @@ Content-Type: application/json
 
 ###
 # Atualizar uma repasse existente
-PUT http://localhost:3000/repasse?id=19
+PATCH http://localhost:3000/repasse?id=4
 Content-Type: application/json
 
 {
-    "title": "Osso de gato",
+    "title": "PATCH",
     "category": "ITENS_PET",
-    "description": "Ossos nao podem ter sido usados anteriormente",
-    "ong_Id": 90,
-    "ong_Nome": "ONG Teste",
-    "expirationDuration": "4 semanas"
+    "ong_Email": "PATCH@EMAIL",
+    "ong_Phone": "patch",
+    "description": "patching"
 }
 
 ###
