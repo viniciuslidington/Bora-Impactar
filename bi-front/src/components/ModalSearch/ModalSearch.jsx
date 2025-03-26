@@ -47,12 +47,12 @@ export default function ModalSearch({ solicitacao = false }) {
     <div
       className="fixed inset-0 z-10 flex items-center justify-center bg-[rgba(0,0,0,0.25)]"
       onClick={(e) => {
-        modalOverlay.current === e.target && setModalSearch(false);
+        modalOverlay.current === e.target && setModalSearch(null);
       }}
       ref={modalOverlay}
     >
       <div className="relative z-11 flex w-full max-w-[1120px] flex-wrap gap-6 rounded bg-white p-8">
-        <div className="flex w-full items-center gap-2">
+        <div className="relative flex w-full items-center gap-2">
           <img
             src={ong_Imagem ?? "/placeholder-image.jpg"}
             alt="Foto de perfil"
@@ -61,6 +61,12 @@ export default function ModalSearch({ solicitacao = false }) {
           <p>{ong_Nome}</p>
           <span>|</span>
           <p>Publicado: {dataPublicacao}</p>
+          <img
+            src="/x.svg"
+            alt="fechar"
+            className="absolute top-0 right-0 h-5 w-5 cursor-pointer"
+            onClick={() => setModalSearch(null)}
+          />
         </div>
         <img
           src="/placeholder-image.jpg"

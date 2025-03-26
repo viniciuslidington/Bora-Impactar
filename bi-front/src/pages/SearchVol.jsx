@@ -2,14 +2,14 @@ import Filter from "../components/Filter/Filter";
 import SearchPostVol from "../components/SearchPosts/SearchPostVol";
 import { useSearchSolicitacao } from "../services/searchService";
 import Pagination from "../components/Pagination/Pagination.jsx";
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useQueryUpdate } from "../utils/queryUpdate";
 import { ModalContext } from "../components/contexts/ModalContext";
 import ModalSearch from "../components/ModalSearch/ModalSearch";
 
 export default function SearchVol() {
-  const { modalSearch } = useContext(ModalContext);
+  const { modalSearch, setModalSearch } = useContext(ModalContext);
   const { data, isPending, isError } = useSearchSolicitacao();
 
   const updateQuery = useQueryUpdate();
@@ -19,6 +19,10 @@ export default function SearchVol() {
 
   const querySort = searchParams.get("sort") || "";
   const sortRef = useRef(querySort);
+
+  useEffect(() => {
+    return setModalSearch(null);
+  }, [setModalSearch]);
 
   return (
     <>

@@ -5,8 +5,9 @@ import { useSearchRepasse } from "../../services/searchService";
 import Pagination from "../Pagination/Pagination";
 import SearchBar from "../SearchBar/SearchBar";
 import Posts from "./Posts";
+import PropTypes from "prop-types";
 
-export default function HomePosts() {
+export default function HomePosts({ setModalSearch }) {
   const { data, isPending, isError } = useSearchRepasse();
 
   const updateQuery = useQueryUpdateHome();
@@ -70,7 +71,13 @@ export default function HomePosts() {
         ) : data.requests?.length > 0 ? (
           <div className="flex flex-wrap gap-8">
             {data.requests.map((post) => {
-              return <Posts data={post} key={post.id} />;
+              return (
+                <Posts
+                  data={post}
+                  key={post.id}
+                  onClick={() => setModalSearch(post)}
+                />
+              );
             })}
           </div>
         ) : (
@@ -83,3 +90,7 @@ export default function HomePosts() {
     </div>
   );
 }
+
+HomePosts.propTypes = {
+  setModalSearch: PropTypes.func,
+};

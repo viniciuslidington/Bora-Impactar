@@ -8,6 +8,7 @@ import { useContext, useEffect } from "react";
 import { ModalContext } from "../components/contexts/ModalContext";
 import ModalAdicionarSol from "../components/ModalAdicionar/ModalAdicionarSolicitacao";
 import ModalAdicionarRep from "../components/ModalAdicionar/ModalAdicionarRepasse";
+import ModalSearch from "../components/ModalSearch/ModalSearch";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -16,13 +17,26 @@ export default function Home() {
     modalAdicionarRepasse,
     setModalAdicionarSolicitacao,
     setModalAdicionarRepasse,
+    modalSearch,
+    setModalSearch,
   } = useContext(ModalContext);
-  const location = useLocation();
 
+  const location = useLocation();
   useEffect(() => {
     setModalAdicionarRepasse(false);
     setModalAdicionarSolicitacao(false);
-  }, [location, setModalAdicionarRepasse, setModalAdicionarSolicitacao]);
+    setModalSearch(false);
+    return () => {
+      setModalAdicionarRepasse(false);
+      setModalAdicionarSolicitacao(false);
+      setModalSearch(false);
+    };
+  }, [
+    location,
+    setModalAdicionarRepasse,
+    setModalAdicionarSolicitacao,
+    setModalSearch,
+  ]);
 
   return (
     <>
@@ -132,9 +146,11 @@ export default function Home() {
             Ver todas publicações
           </Button>
         </div>
-        <HomePosts />
+        <HomePosts setModalSearch={setModalSearch} />
+
         {modalAdicionarSolicitacao && <ModalAdicionarSol />}
         {modalAdicionarRepasse && <ModalAdicionarRep />}
+        {modalSearch && <ModalSearch />}
       </div>
     </>
   );
