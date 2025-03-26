@@ -7,6 +7,7 @@ function ModalProvider({ children }) {
   const [modalAdicionarSolicitacao, setModalAdicionarSolicitacao] =
     useState(false);
   const [modalAdicionarRepasse, setModalAdicionarRepasse] = useState(false);
+  const [modalSearch, setModalSearch] = useState(null); // recebe os dados da publicação
 
   return (
     <ModalContext.Provider
@@ -15,6 +16,8 @@ function ModalProvider({ children }) {
         setModalAdicionarSolicitacao,
         modalAdicionarRepasse,
         setModalAdicionarRepasse,
+        modalSearch,
+        setModalSearch,
       }}
     >
       {children}

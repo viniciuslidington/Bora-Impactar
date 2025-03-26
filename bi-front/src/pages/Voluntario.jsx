@@ -10,14 +10,7 @@ export default function Voluntario() {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "100%",
-      }}
-    >
+    <div className="flex w-full flex-col items-center">
       <Header>
         <SearchBar placeholder={"Pesquisar demandas das ONGS..."} />
         <Profile />

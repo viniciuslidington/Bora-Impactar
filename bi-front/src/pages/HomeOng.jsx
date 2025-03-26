@@ -1,12 +1,28 @@
-import { Outlet, NavLink, useNavigate } from "react-router-dom";
+import { Outlet, NavLink, useNavigate, useLocation } from "react-router-dom";
 import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
 import { Toaster } from "react-hot-toast";
 import HomePosts from "../components/HomePosts/HomePostsOng";
 import Button from "../components/Button/Button";
+import { useContext, useEffect } from "react";
+import { ModalContext } from "../components/contexts/ModalContext";
+import ModalAdicionarSol from "../components/ModalAdicionar/ModalAdicionarSolicitacao";
+import ModalAdicionarRep from "../components/ModalAdicionar/ModalAdicionarRepasse";
 
 export default function Home() {
   const navigate = useNavigate();
+  const {
+    modalAdicionarSolicitacao,
+    modalAdicionarRepasse,
+    setModalAdicionarSolicitacao,
+    setModalAdicionarRepasse,
+  } = useContext(ModalContext);
+  const location = useLocation();
+
+  useEffect(() => {
+    setModalAdicionarRepasse(false);
+    setModalAdicionarSolicitacao(false);
+  }, [location, setModalAdicionarRepasse, setModalAdicionarSolicitacao]);
 
   return (
     <>
@@ -117,6 +133,8 @@ export default function Home() {
           </Button>
         </div>
         <HomePosts />
+        {modalAdicionarSolicitacao && <ModalAdicionarSol />}
+        {modalAdicionarRepasse && <ModalAdicionarRep />}
       </div>
     </>
   );

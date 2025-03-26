@@ -2,9 +2,11 @@ import Filter from "../components/Filter/Filter";
 import SearchPostOng from "../components/SearchPosts/SearchPostOng";
 import { useSearchRepasse } from "../services/searchService";
 import Pagination from "../components/Pagination/Pagination.jsx";
-import { useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useQueryUpdate } from "../utils/queryUpdate";
+import { ModalContext } from "../components/contexts/ModalContext.jsx";
+import ModalSearch from "../components/ModalSearch/ModalSearch";
 
 export default function SearchVol() {
   const { data, isPending, isError } = useSearchRepasse();
@@ -16,6 +18,12 @@ export default function SearchVol() {
 
   const querySort = searchParams.get("sort") || "";
   const sortRef = useRef(querySort);
+
+  const { modalSearch, setModalSearch } = useContext(ModalContext);
+
+  useEffect(() => {
+    setModalSearch(null);
+  }, [setModalSearch]);
 
   return (
     <div className="flex w-[1366px] justify-between px-[123px] py-16">
@@ -84,6 +92,7 @@ export default function SearchVol() {
           <Pagination totalPages={data?.totalPages} />
         </span>
       </div>
+      {modalSearch && <ModalSearch />}
     </div>
   );
 }
