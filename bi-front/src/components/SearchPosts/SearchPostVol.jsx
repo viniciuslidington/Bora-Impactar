@@ -37,7 +37,7 @@ export default function SearchPostVol({ data = {}, isLoading = false }) {
   const { setModalSearch } = useContext(ModalContext);
 
   useEffect(() => {
-    setModalSearch(null);
+    return setModalSearch(null);
   }, [setModalSearch]);
 
   return isLoading ? (

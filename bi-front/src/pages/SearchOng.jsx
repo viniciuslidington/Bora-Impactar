@@ -22,7 +22,7 @@ export default function SearchVol() {
   const { modalSearch, setModalSearch } = useContext(ModalContext);
 
   useEffect(() => {
-    setModalSearch(null);
+    return setModalSearch(null);
   }, [setModalSearch]);
 
   return (
