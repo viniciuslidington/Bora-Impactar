@@ -1,7 +1,7 @@
 ### Testes para a API de `request`
 
 # Buscar requests com filtro de categoria
-GET http://localhost:3000/solicitacao?ong_Id=21
+GET http://localhost/solicitacao?ong_Id=21
 
 ###
 # Buscar solicitacoes com filtro
@@ -14,7 +14,6 @@ Content-Type: application/json
 {
     "title": "TESTE28",
     "category": "ELETRONICOS",
-    "urgency": "MEDIUM",
     "ong_Id": 200,
     "ong_Nome": "ONG Teste2",
     "expirationDuration": "4 semanas"
