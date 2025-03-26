@@ -70,8 +70,8 @@ export default function ModaAdicionar() {
       return false;
     }
     // Validação da descrição
-    if (values.description.length < 50) {
-      toast.error("A descrição deve ter pelo menos 5 a 15 palavras");
+    if (values.description.length < 15) {
+      toast.error("A descrição deve ter pelo menos 5 palavras");
     }
     // Validação do telefone (acessando o valor diretamente)
     if (!/^\(?\d{2}\)?\s?\d{4,5}[-\s]?\d{4}$/.test(values.ong_Phone)) {
@@ -246,8 +246,8 @@ export default function ModaAdicionar() {
               {...register("description", {
                 required: "Descrição é obrigatória",
                 minLength: {
-                  value: 50, // Mínimo de 50 caracteres
-                  message: "A descrição deve ter pelo menos 5 a 15 palavras",
+                  value: 15, // Mínimo de 50 caracteres
+                  message: "A descrição deve ter pelo menos 5 palavras",
                 },
               })}
             />
