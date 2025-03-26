@@ -26,7 +26,7 @@ export default function PostSelected({
     category: post.category,
     urgency: post.urgency,
     description: post.description,
-    image: post.ong_Image,
+    image: post.ong_Imagem,
     ong_Phone: post.ong_Phone,
     ong_Email: post.ong_Email,
   };
@@ -129,9 +129,9 @@ export default function PostSelected({
           className={`relative flex h-[350px] w-[350px] cursor-pointer items-center justify-center rounded ${errors.image ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
           onClick={() => fileInputRef.current.click()}
         >
-          {post.ong_Image && !preview && (
+          {post.ong_Imagem && !preview && (
             <img
-              src={post.ong_Image}
+              src={post.ong_Imagem}
               alt="Imagem original"
               className="h-full w-full rounded object-cover"
             />
@@ -143,7 +143,7 @@ export default function PostSelected({
               className="h-full w-full rounded object-cover"
             />
           )}
-          {!preview && !post.ong_Image && (
+          {!preview && !post.ong_Imagem && (
             <p className="px-4 text-center text-[#8c8a8a]">
               Adicione uma imagem relacionada à sua publicação
             </p>
