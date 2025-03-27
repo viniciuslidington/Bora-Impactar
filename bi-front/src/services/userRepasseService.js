@@ -1,12 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useUserData } from "./authService.js";
-import axios from "axios";
 import toast from "react-hot-toast";
-
-const api = axios.create({
-  baseURL: "http://localhost:3000",
-  withCredentials: true,
-});
+import api from "./api.js";
 
 const getRepasse = async (id) => {
   const response = await api.get("/repasse", {
@@ -73,6 +68,7 @@ const useAddRepasse = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["Repasse"]);
+      toast.success("Repasse adicionado!");
     },
   });
 };
@@ -96,6 +92,7 @@ const useEditRepasse = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["Repasse"]);
+      toast.success("Repasse salvo!");
     },
   });
 };
@@ -119,6 +116,7 @@ const useDelRepasse = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["Repasse"]);
+      toast.success("Repasse encerrado!");
     },
   });
 };

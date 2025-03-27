@@ -13,4 +13,17 @@ function formatarString2(str) {
     .replace(/\s+/g, "_"); // Remove todos os espaços; // Remove a acentuação
 }
 
-export { formatarString, formatarString2 };
+function formatarNumeroTelefone(numero) {
+  // Remove todos os caracteres que não são números
+  let numerosLimpos = numero.replace(/\D/g, "");
+
+  // Se for um número de celular (11 dígitos), formata como (99) 99999-9999
+  if (numerosLimpos.length === 11) {
+    return numerosLimpos.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+  }
+
+  // Se for um número fixo (10 dígitos), formata como (99) 9999-9999
+  return numerosLimpos.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
+}
+
+export { formatarString, formatarString2, formatarNumeroTelefone };

@@ -1,29 +1,16 @@
-import { useContext } from "react";
 import { Outlet } from "react-router-dom";
-import { ModalContext } from "../components/contexts/ModalContext";
 import Header from "../components/Header/header";
 import Footer from "../components/Footer/Footer";
 import Profile from "../components/Profile/Profile";
 import SearchBar from "../components/SearchBar/SearchBar";
-import ModalAdicionarSol from "../components/ModalAdicionar/ModalAdicionarSolicitacao";
-import ModalAdicionarRep from "../components/ModalAdicionar/ModalAdicionarRepasse";
 import { useUserData } from "../services/authService";
 import "ldrs/ring2";
 
 export default function Ong() {
-  const { modalAdicionarSolicitacao, modalAdicionarRepasse } =
-    useContext(ModalContext);
   const { isPending } = useUserData();
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "100%",
-      }}
-    >
+    <div className="flex w-full flex-col items-center">
       <Header>
         <SearchBar placeholder={"Pesquisar repasse de outras ONGS..."} />
         <Profile />
@@ -51,8 +38,6 @@ export default function Ong() {
         <Outlet />
       )}
       <Footer />
-      {modalAdicionarSolicitacao && <ModalAdicionarSol />}
-      {modalAdicionarRepasse && <ModalAdicionarRep />}
     </div>
   );
 }

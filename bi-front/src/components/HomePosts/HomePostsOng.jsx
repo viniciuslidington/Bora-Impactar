@@ -5,8 +5,9 @@ import { useSearchRepasse } from "../../services/searchService";
 import Pagination from "../Pagination/Pagination";
 import SearchBar from "../SearchBar/SearchBar";
 import Posts from "./Posts";
+import PropTypes from "prop-types";
 
-export default function HomePosts() {
+export default function HomePosts({ setModalSearch }) {
   const { data, isPending, isError } = useSearchRepasse();
 
   const updateQuery = useQueryUpdateHome();
@@ -14,7 +15,7 @@ export default function HomePosts() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search); // Converte a string da URL em um objeto manipulável
 
-  const querySort = searchParams.get("sort") || "";
+  const querySort = searchParams.get("sort") || "recentes";
   const sortRef = useRef(querySort);
 
   return (
@@ -41,7 +42,6 @@ export default function HomePosts() {
               updateQuery("sort", newValue);
             }}
           >
-            <option value="">Relevância</option>
             <option value="recentes">Recentes</option>
             <option value="expirar">Prestes a Expirar</option>
           </select>
@@ -50,7 +50,7 @@ export default function HomePosts() {
             className={
               "h-12 w-[512px] rounded-sm border-2 border-[#9c9c9c] bg-white p-3 pr-11 text-base"
             }
-            placeholder={"Pesquisar demandas das ONGs..."}
+            placeholder={"Pesquisar repasse de outras ONGs..."}
           />
         </span>
         {isError ? (
@@ -70,7 +70,13 @@ export default function HomePosts() {
         ) : data.requests?.length > 0 ? (
           <div className="flex flex-wrap gap-8">
             {data.requests.map((post) => {
-              return <Posts data={post} key={post.id} />;
+              return (
+                <Posts
+                  data={post}
+                  key={post.id}
+                  onClick={() => setModalSearch(post)}
+                />
+              );
             })}
           </div>
         ) : (
@@ -83,3 +89,7 @@ export default function HomePosts() {
     </div>
   );
 }
+
+HomePosts.propTypes = {
+  setModalSearch: PropTypes.func,
+};

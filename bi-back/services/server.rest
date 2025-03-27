@@ -1,11 +1,13 @@
 ### Testes para a API de `request`
 
 # Buscar requests com filtro de categoria
+
 GET http://localhost:3000/solicitacao?
+
 
 ###
 # Buscar solicitacoes com filtro
-GET http://localhost:3000/search-solicitacao?page=3
+GET http://localhost:3000/search-solicitacao?title=cesta&category=ELETRONICOS&sort=expirar
 ###
 POST http://localhost:3000/login
 Content-Type: application/json
@@ -18,18 +20,20 @@ Content-Type: application/json
 POST http://localhost:3000/solicitacao?
 Content-Type: application/json
 
-{
-    "title": "TESTE28",
+{   
+    "title": "Cesta arroz Basica",
     "category": "ELETRONICOS",
-    "urgency": "MEDIUM",
-    "ong_Id": 200,
+    "ong_Id": 20,
+    "urgency": "HIGH",
     "ong_Nome": "ONG Teste2",
     "expirationDuration": "4 semanas"
 }
 
 ###
 # Atualizar um request existente
+
 PATCH  http://localhost:3000/solicitacao?id=5
+
 Content-Type: application/json
 
 {
@@ -37,14 +41,14 @@ Content-Type: application/json
     "category": "MATERIAIS_EDUCATIVOS_E_CULTURAIS",
     "urgency": "HIGH",
     "quantity": 5,
-    "ong_Id": 3,
-    "ong_Nome": "ONG Teste",
-    "expirationDuration": "4 semanas"
+    "expirationDuration": "4 semanas",
+    "ong_Id": 1
+    
 }
 
 ###
 # Deletar um request
-DELETE http://localhost:3000/solicitacao?id=35
+DELETE http://localhost:3000/solicitacao?id=28
 Content-Type: application/json
 
 ### Testes para a API de `repasse`
@@ -54,7 +58,7 @@ GET http://localhost:3000/repasse?ong_Id=88
 
 ###
 # Buscar repasse com filtro
-GET http://localhost:3000/search-repasse?page=1
+GET http://localhost:3000/search-repasse?title=mouse
 
 ###
 # Criar uma nova repasse
@@ -62,7 +66,7 @@ POST http://localhost:3000/repasse
 Content-Type: application/json
 
 {
-    "title": "Osso de cachorro",
+    "title": "Mouse3",
     "category": "ITENS_PET",
     "description": "Cadeiras de escritório em bom estado",
     "ong_Id": 88,
@@ -83,16 +87,17 @@ Content-Type: application/json
 
 ###
 # Atualizar uma repasse existente
+
 PATCH  http://localhost:3000/repasse?id=8
+
 Content-Type: application/json
 
 {
-    "title": "Osso de gato",
+    "title": "PATCH",
     "category": "ITENS_PET",
-    "description": "Ossos nao podem ter sido usados anteriormente",
-    "ong_Id": 90,
-    "ong_Nome": "ONG Teste",
-    "expirationDuration": "4 semanas"
+    "ong_Email": "PATCH@EMAIL",
+    "ong_Phone": "patch",
+    "description": "patching"
 }
 
 ###

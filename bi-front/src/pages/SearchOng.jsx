@@ -2,11 +2,13 @@ import Filter from "../components/Filter/Filter";
 import SearchPostOng from "../components/SearchPosts/SearchPostOng";
 import { useSearchRepasse } from "../services/searchService";
 import Pagination from "../components/Pagination/Pagination.jsx";
-import { useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useQueryUpdate } from "../utils/queryUpdate";
+import { ModalContext } from "../components/contexts/ModalContext.jsx";
+import ModalSearch from "../components/ModalSearch/ModalSearch";
 
-export default function SearchOng() {
+export default function SearchVol() {
   const { data, isPending, isError } = useSearchRepasse();
 
   const updateQuery = useQueryUpdate();
@@ -14,8 +16,14 @@ export default function SearchOng() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search); // Converte a string da URL em um objeto manipulável
 
-  const querySort = searchParams.get("sort") || "";
+  const querySort = searchParams.get("sort") || "recentes";
   const sortRef = useRef(querySort);
+
+  const { modalSearch, setModalSearch } = useContext(ModalContext);
+
+  useEffect(() => {
+    return setModalSearch(null);
+  }, [setModalSearch]);
 
   return (
     <div className="flex w-[1366px] justify-between px-[123px] py-16">
@@ -28,8 +36,8 @@ export default function SearchOng() {
             <p className="w-full text-[14px] opacity-90">Carregando...</p>
           ) : (
             <p className="text-[14px] opacity-90">
-              {data ? data?.totalRequests : "0"}{" "}
-              {data?.totalRequests === 1 ? "solicitação" : "solicitações"} de
+              {data ? data?.totalRepasses : "0"}{" "}
+              {data?.totalRepasses === 1 ? "solicitação" : "solicitações"} de
               ONGs foram encontradas
             </p>
           )}
@@ -49,7 +57,6 @@ export default function SearchOng() {
               updateQuery("sort", newValue);
             }}
           >
-            <option value="">Relevância</option>
             <option value="recentes">Recentes</option>
             <option value="expirar">Prestes a Expirar</option>
           </select>
@@ -62,17 +69,12 @@ export default function SearchOng() {
             </p>
           </div>
         ) : isPending ? (
-          <div className="flex h-[1744px] w-full items-start justify-center">
-            <span className="sticky top-[240px] flex h-[563px] items-center">
-              <l-ring-2
-                size="64"
-                stroke="6"
-                stroke-length="0.25"
-                bg-opacity="0.1"
-                speed="0.8"
-                color="#009fe3"
-              ></l-ring-2>
-            </span>
+          <div className="flex flex-col gap-8">
+            {Array(6)
+              .fill(0)
+              .map((_, i) => {
+                return <SearchPostOng isLoading={true} key={i} />;
+              })}
           </div>
         ) : data.requests?.length > 0 ? (
           <div className="flex flex-col gap-8">
@@ -89,6 +91,7 @@ export default function SearchOng() {
           <Pagination totalPages={data?.totalPages} />
         </span>
       </div>
+      {modalSearch && <ModalSearch />}
     </div>
   );
 }
