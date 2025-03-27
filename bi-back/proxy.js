@@ -27,7 +27,7 @@ app.use("/data", verifyToken, dataRoutes);
 app.use("/repasse", verifyToken, repasseRoutes);
 app.use("/search-repasse", verifyToken, serchRoutes);
 app.use("/solicitacao", verifyToken, solicitacoesRoutes);
-app.use("/search-solicitacao", verifyToken, searchSolicitacoesRoutes);
+app.use("/search-solicitacao", searchSolicitacoesRoutes);
 app.use("/upload", verifyToken, cloudinaryRoutes);
 
 // Definindo a porta 3000
