@@ -19,7 +19,7 @@ export default function Home() {
     setModalAdicionarRepasse,
     modalSearch,
     setModalSearch,
-    setModalConfirm,
+    setModalImage,
   } = useContext(ModalContext);
 
   const location = useLocation();
@@ -27,19 +27,19 @@ export default function Home() {
     setModalAdicionarRepasse(false);
     setModalAdicionarSolicitacao(false);
     setModalSearch(false);
-    setModalConfirm(false);
+    setModalImage(false);
     return () => {
       setModalAdicionarRepasse(false);
       setModalAdicionarSolicitacao(false);
       setModalSearch(false);
-      setModalConfirm(false);
+      setModalImage(false);
     };
   }, [
     location,
     setModalAdicionarRepasse,
     setModalAdicionarSolicitacao,
     setModalSearch,
-    setModalConfirm,
+    setModalImage,
   ]);
 
   return (

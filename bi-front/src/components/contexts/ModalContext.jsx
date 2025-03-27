@@ -8,7 +8,8 @@ function ModalProvider({ children }) {
     useState(false);
   const [modalAdicionarRepasse, setModalAdicionarRepasse] = useState(false);
   const [modalSearch, setModalSearch] = useState(null); // recebe os dados da publicação
-  const [modalConfirm, setModalConfirm] = useState(false);
+  const [modalImage, setModalImage] = useState(false);
+  const [modalEncerrar, setModalEncerrar] = useState(false);
 
   return (
     <ModalContext.Provider
@@ -19,8 +20,10 @@ function ModalProvider({ children }) {
         setModalAdicionarRepasse,
         modalSearch,
         setModalSearch,
-        modalConfirm,
-        setModalConfirm,
+        modalImage,
+        setModalImage,
+        modalEncerrar,
+        setModalEncerrar,
       }}
     >
       {children}

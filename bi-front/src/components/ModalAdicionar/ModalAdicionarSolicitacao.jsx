@@ -5,12 +5,12 @@ import Button from "../Button/Button";
 import { useAddSolicitacoes } from "../../services/userSolicitacoesService";
 import { useUserData } from "../../services/authService";
 import { useForm } from "react-hook-form";
-import ModalConfirm from "../ModalConfirm/ModalConfirm";
+import ModalImage from "../ModalImage/ModalImage";
 
 export default function ModaAdicionar() {
   const { mutate: adicionar } = useAddSolicitacoes();
   const { data } = useUserData();
-  const { setModalAdicionarSolicitacao, setModalConfirm, modalConfirm } =
+  const { setModalAdicionarSolicitacao, setModalImage, modalImage } =
     useContext(ModalContext);
   const modalOverlay = useRef();
   const [preview, setPreview] = useState(null);
@@ -32,7 +32,7 @@ export default function ModaAdicionar() {
       setValue("image", file); // Atualiza o React Hook Form
       setPreview(URL.createObjectURL(file)); // Cria uma prévia da imagem
     }
-    setModalConfirm(false);
+    setModalImage(false);
   };
 
   const handlePublicar = (dataForm) => {
@@ -113,7 +113,7 @@ export default function ModaAdicionar() {
             <p className="text-[14px] opacity-60">Imagem</p>
             <div
               className={`relative flex h-[350px] w-[350px] cursor-pointer items-center justify-center rounded ${errors.image ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
-              onClick={() => setModalConfirm(true)}
+              onClick={() => setModalImage(true)}
             >
               {preview && (
                 <img
@@ -289,13 +289,12 @@ export default function ModaAdicionar() {
           </div>
         </div>
       </div>
-      {modalConfirm && (
-        <ModalConfirm
+      {modalImage && (
+        <ModalImage
           xIcon={true}
           placeholder={"Adicione uma imagem relacionada à sua publicação."}
           content1="Buscar Online"
           content2="Adicionar Imagem"
-          colorRed={false}
           onClick2={() => fileInputRef.current.click()}
         />
       )}

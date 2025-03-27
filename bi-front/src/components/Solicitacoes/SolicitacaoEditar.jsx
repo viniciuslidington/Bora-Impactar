@@ -8,7 +8,8 @@ import {
 import { useForm } from "react-hook-form";
 import { useContext, useRef, useState } from "react";
 import { ModalContext } from "../contexts/ModalContext";
-import ModalConfirm from "../ModalConfirm/ModalConfirm";
+import ModalEncerrar from "../ModalEncerrar/ModalEncerrar";
+import ModalImage from "../ModalImage/ModalImage";
 
 export default function PostSelected({
   expiracaoFormatada,
@@ -19,7 +20,8 @@ export default function PostSelected({
   const { mutate: remover } = useDelSolicitacoes();
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
-  const { setModalConfirm, modalConfirm } = useContext(ModalContext);
+  const { setModalEncerrar, modalEncerrar, setModalImage, modalImage } =
+    useContext(ModalContext);
 
   {
     /*Image ta recebendo ongimage como improviso, mas esta incorreto. Substituir quando existir campo de imagem  */
@@ -119,6 +121,7 @@ export default function PostSelected({
       setValue("image", file); // Atualiza o React Hook Form
       setPreview(URL.createObjectURL(file)); // Cria uma prévia da imagem
     }
+    setModalImage(false);
   };
 
   return (
@@ -128,11 +131,11 @@ export default function PostSelected({
           <p className="text-[14px] opacity-60">Imagem</p>
           <div
             className={`relative flex h-[350px] w-[350px] cursor-pointer items-center justify-center rounded ${errors.image ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
-            onClick={() => fileInputRef.current.click()}
+            onClick={() => setModalImage(true)}
           >
-            {post.ong_Imagem && !preview && (
+            {post.post_Imagem && !preview && (
               <img
-                src={post.ong_Imagem}
+                src={post.post_Imagem}
                 alt="Imagem original"
                 className="h-full w-full rounded object-cover"
               />
@@ -214,7 +217,7 @@ export default function PostSelected({
             <p className="text-[14px] opacity-60">{expiracaoFormatada}</p>
             <Button
               className="h-10 w-[163px] cursor-pointer rounded border-2 border-red-400 bg-red-400 text-white transition-all duration-100 hover:bg-red-300"
-              onClick={() => setModalConfirm(true)}
+              onClick={() => setModalEncerrar(true)}
             >
               Encerrar
             </Button>
@@ -302,18 +305,26 @@ export default function PostSelected({
           </span>
         </div>
       </div>
-      {modalConfirm && (
-        <ModalConfirm
+      {modalEncerrar && (
+        <ModalEncerrar
           xIcon={true}
           placeholder={"Tem certeza que deseja encerrar publicação?"}
           content1="Cancelar"
           content2="Encerrar"
-          onClick1={() => setModalConfirm(false)}
-          onClick2={() => {
+          onClick={() => {
             remover(post.id);
-            setModalConfirm(false);
+            setModalEncerrar(false);
             setSelectedId("");
           }}
+        />
+      )}
+      {modalImage && (
+        <ModalImage
+          xIcon={true}
+          placeholder={"Adicione uma imagem relacionada à sua publicação."}
+          content1="Buscar Online"
+          content2="Adicionar Imagem"
+          onClick2={() => fileInputRef.current.click()}
         />
       )}
     </>
