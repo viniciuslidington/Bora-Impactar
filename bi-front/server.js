@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = 3017;
+const port = 3007;
 
 // Define o diretório de arquivos estáticos
 const staticPath = path.join(__dirname, "dist");
