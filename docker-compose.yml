@@ -32,7 +32,7 @@ services:
       DATABASE_URL: postgresql://docker:docker@postgres:5432/bi_banco
       NODE_ENV: production
     ports:
-      - "3007:3007"
+      - "3017:3017"
 
   # Frontend (Node.js + Nginx)
   frontend:
@@ -44,7 +44,7 @@ services:
     depends_on:
       - backend
     ports:
-      - "3017:3017"
+      - "3007:3007"
 
 volumes:
   pgdata:
