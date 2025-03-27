@@ -1,14 +1,23 @@
 ### Testes para a API de `request`
 
 # Buscar requests com filtro de categoria
-GET http://localhost:3000/solicitacao?ong_Id=200
+
+GET http://localhost:3000/solicitacao?
+
 
 ###
 # Buscar solicitacoes com filtro
 GET http://localhost:3000/search-solicitacao?title=cesta&category=ELETRONICOS&sort=expirar
 ###
-# Criar um novo request
-POST http://localhost:3000/solicitacao
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "apiteste2@rdmapps.com.br",
+  "password": "123456"
+}
+### Criar um novo request
+POST http://localhost:3000/solicitacao?
 Content-Type: application/json
 
 {   
@@ -22,7 +31,9 @@ Content-Type: application/json
 
 ###
 # Atualizar um request existente
-PATCH  http://localhost:3000/solicitacao?id=4
+
+PATCH  http://localhost:3000/solicitacao?id=5
+
 Content-Type: application/json
 
 {
@@ -76,7 +87,9 @@ Content-Type: application/json
 
 ###
 # Atualizar uma repasse existente
-PATCH http://localhost:3000/repasse?id=4
+
+PATCH  http://localhost:3000/repasse?id=8
+
 Content-Type: application/json
 
 {
@@ -89,7 +102,7 @@ Content-Type: application/json
 
 ###
 # Atualizar uma repasse inexistente
-PUT http://localhost:3000/repasse?id=999
+PATCH  http://localhost:3000/repasse?id=999
 Content-Type: application/json
 
 {
@@ -101,7 +114,7 @@ Content-Type: application/json
 
 ###
 # Deletar uma repasse existente
-DELETE http://localhost:3000/repasse?id=3
+DELETE http://localhost:3000/repasse?id=999
 Content-Type: application/json
 
 ###
@@ -109,3 +122,18 @@ Content-Type: application/json
 DELETE http://localhost:3000/repasse?id=999
 Content-Type: application/json
 
+###
+# ROTAS AUTENTICACAO
+
+POST  http://localhost:3000/logout
+
+###
+#Rota de login
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "apiteste2@rdmapps.com.br",
+  "password": "123456"
+}

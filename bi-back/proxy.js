@@ -11,21 +11,24 @@ import serchRoutes from "./services/searchrepasse.js";
 import solicitacoesRoutes from "./services/solicitacoes.js";
 import searchSolicitacoesRoutes from "./services/searchsolicitacoes.js";
 import cloudinaryRoutes from "./services/upload.js";
+import verifyToken from "./config/VerifyToken.js";
 
 const app = express();
 app.use(express.json());
 app.use(cors({ credentials: true, origin: "http://localhost:8080" }));
 app.use(cookieParser());
 
-// Usando as rotas nos endpoints apropriados
-app.use("/data", dataRoutes);
+// Rotas públicas
 app.use("/login", loginRoutes);
 app.use("/logout", logoutRoutes);
-app.use("/repasse", repasseRoutes);
-app.use("/search-repasse", serchRoutes);
-app.use("/solicitacao", solicitacoesRoutes);
-app.use('/search-solicitacao', searchSolicitacoesRoutes);
-app.use("/upload", cloudinaryRoutes);
+
+// Rotas protegidas(verifyToken é o método de autenticar)
+app.use("/data", verifyToken, dataRoutes);
+app.use("/repasse", verifyToken, repasseRoutes);
+app.use("/search-repasse", verifyToken, serchRoutes);
+app.use("/solicitacao", verifyToken, solicitacoesRoutes);
+app.use("/search-solicitacao", verifyToken, searchSolicitacoesRoutes);
+app.use("/upload", verifyToken, cloudinaryRoutes);
 
 // Definindo a porta 3000
 app.listen(3000, () => {
