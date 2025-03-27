@@ -83,7 +83,7 @@ Content-Type: application/json
 
 ###
 # Atualizar uma repasse existente
-PUT http://localhost:3000/repasse?id=19
+PATCH  http://localhost:3000/repasse?id=8
 Content-Type: application/json
 
 {
@@ -109,7 +109,7 @@ Content-Type: application/json
 
 ###
 # Deletar uma repasse existente
-DELETE http://localhost:3000/repasse?id=3
+DELETE http://localhost:3000/repasse?id=999
 Content-Type: application/json
 
 ###
@@ -117,3 +117,18 @@ Content-Type: application/json
 DELETE http://localhost:3000/repasse?id=999
 Content-Type: application/json
 
+###
+# ROTAS AUTENTICACAO
+
+POST  http://localhost:3000/logout
+
+###
+#Rota de login
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "apiteste2@rdmapps.com.br",
+  "password": "123456"
+}

@@ -1,13 +1,14 @@
 import express from "express";
 import fetch from "node-fetch";
 import jwt from "jsonwebtoken";
+import * as dotenv from "dotenv";
+dotenv.config();
 // import dotenv from "dotenv"; ADICIONAR DEPOIS EM HOMOLOGAÇÃO
 import { PrismaClient } from "@prisma/client";
 import {processData} from "../utils/processData.js";
 
 const router = express.Router();
 const prisma = new PrismaClient();
-const SECRET_KEY = "0a81fe9aab38c9011ed6542b2eb9a3db62a0c48dc496699bde624e1c5dbe4232";
 
 
 router.post("/", async (req, res) => {
@@ -43,7 +44,7 @@ router.post("/", async (req, res) => {
         create: processedData,
       });
   
-      const token = jwt.sign({ email, user: data.user.name, userData: data }, SECRET_KEY, { expiresIn: "1h" });
+      const token = jwt.sign({ email, user: data.user.name, userData: data }, process.env.SECRET_KEY, { expiresIn: "1h" });
   
       res.cookie("token", token, {
         httpOnly: true,
@@ -64,7 +65,7 @@ router.get("/", async (req, res) => {
       return res.status(401).json({ error: "Token não fornecido" });
     }
   
-    jwt.verify(token, SECRET_KEY, (err, decoded) => {
+    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       if (err) {
         return res.status(401).json({ error: "Token inválido" });
       }
