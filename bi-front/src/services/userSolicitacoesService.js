@@ -17,7 +17,7 @@ const postSolicitacoes = async (content) => {
 };
 const patchSolicitacoes = async (content) => {
   const response = await api.patch("/solicitacao", content, {
-    params: { id: content.id },
+    params: { id: content.get("id") },
     headers: { "Content-Type": "multipart/form-data" },
   });
   return response.data;

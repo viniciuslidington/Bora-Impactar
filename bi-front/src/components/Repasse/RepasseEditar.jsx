@@ -65,10 +65,10 @@ export default function PostSelected({
     formData.append("description", data.description);
     formData.append("ong_Email", data.ong_Email);
     formData.append("ong_Phone", data.ong_Phone);
-    formData.append("id", post.id);
+    formData.append("id", Number(post.id));
     // Se houver imagem no formulário
     if (data.image) {
-      formData.append("image", data.image[0]); // Acessa o arquivo corretamente
+      formData.append("image", data.image); // Acessa o arquivo corretamente
     }
 
     salvar(formData);
