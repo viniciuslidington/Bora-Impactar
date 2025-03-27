@@ -19,7 +19,7 @@ export default function MainPage() {
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.64) 0%, rgba(255, 255, 255, 0.64) 100%),
           linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #fff 64.5%),
-          url('/RecifeAntigo.jpg')
+          url('/heroImage.jpg')
         `,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
@@ -94,7 +94,7 @@ export default function MainPage() {
             Roupas e Calçados
           </GridBox>
           <GridBox
-            imgUrl={"/financeiro.jpg"}
+            imgUrl={"/MateriasEducativos.jpg"}
             link={
               "/voluntario/search?page=1&category=MATERIAIS_EDUCATIVOS_E_CULTURAIS"
             }
@@ -160,7 +160,7 @@ export default function MainPage() {
             </div>
             <div className="flex flex-col items-center gap-4">
               <img src="./Doações.svg" alt="doações" className="w-[80px]" />
-              <h3 className="text-[24px] font-bold">Realocação de Recursos</h3>
+              <h3 className="text-[24px] font-bold">Doações por Voluntários</h3>
               <p className="w-[256px] text-justify hyphens-auto">
                 Permita que voluntários contribuam com itens ou serviços,
                 fortalecendo sua causa.
