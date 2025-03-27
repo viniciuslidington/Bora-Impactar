@@ -9,10 +9,16 @@ const router = express.Router();
 // Fazer uma busca entre as solicitações com filtros
 router.get("/", async (req, res) => {
   try {
-    const { category, urgency, sort } = req.query;
+    const { title, category, urgency, sort } = req.query;
 
     // Constrói os filtros diretamente para a consulta no banco
     const filters = {};
+    if (title) {
+      const words = title.split("+"); // Divide a string em palavras
+      filters.AND = words.map((word) => ({
+        title: { contains: word, mode: "insensitive" }, // Busca parcial, case-insensitive
+      }));
+    } 
     if (category && listOfCategory.includes(category))
       filters.category = category;
     if (urgency && listOfUrgency.includes(urgency)) filters.urgency = urgency;
@@ -30,7 +36,7 @@ router.get("/", async (req, res) => {
     const skip = (page - 1) * limit;
 
     let orderBy = [];
-    if (sort === "recentes") {
+    if (!sort || sort === "recentes") {
       orderBy = [{ createdAt: "desc" }]; // Mais recentes primeiro
     } else if (sort === "expirar") {
       orderBy = [{ expirationDate: "asc" }]; // Mais perto de expirar primeiro

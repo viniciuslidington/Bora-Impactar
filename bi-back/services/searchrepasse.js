@@ -9,11 +9,17 @@ const router = express.Router();
 // Fazer uma busca entre as relocacoes com filtros
 router.get("/", async (req, res) => {
     try {
-      const { category, title, sort } = req.query;
+      const { title, category, sort } = req.query;
   
       const filters = {};
+
+      if (title) {
+        const words = title.split("+"); // Divide a string em palavras
+        filters.AND = words.map((word) => ({
+          title: { contains: word, mode: "insensitive" }, // Busca parcial, case-insensitive
+        }));
+      } 
   
-      if (req.query.title) filters.title = title;
       if (req.query.category && listOfCategory.includes(req.query.category))
         filters.category = category;
   
@@ -29,7 +35,7 @@ router.get("/", async (req, res) => {
       const skip = (page - 1) * limit;
   
       let orderBy = [];
-      if (sort === "recentes") {
+      if (! sort || sort === "recentes") {
         orderBy = [{ createdAt: "desc" }]; // Mais recentes primeiro
       } else if (sort === "expirar") {
         orderBy = [{ expirationDate: "asc" }]; // Mais perto de expirar primeiro
