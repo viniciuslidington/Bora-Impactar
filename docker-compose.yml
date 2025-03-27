@@ -20,7 +20,7 @@ services:
 
   # Backend (Node.js)
   backend:
-    build: 
+    build:
       context: ./bi-back
       dockerfile: Dockerfile
     container_name: hubdoacoesbackend
@@ -32,11 +32,11 @@ services:
       DATABASE_URL: postgresql://docker:docker@postgres:5432/bi_banco
       NODE_ENV: production
     ports:
-      - "3000:3000"
+      - "3007:3007"
 
   # Frontend (Node.js + Nginx)
   frontend:
-    build: 
+    build:
       context: ./bi-front
       dockerfile: Dockerfile
     container_name: hubdoacoesfrontend
@@ -44,7 +44,7 @@ services:
     depends_on:
       - backend
     ports:
-      - "8080:8080"
+      - "3017:3017"
 
 volumes:
   pgdata:

@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = 8080;
+const port = 3017;
 
 // Define o diretório de arquivos estáticos
 const staticPath = path.join(__dirname, "dist");
@@ -18,7 +18,9 @@ app.get("*", (req, res) => {
   if (!requestedPath.startsWith(staticPath) || !path.extname(req.path)) {
     res.sendFile(path.join(staticPath, "index.html"));
   } else {
-    res.status(404).send(`Erro 404: O arquivo ou rota '${req.path}' não foi encontrado.`);
+    res
+      .status(404)
+      .send(`Erro 404: O arquivo ou rota '${req.path}' não foi encontrado.`);
   }
 });
 

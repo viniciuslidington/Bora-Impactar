@@ -15,7 +15,7 @@ import verifyToken from "./config/VerifyToken.js";
 
 const app = express();
 app.use(express.json());
-app.use(cors({ credentials: true, origin: "http://localhost:8080" }));
+app.use(cors({ credentials: true, origin: "http://localhost:3017" }));
 app.use(cookieParser());
 
 // Rotas públicas
@@ -31,6 +31,6 @@ app.use("/search-solicitacao", searchSolicitacoesRoutes);
 app.use("/upload", verifyToken, cloudinaryRoutes);
 
 // Definindo a porta 3000
-app.listen(3000, () => {
+app.listen(3007, () => {
   console.log("Servidor rodando na porta 3000 por meio do proxy");
 });
