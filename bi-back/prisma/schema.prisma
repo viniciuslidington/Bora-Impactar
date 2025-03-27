@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model RelocationProduct {
+  id         Int      @id @default(autoincrement())
+  title      String
+  category   Categoria   
+  description String?
+
+  post_ImagemId String?
+  post_Imagem String?
+
+  ong_Id     Int?
+  ong_Nome   String?
+  ong_Imagem String?
+  ong_Phone  String?
+  ong_Email  String?
+
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  expirationDate DateTime?
+}
+
+model Request {
+  id          Int      @id @default(autoincrement())
+  title       String
+  category    Categoria
+  urgency     UrgencyLevel
+  quantity    Int?
+  description String?
+
+  post_ImagemId String?
+  post_Imagem String?
+  
+  ong_Id      Int?
+  ong_Nome    String?
+  ong_Imagem  String?
+  ong_Phone   String?
+  ong_Email   String?
+
+  requestTime DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  expirationDate DateTime?
+}
+
+model ONGdata {
+  id_bd                     Int      @id @default(autoincrement())
+  id                        Int?     @unique
+  name                      String?  @unique
+  description               String?
+  is_formalized             Boolean?
+  start_year                Int?
+  contact_phone             String?
+  instagram_link            String?
+  x_link                    String?
+  facebook_link             String?
+  pix_qr_code_link          String?
+  gallery_images_url        String?
+  skills                    String?
+  causes                    String?
+  sustainable_development_goals String?
+
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+}
+
+
+
+// Enum para níveis de urgência da solicitação
+enum UrgencyLevel {
+  LOW      // Baixa prioridade
+  MEDIUM   // Prioridade média
+  HIGH     // Alta prioridade
+}
+
+enum Categoria { 
+  ELETRODOMESTICOS_E_MOVEIS
+  UTENSILIOS_GERAIS
+  ROUPAS_E_CALCADOS
+  SAUDE_E_HIGIENE
+  MATERIAIS_EDUCATIVOS_E_CULTURAIS
+  ITENS_DE_INCLUSAO_E_MOBILIDADE
+  ELETRONICOS
+  ITENS_PET
+  OUTROS
+}

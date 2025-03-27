@@ -1,0 +1,26 @@
+/* index.css */
+@import "tailwindcss";
+
+/* Seu CSS customizado */
+@font-face {
+  font-family: "DM Sans";
+  src: url("/DMSans-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  opacity: 0.8;
+}
+
+:root {
+  font-family: "DM Sans", sans-serif;
+  color: #292929;
+  background-color: #fff;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  width: 100%;
+}

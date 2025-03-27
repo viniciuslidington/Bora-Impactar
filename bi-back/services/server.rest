@@ -1,0 +1,139 @@
+### Testes para a API de `request`
+
+# Buscar requests com filtro de categoria
+
+GET http://localhost:3000/solicitacao?
+
+
+###
+# Buscar solicitacoes com filtro
+GET http://localhost:3000/search-solicitacao?title=cesta&category=ELETRONICOS&sort=expirar
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "apiteste2@rdmapps.com.br",
+  "password": "123456"
+}
+### Criar um novo request
+POST http://localhost:3000/solicitacao?
+Content-Type: application/json
+
+{   
+    "title": "Cesta arroz Basica",
+    "category": "ELETRONICOS",
+    "ong_Id": 20,
+    "urgency": "HIGH",
+    "ong_Nome": "ONG Teste2",
+    "expirationDuration": "4 semanas"
+}
+
+###
+# Atualizar um request existente
+
+PATCH  http://localhost:3000/solicitacao?id=5
+
+Content-Type: application/json
+
+{
+    "title": "QUARO2UPDATED",
+    "category": "MATERIAIS_EDUCATIVOS_E_CULTURAIS",
+    "urgency": "HIGH",
+    "quantity": 5,
+    "expirationDuration": "4 semanas",
+    "ong_Id": 1
+    
+}
+
+###
+# Deletar um request
+DELETE http://localhost:3000/solicitacao?id=28
+Content-Type: application/json
+
+### Testes para a API de `repasse`
+
+# Buscar repasses da ong pelo ong_Id
+GET http://localhost:3000/repasse?ong_Id=88
+
+###
+# Buscar repasse com filtro
+GET http://localhost:3000/search-repasse?title=mouse
+
+###
+# Criar uma nova repasse
+POST http://localhost:3000/repasse
+Content-Type: application/json
+
+{
+    "title": "Mouse3",
+    "category": "ITENS_PET",
+    "description": "Cadeiras de escritório em bom estado",
+    "ong_Id": 88,
+    "ong_Nome": "ONG Teste",
+    "expirationDuration": "4 semanas"
+}
+
+###
+# Criar uma repasse com dados inválidos
+POST http://localhost:3000/repasse
+Content-Type: application/json
+
+{
+    "title": "Cachorro",
+    "category": "ALIMENT",
+    "ong_Id": 99
+}
+
+###
+# Atualizar uma repasse existente
+
+PATCH  http://localhost:3000/repasse?id=8
+
+Content-Type: application/json
+
+{
+    "title": "PATCH",
+    "category": "ITENS_PET",
+    "ong_Email": "PATCH@EMAIL",
+    "ong_Phone": "patch",
+    "description": "patching"
+}
+
+###
+# Atualizar uma repasse inexistente
+PATCH  http://localhost:3000/repasse?id=999
+Content-Type: application/json
+
+{
+    "title": "Mesa",
+    "category": "MOVEIS",
+    "number": 2,
+    "description": "Mesas de madeira"
+}
+
+###
+# Deletar uma repasse existente
+DELETE http://localhost:3000/repasse?id=999
+Content-Type: application/json
+
+###
+# Deletar uma repasse inexistente
+DELETE http://localhost:3000/repasse?id=999
+Content-Type: application/json
+
+###
+# ROTAS AUTENTICACAO
+
+POST  http://localhost:3000/logout
+
+###
+#Rota de login
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "apiteste2@rdmapps.com.br",
+  "password": "123456"
+}
