@@ -1,18 +1,26 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
 import Button from "../components/Button/Button";
 import HomePosts from "../components/HomePosts/HomePostsVol";
-import { useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { ModalContext } from "../components/contexts/ModalContext";
+import ModalSearch from "../components/ModalSearch/ModalSearch";
 
 export default function Home() {
   const navigate = useNavigate();
-
+  const { setModalSearch, modalSearch } = useContext(ModalContext);
   const scrollTo = useRef(null);
 
   const scrollToComponent = () => {
     scrollTo.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  const location = useLocation();
+  useEffect(() => {
+    setModalSearch(false);
+    return () => setModalSearch(false);
+  }, [location, setModalSearch]);
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -144,7 +152,8 @@ export default function Home() {
           Ver todas publicações
         </Button>
       </div>
-      <HomePosts />
+      <HomePosts setModalSearch={setModalSearch} />
+      {modalSearch && <ModalSearch solicitacao={true} />}
     </div>
   );
 }

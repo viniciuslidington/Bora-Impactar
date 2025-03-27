@@ -19,6 +19,7 @@ export default function Home() {
     setModalAdicionarRepasse,
     modalSearch,
     setModalSearch,
+    setModalConfirm,
   } = useContext(ModalContext);
 
   const location = useLocation();
@@ -26,16 +27,19 @@ export default function Home() {
     setModalAdicionarRepasse(false);
     setModalAdicionarSolicitacao(false);
     setModalSearch(false);
+    setModalConfirm(false);
     return () => {
       setModalAdicionarRepasse(false);
       setModalAdicionarSolicitacao(false);
       setModalSearch(false);
+      setModalConfirm(false);
     };
   }, [
     location,
     setModalAdicionarRepasse,
     setModalAdicionarSolicitacao,
     setModalSearch,
+    setModalConfirm,
   ]);
 
   return (

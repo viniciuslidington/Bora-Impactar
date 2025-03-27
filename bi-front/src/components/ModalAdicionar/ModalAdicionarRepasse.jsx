@@ -5,11 +5,13 @@ import Button from "../Button/Button";
 import { useUserData } from "../../services/authService";
 import { useForm } from "react-hook-form";
 import { useAddRepasse } from "../../services/userRepasseService";
+import ModalConfirm from "../ModalConfirm/ModalConfirm";
 
 export default function ModaAdicionar() {
   const { mutate: adicionar } = useAddRepasse();
   const { data } = useUserData();
-  const { setModalAdicionarRepasse } = useContext(ModalContext);
+  const { setModalAdicionarRepasse, setModalConfirm, modalConfirm } =
+    useContext(ModalContext);
   const modalOverlay = useRef();
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
@@ -30,6 +32,7 @@ export default function ModaAdicionar() {
       setValue("image", file); // Atualiza o React Hook Form
       setPreview(URL.createObjectURL(file)); // Cria uma prévia da imagem
     }
+    setModalConfirm(false);
   };
 
   const handlePublicar = (dataForm) => {
@@ -94,178 +97,192 @@ export default function ModaAdicionar() {
   };
 
   return (
-    <div
-      className="fixed inset-0 z-10 flex items-center justify-center bg-[rgba(0,0,0,0.25)]"
-      onClick={(e) => {
-        modalOverlay.current === e.target && setModalAdicionarRepasse(false);
-      }}
-      ref={modalOverlay}
-    >
-      <div className="relative z-11 flex w-full max-w-[1120px] items-start gap-6 rounded bg-white p-8">
-        <span className="flex flex-col gap-1">
-          <p className="text-[14px] opacity-60">Imagem</p>
-          <div
-            className={`relative flex h-[350px] w-[350px] cursor-pointer items-center justify-center rounded ${errors.image ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
-            onClick={() => fileInputRef.current.click()}
-          >
-            {preview && (
+    <>
+      <div
+        className="fixed inset-0 z-10 flex items-center justify-center bg-[rgba(0,0,0,0.25)]"
+        onClick={(e) => {
+          modalOverlay.current === e.target && setModalAdicionarRepasse(false);
+        }}
+        ref={modalOverlay}
+      >
+        <div className="relative z-11 flex w-full max-w-[1120px] items-start gap-6 rounded bg-white p-8">
+          <span className="flex flex-col gap-1">
+            <p className="text-[14px] opacity-60">Imagem</p>
+            <div
+              className={`relative flex h-[350px] w-[350px] cursor-pointer items-center justify-center rounded ${errors.image ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+              onClick={() => setModalConfirm(true)}
+            >
+              {preview && (
+                <img
+                  src={preview}
+                  alt="Prévia da imagem"
+                  className="h-full w-full rounded object-cover"
+                />
+              )}
+              {!preview && (
+                <p className="px-4 text-center text-[#8c8a8a]">
+                  Adicione uma imagem relacionada à sua publicação
+                </p>
+              )}
               <img
-                src={preview}
-                alt="Prévia da imagem"
-                className="h-full w-full rounded object-cover"
+                src="/edit.svg"
+                alt="adicionar"
+                className="absolute right-2 bottom-2 h-10 w-10 overflow-visible rounded-full bg-[#ababab] p-2 opacity-80"
               />
-            )}
-            {!preview && (
-              <p className="px-4 text-center text-[#8c8a8a]">
-                Adicione uma imagem relacionada à sua publicação
-              </p>
-            )}
-            <img
-              src="/edit.svg"
-              alt="adicionar"
-              className="absolute right-2 bottom-2 h-10 w-10 overflow-visible rounded-full bg-[#ababab] p-2 opacity-80"
-            />
-            <input
-              type="file"
-              accept="image/*"
-              {...register("image", {
-                required: "Imagem é obrigatório",
-              })}
-              ref={fileInputRef}
-              onChange={handleImageChange}
-              className="hidden"
-            />
-          </div>
-        </span>
-        <div className="flex flex-wrap gap-x-6 gap-y-[10px]">
-          <span className="flex flex-col gap-1">
-            <p className="text-[14px] opacity-60">Titulo</p>
-            <input
-              type="text"
-              placeholder="Informe um título breve e claro..."
-              className={`w-[269px] rounded bg-[#eaeaea] p-2 ${errors.title ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
-              {...register("title", {
-                required: "Título é obrigatório",
-                minLength: {
-                  value: 5, // Mínimo de 5 caracteres
-                  message: "O título deve ter pelo menos 5 caracteres",
-                },
-                maxLength: {
-                  value: 100,
-                  message: "O título não pode ter mais que 100 caracteres",
-                },
-              })}
-            />
+              <input
+                type="file"
+                accept="image/*"
+                {...register("image", {
+                  required: "Imagem é obrigatório",
+                })}
+                ref={fileInputRef}
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </div>
           </span>
-          <span className="flex flex-col gap-1">
-            <p className="text-[14px] opacity-60">Categoria</p>
-            <select
-              className={`h-10 w-[163px] rounded border-2 p-1 ${errors.category ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
-              {...register("category", { required: "Categoria é obrigatório" })}
-            >
-              <option value="" disabled={true} selected={true}>
-                Selecionar
-              </option>
-              <option value="ELETRODOMESTICOS_E_MOVEIS">
-                Eletrodomésticos e Móveis
-              </option>
-              <option value="UTENSILIOS_GERAIS">Utensílios Gerais</option>
-              <option value="ROUPAS_E_CALCADOS">Roupas e Calçados</option>
-              <option value="SAUDE_E_HIGIENE">Saúde e Higiene</option>
-              <option value="MATERIAIS_EDUCATIVOS_E_CULTURAIS">
-                Materiais Educativos e Culturais
-              </option>
-              <option value="ITENS_DE_INCLUSAO_E_MOBILIDADE">
-                Itens de Inclusão e Mobilidade
-              </option>
-              <option value="ELETRONICOS">Eletrônicos</option>
-              <option value="ITENS_PET">Itens para Pets</option>
-              <option value="OUTROS">Outros</option>
-            </select>
-          </span>
-          <span className="flex flex-col gap-1">
-            <p className="text-[14px] opacity-60">Tempo de publicação</p>
-            <select
-              className={`h-10 w-[163px] rounded border-2 p-1 ${errors.expirationDuration ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
-              {...register("expirationDuration", { required: true })}
-            >
-              <option value="" disabled={true} selected={true}>
-                Selecionar
-              </option>
-              <option value="7 dias">7 dias</option>
-              <option value="2 semanas">14 dias</option>
-              <option value="4 semanas">30 dias</option>
-              <option value="12 semanas">90 dias</option>
-            </select>
-          </span>
-          <span className="flex flex-col gap-1">
-            <p className="text-[14px] opacity-60">E-mail para contato</p>
-            <input
-              type="text"
-              placeholder="exemplo@email.com"
-              className={`w-[269px] rounded p-2 ${errors.ong_Email ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
-              {...register("ong_Email", {
-                required: "E-mail é obrigatório",
-                pattern: {
-                  value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                  message: "E-mail inválido",
-                },
-              })}
-            />
-          </span>
-          <span className="flex flex-col gap-1">
-            <p className="text-[14px] opacity-60">Número para contato</p>
-            <input
-              type="tel"
-              placeholder="99 99999-9999"
-              className={`w-[163px] rounded p-2 ${errors.ong_Phone ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
-              {...register("ong_Phone", {
-                required: "Número de telefone é obrigatório",
-                pattern: {
-                  value: /^\(?\d{2}\)?\s?\d{4,5}[-\s]?\d{4}$/,
-                  message: "Número de telefone inválido",
-                },
-              })}
-            />
-          </span>
+          <div className="flex flex-wrap gap-x-6 gap-y-[10px]">
+            <span className="flex flex-col gap-1">
+              <p className="text-[14px] opacity-60">Titulo</p>
+              <input
+                type="text"
+                placeholder="Informe um título breve e claro..."
+                className={`w-[269px] rounded bg-[#eaeaea] p-2 ${errors.title ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+                {...register("title", {
+                  required: "Título é obrigatório",
+                  minLength: {
+                    value: 5, // Mínimo de 5 caracteres
+                    message: "O título deve ter pelo menos 5 caracteres",
+                  },
+                  maxLength: {
+                    value: 100,
+                    message: "O título não pode ter mais que 100 caracteres",
+                  },
+                })}
+              />
+            </span>
+            <span className="flex flex-col gap-1">
+              <p className="text-[14px] opacity-60">Categoria</p>
+              <select
+                className={`h-10 w-[163px] rounded border-2 p-1 ${errors.category ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
+                {...register("category", {
+                  required: "Categoria é obrigatório",
+                })}
+              >
+                <option value="" disabled={true} selected={true}>
+                  Selecionar
+                </option>
+                <option value="ELETRODOMESTICOS_E_MOVEIS">
+                  Eletrodomésticos e Móveis
+                </option>
+                <option value="UTENSILIOS_GERAIS">Utensílios Gerais</option>
+                <option value="ROUPAS_E_CALCADOS">Roupas e Calçados</option>
+                <option value="SAUDE_E_HIGIENE">Saúde e Higiene</option>
+                <option value="MATERIAIS_EDUCATIVOS_E_CULTURAIS">
+                  Materiais Educativos e Culturais
+                </option>
+                <option value="ITENS_DE_INCLUSAO_E_MOBILIDADE">
+                  Itens de Inclusão e Mobilidade
+                </option>
+                <option value="ELETRONICOS">Eletrônicos</option>
+                <option value="ITENS_PET">Itens para Pets</option>
+                <option value="OUTROS">Outros</option>
+              </select>
+            </span>
+            <span className="flex flex-col gap-1">
+              <p className="text-[14px] opacity-60">Tempo de publicação</p>
+              <select
+                className={`h-10 w-[163px] rounded border-2 p-1 ${errors.expirationDuration ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
+                {...register("expirationDuration", { required: true })}
+              >
+                <option value="" disabled={true} selected={true}>
+                  Selecionar
+                </option>
+                <option value="7 dias">7 dias</option>
+                <option value="2 semanas">14 dias</option>
+                <option value="4 semanas">30 dias</option>
+                <option value="12 semanas">90 dias</option>
+              </select>
+            </span>
+            <span className="flex flex-col gap-1">
+              <p className="text-[14px] opacity-60">E-mail para contato</p>
+              <input
+                type="text"
+                placeholder="exemplo@email.com"
+                className={`w-[269px] rounded p-2 ${errors.ong_Email ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+                {...register("ong_Email", {
+                  required: "E-mail é obrigatório",
+                  pattern: {
+                    value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                    message: "E-mail inválido",
+                  },
+                })}
+              />
+            </span>
+            <span className="flex flex-col gap-1">
+              <p className="text-[14px] opacity-60">Número para contato</p>
+              <input
+                type="tel"
+                placeholder="99 99999-9999"
+                className={`w-[163px] rounded p-2 ${errors.ong_Phone ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+                {...register("ong_Phone", {
+                  required: "Número de telefone é obrigatório",
+                  pattern: {
+                    value: /^\(?\d{2}\)?\s?\d{4,5}[-\s]?\d{4}$/,
+                    message: "Número de telefone inválido",
+                  },
+                })}
+              />
+            </span>
 
-          <span className="flex w-full flex-col gap-1">
-            <p className="text-[14px] opacity-60">Descrição</p>
-            <textarea
-              rows="5"
-              type="text"
-              placeholder="Informe uma descrição completa e clara..."
-              className={`w-full resize-none rounded p-2 ${errors.description ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
-              {...register("description", {
-                required: "Descrição é obrigatória",
-                minLength: {
-                  value: 15, // Mínimo de 15 caracteres
-                  message: "A descrição deve ter pelo menos 5 palavras",
-                },
-              })}
-            />
-          </span>
-          <span className="absolute right-8 bottom-8 flex items-start gap-5">
-            <Button
-              className="h-12 w-[180px] cursor-pointer rounded border-2 border-red-400 text-red-400 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.12)] transition-all duration-100 hover:bg-red-100"
-              onClick={() => setModalAdicionarRepasse(false)}
-            >
-              Cancelar
-            </Button>
-            <Button
-              addClassName="w-[180px]"
-              onClick={async () => {
-                const isValid = await validate();
-                if (isValid) {
-                  handleSubmit(handlePublicar)();
-                }
-              }}
-            >
-              Publicar
-            </Button>
-          </span>
+            <span className="flex w-full flex-col gap-1">
+              <p className="text-[14px] opacity-60">Descrição</p>
+              <textarea
+                rows="5"
+                type="text"
+                placeholder="Informe uma descrição completa e clara..."
+                className={`w-full resize-none rounded p-2 ${errors.description ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+                {...register("description", {
+                  required: "Descrição é obrigatória",
+                  minLength: {
+                    value: 15, // Mínimo de 15 caracteres
+                    message: "A descrição deve ter pelo menos 5 palavras",
+                  },
+                })}
+              />
+            </span>
+            <span className="absolute right-8 bottom-8 flex items-start gap-5">
+              <Button
+                className="h-12 w-[180px] cursor-pointer rounded border-2 border-red-400 text-red-400 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.12)] transition-all duration-100 hover:bg-red-100"
+                onClick={() => setModalAdicionarRepasse(false)}
+              >
+                Cancelar
+              </Button>
+              <Button
+                addClassName="w-[180px]"
+                onClick={async () => {
+                  const isValid = await validate();
+                  if (isValid) {
+                    handleSubmit(handlePublicar)();
+                  }
+                }}
+              >
+                Publicar
+              </Button>
+            </span>
+          </div>
         </div>
       </div>
-    </div>
+      {modalConfirm && (
+        <ModalConfirm
+          xIcon={true}
+          placeholder={"Adicione uma imagem relacionada à sua publicação."}
+          content1="Buscar Online"
+          content2="Adicionar Imagem"
+          colorRed={false}
+          onClick2={() => fileInputRef.current.click()}
+        />
+      )}
+    </>
   );
 }

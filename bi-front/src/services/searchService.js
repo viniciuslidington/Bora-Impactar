@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 
+// Não importo a api porque quero fazer a requisição sem cookies
+
 const getSolicitacao = async (params) => {
   const response = await axios.get(
     `http://localhost:3000/search-solicitacao?${params}`,
