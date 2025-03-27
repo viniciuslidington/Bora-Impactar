@@ -10,6 +10,7 @@ import { useContext, useRef, useState } from "react";
 import { ModalContext } from "../contexts/ModalContext";
 import ModalEncerrar from "../ModalEncerrar/ModalEncerrar";
 import ModalImage from "../ModalImage/ModalImage";
+import ModalImageOnline from "../ModalImageOnline/ModalImageOnline";
 
 export default function PostSelected({
   expiracaoFormatada,
@@ -20,8 +21,14 @@ export default function PostSelected({
   const { mutate: remover } = useDelSolicitacoes();
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
-  const { setModalEncerrar, modalEncerrar, setModalImage, modalImage } =
-    useContext(ModalContext);
+  const {
+    setModalEncerrar,
+    modalEncerrar,
+    setModalImage,
+    modalImage,
+    setModalImageOnline,
+    modalImageOnline,
+  } = useContext(ModalContext);
 
   {
     /*Image ta recebendo ongimage como improviso, mas esta incorreto. Substituir quando existir campo de imagem  */
@@ -122,6 +129,7 @@ export default function PostSelected({
       setPreview(URL.createObjectURL(file)); // Cria uma prévia da imagem
     }
     setModalImage(false);
+    setModalImageOnline(false);
   };
 
   return (
@@ -324,8 +332,12 @@ export default function PostSelected({
           placeholder={"Adicione uma imagem relacionada à sua publicação."}
           content1="Buscar Online"
           content2="Adicionar Imagem"
+          onClick1={() => setModalImageOnline(true)}
           onClick2={() => fileInputRef.current.click()}
         />
+      )}
+      {modalImageOnline && (
+        <ModalImageOnline handleImageChange={handleImageChange} />
       )}
     </>
   );

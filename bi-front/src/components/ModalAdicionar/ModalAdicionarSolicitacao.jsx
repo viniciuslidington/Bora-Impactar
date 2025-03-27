@@ -6,12 +6,18 @@ import { useAddSolicitacoes } from "../../services/userSolicitacoesService";
 import { useUserData } from "../../services/authService";
 import { useForm } from "react-hook-form";
 import ModalImage from "../ModalImage/ModalImage";
+import ModalImageOnline from "../ModalImageOnline/ModalImageOnline";
 
 export default function ModaAdicionar() {
   const { mutate: adicionar } = useAddSolicitacoes();
   const { data } = useUserData();
-  const { setModalAdicionarSolicitacao, setModalImage, modalImage } =
-    useContext(ModalContext);
+  const {
+    setModalAdicionarSolicitacao,
+    setModalImage,
+    modalImage,
+    setModalImageOnline,
+    modalImageOnline,
+  } = useContext(ModalContext);
   const modalOverlay = useRef();
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
@@ -33,6 +39,7 @@ export default function ModaAdicionar() {
       setPreview(URL.createObjectURL(file)); // Cria uma prévia da imagem
     }
     setModalImage(false);
+    setModalImageOnline(false);
   };
 
   const handlePublicar = (dataForm) => {
@@ -295,8 +302,12 @@ export default function ModaAdicionar() {
           placeholder={"Adicione uma imagem relacionada à sua publicação."}
           content1="Buscar Online"
           content2="Adicionar Imagem"
+          onClick1={() => setModalImageOnline(true)}
           onClick2={() => fileInputRef.current.click()}
         />
+      )}
+      {modalImageOnline && (
+        <ModalImageOnline handleImageChange={handleImageChange} />
       )}
     </>
   );

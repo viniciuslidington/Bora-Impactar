@@ -3,7 +3,7 @@ import { useContext, useRef } from "react";
 import { ModalContext } from "../contexts/ModalContext";
 import Button from "../Button/Button";
 
-export default function ModalConfirm({
+export default function ModalImage({
   content1 = "Cancelar",
   content2 = "Confirmar",
   onClick1,
@@ -13,13 +13,13 @@ export default function ModalConfirm({
 }) {
   const modalOverlay = useRef();
 
-  const { setModalConfirm } = useContext(ModalContext);
+  const { setModalImage } = useContext(ModalContext);
 
   return (
     <div
       className="fixed inset-0 z-20 flex items-center justify-center bg-[rgba(0,0,0,0.25)]"
       onClick={(e) => {
-        modalOverlay.current === e.target && setModalConfirm(null);
+        modalOverlay.current === e.target && setModalImage(null);
       }}
       ref={modalOverlay}
     >
@@ -29,7 +29,7 @@ export default function ModalConfirm({
             src="/x.svg"
             alt=""
             className="absolute top-3 right-3 h-5 w-5 cursor-pointer"
-            onClick={() => setModalConfirm(false)}
+            onClick={() => setModalImage(false)}
           />
         )}
         {placeholder && (
@@ -58,7 +58,7 @@ export default function ModalConfirm({
   );
 }
 
-ModalConfirm.propTypes = {
+ModalImage.propTypes = {
   content1: PropTypes.string,
   content2: PropTypes.string,
   onClick1: PropTypes.func,

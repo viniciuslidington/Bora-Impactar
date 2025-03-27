@@ -20,6 +20,7 @@ export default function Home() {
     modalSearch,
     setModalSearch,
     setModalImage,
+    setModalImageOnline,
   } = useContext(ModalContext);
 
   const location = useLocation();
@@ -28,11 +29,13 @@ export default function Home() {
     setModalAdicionarSolicitacao(false);
     setModalSearch(false);
     setModalImage(false);
+    setModalImageOnline(false);
     return () => {
       setModalAdicionarRepasse(false);
       setModalAdicionarSolicitacao(false);
       setModalSearch(false);
       setModalImage(false);
+      setModalImageOnline(false);
     };
   }, [
     location,
@@ -40,6 +43,7 @@ export default function Home() {
     setModalAdicionarSolicitacao,
     setModalSearch,
     setModalImage,
+    setModalImageOnline,
   ]);
 
   return (

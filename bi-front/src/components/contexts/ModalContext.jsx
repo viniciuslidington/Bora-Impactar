@@ -10,6 +10,7 @@ function ModalProvider({ children }) {
   const [modalSearch, setModalSearch] = useState(null); // recebe os dados da publicação
   const [modalImage, setModalImage] = useState(false);
   const [modalEncerrar, setModalEncerrar] = useState(false);
+  const [modalImageOnline, setModalImageOnline] = useState(false);
 
   return (
     <ModalContext.Provider
@@ -24,6 +25,8 @@ function ModalProvider({ children }) {
         setModalImage,
         modalEncerrar,
         setModalEncerrar,
+        modalImageOnline,
+        setModalImageOnline,
       }}
     >
       {children}
