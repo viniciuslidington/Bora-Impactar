@@ -56,7 +56,7 @@ export default function ModaAdicionar() {
 
     // Se houver imagem no formulário
     if (dataForm.image) {
-      formData.append("image", dataForm.image[0]); // Acessa o arquivo corretamente
+      formData.append("image", dataForm.image); // Acessa o arquivo corretamente
     }
 
     adicionar(formData);
