@@ -159,8 +159,14 @@ export default function MainPage() {
               </p>
             </div>
             <div className="flex flex-col items-center gap-4">
-              <img src="./contribua.svg" alt="doações" className="w-[80px]" />
-              <h3 className="text-[24px] font-bold">Entregue sua ajuda</h3>
+              <img
+                src="./contribua.svg"
+                alt="doações"
+                className="h-[100px] w-[100px]"
+              />
+              <h3 className="-mt-[20px] text-[24px] font-bold">
+                Entregue sua ajuda
+              </h3>
               <p className="w-[256px] text-justify hyphens-auto">
                 Combine a entrega com a ONG e faça sua contribuição chegar onde
                 é necessária.
