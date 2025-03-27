@@ -9,7 +9,6 @@ import { ModalContext } from "../components/contexts/ModalContext";
 import ModalSearch from "../components/ModalSearch/ModalSearch";
 
 export default function SearchVol() {
-  const { modalSearch, setModalSearch } = useContext(ModalContext);
   const { data, isPending, isError } = useSearchSolicitacao();
 
   const updateQuery = useQueryUpdate();
@@ -19,6 +18,8 @@ export default function SearchVol() {
 
   const querySort = searchParams.get("sort") || "recentes";
   const sortRef = useRef(querySort);
+
+  const { modalSearch, setModalSearch } = useContext(ModalContext);
 
   useEffect(() => {
     return setModalSearch(null);

@@ -36,8 +36,8 @@ export default function SearchVol() {
             <p className="w-full text-[14px] opacity-90">Carregando...</p>
           ) : (
             <p className="text-[14px] opacity-90">
-              {data ? data?.totalRequests : "0"}{" "}
-              {data?.totalRequests === 1 ? "solicitação" : "solicitações"} de
+              {data ? data?.totalRepasses : "0"}{" "}
+              {data?.totalRepasses === 1 ? "solicitação" : "solicitações"} de
               ONGs foram encontradas
             </p>
           )}
