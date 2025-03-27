@@ -10,17 +10,22 @@ const getSolicitacoes = async (id) => {
   return response.data;
 };
 const postSolicitacoes = async (content) => {
-  const response = await api.post("/solicitacao", content);
+  const response = await api.post("/solicitacao", content, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return response.data;
 };
-const putSolicitacoes = async (content) => {
+const patchSolicitacoes = async (content) => {
   const response = await api.patch("/solicitacao", content, {
     params: { id: content.id },
+    headers: { "Content-Type": "multipart/form-data" },
   });
   return response.data;
 };
 const deleteSolicitacoes = async (id) => {
-  const response = await api.delete("/solicitacao", { params: { id: id } });
+  const response = await api.delete("/solicitacao", {
+    params: { id: id },
+  });
   return response.data;
 };
 
@@ -74,7 +79,7 @@ const useAddSolicitacoes = () => {
 const useEditSolicitacoes = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: putSolicitacoes,
+    mutationFn: patchSolicitacoes,
     onError: (error) => {
       // Verifica se o erro possui uma resposta e um código de status 401
       if (error.response && error.response.status === 401) {

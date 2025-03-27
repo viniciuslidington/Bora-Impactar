@@ -59,19 +59,20 @@ export default function PostSelected({
       setSelectedId("");
       return;
     }
-    {
-      /*Faltando imagem enquanto campo não existe  */
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("category", data.category);
+    formData.append("urgency", data.urgency);
+    formData.append("description", data.description);
+    formData.append("ong_Email", data.ong_Email);
+    formData.append("ong_Phone", data.ong_Phone);
+    formData.append("id", post.id);
+    // Se houver imagem no formulário
+    if (data.image) {
+      formData.append("image", data.image[0]); // Acessa o arquivo corretamente
     }
-    salvar({
-      title: data.title,
-      category: data.category,
-      urgency: data.urgency,
-      description: data.description,
-      ong_Phone: data.ong_Phone,
-      ong_Email: data.ong_Email,
-      id: post.id,
-    });
 
+    salvar(formData);
     setSelectedId(""); // Fechar form após salvar
   };
 
