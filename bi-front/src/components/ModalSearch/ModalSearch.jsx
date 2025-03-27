@@ -86,7 +86,7 @@ export default function ModalSearch({ solicitacao = false }) {
                 <span>|</span>
               </>
             )}
-            <p className="max-w-full">{dataExpiracao}</p>
+            <p className="max-w-full">{dataExpiracao} para expirar</p>
           </span>
           <div className="relative">
             <p className="max-h-[500px] overflow-hidden whitespace-normal opacity-70">

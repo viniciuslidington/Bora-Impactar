@@ -1,12 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useUserData } from "./authService.js";
-import axios from "axios";
 import toast from "react-hot-toast";
-
-const api = axios.create({
-  baseURL: "http://localhost:3000",
-  withCredentials: true,
-});
+import api from "./api.js";
 
 const getSolicitacoes = async (id) => {
   const response = await api.get("/solicitacao", {
@@ -71,6 +66,7 @@ const useAddSolicitacoes = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["solicitacoes"]);
+      toast.success("Solicitação adicionada!");
     },
   });
 };
@@ -94,6 +90,7 @@ const useEditSolicitacoes = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["solicitacoes"]);
+      toast.success("Solicitação salva!");
     },
   });
 };
@@ -117,6 +114,7 @@ const useDelSolicitacoes = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["solicitacoes"]);
+      toast.success("Solicitação encerrada!");
     },
   });
 };

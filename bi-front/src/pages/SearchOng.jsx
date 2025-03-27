@@ -16,7 +16,7 @@ export default function SearchVol() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search); // Converte a string da URL em um objeto manipulável
 
-  const querySort = searchParams.get("sort") || "";
+  const querySort = searchParams.get("sort") || "recentes";
   const sortRef = useRef(querySort);
 
   const { modalSearch, setModalSearch } = useContext(ModalContext);
@@ -36,8 +36,8 @@ export default function SearchVol() {
             <p className="w-full text-[14px] opacity-90">Carregando...</p>
           ) : (
             <p className="text-[14px] opacity-90">
-              {data ? data?.totalRequests : "0"}{" "}
-              {data?.totalRequests === 1 ? "solicitação" : "solicitações"} de
+              {data ? data?.totalRepasses : "0"}{" "}
+              {data?.totalRepasses === 1 ? "solicitação" : "solicitações"} de
               ONGs foram encontradas
             </p>
           )}
@@ -57,7 +57,6 @@ export default function SearchVol() {
               updateQuery("sort", newValue);
             }}
           >
-            <option value="">Relevância</option>
             <option value="recentes">Recentes</option>
             <option value="expirar">Prestes a Expirar</option>
           </select>

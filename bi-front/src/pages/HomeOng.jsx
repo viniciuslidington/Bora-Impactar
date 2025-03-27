@@ -19,6 +19,8 @@ export default function Home() {
     setModalAdicionarRepasse,
     modalSearch,
     setModalSearch,
+    setModalImage,
+    setModalImageOnline,
   } = useContext(ModalContext);
 
   const location = useLocation();
@@ -26,16 +28,22 @@ export default function Home() {
     setModalAdicionarRepasse(false);
     setModalAdicionarSolicitacao(false);
     setModalSearch(false);
+    setModalImage(false);
+    setModalImageOnline(false);
     return () => {
       setModalAdicionarRepasse(false);
       setModalAdicionarSolicitacao(false);
       setModalSearch(false);
+      setModalImage(false);
+      setModalImageOnline(false);
     };
   }, [
     location,
     setModalAdicionarRepasse,
     setModalAdicionarSolicitacao,
     setModalSearch,
+    setModalImage,
+    setModalImageOnline,
   ]);
 
   return (
@@ -86,7 +94,7 @@ export default function Home() {
               Roupas e Calçados
             </GridBox>
             <GridBox
-              imgUrl={"/financeiro.jpg"}
+              imgUrl={"/MateriasEducativos.jpg"}
               link={
                 "/ong/search?page=1&category=MATERIAIS_EDUCATIVOS_E_CULTURAIS"
               }

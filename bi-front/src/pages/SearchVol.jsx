@@ -9,7 +9,6 @@ import { ModalContext } from "../components/contexts/ModalContext";
 import ModalSearch from "../components/ModalSearch/ModalSearch";
 
 export default function SearchVol() {
-  const { modalSearch, setModalSearch } = useContext(ModalContext);
   const { data, isPending, isError } = useSearchSolicitacao();
 
   const updateQuery = useQueryUpdate();
@@ -17,8 +16,10 @@ export default function SearchVol() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search); // Converte a string da URL em um objeto manipulável
 
-  const querySort = searchParams.get("sort") || "";
+  const querySort = searchParams.get("sort") || "recentes";
   const sortRef = useRef(querySort);
+
+  const { modalSearch, setModalSearch } = useContext(ModalContext);
 
   useEffect(() => {
     return setModalSearch(null);
@@ -57,7 +58,6 @@ export default function SearchVol() {
                 updateQuery("sort", newValue);
               }}
             >
-              <option value="">Relevância</option>
               <option value="recentes">Recentes</option>
               <option value="expirar">Prestes a Expirar</option>
             </select>
