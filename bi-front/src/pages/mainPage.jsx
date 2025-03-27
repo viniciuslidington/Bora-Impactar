@@ -140,30 +140,30 @@ export default function MainPage() {
       </div>
       <div className="mt-10 flex h-[460px] w-full justify-center bg-[#d9d9d9]">
         <div className="flex w-[1366px] flex-col items-center justify-center gap-10 p-[40px_123px]">
-          <h2 className="text-[48px] font-medium">Sou ONG, como funciona?</h2>
+          <h2 className="text-[48px] font-medium">Como funciona?</h2>
           <div className="flex flex-col gap-12 lg:flex-row">
             <div className="flex flex-col items-center gap-4">
-              <img src="./Recursos.svg" alt="recursos" className="w-[80px]" />
-              <h3 className="text-[24px] font-bold">Realocação de Recursos</h3>
+              <img src="./lupa.svg" alt="recursos" className="w-[80px]" />
+              <h3 className="text-[24px] font-bold">Veja os pedidos</h3>
               <p className="w-[256px] text-justify hyphens-auto">
-                Aproveite ao máximo os itens próximos da data de validade,
-                garantindo seu rápido consumo e evitando desperdícios.
+                Acesse agora a lista com pedidos reais feitos por ONGs
+                verificadas
               </p>
             </div>
             <div className="flex flex-col items-center gap-4">
-              <img src="./Trocas.svg" alt="trocas" className="w-[80px]" />
-              <h3 className="text-[24px] font-bold">Realocação de Recursos</h3>
+              <img src="./recursos.svg" alt="trocas" className="w-[80px]" />
+              <h3 className="text-[24px] font-bold">Escolha o que doar</h3>
               <p className="w-[256px] text-justify hyphens-auto">
-                Conecte-se a outras ONGs para trocar recursos e atender
-                necessidades específicas.
+                Roupas, materiais escolares, medicamentos, itens de higiene,
+                eletrodomésticos e mais.
               </p>
             </div>
             <div className="flex flex-col items-center gap-4">
-              <img src="./Doações.svg" alt="doações" className="w-[80px]" />
-              <h3 className="text-[24px] font-bold">Doações por Voluntários</h3>
+              <img src="./contribua.svg" alt="doações" className="w-[80px]" />
+              <h3 className="text-[24px] font-bold">Entregue sua ajuda</h3>
               <p className="w-[256px] text-justify hyphens-auto">
-                Permita que voluntários contribuam com itens ou serviços,
-                fortalecendo sua causa.
+                Combine a entrega com a ONG e faça sua contribuição chegar onde
+                é necessária.
               </p>
             </div>
           </div>
