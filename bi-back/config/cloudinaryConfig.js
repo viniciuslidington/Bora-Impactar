@@ -7,4 +7,15 @@ cloudinary.config({
   api_secret: 'QD-PkF5gr6soBfoLLgLyTgYKP3A'  // Substitua pelo seu API Secret
 });
 
-export default cloudinary;
+const uploadOptions = {
+  format: 'webp',            // Converte para o formato WebP (melhor compactação)
+  quality: 'auto:low',       // Reduz automaticamente a qualidade para economizar largura de banda
+  transformation: [
+    { width: 800, height: 800, crop: 'limit' }  // Limita o tamanho da imagem para 800x800px
+  ],
+  resource_type: 'auto',     // Detecta automaticamente o tipo do arquivo (imagem, vídeo, etc.)
+};
+
+export default{ cloudinary, uploadOptions };
+
+

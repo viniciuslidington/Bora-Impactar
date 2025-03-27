@@ -5,15 +5,25 @@ import {validateData} from "../utils/validateFunctions.js";
 import {calculateExpirationDate} from "../utils/calculateExpirationDate.js";
 import {validatePartialUpdate} from "../utils/validateFunctions.js";
 
+import {uploadImage, deleteImage} from "../services/uploadServices.js";
+
+import multer from "multer";
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 const prisma = new PrismaClient();
 const router = express.Router();
 
 
 // Criar uma solicitacao
-router.post("/", async (req, res) => {
+router.post("/", upload.single("image"), async (req, res) => {
   const validationError = validateData(req.body, true);
   if (validationError) {
     return res.status(400).json({ error: validationError });
+  }
+
+  if (!req.file) {
+    return res.status(400).json({ error: 'Nenhum arquivo de imagem enviado' });
   }
 
   try {
@@ -25,11 +35,28 @@ router.post("/", async (req, res) => {
 
     const { expirationDuration, ...requestData } = req.body;
 
+    let post_Imagem = null;
+    let post_Imagem_id = null;
+
+    // 🔥 Se tiver imagem, faz upload diretamente
+    if (req.file) {
+      const uploadResponse = await uploadImage(req.file.buffer);
+      if (!uploadResponse) {
+        return res.status(500).json({ error: "Erro ao fazer upload da nova imagem" });
+      }
+
+      // Atualizar os dados da imagem
+      req.body.post_Imagem = uploadResponse.secure_url;
+      req.body.post_Imagem_id = uploadResponse.public_id;
+    }
+
     const newRequest = await prisma.request.create({
       data: {
-        ...requestData, // Inclui title, category, urgency, etc.
-        createdAt, // Define a data de criação
-        expirationDate, // Define a data de expiração correta
+        ...requestData,
+        createdAt,
+        expirationDate,
+        post_Imagem,
+        post_Imagem_id
       },
     });
 
@@ -61,7 +88,7 @@ router.get("/", async (req, res) => {
 });
 
 // Atualizar solicitacao
-router.patch("/", async (req, res) => {
+router.patch("/", upload.single("image"), async (req, res) => {
   const id = Number(req.query.id || req.body.id);
 
   if (!id || isNaN(id)) {
@@ -69,10 +96,29 @@ router.patch("/", async (req, res) => {
   }
 
   try {
-    const existingRequest = await prisma.request.findUnique({ where: { id } });
 
+    const existingRequest = await prisma.request.findUnique({ where: { id } });
     if (!existingRequest) {
       return res.status(404).json({ error: "Solicitação não encontrada" });
+    }
+
+    if (req.file) {
+      if (existingRequest.post_Imagem_id) {
+        // Deletar imagem anterior do Cloudinary
+        const deleteResult = await deleteImage(existingRequest.post_Imagem_id);
+        if (!deleteResult) {
+          return res.status(500).json({ error: "Erro ao deletar imagem antiga" });
+        }
+      }
+
+      const uploadResponse = await uploadImage(req.file.buffer);
+      if (!uploadResponse) {
+        return res.status(500).json({ error: "Erro ao fazer upload da nova imagem" });
+      }
+
+      // Atualizar os dados da imagem
+      req.body.post_Imagem = uploadResponse.secure_url;
+      req.body.post_Imagem_id = uploadResponse.public_id;
     }
 
     const validationError = validatePartialUpdate(req.body);
@@ -121,6 +167,15 @@ router.delete("/", async (req, res) => {
 
     if (!existingRequest) {
       return res.status(404).json({ error: "Solicitação não encontrada" });
+    }
+    
+    // Deletar imagem do Cloudinary
+    if (existingRequest.post_Imagem_id) {
+      // Deletar imagem anterior do Cloudinary
+      const deleteResult = await deleteImage(existingRequest.post_Imagem_id);
+      if (!deleteResult) {
+        return res.status(500).json({ error: "Erro ao deletar imagem antiga" });
+      }
     }
 
     await prisma.request.delete({ where: { id } });
