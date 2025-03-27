@@ -5,16 +5,16 @@ GET http://localhost:3000/solicitacao?ong_Id=200
 
 ###
 # Buscar solicitacoes com filtro
-GET http://localhost:3000/search-solicitacao?page=2
+GET http://localhost:3000/search-solicitacao?title=cesta&category=ELETRONICOS&sort=expirar
 ###
 # Criar um novo request
 POST http://localhost:3000/solicitacao
 Content-Type: application/json
 
 {   
-    "title": "TESTE28",
+    "title": "Cesta arroz Basica",
     "category": "ELETRONICOS",
-    "ong_Id": 200,
+    "ong_Id": 20,
     "urgency": "HIGH",
     "ong_Nome": "ONG Teste2",
     "expirationDuration": "4 semanas"
@@ -47,7 +47,7 @@ GET http://localhost:3000/repasse?ong_Id=88
 
 ###
 # Buscar repasse com filtro
-GET http://localhost:3000/search-repasse?page=1
+GET http://localhost:3000/search-repasse?title=mouse
 
 ###
 # Criar uma nova repasse
@@ -55,7 +55,7 @@ POST http://localhost:3000/repasse
 Content-Type: application/json
 
 {
-    "title": "Osso de cachorro",
+    "title": "Mouse3",
     "category": "ITENS_PET",
     "description": "Cadeiras de escritório em bom estado",
     "ong_Id": 88,
