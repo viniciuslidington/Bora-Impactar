@@ -11,7 +11,7 @@ export default function SearchBar({
 }) {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search); // Converte a string da URL em um objeto manipulável
-  const queryParam = searchParams.get("q") || "";
+  const queryParam = searchParams.get("title") || "";
   const [input, setInput] = useState(queryParam);
   const updateQuery = useQueryUpdate();
 
@@ -29,14 +29,14 @@ export default function SearchBar({
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
-          e.key === "Enter" && updateQuery("q", input);
+          e.key === "Enter" && updateQuery("title", input);
         }}
       />
 
       <img
         src="/search.svg"
         onClick={() => {
-          updateQuery("q", input);
+          updateQuery("title", input);
         }}
         className={`absolute top-1/2 right-3 w-6 -translate-y-1/2 transform cursor-pointer object-cover object-center opacity-${iconOpacity ?? 85}`}
       />

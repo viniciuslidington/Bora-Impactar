@@ -16,7 +16,7 @@ export default function SearchVol() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search); // Converte a string da URL em um objeto manipulável
 
-  const querySort = searchParams.get("sort") || "";
+  const querySort = searchParams.get("sort") || "recentes";
   const sortRef = useRef(querySort);
 
   const { modalSearch, setModalSearch } = useContext(ModalContext);
@@ -57,7 +57,6 @@ export default function SearchVol() {
               updateQuery("sort", newValue);
             }}
           >
-            <option value="">Relevância</option>
             <option value="recentes">Recentes</option>
             <option value="expirar">Prestes a Expirar</option>
           </select>
