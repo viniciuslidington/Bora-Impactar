@@ -94,7 +94,7 @@ export default function Home() {
               Roupas e Calçados
             </GridBox>
             <GridBox
-              imgUrl={"/financeiro.jpg"}
+              imgUrl={"/MateriasEducativos.jpg"}
               link={
                 "/ong/search?page=1&category=MATERIAIS_EDUCATIVOS_E_CULTURAIS"
               }

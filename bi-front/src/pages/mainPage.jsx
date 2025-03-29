@@ -19,7 +19,7 @@ export default function MainPage() {
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.64) 0%, rgba(255, 255, 255, 0.64) 100%),
           linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #fff 64.5%),
-          url('/RecifeAntigo.jpg')
+          url('/heroImage.jpg')
         `,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
@@ -94,7 +94,7 @@ export default function MainPage() {
             Roupas e Calçados
           </GridBox>
           <GridBox
-            imgUrl={"/financeiro.jpg"}
+            imgUrl={"/MateriasEducativos.jpg"}
             link={
               "/voluntario/search?page=1&category=MATERIAIS_EDUCATIVOS_E_CULTURAIS"
             }
@@ -140,30 +140,36 @@ export default function MainPage() {
       </div>
       <div className="mt-10 flex h-[460px] w-full justify-center bg-[#d9d9d9]">
         <div className="flex w-[1366px] flex-col items-center justify-center gap-10 p-[40px_123px]">
-          <h2 className="text-[48px] font-medium">Sou ONG, como funciona?</h2>
+          <h2 className="text-[48px] font-medium">Como funciona?</h2>
           <div className="flex flex-col gap-12 lg:flex-row">
             <div className="flex flex-col items-center gap-4">
-              <img src="./Recursos.svg" alt="recursos" className="w-[80px]" />
-              <h3 className="text-[24px] font-bold">Realocação de Recursos</h3>
+              <img src="./lupa.svg" alt="recursos" className="w-[80px]" />
+              <h3 className="text-[24px] font-bold">Veja os pedidos</h3>
               <p className="w-[256px] text-justify hyphens-auto">
-                Aproveite ao máximo os itens próximos da data de validade,
-                garantindo seu rápido consumo e evitando desperdícios.
+                Acesse agora a lista com pedidos reais feitos por ONGs
+                verificadas
               </p>
             </div>
             <div className="flex flex-col items-center gap-4">
-              <img src="./Trocas.svg" alt="trocas" className="w-[80px]" />
-              <h3 className="text-[24px] font-bold">Realocação de Recursos</h3>
+              <img src="./recursos.svg" alt="trocas" className="w-[80px]" />
+              <h3 className="text-[24px] font-bold">Escolha o que doar</h3>
               <p className="w-[256px] text-justify hyphens-auto">
-                Conecte-se a outras ONGs para trocar recursos e atender
-                necessidades específicas.
+                Roupas, materiais escolares, medicamentos, itens de higiene,
+                eletrodomésticos e mais.
               </p>
             </div>
             <div className="flex flex-col items-center gap-4">
-              <img src="./Doações.svg" alt="doações" className="w-[80px]" />
-              <h3 className="text-[24px] font-bold">Realocação de Recursos</h3>
+              <img
+                src="./contribua.svg"
+                alt="doações"
+                className="h-[100px] w-[100px]"
+              />
+              <h3 className="-mt-[20px] text-[24px] font-bold">
+                Entregue sua ajuda
+              </h3>
               <p className="w-[256px] text-justify hyphens-auto">
-                Permita que voluntários contribuam com itens ou serviços,
-                fortalecendo sua causa.
+                Combine a entrega com a ONG e faça sua contribuição chegar onde
+                é necessária.
               </p>
             </div>
           </div>

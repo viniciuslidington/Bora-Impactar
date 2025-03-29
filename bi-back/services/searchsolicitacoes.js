@@ -14,11 +14,11 @@ router.get("/", async (req, res) => {
     // Constrói os filtros diretamente para a consulta no banco
     const filters = {};
     if (title) {
-      const words = title.split("+"); // Divide a string em palavras
+      const words = title.split(" ").filter((word) => word.trim() !== "");
       filters.AND = words.map((word) => ({
         title: { contains: word, mode: "insensitive" }, // Busca parcial, case-insensitive
       }));
-    } 
+    }
     if (category && listOfCategory.includes(category))
       filters.category = category;
     if (urgency && listOfUrgency.includes(urgency)) filters.urgency = urgency;

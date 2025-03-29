@@ -31,7 +31,7 @@ COPY --from=builder /app/dist ./dist
 COPY server.js ./server.js
 
 # Expõe a porta padrão do servidor
-EXPOSE 8080
+EXPOSE 3007
 
 # Inicia o servidor customizado
 CMD ["node", "server.js"]

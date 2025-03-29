@@ -85,15 +85,21 @@ export default function Login() {
           >
             Entrar
           </Button>
-          <a href="#" className="w-fit text-sm text-[#294bb6] underline">
+          <a
+            href="https://conecta.recife.pe.gov.br/acesso"
+            className="w-fit text-sm text-[#294bb6] underline"
+          >
             Esqueceu a senha?
           </a>
         </div>
         <div className="flex w-full max-w-full flex-col items-center gap-2">
           <h3 className="text-base">Não possui conta?</h3>
-          <Button className="flex h-12 w-[264px] max-w-full cursor-pointer items-center justify-center rounded-sm border-2 bg-none px-2 py-3 text-base font-medium text-[#294bb6] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#294ab61e] disabled:opacity-70">
+          <a
+            href="https://conecta.recife.pe.gov.br/acesso"
+            className="flex h-12 w-[264px] max-w-full cursor-pointer items-center justify-center rounded-sm border-2 bg-none px-2 py-3 text-base font-medium text-[#294bb6] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#294ab61e] disabled:opacity-70"
+          >
             Criar Conta
-          </Button>
+          </a>
         </div>
       </div>
       <div className="flex w-full justify-center">

@@ -19,7 +19,7 @@ RUN npx prisma generate
 ENV NODE_ENV=production
 
 # Expõe a porta da aplicação
-EXPOSE 3000
+EXPOSE 3017
 
 # Comando para rodar a aplicação e aplicar as migrações
 CMD ["sh", "-c", "npx prisma migrate dev --name auto_migration && npx prisma migrate deploy && node proxy.js"]

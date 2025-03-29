@@ -12,8 +12,10 @@ export default function Profile() {
   const [dropdown, setDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
-  const logoUrl = authData?.userData?.ngo?.gallery_images_url[0];
-  const img1Url = authData?.userData?.ngo?.gallery_images_url[1];
+  const logoUrl =
+    authData?.userData?.ngo?.gallery_images_url[0] || "/placeholder-image";
+  const img1Url =
+    authData?.userData?.ngo?.gallery_images_url[1] || "/placeholder-image";
 
   useEffect(() => {
     function handleClickOutside(event) {

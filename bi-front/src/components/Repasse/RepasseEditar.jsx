@@ -140,9 +140,9 @@ export default function PostSelected({
             className={`relative flex h-[350px] w-[350px] cursor-pointer items-center justify-center rounded ${errors.image ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
             onClick={() => setModalImage(true)}
           >
-            {post.ong_Imagem && !preview && (
+            {post.post_Imagem && !preview && (
               <img
-                src={post.ong_Imagem}
+                src={post.post_Imagem}
                 alt="Imagem original"
                 className="h-full w-full rounded object-cover"
               />
@@ -154,7 +154,7 @@ export default function PostSelected({
                 className="h-full w-full rounded object-cover"
               />
             )}
-            {!preview && !post.ong_Imagem && (
+            {!preview && !post.post_Imagem && (
               <p className="px-4 text-center text-[#8c8a8a]">
                 Adicione uma imagem relacionada à sua publicação
               </p>

@@ -15,7 +15,6 @@ router.get("/", async (req, res) => {
 
     if (title) {
       const words = title.split(" ").filter((word) => word.trim() !== ""); // Divide a string em palavras
-      console.log(words);
       filters.AND = words.map((word) => ({
         title: { contains: word, mode: "insensitive" }, // Busca parcial, case-insensitive
       }));
