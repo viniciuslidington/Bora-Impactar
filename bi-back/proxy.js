@@ -13,9 +13,12 @@ import searchSolicitacoesRoutes from "./services/searchsolicitacoes.js";
 import cloudinaryRoutes from "./services/upload.js";
 import verifyToken from "./config/VerifyToken.js";
 
+const PORTBACKEND = 3017;
+const PORTFRONT = 3007;
+
 const app = express();
 app.use(express.json());
-app.use(cors({ credentials: true, origin: "http://localhost:3007" }));
+app.use(cors({ credentials: true, origin: `http://localhost:${PORTFRONT}` }));
 app.use(cookieParser());
 
 // Rotas públicas
@@ -30,7 +33,7 @@ app.use("/solicitacao", verifyToken, solicitacoesRoutes);
 app.use("/search-solicitacao", searchSolicitacoesRoutes);
 app.use("/upload", verifyToken, cloudinaryRoutes);
 
-// Definindo a porta 3000
-app.listen(3017, () => {
-  console.log("Servidor rodando na porta 3000 por meio do proxy");
+// Definindo a porta 3017
+app.listen(PORTBACKEND, () => {
+  console.log(`Servidor rodando na porta ${PORTBACKEND} por meio do proxy`);
 });
