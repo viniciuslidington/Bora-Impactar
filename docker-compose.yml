@@ -1,50 +1,61 @@
+version: '3.8'
+
 services:
-  # Banco de Dados PostgreSQL (Bitnami)
+  # Serviço Nginx (Proxy Reverso)
+  nginx:
+    build:
+      context: ./nginx  # Pasta onde estão Dockerfile e nginx.conf
+      dockerfile: Dockerfile
+    container_name: nginx_proxy
+    ports:
+      - "80:80"  # Porta padrão HTTP (acessível externamente)
+    depends_on:
+      - frontend  # Garante que o frontend esteja pronto antes do Nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Monta o arquivo de configuração
+      - ./bi-front/dist:/usr/share/nginx/html  # (Opcional) Se o Nginx servir os arquivos estáticos diretamente
+
+  # Frontend (Agora sem expor a porta 3007 externamente)
+  frontend:
+    build:
+      context: ./bi-front
+      dockerfile: Dockerfile
+    container_name: hubdoacoesfrontend
+    expose:
+      - "3007"  # Expõe a porta apenas para outros containers (Nginx)
+    environment:
+      - NODE_ENV=production
+    # Remova o "ports" (o Nginx agora redireciona a porta 80 para o frontend)
+
+  # Backend (Mantém a configuração original, mas roteado via Nginx)
+  backend:
+    build:
+      context: ./bi-back
+      dockerfile: Dockerfile
+    container_name: hubdoacoesbackend
+    expose:
+      - "3017"  # Expõe apenas para outros containers
+    environment:
+      DATABASE_URL: postgresql://docker:docker@postgres:5432/bi_banco
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # PostgreSQL (Mantém a configuração original)
   postgres:
     image: bitnami/postgresql:latest
     container_name: postgres
-    restart: always
     environment:
       POSTGRESQL_USERNAME: docker
       POSTGRESQL_PASSWORD: docker
       POSTGRESQL_DATABASE: bi_banco
     volumes:
       - pgdata:/bitnami/postgresql
-    ports:
-      - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U docker -d bi_banco"]
       interval: 10s
       timeout: 5s
       retries: 5
-
-  # Backend (Node.js)
-  backend:
-    build:
-      context: ./bi-back
-      dockerfile: Dockerfile
-    container_name: hubdoacoesbackend
-    restart: always
-    depends_on:
-      postgres:
-        condition: service_healthy
-    environment:
-      DATABASE_URL: postgresql://docker:docker@postgres:5432/bi_banco
-      NODE_ENV: production
-    ports:
-      - "3017:3017"
-
-  # Frontend (Node.js + Nginx)
-  frontend:
-    build:
-      context: ./bi-front
-      dockerfile: Dockerfile
-    container_name: hubdoacoesfrontend
-    restart: always
-    depends_on:
-      - backend
-    ports:
-      - "3007:3007"
 
 volumes:
   pgdata:
