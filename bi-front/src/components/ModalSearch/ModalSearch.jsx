@@ -58,10 +58,12 @@ export default function ModalSearch({ solicitacao = false }) {
             alt="Foto de perfil"
             className="h-12 w-12 rounded-full border-1 border-[#9c9c9c81] object-cover lg:h-16 lg:w-16"
           />{" "}
-          <p className="line-clamp-1 w-[calc(55%-48px)]">{ong_Nome}</p>
+          <p className="line-clamp-1 w-[calc(55%-48px)] lg:w-auto">
+            {ong_Nome}
+          </p>
           <span>|</span>
-          <p>
-            <span className="hidden lg:flex">Publicado:</span> {dataPublicacao}
+          <p className="flex gap-1">
+            <span className="hidden lg:flex">Publicado: </span> {dataPublicacao}
           </p>
           <img
             src="/x.svg"
