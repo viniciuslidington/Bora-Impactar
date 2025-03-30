@@ -18,7 +18,7 @@ const PORTFRONT = 3007;
 
 const app = express();
 app.use(express.json());
-app.use(cors({ credentials: true, origin: `http://localhost:${PORTFRONT}` }));
+app.use(cors({ credentials: true, origin: `http://localhost` }));
 app.use(cookieParser());
 
 // Rotas públicas (agora com o prefixo /api)
