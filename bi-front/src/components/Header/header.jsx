@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 export default function Header({ children }) {
   return (
-    <header className="flex h-[88px] w-full items-center justify-center bg-[#009fe3]">
-      <div className="flex w-full max-w-[1366px] items-center justify-between px-4 py-0 lg:px-[123px]">
+    <header className="flex w-full items-center justify-center bg-[#009fe3] lg:h-[88px]">
+      <div className="flex w-full max-w-[1366px] flex-wrap items-center justify-between gap-y-4 px-4 py-4 lg:px-[123px] lg:py-0">
         <Logo />
         {children}
       </div>

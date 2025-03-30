@@ -28,13 +28,13 @@ export default function MainPage() {
       <Header>
         <Profile />
       </Header>
-      <div className="flex w-[1366px] max-w-full flex-col justify-center gap-6 px-4 pt-10 lg:gap-8 lg:px-[123px] lg:py-10">
+      <div className="flex w-[1366px] max-w-full flex-col justify-center gap-6 px-4 pt-10 pb-5 lg:gap-8 lg:px-[123px] lg:py-10">
         <img
           src="/BoraImpactar.png"
           alt="Logo"
           className="w-4/5 lg:w-[351px]"
         />
-        <h1 className="text-5xl font-bold lg:text-[56px]">
+        <h1 className="text-4xl font-bold lg:text-[56px]">
           Doe hoje, transforme vidas para sempre!
         </h1>
         <p className="w-[816px] max-w-full text-justify text-sm leading-[1.8] lg:text-start lg:text-base">
@@ -60,7 +60,7 @@ export default function MainPage() {
             Sou ONG
           </Button>
         </div>
-        <div className="mt-10 hidden w-full flex-nowrap justify-center gap-8 self-center lg:flex">
+        <div className="mt-8 hidden w-full flex-nowrap justify-center gap-8 self-center lg:flex">
           <div className="flex h-[116px] flex-1 flex-col items-center justify-center rounded-sm bg-[#009fe3] shadow-md">
             <span className="text-4xl font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
               Doar

@@ -56,6 +56,7 @@ export default function ModalImageOnline({ handleImageChange }) {
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 setSearchTerm(e.target.value);
+                setCurrentPage(1);
               }
             }}
             className={

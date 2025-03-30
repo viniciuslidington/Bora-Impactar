@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="flex w-full flex-col items-center">
       <div
-        className="absolute top-[88px] left-0 -z-10 h-[580px] w-full"
+        className="absolute top-[88px] left-0 -z-10 hidden h-[580px] w-full lg:flex"
         style={{
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.64) 0%, rgba(255, 255, 255, 0.64) 100%),
@@ -36,27 +36,31 @@ export default function Home() {
           backgroundRepeat: "no-repeat",
         }}
       ></div>{" "}
-      <div className="flex h-[580px] w-[1366px] max-w-full flex-col gap-6 px-[123px] py-10">
-        <img src="/BoraImpactar.png" alt="Logo" className="w-[351px]" />
-        <h1 className="text-[56px] font-bold">
+      <div className="flex w-[1366px] max-w-full flex-col gap-6 px-4 py-10 lg:h-[580px] lg:px-[123px]">
+        <img
+          src="/BoraImpactar.png"
+          alt="Logo"
+          className="w-4/5 lg:w-[351px]"
+        />
+        <h1 className="text-3xl font-bold lg:text-[56px]">
           Encontre a Oportunidade Perfeita para Ajudar
         </h1>
 
-        <p className="w-[816px] max-w-full leading-[1.8]">
+        <p className="w-[816px] max-w-full text-justify text-sm leading-[1.8] lg:text-start lg:text-base">
           Conecte-se com ONGs que precisam do seu apoio. Explore as publicações
           e descubra onde suas habilidades e vontade de fazer a diferença são
           mais necessárias.
         </p>
         <div className="flex gap-8">
           <Button
-            className="h-[80px] w-[256px] cursor-pointer rounded-sm border-none bg-[#294bb6] px-2 py-3 text-[18px] font-bold text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
+            className="h-16 w-full cursor-pointer rounded-sm border-none bg-[#294bb6] px-2 py-3 text-[18px] font-bold text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70 lg:h-[80px] lg:w-[256px]"
             onClick={() => navigate("/voluntario/search")}
           >
             Ver demandas
           </Button>
         </div>
         <svg
-          className="mt-[36px] h-12 w-12 cursor-pointer self-center fill-current text-[#292929]"
+          className="mt-[36px] hidden h-12 w-12 cursor-pointer self-center fill-current text-[#292929] lg:flex"
           viewBox="0 0 48 48"
           onClick={scrollToComponent}
         >
@@ -73,11 +77,11 @@ export default function Home() {
         </svg>
       </div>
       <div
-        className="flex w-full max-w-[1366px] flex-col items-center gap-8 px-[123px] py-16"
+        className="flex w-full max-w-[1366px] flex-col items-center gap-6 px-4 pt-5 pb-16 lg:gap-8 lg:px-[123px] lg:py-16"
         ref={scrollTo}
       >
-        <div className="flex flex-col items-center gap-3">
-          <h2 className="text-2xl font-bold">
+        <div className="flex flex-col items-center gap-2 lg:gap-3">
+          <h2 className="text-[20px] font-bold">
             Saiba como você pode ajudar as Ongs
           </h2>
           <p className="text-base font-normal">Categorias mais recorrentes</p>
@@ -146,7 +150,7 @@ export default function Home() {
           </GridBox>
         </Grid>
         <Button
-          className="h-[64px] w-[256px] cursor-pointer rounded-sm border-3 border-solid border-[#232323b6] bg-none px-2 py-3 text-[18px] font-medium text-[#232323] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[rgba(27,46,53,0.075)] disabled:opacity-70"
+          className="h-[64px] w-full cursor-pointer rounded-sm border-3 border-solid border-[#232323b6] bg-none px-2 py-3 text-[18px] font-medium text-[#232323] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[rgba(27,46,53,0.075)] disabled:opacity-70 lg:w-[256px]"
           onClick={() => navigate("/voluntario/search")}
         >
           Ver todas publicações
