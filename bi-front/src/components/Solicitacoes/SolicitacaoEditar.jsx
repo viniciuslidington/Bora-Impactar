@@ -71,7 +71,6 @@ export default function PostSelected({
     if (data.image) {
       formData.append("image", data.image); // Acessa o arquivo corretamente
     }
-    console.log(formData.get("id"));
     salvar(formData);
     setSelectedId(""); // Fechar form após salvar
   };
@@ -156,7 +155,7 @@ export default function PostSelected({
                 className="h-full w-full rounded object-cover"
               />
             )}
-            {!preview && !post.ong_Imagem && (
+            {!preview && !post.post_Imagem && (
               <p className="px-4 text-center text-[#8c8a8a]">
                 Adicione uma imagem relacionada à sua publicação
               </p>

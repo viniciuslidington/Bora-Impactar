@@ -32,12 +32,14 @@ router.post("/", upload.single("image"), async (req, res) => {
       req.body.expirationDuration
     );
 
-    const { expirationDuration, ...requestData } = req.body;
+    const { ong_Id: bodyOng_Id, expirationDuration, ...requestData } = req.body;
+
+    const ong_Id = Number(bodyOng_Id);
 
     let post_Imagem = null;
-    let post_Imagem_id = null;
+    let post_ImagemId = null;
 
-    // 🔥 Se tiver imagem, faz upload diretamente
+    // Se tiver imagem, faz upload diretamente
     if (req.file) {
       const uploadResponse = await uploadImage(req.file.buffer);
       if (!uploadResponse) {
@@ -47,8 +49,8 @@ router.post("/", upload.single("image"), async (req, res) => {
       }
 
       // Atualizar os dados da imagem
-      req.body.post_Imagem = uploadResponse.secure_url;
-      req.body.post_Imagem_id = uploadResponse.public_id;
+      post_Imagem = uploadResponse.secure_url;
+      post_ImagemId = uploadResponse.public_id;
     }
 
     const newRequest = await prisma.request.create({
@@ -57,7 +59,8 @@ router.post("/", upload.single("image"), async (req, res) => {
         createdAt,
         expirationDate,
         post_Imagem,
-        post_Imagem_id,
+        post_ImagemId,
+        ong_Id,
       },
     });
 
@@ -102,10 +105,13 @@ router.patch("/", upload.single("image"), async (req, res) => {
       return res.status(404).json({ error: "Solicitação não encontrada" });
     }
 
+    let post_Imagem;
+    let post_ImagemId;
+
     if (req.file) {
-      if (existingRequest.post_Imagem_id) {
+      if (existingRequest.post_ImagemId) {
         // Deletar imagem anterior do Cloudinary
-        const deleteResult = await deleteImage(existingRequest.post_Imagem_id);
+        const deleteResult = await deleteImage(existingRequest.post_ImagemId);
         if (!deleteResult) {
           return res
             .status(500)
@@ -121,10 +127,8 @@ router.patch("/", upload.single("image"), async (req, res) => {
       }
 
       // Atualizar os dados da imagem
-      req.body.post_Imagem = uploadResponse.secure_url;
-      req.body.post_Imagem_Id = uploadResponse.public_id;
-      let post_Imagem = req.body.post_Imagem;
-      let post_Imagem_Id = req.body.post_Imagem_Id;
+      post_Imagem = uploadResponse.secure_url;
+      post_ImagemId = uploadResponse.public_id;
     }
 
     const validationError = validatePartialUpdate(req.body);
@@ -143,13 +147,14 @@ router.patch("/", upload.single("image"), async (req, res) => {
       );
     }
 
+    console.log(id);
     const updatedRequest = await prisma.request.update({
       where: { id },
       data: {
         ...updateData,
         expirationDate, // Atualiza a data de expiração corretamente
         post_Imagem,
-        post_Imagem_Id,
+        post_ImagemId,
       },
     });
 
@@ -178,9 +183,9 @@ router.delete("/", async (req, res) => {
     }
 
     // Deletar imagem do Cloudinary
-    if (existingRequest.post_Imagem_id) {
+    if (existingRequest.post_ImagemId) {
       // Deletar imagem anterior do Cloudinary
-      const deleteResult = await deleteImage(existingRequest.post_Imagem_id);
+      const deleteResult = await deleteImage(existingRequest.post_ImagemId);
       if (!deleteResult) {
         return res.status(500).json({ error: "Erro ao deletar imagem antiga" });
       }

@@ -70,7 +70,7 @@ export default function ModalImageOnline({ handleImageChange }) {
               </button>
               <p
                 className={
-                  "flex w-9 cursor-pointer justify-center rounded border-2 border-[#009fe3] bg-[#009fe3] px-3 py-1 text-white outline-white"
+                  "flex w-9 cursor-pointer items-center justify-center rounded border-2 border-[#009fe3] bg-[#009fe3] px-3 py-1 text-white outline-white"
                 }
               >
                 {currentPage}

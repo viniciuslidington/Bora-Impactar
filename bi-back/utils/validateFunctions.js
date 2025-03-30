@@ -47,7 +47,7 @@ export const validateData = (data, validateUrgency = false) => {
     return "Valor inválido para ExpirationDuration. Escolha entre: '7 dias', '2 semanas', '4 semanas', '12 semanas'.";
   }
 
-  if (typeof ong_Id !== "number" || ong_Id < 1) {
+  if (Number(ong_Id) < 1) {
     return "Ong_Id deve ser um número inteiro positivo";
   }
 

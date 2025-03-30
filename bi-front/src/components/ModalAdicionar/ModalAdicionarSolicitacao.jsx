@@ -55,11 +55,7 @@ export default function ModaAdicionar() {
     formData.append("ong_Phone", dataForm.ong_Phone);
     formData.append("expirationDuration", dataForm.expirationDuration);
 
-    console.log(dataForm.image);
-    // Se houver imagem no formulário
-    if (dataForm.image) {
-      formData.append("image", dataForm.image); // Acessa o arquivo corretamente
-    }
+    formData.append("image", dataForm.image); // Acessa o arquivo corretamente
 
     adicionar(formData);
     setModalAdicionarSolicitacao(false);

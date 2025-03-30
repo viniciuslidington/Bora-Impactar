@@ -16,8 +16,10 @@ const postRepasse = async (content) => {
   return response.data;
 };
 const patchRepasse = async (content) => {
+  const id = content.get("id");
+  content.delete("id");
   const response = await api.patch("/repasse", content, {
-    params: { id: content.get("id") },
+    params: { id: id },
     headers: { "Content-Type": "multipart/form-data" },
   });
   return response.data;
