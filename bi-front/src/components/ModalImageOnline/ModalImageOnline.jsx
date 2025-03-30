@@ -17,7 +17,11 @@ export default function ModalImageOnline({ handleImageChange }) {
 
   const search = formatarString3(searchTerm);
   // Query para buscar imagens no Pexels
-  const { data: searchResults, isFetching } = useQuery({
+  const {
+    data: searchResults,
+    isFetching,
+    isError,
+  } = useQuery({
     queryKey: ["pexelsImages", searchTerm],
     queryFn: () => fetchImages(search),
     staleTime: 1000 * 60 * 5,
@@ -98,6 +102,12 @@ export default function ModalImageOnline({ handleImageChange }) {
                 color="#009fe3;"
               ></l-ring-2>
             </div>
+          ) : isError ? (
+            <span className="flex h-full w-full flex-col items-center justify-center">
+              <p className="font-medium text-red-400">
+                Erro ao buscar imagens online! Tente novamente.
+              </p>
+            </span>
           ) : searchResults ? (
             currentPageResults().map((img) => (
               <img
