@@ -4,23 +4,25 @@ import toast from "react-hot-toast";
 import api from "./api.js";
 
 const getRepasse = async (id) => {
-  const response = await api.get("/repasse", {
+  const response = await api.get("/api/repasse", { // Adicionado /api
     params: { ong_Id: id },
   });
   return response.data;
 };
 const postRepasse = async (content) => {
-  const response = await api.post("/repasse", content);
+  const response = await api.post("/api/repasse", content); // Adicionado /api
   return response.data;
 };
 const putRepasse = async (content) => {
-  const response = await api.patch("/repasse", content, {
+  const response = await api.patch("/api/repasse", content, { // Adicionado /api
     params: { id: content.id },
   });
   return response.data;
 };
 const deleteRepasse = async (id) => {
-  const response = await api.delete("/repasse", { params: { id: id } });
+  const response = await api.delete("/api/repasse", { // Adicionado /api
+    params: { id: id },
+  });
   return response.data;
 };
 

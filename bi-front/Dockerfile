@@ -15,16 +15,15 @@ COPY . .
 # Gera os arquivos em /app/dist
 RUN npm run build  
 
-# --- Nova Etapa 2: Serve os arquivos estáticos via Nginx (sem Node.js) ---
+# Etapa 2: Imagem de produção do frontend
 FROM nginx:alpine
 
-# Copia os arquivos estáticos para o diretório padrão do Nginx
+# Copia o build do React para o Nginx
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# (Opcional) Copia uma configuração customizada do Nginx (se necessário)
-# COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
+# Copia a configuração customizada do Nginx
+COPY ../nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# Expõe a porta 80 (Nginx já usa essa porta por padrão)
 EXPOSE 80
 
-# O Nginx inicia automaticamente, não precisa de CMD manual
+CMD ["nginx", "-g", "daemon off;"]

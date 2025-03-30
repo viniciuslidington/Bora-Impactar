@@ -4,23 +4,25 @@ import toast from "react-hot-toast";
 import api from "./api.js";
 
 const getSolicitacoes = async (id) => {
-  const response = await api.get("/solicitacao", {
+  const response = await api.get("/api/solicitacao", { // Adicionado /api
     params: { ong_Id: id },
   });
   return response.data;
 };
 const postSolicitacoes = async (content) => {
-  const response = await api.post("/solicitacao", content);
+  const response = await api.post("/api/solicitacao", content); // Adicionado /api
   return response.data;
 };
 const putSolicitacoes = async (content) => {
-  const response = await api.patch("/solicitacao", content, {
+  const response = await api.patch("/api/solicitacao", content, { // Adicionado /api
     params: { id: content.id },
   });
   return response.data;
 };
 const deleteSolicitacoes = async (id) => {
-  const response = await api.delete("/solicitacao", { params: { id: id } });
+  const response = await api.delete("/api/solicitacao", { // Adicionado /api
+    params: { id: id },
+  });
   return response.data;
 };
 
