@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 export default function ModalSearch({ solicitacao = false }) {
   const { modalSearch, setModalSearch } = useContext(ModalContext);
   const modalOverlay = useRef();
-  const [showMore, setShowMore] = useState(false);
 
   const {
     title,
@@ -46,65 +45,65 @@ export default function ModalSearch({ solicitacao = false }) {
 
   return (
     <div
-      className="fixed inset-0 z-10 flex items-center justify-center bg-[rgba(0,0,0,0.25)]"
+      className="fixed inset-0 z-10 flex items-center justify-center bg-[rgba(0,0,0,0.25)] px-4 lg:px-0"
       onClick={(e) => {
         modalOverlay.current === e.target && setModalSearch(null);
       }}
       ref={modalOverlay}
     >
-      <div className="relative z-11 flex w-full max-w-[1120px] flex-wrap gap-6 rounded bg-white p-8">
-        <div className="relative flex w-full items-center gap-2">
+      <div className="relative z-11 flex w-full max-w-full flex-col items-center gap-4 rounded bg-white p-4 lg:max-w-[1120px] lg:flex-row lg:flex-wrap lg:items-start lg:gap-6 lg:p-8">
+        <div className="flex w-full items-center gap-2 lg:relative">
           <img
             src={ong_Imagem || "/placeholder-image.jpg"}
             alt="Foto de perfil"
-            className="h-16 w-16 rounded-full border-1 border-[#9c9c9c81] object-cover"
+            className="h-12 w-12 rounded-full border-1 border-[#9c9c9c81] object-cover lg:h-16 lg:w-16"
           />{" "}
-          <p>{ong_Nome}</p>
+          <p className="line-clamp-1 w-[calc(55%-48px)]">{ong_Nome}</p>
           <span>|</span>
-          <p>Publicado: {dataPublicacao}</p>
+          <p>
+            <span className="hidden lg:flex">Publicado:</span> {dataPublicacao}
+          </p>
           <img
             src="/x.svg"
             alt="fechar"
-            className="absolute top-0 right-0 h-5 w-5 cursor-pointer"
+            className="absolute top-4 right-4 h-5 w-5 cursor-pointer lg:top-0 lg:right-0"
             onClick={() => setModalSearch(null)}
           />
         </div>
         <img
           src={post_Imagem || "/placeholder-image.jpg"}
           alt="Imagem da publicação"
-          className="h-[336px] w-[336px] rounded border border-[#9c9c9c81] object-cover"
+          className="h-[296px] w-[296px] rounded border border-[#9c9c9c81] object-cover lg:h-[336px] lg:w-[336px]"
         />
-        <div className="flex min-h-[336px] max-w-[calc(100%-360px)] flex-col justify-start gap-5">
+        <div className="flex min-h-[336px] max-w-full flex-col justify-start gap-4 lg:max-w-[calc(100%-360px)] lg:gap-5">
           <p className="max-w-full text-3xl font-semibold break-words opacity-95">
             {title}
           </p>
-          <span className="flex gap-2 opacity-95">
-            <p>{categorias[category]}</p>
+          <span className="flex flex-row flex-wrap items-center gap-2 opacity-95 lg:flex-nowrap">
+            <p className="rounded bg-[#eaeaea] p-1 lg:bg-transparent lg:p-0">
+              {categorias[category]}
+            </p>
             <span>|</span>
             {solicitacao && (
               <>
-                <p>{urgencia[urgency]}</p>
+                <p
+                  className={`rounded bg-[#eaeaea] p-1 lg:bg-transparent lg:p-0`}
+                >
+                  {urgencia[urgency]}
+                </p>
                 <span>|</span>
               </>
             )}
-            <p className="max-w-full">{dataExpiracao} para expirar</p>
-          </span>
-          <div className="relative">
-            <p className="max-h-[500px] overflow-hidden break-words whitespace-normal opacity-70">
-              {showMore || description.length <= 400
-                ? description
-                : `${description.slice(0, 400)}...`}
+            <p className="max-w-full rounded bg-[#eaeaea] p-1 lg:bg-transparent lg:p-0">
+              {dataExpiracao} para expirar
             </p>
-            {description.length > 400 && (
-              <button
-                className="mt-2 font-semibold text-blue-600"
-                onClick={() => setShowMore(!showMore)}
-              >
-                {showMore ? "Ver menos" : "Ver mais"}
-              </button>
-            )}
+          </span>
+          <div className="relative max-w-full">
+            <p className="max-h-[124px] max-w-full overflow-scroll break-words whitespace-normal opacity-70 lg:max-h-[196px] lg:overflow-auto">
+              {description}
+            </p>
           </div>
-          <div className="mt-auto flex gap-4">
+          <div className="mt-auto flex w-full flex-wrap gap-4 gap-y-2">
             <span className="flex items-center gap-1 opacity-80">
               <svg viewBox="0 0 20 16" className="h-4 w-5">
                 <path

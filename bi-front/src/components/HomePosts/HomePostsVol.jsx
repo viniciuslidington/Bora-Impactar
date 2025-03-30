@@ -46,7 +46,7 @@ export default function HomePosts({ setModalSearch }) {
             <option value="expirar">Prestes a Expirar</option>
           </select>
           <SearchBar
-            container={"relative w-full"}
+            container={"relative lg:w-auto w-full"}
             className={
               "h-12 w-full rounded-sm border-2 border-[#9c9c9c] bg-white p-3 pr-11 text-base lg:w-[512px]"
             }
