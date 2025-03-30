@@ -12,6 +12,13 @@ function formatarString2(str) {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/\s+/g, "_"); // Remove todos os espaços; // Remove a acentuação
 }
+function formatarString3(str) {
+  return str
+    .toUpperCase() // Formata a string para minúsculo
+    .normalize("NFD") // Normaliza a string
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "+"); // Remove todos os espaços; // Remove a acentuação
+}
 
 function formatarNumeroTelefone(numero) {
   // Remove todos os caracteres que não são números
@@ -26,4 +33,9 @@ function formatarNumeroTelefone(numero) {
   return numerosLimpos.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
 }
 
-export { formatarString, formatarString2, formatarNumeroTelefone };
+export {
+  formatarString,
+  formatarString2,
+  formatarString3,
+  formatarNumeroTelefone,
+};

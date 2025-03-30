@@ -14,6 +14,7 @@ export default function SearchPostVol({ data = {}, isLoading = false }) {
     expirationDate,
     ong_Nome,
     ong_Imagem,
+    post_Imagem,
   } = data;
 
   const categorias = {
@@ -84,9 +85,9 @@ export default function SearchPostVol({ data = {}, isLoading = false }) {
     >
       <div className="relative flex w-full items-center gap-2">
         <img
-          src={ong_Imagem ?? "/placeholder-image.jpg"}
+          src={ong_Imagem || "/placeholder-image.jpg"}
           alt=""
-          className="h-14 w-14 rounded-[50%] border border-[#9C9C9C] object-cover"
+          className="h-14 w-14 rounded-[50%] border border-[#9c9c9c81] object-cover"
         />
         <p className="opacity-95">{ong_Nome}</p>
         <span className="opacity-95">|</span>
@@ -122,9 +123,9 @@ export default function SearchPostVol({ data = {}, isLoading = false }) {
         </p>
       </div>
       <img
-        src="/placeholder-image.jpg"
+        src={post_Imagem || "/placeholder-image.jpg"}
         alt=""
-        className="ml-auto h-[164px] w-[164px] rounded-sm border border-[#9C9C9C] object-contain"
+        className="ml-auto h-[164px] w-[164px] rounded-sm border border-[#9c9c9c81] object-cover"
       />
     </div>
   );

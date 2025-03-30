@@ -3,7 +3,15 @@ import UrgencyIcon from "../UrgencyIcon/UrgencyIcon";
 import PropTypes from "prop-types";
 
 export default function Posts({ data = {}, isLoading = false, onClick }) {
-  const { createdAt, description, title, urgency, ong_Imagem, category } = data;
+  const {
+    createdAt,
+    description,
+    title,
+    urgency,
+    ong_Imagem,
+    category,
+    post_Imagem,
+  } = data;
 
   const categorias = {
     ELETRODOMESTICOS_E_MOVEIS: "Eletrodomésticos e Móveis",
@@ -47,7 +55,7 @@ export default function Posts({ data = {}, isLoading = false, onClick }) {
       onClick={onClick}
     >
       <img
-        src="/placeholder-image.jpg"
+        src={post_Imagem || "/placeholder-image.jpg"}
         alt=""
         className="h-[120px] border-b-1 border-[#9c9c9c] object-cover"
       />
@@ -63,9 +71,9 @@ export default function Posts({ data = {}, isLoading = false, onClick }) {
         )}
         <span className="flex items-center gap-2">
           <img
-            src={ong_Imagem ?? "/placeholder-image.jpg"}
+            src={ong_Imagem || "/placeholder-image.jpg"}
             alt=""
-            className="h-8 w-8 rounded-[50%] border border-[#9c9c9c] object-cover"
+            className="h-8 w-8 rounded-[50%] border border-[#9c9c9c81] object-cover"
           />
           <p className="text-[14px]">{categorias[category]}</p>
           <p>|</p>

@@ -20,6 +20,7 @@ export default function ModalSearch({ solicitacao = false }) {
     ong_Email,
     createdAt,
     expirationDate,
+    post_Imagem,
   } = modalSearch;
 
   const dataPublicacao = formatarData(new Date(createdAt));
@@ -54,9 +55,9 @@ export default function ModalSearch({ solicitacao = false }) {
       <div className="relative z-11 flex w-full max-w-[1120px] flex-wrap gap-6 rounded bg-white p-8">
         <div className="relative flex w-full items-center gap-2">
           <img
-            src={ong_Imagem ?? "/placeholder-image.jpg"}
+            src={ong_Imagem || "/placeholder-image.jpg"}
             alt="Foto de perfil"
-            className="h-16 w-16 rounded-full border-1 border-[#9c9c9c] object-cover"
+            className="h-16 w-16 rounded-full border-1 border-[#9c9c9c81] object-cover"
           />{" "}
           <p>{ong_Nome}</p>
           <span>|</span>
@@ -69,9 +70,9 @@ export default function ModalSearch({ solicitacao = false }) {
           />
         </div>
         <img
-          src="/placeholder-image.jpg"
+          src={post_Imagem || "/placeholder-image.jpg"}
           alt="Imagem da publicação"
-          className="h-[336px] w-[336px] rounded border border-[#9c9c9c] object-cover"
+          className="h-[336px] w-[336px] rounded border border-[#9c9c9c81] object-cover"
         />
         <div className="flex min-h-[336px] max-w-[calc(100%-360px)] flex-col justify-start gap-5">
           <p className="max-w-full text-3xl font-semibold break-words opacity-95">
@@ -89,7 +90,7 @@ export default function ModalSearch({ solicitacao = false }) {
             <p className="max-w-full">{dataExpiracao} para expirar</p>
           </span>
           <div className="relative">
-            <p className="max-h-[500px] overflow-hidden whitespace-normal opacity-70">
+            <p className="max-h-[500px] overflow-hidden break-words whitespace-normal opacity-70">
               {showMore || description.length <= 400
                 ? description
                 : `${description.slice(0, 400)}...`}

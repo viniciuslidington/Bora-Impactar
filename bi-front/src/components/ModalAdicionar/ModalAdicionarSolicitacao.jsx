@@ -43,18 +43,21 @@ export default function ModaAdicionar() {
   };
 
   const handlePublicar = (dataForm) => {
-    adicionar({
-      title: dataForm.title,
-      category: dataForm.category,
-      urgency: dataForm.urgency,
-      description: dataForm.description,
-      ong_Id: data?.userData.ngo.id,
-      ong_Nome: data?.userData.ngo.name,
-      ong_Imagem: data?.userData.ngo.gallery_images_url[0],
-      ong_Email: dataForm.ong_Email,
-      ong_Phone: dataForm.ong_Phone,
-      expirationDuration: dataForm.expirationDuration,
-    });
+    const formData = new FormData();
+    formData.append("title", dataForm.title);
+    formData.append("category", dataForm.category);
+    formData.append("urgency", dataForm.urgency);
+    formData.append("description", dataForm.description);
+    formData.append("ong_Id", data?.userData.ngo.id);
+    formData.append("ong_Nome", data?.userData.ngo.name);
+    formData.append("ong_Imagem", data?.userData.ngo.gallery_images_url[0]);
+    formData.append("ong_Email", dataForm.ong_Email);
+    formData.append("ong_Phone", dataForm.ong_Phone);
+    formData.append("expirationDuration", dataForm.expirationDuration);
+
+    formData.append("image", dataForm.image); // Acessa o arquivo corretamente
+
+    adicionar(formData);
     setModalAdicionarSolicitacao(false);
   };
 
