@@ -5,7 +5,10 @@ import toast from "react-hot-toast";
 //Requisições
 
 const fetchLogin = async (credentials) => {
-  const response = await api.post("/api/login", credentials); // Adicionado /api
+  const response = await api.post("/api/login", credentials, {
+    withCredentials: true, //  Send cookies with request
+  });
+  console.log('Credenciais: ', credentials);
   return response.data;
 };
 const fetchLogout = async () => {
