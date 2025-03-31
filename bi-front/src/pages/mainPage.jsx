@@ -6,6 +6,17 @@ import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
 import Profile from "../components/Profile/Profile";
 import { useUserData } from "../services/authService";
+import boraImpactarImg from "../assets/BoraImpactar.png";
+import heroImg from "../assets/heroImage.jpg";
+import roupasImg from "../assets/Roupas.jpg";
+import materiasEducativosImg from "../assets/MateriasEducativos.jpg";
+import medicamentosImg from "../assets/Medicamentos.jpg";
+import utensiliosImg from "../assets/UtensiliosP.jpg";
+import inclusaoMobilidadeImg from "../assets/Inclusaoemobilidade.jpg";
+import moveisImg from "../assets/Móveis.jpg";
+import lupaImg from "../assets/lupa.svg";
+import recursosImg from "../assets/recursos.svg";
+import contribuaImg from "../assets/contribua.svg";
 
 export default function MainPage() {
   const navigate = useNavigate();
@@ -19,7 +30,7 @@ export default function MainPage() {
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.64) 0%, rgba(255, 255, 255, 0.64) 100%),
           linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #fff 64.5%),
-          url('/heroImage.jpg')
+          url(${heroImg})
         `,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
@@ -29,7 +40,7 @@ export default function MainPage() {
         <Profile />
       </Header>
       <div className="flex w-[1366px] max-w-full flex-col justify-center gap-6 px-[123px] py-10">
-        <img src="/BoraImpactar.png" alt="Logo" className="w-[351px]" />
+        <img src={boraImpactarImg} alt="Logo" className="w-[351px]" />
         <h1 className="text-[56px] font-bold">
           Doe hoje, transforme vidas para sempre!
         </h1>
@@ -88,13 +99,13 @@ export default function MainPage() {
         {/* controlando largura total do grid */}
         <Grid>
           <GridBox
-            imgUrl={"/Roupas.jpg"}
+            imgUrl={roupasImg}
             link={"/voluntario/search?page=1&category=ROUPAS_E_CALCADOS"}
           >
             Roupas e Calçados
           </GridBox>
           <GridBox
-            imgUrl={"/MateriasEducativos.jpg"}
+            imgUrl={materiasEducativosImg}
             link={
               "/voluntario/search?page=1&category=MATERIAIS_EDUCATIVOS_E_CULTURAIS"
             }
@@ -102,20 +113,20 @@ export default function MainPage() {
             Materiais Educativos e Culturais
           </GridBox>
           <GridBox
-            imgUrl={"/Medicamentos.jpg"}
+            imgUrl={medicamentosImg}
             link={"/voluntario/search?page=1&category=SAUDE_E_HIGIENE"}
             s
           >
             Saúde e Higiene
           </GridBox>
           <GridBox
-            imgUrl={"/UtensiliosP.jpg"}
+            imgUrl={utensiliosImg}
             link={"/voluntario/search?page=1&category=UTENSILIOS_GERAIS"}
           >
             Utensílios Gerais
           </GridBox>
           <GridBox
-            imgUrl={"/Inclusaoemobilidade.jpg"}
+            imgUrl={inclusaoMobilidadeImg}
             link={
               "/voluntario/search?page=1&category=ITENS_DE_INCLUSAO_E_MOBILIDADE"
             }
@@ -123,7 +134,7 @@ export default function MainPage() {
             Itens de Inclusão e Mobilidade
           </GridBox>
           <GridBox
-            imgUrl={"/Móveis.jpg"}
+            imgUrl={moveisImg}
             link={
               "/voluntario/search?page=1&category=ELETRODOMESTICOS_E_MOVEIS"
             }
@@ -143,7 +154,7 @@ export default function MainPage() {
           <h2 className="text-[48px] font-medium">Como funciona?</h2>
           <div className="flex flex-col gap-12 lg:flex-row">
             <div className="flex flex-col items-center gap-4">
-              <img src="./lupa.svg" alt="recursos" className="w-[80px]" />
+              <img src={lupaImg} alt="recursos" className="w-[80px]" />
               <h3 className="text-[24px] font-bold">Veja os pedidos</h3>
               <p className="w-[256px] text-justify hyphens-auto">
                 Acesse agora a lista com pedidos reais feitos por ONGs
@@ -151,7 +162,7 @@ export default function MainPage() {
               </p>
             </div>
             <div className="flex flex-col items-center gap-4">
-              <img src="./recursos.svg" alt="trocas" className="w-[80px]" />
+              <img src={recursosImg} alt="trocas" className="w-[80px]" />
               <h3 className="text-[24px] font-bold">Escolha o que doar</h3>
               <p className="w-[256px] text-justify hyphens-auto">
                 Roupas, materiais escolares, medicamentos, itens de higiene,
@@ -160,7 +171,7 @@ export default function MainPage() {
             </div>
             <div className="flex flex-col items-center gap-4">
               <img
-                src="./contribua.svg"
+                src={contribuaImg}
                 alt="doações"
                 className="h-[100px] w-[100px]"
               />

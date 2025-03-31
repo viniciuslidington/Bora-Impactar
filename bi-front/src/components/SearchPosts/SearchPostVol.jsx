@@ -3,6 +3,7 @@ import { calcularTempoRestante, formatarData } from "../../utils/formatDate";
 import UrgencyIcon from "../UrgencyIcon/UrgencyIcon";
 import { useContext, useEffect } from "react";
 import { ModalContext } from "../contexts/ModalContext";
+import placeholderImg from "../../assets/placeholder-image.jpg";
 
 export default function SearchPostVol({ data = {}, isLoading = false }) {
   const {
@@ -84,7 +85,7 @@ export default function SearchPostVol({ data = {}, isLoading = false }) {
     >
       <div className="relative flex w-full items-center gap-2">
         <img
-          src={ong_Imagem ?? "/placeholder-image.jpg"}
+          src={ong_Imagem ?? placeholderImg}
           alt=""
           className="h-14 w-14 rounded-[50%] border border-[#9C9C9C] object-cover"
         />
@@ -122,7 +123,7 @@ export default function SearchPostVol({ data = {}, isLoading = false }) {
         </p>
       </div>
       <img
-        src="/placeholder-image.jpg"
+        src={placeholderImg}
         alt=""
         className="ml-auto h-[164px] w-[164px] rounded-sm border border-[#9C9C9C] object-contain"
       />

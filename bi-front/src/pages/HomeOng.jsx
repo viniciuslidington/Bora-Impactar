@@ -9,6 +9,15 @@ import { ModalContext } from "../components/contexts/ModalContext";
 import ModalAdicionarSol from "../components/ModalAdicionar/ModalAdicionarSolicitacao";
 import ModalAdicionarRep from "../components/ModalAdicionar/ModalAdicionarRepasse";
 import ModalSearch from "../components/ModalSearch/ModalSearch";
+import roupasImg from "../assets/Roupas.jpg";
+import materiasEducativosImg from "../assets/MateriasEducativos.jpg";
+import medicamentosImg from "../assets/Medicamentos.jpg";
+import utensiliosImg from "../assets/UtensiliosP.jpg";
+import inclusaoMobilidadeImg from "../assets/Inclusaoemobilidade.jpg";
+import moveisImg from "../assets/Móveis.jpg";
+import petImg from "../assets/pet.jpg";
+import eletronicosImg from "../assets/Eletronicos.jpg";
+import outrosImg from "../assets/Outrosgrid.jpg";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -88,13 +97,13 @@ export default function Home() {
           </div>
           <Grid>
             <GridBox
-              imgUrl={"/Roupas.jpg"}
+              imgUrl={roupasImg}
               link={"/ong/search?page=1&category=ROUPAS_E_CALCADOS"}
             >
               Roupas e Calçados
             </GridBox>
             <GridBox
-              imgUrl={"/MateriasEducativos.jpg"}
+              imgUrl={materiasEducativosImg}
               link={
                 "/ong/search?page=1&category=MATERIAIS_EDUCATIVOS_E_CULTURAIS"
               }
@@ -102,20 +111,20 @@ export default function Home() {
               Materiais Educativos e Culturais
             </GridBox>
             <GridBox
-              imgUrl={"/Medicamentos.jpg"}
+              imgUrl={medicamentosImg}
               link={"/ong/search?page=1&category=SAUDE_E_HIGIENE"}
               s
             >
               Saúde e Higiene
             </GridBox>
             <GridBox
-              imgUrl={"/UtensiliosP.jpg"}
+              imgUrl={utensiliosImg}
               link={"/ong/search?page=1&category=UTENSILIOS_GERAIS"}
             >
               Utensílios Gerais
             </GridBox>
             <GridBox
-              imgUrl={"/Inclusaoemobilidade.jpg"}
+              imgUrl={inclusaoMobilidadeImg}
               link={
                 "/ong/search?page=1&category=ITENS_DE_INCLUSAO_E_MOBILIDADE"
               }
@@ -123,25 +132,25 @@ export default function Home() {
               Itens de Inclusão e Mobilidade
             </GridBox>
             <GridBox
-              imgUrl={"/Móveis.jpg"}
+              imgUrl={moveisImg}
               link={"/ong/search?page=1&category=ELETRODOMESTICOS_E_MOVEIS"}
             >
               Eletrodomésticos e Móveis
             </GridBox>
             <GridBox
-              imgUrl={"/pet.jpg"}
+              imgUrl={petImg}
               link={"/ong/search?page=1&category=ITENS_PET"}
             >
               Itens Pet
             </GridBox>
             <GridBox
-              imgUrl={"/Eletronicos.jpg"}
+              imgUrl={eletronicosImg}
               link={"/ong/search?page=1&category=ELETRONICOS"}
             >
               Eletrônicos
             </GridBox>
             <GridBox
-              imgUrl={"/Outrosgrid.jpg"}
+              imgUrl={outrosImg}
               link={"/ong/search?page=1&category=OUTROS"}
             >
               Outros

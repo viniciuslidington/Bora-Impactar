@@ -5,6 +5,7 @@ import Button from "../components/Button/Button";
 import { useCallback, useEffect, useState } from "react";
 import { useLogin, useUserData } from "../services/authService";
 import { Toaster } from "react-hot-toast";
+import boraImpactarImg from "../assets/BoraImpactar.png";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ export default function Login() {
         }}
       />
       <Link to={"/"}>
-        <img src="./BoraImpactar.png" alt="BoraImpactarLogo" className="w-64" />
+        <img src={boraImpactarImg} alt="BoraImpactarLogo" className="w-64" />
       </Link>
       <div className="flex max-w-[90%] flex-col items-center justify-center gap-4 rounded-sm bg-white px-12 py-8 shadow-md">
         <h2 className="text-2xl font-bold">Entrar como ONG</h2>

@@ -7,6 +7,7 @@ import { useUserData } from "../../services/authService";
 import { useForm } from "react-hook-form";
 import ModalImage from "../ModalImage/ModalImage";
 import ModalImageOnline from "../ModalImageOnline/ModalImageOnline";
+import editImg from "../../assets/edit.svg";
 
 export default function ModaAdicionar() {
   const { mutate: adicionar } = useAddSolicitacoes();
@@ -135,7 +136,7 @@ export default function ModaAdicionar() {
                 </p>
               )}
               <img
-                src="/edit.svg"
+                src={editImg}
                 alt="adicionar"
                 className="absolute right-2 bottom-2 h-10 w-10 overflow-visible rounded-full bg-[#ababab] p-2 opacity-80"
               />

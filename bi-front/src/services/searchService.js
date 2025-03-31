@@ -6,13 +6,13 @@ import { useSearchParams } from "react-router-dom";
 
 const getSolicitacao = async (params) => {
   const response = await axios.get(
-    `http://localhost:3017/api/search-solicitacao?${params}`, // Adicionado /api
+    `/hubdoacoesback/api/search-solicitacao?${params}`, // Adicionado /api
   );
   return response.data;
 };
 const getRepasse = async (params) => {
   const response = await axios.get(
-    `http://localhost:3017/api/search-repasse?${params}`, // Adicionado /api
+    `/hubdoacoesback/api/search-repasse?${params}`, // Adicionado /api
     {
       withCredentials: true,
     },
