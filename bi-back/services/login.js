@@ -13,10 +13,11 @@ const prisma = new PrismaClient();
 
 router.post("/", async (req, res) => {
     const { email, password } = req.body;
-  
+    console.log('BODY: ', req.body);
     try {
       let response;
       try {
+        
         response = await fetch("https://bora-impactar-prd.setd.rdmapps.com.br/api/login.json", {
           method: "POST",
           headers: {
@@ -48,9 +49,14 @@ router.post("/", async (req, res) => {
   
       res.cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "Strict",
+        secure: false,         // Disable for HTTP (temporary!)
+        sameSite: 'lax',       // Or 'strict' if you're not using cross-site auth
+        path: '/'
       });
+      //   httpOnly: true,
+      //   secure: process.env.NODE_ENV === "production",
+      //   sameSite: "Strict",
+      // });
   
       return res.status(200).json(data);
     } catch (error) {
@@ -61,16 +67,21 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
     const token = req.cookies.token;
+    
+    console.log("Received Token: " + token);
+    
     if (!token) {
       return res.status(401).json({ error: "Token não fornecido" });
     }
-  
+    console.log("SECRET: ");
+    console.log("SECRET_KEY " + process.env.SECRET_KEY);
+
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       if (err) {
         return res.status(401).json({ error: "Token inválido" });
       }
   
-      //console.log("Token decodificado:", decoded); // Verifique a estrutura
+      console.log("Token decodificado: ", decoded); // Verifique a estrutura
   
       // Retorna um objeto com `user`, garantindo que `name` esteja presente
       res.json({user: decoded.user, userData: decoded.userData });
