@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useAddRepasse } from "../../services/userRepasseService";
 import ModalImage from "../ModalImage/ModalImage";
 import ModalImageOnline from "../ModalImageOnline/ModalImageOnline";
+import editImg from "../../assets/edit.svg";
 
 export default function ModaAdicionar() {
   const { mutate: adicionar } = useAddRepasse();
@@ -43,17 +44,23 @@ export default function ModaAdicionar() {
   };
 
   const handlePublicar = (dataForm) => {
-    adicionar({
-      title: dataForm.title,
-      category: dataForm.category,
-      description: dataForm.description,
-      ong_Id: data?.userData.ngo.id,
-      ong_Nome: data?.userData.ngo.name,
-      ong_Imagem: data?.userData.ngo.gallery_images_url[0],
-      ong_Email: dataForm.ong_Email,
-      ong_Phone: dataForm.ong_Phone,
-      expirationDuration: dataForm.expirationDuration,
-    });
+    const formData = new FormData();
+    formData.append("title", dataForm.title);
+    formData.append("category", dataForm.category);
+    formData.append("description", dataForm.description);
+    formData.append("ong_Id", data?.userData.ngo.id);
+    formData.append("ong_Nome", data?.userData.ngo.name);
+    formData.append("ong_Imagem", data?.userData.ngo.gallery_images_url[0]);
+    formData.append("ong_Email", dataForm.ong_Email);
+    formData.append("ong_Phone", dataForm.ong_Phone);
+    formData.append("expirationDuration", dataForm.expirationDuration);
+
+    // Se houver imagem no formulário
+    if (dataForm.image) {
+      formData.append("image", dataForm.image); // Acessa o arquivo corretamente
+    }
+
+    adicionar(formData);
     setModalAdicionarRepasse(false);
   };
 
@@ -132,7 +139,7 @@ export default function ModaAdicionar() {
                 </p>
               )}
               <img
-                src="/edit.svg"
+                src={editImg}
                 alt="adicionar"
                 className="absolute right-2 bottom-2 h-10 w-10 overflow-visible rounded-full bg-[#ababab] p-2 opacity-80"
               />

@@ -8,6 +8,7 @@ import {
   useSolicitacoes,
   useHandleError,
 } from "../../services/userSolicitacoesService";
+import searchImg from "../../assets/search.svg";
 
 //Tipos de ordenação dos posts
 const sortFunctions = {
@@ -93,7 +94,7 @@ export default function OngPosts() {
             className="h-12 w-[300px] rounded border-2 border-[#9c9c9c] px-2 pr-8 text-base text-[#232323]"
           />
           <img
-            src="/search.svg"
+            src={searchImg}
             alt="pesquisar icone"
             className="absolute top-1/2 right-2 -translate-y-1/2"
           />

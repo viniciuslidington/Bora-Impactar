@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useContext, useRef } from "react";
 import { ModalContext } from "../contexts/ModalContext";
 import Button from "../Button/Button";
+import xImg from "../../assets/x.svg";
 
 export default function ModalImage({
   content1 = "Cancelar",
@@ -26,7 +27,7 @@ export default function ModalImage({
       <div className="relative z-21 flex flex-col gap-6 rounded bg-white p-10">
         {xIcon && (
           <img
-            src="/x.svg"
+            src={xImg}
             alt=""
             className="absolute top-3 right-3 h-5 w-5 cursor-pointer"
             onClick={() => setModalImage(false)}

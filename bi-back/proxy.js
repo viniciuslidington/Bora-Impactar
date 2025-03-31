@@ -18,20 +18,20 @@ const PORTFRONT = 3007;
 
 const app = express();
 app.use(express.json());
-app.use(cors({ credentials: true, origin: `http://localhost:${PORTFRONT}` }));
+app.use(cors({ credentials: true, origin: `http://localhost` }));
 app.use(cookieParser());
 
-// Rotas públicas
-app.use("/login", loginRoutes);
-app.use("/logout", logoutRoutes);
+// Rotas públicas (agora com o prefixo /api)
+app.use("/api/login", loginRoutes);
+app.use("/api/logout", logoutRoutes);
 
-// Rotas protegidas(verifyToken é o método de autenticar)
-app.use("/data", verifyToken, dataRoutes);
-app.use("/repasse", verifyToken, repasseRoutes);
-app.use("/search-repasse", verifyToken, serchRoutes);
-app.use("/solicitacao", verifyToken, solicitacoesRoutes);
-app.use("/search-solicitacao", searchSolicitacoesRoutes);
-app.use("/upload", verifyToken, cloudinaryRoutes);
+// Rotas protegidas (verifyToken é o método de autenticar, agora com o prefixo /api)
+app.use("/api/data", verifyToken, dataRoutes);
+app.use("/api/repasse", verifyToken, repasseRoutes);
+app.use("/api/search-repasse", verifyToken, serchRoutes);
+app.use("/api/solicitacao", verifyToken, solicitacoesRoutes);
+app.use("/api/search-solicitacao", searchSolicitacoesRoutes);
+app.use("/api/upload", verifyToken, cloudinaryRoutes);
 
 // Definindo a porta 3017
 app.listen(PORTBACKEND, () => {

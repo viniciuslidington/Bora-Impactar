@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: "/",
+  base: "/hubdoacoes/",
   preview: {
     port: 3007,
     strictPort: true,

@@ -11,6 +11,7 @@ import { ModalContext } from "../contexts/ModalContext";
 import ModalEncerrar from "../ModalEncerrar/ModalEncerrar";
 import ModalImage from "../ModalImage/ModalImage";
 import ModalImageOnline from "../ModalImageOnline/ModalImageOnline";
+import editImg from "../../assets/edit.svg";
 
 export default function PostSelected({
   expiracaoFormatada,
@@ -59,19 +60,19 @@ export default function PostSelected({
       setSelectedId("");
       return;
     }
-    {
-      /*Faltando imagem enquanto campo não existe  */
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("category", data.category);
+    formData.append("urgency", data.urgency);
+    formData.append("description", data.description);
+    formData.append("ong_Email", data.ong_Email);
+    formData.append("ong_Phone", data.ong_Phone);
+    formData.append("id", Number(post.id));
+    // Se houver imagem no formulário
+    if (data.image) {
+      formData.append("image", data.image); // Acessa o arquivo corretamente
     }
-    salvar({
-      title: data.title,
-      category: data.category,
-      urgency: data.urgency,
-      description: data.description,
-      ong_Phone: data.ong_Phone,
-      ong_Email: data.ong_Email,
-      id: post.id,
-    });
-
+    salvar(formData);
     setSelectedId(""); // Fechar form após salvar
   };
 
@@ -155,13 +156,13 @@ export default function PostSelected({
                 className="h-full w-full rounded object-cover"
               />
             )}
-            {!preview && !post.ong_Imagem && (
+            {!preview && !post.post_Imagem && (
               <p className="px-4 text-center text-[#8c8a8a]">
                 Adicione uma imagem relacionada à sua publicação
               </p>
             )}
             <img
-              src="/edit.svg"
+              src={editImg}
               alt="adicionar"
               className="absolute right-2 bottom-2 h-10 w-10 overflow-visible rounded-full bg-[#ababab] p-2 opacity-80"
             />
