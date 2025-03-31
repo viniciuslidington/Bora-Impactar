@@ -1,9 +1,7 @@
 services:
   # Frontend (Agora sem expor a porta 3007 externamente)
   frontend:
-    build:
-      context: ./bi-front
-      dockerfile: Dockerfile
+    image: hubdoacoes-frontend:0.9
     container_name: hubdoacoesfrontend
     ports:
       - 3007:3007
@@ -13,11 +11,9 @@ services:
       - boraimpactar
     # Remova o "ports" (o Nginx agora redireciona a porta 80 para o frontend)
 
-  # Backend (Mantém a configuração original, mas roteado via Nginx)
+    # Backend (Mantém a configuração original, mas roteado via Nginx)
   backend:
-    build:
-      context: ./bi-back
-      dockerfile: Dockerfile
+    image: hubdoacoes-backend:0.9
     container_name: hubdoacoesbackend
     ports:
       - 3017:3017

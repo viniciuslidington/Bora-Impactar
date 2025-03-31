@@ -18,7 +18,31 @@ const PORTFRONT = 3007;
 
 const app = express();
 app.use(express.json());
-app.use(cors({ credentials: true, origin: `http://localhost` }));
+//app.use(cors({ credentials: true, origin: `http://localhost` }));
+const allowedOrigins = [
+	'http://localhost',
+	'http://localhost:5173',
+	'http://localhost:3000',
+	'http://localhost/cinconecta',
+	'https://cinconecta-client', 
+	'http://cinboraimpactar.cin.ufpe.br',
+	'http://vm-cinboraimpactar.cin.ufpe.br',
+	'https://cinboraimpactar.cin.ufpe.br',
+	'https://vm-cinboraimpactar.cin.ufpe.br'
+  ]
+  
+app.use(cors({
+origin: function (origin, callback) {
+  if (!origin || allowedOrigins.includes(origin)) {
+  callback(null, true)
+  } else {
+  console.log('Blocked by CORS:', origin)
+  callback(new Error('Not allowed by CORS'))
+  }
+},
+credentials: true
+}));
+
 app.use(cookieParser());
 
 // Rotas públicas (agora com o prefixo /api)
