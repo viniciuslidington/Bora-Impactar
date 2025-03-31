@@ -10,17 +10,24 @@ const getRepasse = async (id) => {
   return response.data;
 };
 const postRepasse = async (content) => {
-  const response = await api.post("/api/repasse", content); // Adicionado /api
+  const response = await api.post("/api/repasse", content, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return response.data;
 };
-const putRepasse = async (content) => {
-  const response = await api.patch("/api/repasse", content, { // Adicionado /api
-    params: { id: content.id },
+const patchRepasse = async (content) => {
+  const id = content.get("id");
+  content.delete("id");
+  const response = await api.patch("/api/repasse", content, {
+    params: { id: id },
+    headers: { "Content-Type": "multipart/form-data" },
   });
   return response.data;
 };
 const deleteRepasse = async (id) => {
-  const response = await api.delete("/api/repasse", { // Adicionado /api
+
+  const response = await api.delete("/api/repasse", {
+
     params: { id: id },
   });
   return response.data;
@@ -78,7 +85,7 @@ const useAddRepasse = () => {
 const useEditRepasse = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: putRepasse,
+    mutationFn: patchRepasse,
     onError: (error) => {
       // Verifica se o erro possui uma resposta e um código de status 401
       if (error.response && error.response.status === 401) {
