@@ -2,6 +2,7 @@ import { useState } from "react";
 import propTypes from "prop-types";
 import { useQueryUpdate } from "../../utils/queryUpdate";
 import { useLocation } from "react-router-dom";
+import searchImg from "../../assets/search.svg";
 
 export default function SearchBar({
   placeholder,
@@ -34,7 +35,7 @@ export default function SearchBar({
       />
 
       <img
-        src="/search.svg"
+        src={searchImg}
         onClick={() => {
           updateQuery("title", input);
         }}

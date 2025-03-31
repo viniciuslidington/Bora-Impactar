@@ -3,6 +3,9 @@ import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogout, useUserData } from "../../services/authService";
 import "ldrs/ring2";
+import placeholderImg from "../../assets/placeholder-image.jpg";
+import homeImg from "../../assets/home.svg";
+import logoutImg from "../../assets/logout.svg";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -13,9 +16,9 @@ export default function Profile() {
   const dropdownRef = useRef(null);
 
   const logoUrl =
-    authData?.userData?.ngo?.gallery_images_url[0] || "/placeholder-image";
+    authData?.userData?.ngo?.gallery_images_url[0] || placeholderImg;
   const img1Url =
-    authData?.userData?.ngo?.gallery_images_url[1] || "/placeholder-image";
+    authData?.userData?.ngo?.gallery_images_url[1] || placeholderImg;
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -66,14 +69,14 @@ export default function Profile() {
               className="flex w-full cursor-pointer items-center gap-4 border-none bg-none p-5 transition-all duration-100 hover:bg-[#f8fdff]"
               onClick={() => navigate("/ong/home/solicitacoes")}
             >
-              <img src="/home.svg" alt="homeIcon" className="h-7 w-7" />{" "}
+              <img src={homeImg} alt="homeIcon" className="h-7 w-7" />{" "}
               <p className="text-base font-semibold no-underline">Home</p>
             </button>
             <button
               className="flex w-full cursor-pointer items-center gap-4 rounded-br-sm rounded-bl-sm border-none bg-none p-5 transition-all duration-100 hover:bg-[#f8fdff]"
               onClick={() => logout()}
             >
-              <img src="/logout.svg" alt="logoutIcon" className="h-7 w-7" />{" "}
+              <img src={logoutImg} alt="logoutIcon" className="h-7 w-7" />{" "}
               <p className="text-base font-semibold no-underline">Logout</p>
             </button>
           </div>

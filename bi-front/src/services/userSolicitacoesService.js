@@ -4,13 +4,13 @@ import toast from "react-hot-toast";
 import api from "./api.js";
 
 const getSolicitacoes = async (id) => {
-  const response = await api.get("/solicitacao", {
+  const response = await api.get("/api/solicitacao", { // Adicionado /api
     params: { ong_Id: id },
   });
   return response.data;
 };
 const postSolicitacoes = async (content) => {
-  const response = await api.post("/solicitacao", content, {
+  const response = await api.post("/api/solicitacao", content, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return response.data;
@@ -18,14 +18,17 @@ const postSolicitacoes = async (content) => {
 const patchSolicitacoes = async (content) => {
   const id = content.get("id");
   content.delete("id");
-  const response = await api.patch("/solicitacao", content, {
+  const response = await api.patch("/api/solicitacao", content, {
     params: { id: id },
     headers: { "Content-Type": "multipart/form-data" },
+
   });
   return response.data;
 };
 const deleteSolicitacoes = async (id) => {
-  const response = await api.delete("/solicitacao", {
+
+  const response = await api.delete("/api/solicitacao", {
+
     params: { id: id },
   });
   return response.data;

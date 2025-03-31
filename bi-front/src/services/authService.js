@@ -5,15 +5,15 @@ import toast from "react-hot-toast";
 //Requisições
 
 const fetchLogin = async (credentials) => {
-  const response = await api.post("/login", credentials);
+  const response = await api.post("/api/login", credentials); // Adicionado /api
   return response.data;
 };
 const fetchLogout = async () => {
-  const response = await api.post("/logout");
+  const response = await api.post("/api/logout"); // Adicionado /api
   return response.data;
 };
 const fetchUserData = async () => {
-  const response = await api.get("/login");
+  const response = await api.get("/api/login"); // Adicionado /api
   return response.data;
 };
 

@@ -28,7 +28,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <ModalProvider>
-        <Router>
+        <Router basename="/hubdoacoes">
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<MainPage />} />

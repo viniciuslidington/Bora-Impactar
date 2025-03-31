@@ -1,12 +1,14 @@
 import PropTypes from "prop-types";
 import { useContext, useRef, useState } from "react";
 import { ModalContext } from "../contexts/ModalContext";
+import xImg from "../../assets/x.svg";
 import {
   fetchImages,
   getPexelsImageAsFile,
 } from "../../services/pexelsService";
 import { useQuery } from "@tanstack/react-query";
 import { formatarString3 } from "../../utils/formatString";
+
 
 export default function ModalImageOnline({ handleImageChange }) {
   const modalOverlay = useRef();
@@ -44,7 +46,7 @@ export default function ModalImageOnline({ handleImageChange }) {
     >
       <div className="relative z-21 flex h-[576px] flex-col gap-6 rounded bg-white p-10">
         <img
-          src="/x.svg"
+          src={xImg}
           alt=""
           className="absolute top-3 right-3 h-5 w-5 cursor-pointer"
           onClick={() => setModalImageOnline(false)}

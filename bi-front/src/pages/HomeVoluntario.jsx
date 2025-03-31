@@ -6,6 +6,17 @@ import HomePosts from "../components/HomePosts/HomePostsVol";
 import { useContext, useEffect, useRef } from "react";
 import { ModalContext } from "../components/contexts/ModalContext";
 import ModalSearch from "../components/ModalSearch/ModalSearch";
+import boraImpactarImg from "../assets/BoraImpactar.png";
+import roupasImg from "../assets/Roupas.jpg";
+import materiasEducativosImg from "../assets/MateriasEducativos.jpg";
+import medicamentosImg from "../assets/Medicamentos.jpg";
+import utensiliosImg from "../assets/UtensiliosP.jpg";
+import inclusaoMobilidadeImg from "../assets/Inclusaoemobilidade.jpg";
+import moveisImg from "../assets/Móveis.jpg";
+import petImg from "../assets/pet.jpg";
+import eletronicosImg from "../assets/Eletronicos.jpg";
+import outrosImg from "../assets/Outrosgrid.jpg";
+import homeVolImg from "../assets/homevoluntario.jpg";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -30,14 +41,14 @@ export default function Home() {
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.64) 0%, rgba(255, 255, 255, 0.64) 100%),
           linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #fff 64.5%),
-          url('/homevoluntario.jpg')
+          url(${homeVolImg})
         `,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
       ></div>{" "}
       <div className="flex h-[580px] w-[1366px] max-w-full flex-col gap-6 px-[123px] py-10">
-        <img src="/BoraImpactar.png" alt="Logo" className="w-[351px]" />
+        <img src={boraImpactarImg} alt="Logo" className="w-[351px]" />
         <h1 className="text-[56px] font-bold">
           Encontre a Oportunidade Perfeita para Ajudar
         </h1>
@@ -84,13 +95,13 @@ export default function Home() {
         </div>
         <Grid>
           <GridBox
-            imgUrl={"/Roupas.jpg"}
+            imgUrl={roupasImg}
             link={"/voluntario/search?page=1&category=ROUPAS_E_CALCADOS"}
           >
             Roupas e Calçados
           </GridBox>
           <GridBox
-            imgUrl={"/MateriasEducativos.jpg"}
+            imgUrl={materiasEducativosImg}
             link={
               "/voluntario/search?page=1&category=MATERIAIS_EDUCATIVOS_E_CULTURAIS"
             }
@@ -98,20 +109,20 @@ export default function Home() {
             Materiais Educativos e Culturais
           </GridBox>
           <GridBox
-            imgUrl={"/Medicamentos.jpg"}
+            imgUrl={medicamentosImg}
             link={"/voluntario/search?page=1&category=SAUDE_E_HIGIENE"}
             s
           >
             Saúde e Higiene
           </GridBox>
           <GridBox
-            imgUrl={"/UtensiliosP.jpg"}
+            imgUrl={utensiliosImg}
             link={"/voluntario/search?page=1&category=UTENSILIOS_GERAIS"}
           >
             Utensílios Gerais
           </GridBox>
           <GridBox
-            imgUrl={"/Inclusaoemobilidade.jpg"}
+            imgUrl={inclusaoMobilidadeImg}
             link={
               "/voluntario/search?page=1&category=ITENS_DE_INCLUSAO_E_MOBILIDADE"
             }
@@ -119,7 +130,7 @@ export default function Home() {
             Itens de Inclusão e Mobilidade
           </GridBox>
           <GridBox
-            imgUrl={"/Móveis.jpg"}
+            imgUrl={moveisImg}
             link={
               "/voluntario/search?page=1&category=ELETRODOMESTICOS_E_MOVEIS"
             }
@@ -127,19 +138,19 @@ export default function Home() {
             Eletrodomésticos e Móveis
           </GridBox>
           <GridBox
-            imgUrl={"/pet.jpg"}
+            imgUrl={petImg}
             link={"/voluntario/search?page=1&category=ITENS_PET"}
           >
             Itens Pet
           </GridBox>
           <GridBox
-            imgUrl={"/Eletronicos.jpg"}
+            imgUrl={eletronicosImg}
             link={"/voluntario/search?page=1&category=ELETRONICOS"}
           >
             Eletrônicos
           </GridBox>
           <GridBox
-            imgUrl={"/Outrosgrid.jpg"}
+            imgUrl={outrosImg}
             link={"/voluntario/search?page=1&category=OUTROS"}
           >
             Outros

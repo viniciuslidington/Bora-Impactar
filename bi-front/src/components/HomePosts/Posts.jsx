@@ -1,6 +1,7 @@
 import { calcularTempoDesdePublicacao } from "../../utils/formatDate";
 import UrgencyIcon from "../UrgencyIcon/UrgencyIcon";
 import PropTypes from "prop-types";
+import placeholderImg from "../../assets/placeholder-image.jpg";
 
 export default function Posts({ data = {}, isLoading = false, onClick }) {
   const {
@@ -55,7 +56,9 @@ export default function Posts({ data = {}, isLoading = false, onClick }) {
       onClick={onClick}
     >
       <img
-        src={post_Imagem || "/placeholder-image.jpg"}
+
+        src={post_Imagem || placeholderImg}
+
         alt=""
         className="h-[120px] border-b-1 border-[#9c9c9c] object-cover"
       />
@@ -71,7 +74,9 @@ export default function Posts({ data = {}, isLoading = false, onClick }) {
         )}
         <span className="flex items-center gap-2">
           <img
-            src={ong_Imagem || "/placeholder-image.jpg"}
+
+            src={ong_Imagem || placeholderImg}
+
             alt=""
             className="h-8 w-8 rounded-[50%] border border-[#9c9c9c81] object-cover"
           />

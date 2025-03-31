@@ -3,6 +3,7 @@ import Button from "../Button/Button";
 import styles from "./post.module.css";
 import PostSelected from "./SolicitacaoEditar";
 import { formatarData, calcularTempoRestante } from "../../utils/formatDate";
+import placeholderImg from "../../assets/placeholder-image.jpg";
 
 export default function Post({ selected, post, handleEditar, setSelectedId }) {
   const dataPublicacao = new Date(post.createdAt);
@@ -26,10 +27,12 @@ export default function Post({ selected, post, handleEditar, setSelectedId }) {
       className={styles.post}
       style={postExpirado ? { pointerEvents: "none", opacity: 0.5 } : null}
     >
+
       <img
-        src={post.post_Imagem || "/placeholder-image.jpg"}
+        src={post.post_Imagem || placeholderImg}
         alt="Imagem do Post"
       />
+
       <p className={styles.title}>{post.title}</p>
       <span>|</span>
       <p className={styles.dataPublicado}>Publicado: {publicacaoFormatada}</p>

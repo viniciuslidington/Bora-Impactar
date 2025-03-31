@@ -3,6 +3,8 @@ import { ModalContext } from "../contexts/ModalContext";
 import { calcularTempoRestante, formatarData } from "../../utils/formatDate";
 import { formatarNumeroTelefone } from "../../utils/formatString";
 import PropTypes from "prop-types";
+import placeholderImg from "../../assets/placeholder-image.jpg";
+import xImg from "../../assets/x.svg";
 
 export default function ModalSearch({ solicitacao = false }) {
   const { modalSearch, setModalSearch } = useContext(ModalContext);
@@ -55,7 +57,9 @@ export default function ModalSearch({ solicitacao = false }) {
       <div className="relative z-11 flex w-full max-w-[1120px] flex-wrap gap-6 rounded bg-white p-8">
         <div className="relative flex w-full items-center gap-2">
           <img
-            src={ong_Imagem || "/placeholder-image.jpg"}
+
+            src={ong_Imagem || placeholderImg}
+
             alt="Foto de perfil"
             className="h-16 w-16 rounded-full border-1 border-[#9c9c9c81] object-cover"
           />{" "}
@@ -63,14 +67,14 @@ export default function ModalSearch({ solicitacao = false }) {
           <span>|</span>
           <p>Publicado: {dataPublicacao}</p>
           <img
-            src="/x.svg"
+            src={xImg}
             alt="fechar"
             className="absolute top-0 right-0 h-5 w-5 cursor-pointer"
             onClick={() => setModalSearch(null)}
           />
         </div>
         <img
-          src={post_Imagem || "/placeholder-image.jpg"}
+          src={post_Imagem || placeHolderImg}
           alt="Imagem da publicação"
           className="h-[336px] w-[336px] rounded border border-[#9c9c9c81] object-cover"
         />
