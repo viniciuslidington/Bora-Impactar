@@ -4,7 +4,6 @@ const PEXELS_API_KEY = import.meta.env.VITE_PEXELS_API_KEY; // Usando variável 
 
 const fetchImages = async (searchTerm) => {
   if (!searchTerm.trim()) return [];
-
   const response = await axios.get("https://api.pexels.com/v1/search", {
     params: {
       query: searchTerm,
