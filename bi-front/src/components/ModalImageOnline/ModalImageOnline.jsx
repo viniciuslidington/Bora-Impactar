@@ -9,7 +9,6 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { formatarString3 } from "../../utils/formatString";
 
-
 export default function ModalImageOnline({ handleImageChange }) {
   const modalOverlay = useRef();
   const [searchTerm, setSearchTerm] = useState("");
@@ -58,6 +57,7 @@ export default function ModalImageOnline({ handleImageChange }) {
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 setSearchTerm(e.target.value);
+                setCurrentPage(1);
               }
             }}
             className={
@@ -110,7 +110,16 @@ export default function ModalImageOnline({ handleImageChange }) {
                 Erro ao buscar imagens online! Tente novamente.
               </p>
             </span>
-          ) : searchResults ? (
+          ) : !searchResults ? (
+            <span className="flex h-full w-full flex-col items-center justify-center">
+              <a href="https://www.pexels.com" className="underline">
+                Fotos fornecidas pelo Pexels.
+              </a>
+              <p className="font-semibold">
+                Aviso: Resultados podem ser imprecisos!
+              </p>
+            </span>
+          ) : searchResults.length > 1 ? (
             currentPageResults().map((img) => (
               <img
                 key={img.id}
@@ -125,11 +134,9 @@ export default function ModalImageOnline({ handleImageChange }) {
             ))
           ) : (
             <span className="flex h-full w-full flex-col items-center justify-center">
-              <a href="https://www.pexels.com" className="underline">
-                Fotos fornecidas pelo Pexels.
-              </a>
-              <p className="font-semibold">
-                Aviso: Resultados podem ser imprecisos!
+              <p className="font-medium">
+                Não foi possivel encontrar resultados de &quot;{searchTerm}
+                &quot;.
               </p>
             </span>
           )}
