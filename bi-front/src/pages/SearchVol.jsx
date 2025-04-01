@@ -27,7 +27,7 @@ export default function SearchVol() {
 
   return (
     <>
-      <div className="flex w-[1366px] justify-between px-[123px] py-16">
+      <div className="flex w-[1366px] max-w-full flex-col justify-between py-16 lg:max-w-[1366px] lg:flex-row lg:px-[123px]">
         <div className="flex min-w-[289px] flex-col gap-8">
           <span className="flex flex-col gap-1">
             <h3 className="text-2xl font-semibold opacity-95">

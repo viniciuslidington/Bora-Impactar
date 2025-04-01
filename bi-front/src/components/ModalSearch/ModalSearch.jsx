@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import { ModalContext } from "../contexts/ModalContext";
 import { calcularTempoRestante, formatarData } from "../../utils/formatDate";
 import { formatarNumeroTelefone } from "../../utils/formatString";
@@ -51,7 +51,7 @@ export default function ModalSearch({ solicitacao = false }) {
       }}
       ref={modalOverlay}
     >
-      <div className="relative z-11 flex w-full max-w-full flex-col items-center gap-4 rounded bg-white p-4 lg:max-w-[1120px] lg:flex-row lg:flex-wrap lg:items-start lg:gap-6 lg:p-8">
+      <div className="relative z-11 flex h-[90vh] w-full max-w-full flex-col items-center gap-4 rounded bg-white p-4 lg:h-auto lg:max-w-[1120px] lg:flex-row lg:flex-wrap lg:items-start lg:gap-6 lg:p-8">
         <div className="flex w-full items-center gap-2 lg:relative">
           <img
             src={ong_Imagem || "/placeholder-image.jpg"}
@@ -68,44 +68,44 @@ export default function ModalSearch({ solicitacao = false }) {
           <img
             src="/x.svg"
             alt="fechar"
-            className="absolute top-4 right-4 h-5 w-5 cursor-pointer lg:top-0 lg:right-0"
+            className="absolute top-7 right-4 h-6 w-6 cursor-pointer lg:top-0 lg:right-0 lg:h-5 lg:w-5"
             onClick={() => setModalSearch(null)}
           />
         </div>
         <img
           src={post_Imagem || "/placeholder-image.jpg"}
           alt="Imagem da publicação"
-          className="h-[296px] w-[296px] rounded border border-[#9c9c9c81] object-cover lg:h-[336px] lg:w-[336px]"
+          className="h-[264px] w-full rounded border border-[#9c9c9c81] object-cover lg:h-[336px] lg:w-[336px]"
         />
-        <div className="flex min-h-[336px] max-w-full flex-col justify-start gap-4 lg:max-w-[calc(100%-360px)] lg:gap-5">
+        <div className="flex h-full w-full max-w-full flex-col justify-start gap-4 lg:h-[336px] lg:max-w-[calc(100%-360px)] lg:gap-5">
           <p className="max-w-full text-3xl font-semibold break-words opacity-95">
             {title}
           </p>
           <span className="flex flex-row flex-wrap items-center gap-2 opacity-95 lg:flex-nowrap">
-            <p className="rounded bg-[#eaeaea] p-1 lg:bg-transparent lg:p-0">
+            <p className="rounded bg-[#eaeaea] p-1 text-sm lg:bg-transparent lg:p-0 lg:text-base">
               {categorias[category]}
             </p>
             <span>|</span>
             {solicitacao && (
               <>
                 <p
-                  className={`rounded bg-[#eaeaea] p-1 lg:bg-transparent lg:p-0`}
+                  className={`rounded bg-[#eaeaea] p-1 text-sm lg:bg-transparent lg:p-0 lg:text-base`}
                 >
                   {urgencia[urgency]}
                 </p>
                 <span>|</span>
               </>
             )}
-            <p className="max-w-full rounded bg-[#eaeaea] p-1 lg:bg-transparent lg:p-0">
+            <p className="max-w-full rounded bg-[#eaeaea] p-1 text-sm lg:bg-transparent lg:p-0 lg:text-base">
               {dataExpiracao} para expirar
             </p>
           </span>
-          <div className="relative max-w-full">
-            <p className="max-h-[124px] max-w-full overflow-scroll break-words whitespace-normal opacity-70 lg:max-h-[196px] lg:overflow-auto">
+          <div className="relative h-full max-h-full max-w-full">
+            <p className="h-full max-h-full max-w-full overflow-scroll break-words whitespace-normal opacity-70 lg:max-h-[196px] lg:overflow-auto">
               {description}
             </p>
           </div>
-          <div className="mt-auto flex w-full flex-wrap gap-4 gap-y-2">
+          <div className="flex w-full flex-wrap gap-4 gap-y-2">
             <span className="flex items-center gap-1 opacity-80">
               <svg viewBox="0 0 20 16" className="h-4 w-5">
                 <path
