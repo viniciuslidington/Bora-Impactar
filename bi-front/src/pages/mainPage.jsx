@@ -14,7 +14,7 @@ export default function MainPage() {
   return (
     <div className="flex w-full flex-col items-center">
       <div
-        className="absolute top-0 left-0 -z-10 h-[668px] w-full"
+        className="absolute top-0 left-0 -z-10 hidden h-[668px] w-full lg:flex"
         style={{
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.64) 0%, rgba(255, 255, 255, 0.64) 100%),
@@ -23,6 +23,19 @@ export default function MainPage() {
         `,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
+        }}
+      ></div>{" "}
+      <div
+        className="absolute top-0 left-0 -z-9 hidden h-[668px] w-full"
+        style={{
+          backgroundImage: `
+          linear-gradient(0deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.80) 100%),
+          radial-gradient(859.77% 86.13% at 55% 33.66%, rgba(255, 255, 255, 0.00) 0%, #FFF 69.23%),
+          url('/heroImage.jpg')
+        `,
+          backgroundSize: "auto 650px",
+          backgroundRepeat: "no-repeat",
+          backgroundPositionX: "90%",
         }}
       ></div>{" "}
       <Header>

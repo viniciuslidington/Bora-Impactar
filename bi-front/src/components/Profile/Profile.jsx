@@ -66,14 +66,14 @@ export default function Profile() {
               </div>
             </div>
             <button
-              className="flex w-full cursor-pointer items-center gap-4 border-none bg-none p-5 transition-all duration-100 hover:bg-[#f8fdff]"
+              className="flex w-full cursor-pointer items-center gap-4 border-none bg-none p-5 transition-all duration-100 hover:bg-[#f8fdff] active:bg-[#f8fdff]"
               onClick={() => navigate("/ong/home/solicitacoes")}
             >
               <img src="/home.svg" alt="homeIcon" className="h-7 w-7" />{" "}
               <p className="text-base font-semibold no-underline">Home</p>
             </button>
             <button
-              className="flex w-full cursor-pointer items-center gap-4 rounded-br-sm rounded-bl-sm border-none bg-none p-5 transition-all duration-100 hover:bg-[#f8fdff]"
+              className="flex w-full cursor-pointer items-center gap-4 rounded-br-sm rounded-bl-sm border-none bg-none p-5 transition-all duration-100 hover:bg-[#f8fdff] active:bg-[#f8fdff]"
               onClick={() => logout()}
             >
               <img src="/logout.svg" alt="logoutIcon" className="h-7 w-7" />{" "}
