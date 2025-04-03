@@ -51,7 +51,7 @@ export default function ModalSearch({ solicitacao = false }) {
       }}
       ref={modalOverlay}
     >
-      <div className="relative z-11 flex h-[90vh] w-full max-w-full flex-col items-center gap-4 rounded bg-white p-4 lg:h-auto lg:max-w-[1120px] lg:flex-row lg:flex-wrap lg:items-start lg:gap-6 lg:p-8">
+      <div className="relative z-11 flex max-h-[90vh] w-full max-w-full flex-col items-center gap-4 rounded bg-white p-4 lg:h-auto lg:max-w-[1120px] lg:flex-row lg:flex-wrap lg:items-start lg:gap-6 lg:p-8">
         <div className="flex w-full items-center gap-2 lg:relative">
           <img
             src={ong_Imagem || "/placeholder-image.jpg"}
@@ -75,17 +75,17 @@ export default function ModalSearch({ solicitacao = false }) {
         <img
           src={post_Imagem || "/placeholder-image.jpg"}
           alt="Imagem da publicação"
-          className="h-[264px] w-full rounded border border-[#9c9c9c81] object-cover lg:h-[336px] lg:w-[336px]"
+          className="h-[264px] w-full flex-shrink-0 rounded border border-[#9c9c9c81] object-cover lg:h-[336px] lg:w-[336px]"
         />
-        <div className="flex h-full w-full max-w-full flex-col justify-start gap-4 lg:h-[336px] lg:max-w-[calc(100%-360px)] lg:gap-5">
-          <p className="max-w-full text-3xl font-semibold break-words opacity-95">
+        <div className="flex h-full w-full max-w-full flex-col justify-start gap-6 pb-2 lg:h-[336px] lg:max-w-[calc(100%-360px)] lg:gap-5 lg:pb-0">
+          <p className="line-clamp-3 max-w-full text-xl font-semibold break-words opacity-95 lg:line-clamp-2 lg:text-3xl">
             {title}
           </p>
           <span className="flex flex-row flex-wrap items-center gap-2 opacity-95 lg:flex-nowrap">
             <p className="rounded bg-[#eaeaea] p-1 text-sm lg:bg-transparent lg:p-0 lg:text-base">
               {categorias[category]}
             </p>
-            <span>|</span>
+            <span className="hidden lg:flex">|</span>
             {solicitacao && (
               <>
                 <p
@@ -93,19 +93,19 @@ export default function ModalSearch({ solicitacao = false }) {
                 >
                   {urgencia[urgency]}
                 </p>
-                <span>|</span>
+                <span className="hidden lg:flex">|</span>
               </>
             )}
             <p className="max-w-full rounded bg-[#eaeaea] p-1 text-sm lg:bg-transparent lg:p-0 lg:text-base">
               {dataExpiracao} para expirar
             </p>
           </span>
-          <div className="relative h-full max-h-full max-w-full">
-            <p className="h-full max-h-full max-w-full overflow-scroll break-words whitespace-normal opacity-70 lg:max-h-[196px] lg:overflow-auto">
+          <div className="relative max-h-[124px] max-w-full lg:h-auto lg:max-h-none">
+            <p className="h-auto max-h-[124px] max-w-full overflow-scroll break-words whitespace-normal opacity-70 lg:max-h-[196px] lg:overflow-auto">
               {description}
             </p>
           </div>
-          <div className="flex w-full flex-wrap gap-4 gap-y-2">
+          <div className="mt-auto flex w-full flex-wrap gap-4 gap-y-2">
             <span className="flex items-center gap-1 opacity-80">
               <svg viewBox="0 0 20 16" className="h-4 w-5">
                 <path

@@ -98,11 +98,11 @@ export default function ModaAdicionar() {
       toast.error("E-mail inválido!");
     }
     // Validação do nome
-    if (values.title.length < 5 || values.title.length > 100) {
+    if (values.title.length < 5 || values.title.length > 90) {
       toast.error(
         values.title.length < 5
           ? "O título deve ter pelo menos 5 caracteres"
-          : "O título não pode ter mais que 100 caracteres",
+          : "O título não pode ter mais que 90 caracteres",
       );
     }
 
@@ -168,8 +168,8 @@ export default function ModaAdicionar() {
                     message: "O título deve ter pelo menos 5 caracteres",
                   },
                   maxLength: {
-                    value: 100,
-                    message: "O título não pode ter mais que 100 caracteres",
+                    value: 90,
+                    message: "O título não pode ter mais que 90 caracteres",
                   },
                 })}
               />
