@@ -95,7 +95,7 @@ export default function Home() {
         ref={scrollTo}
       >
         <div className="flex flex-col items-center gap-2 lg:gap-3">
-          <h2 className="text-[20px] font-bold">
+          <h2 className="text-center text-xl font-bold lg:text-2xl">
             Saiba como você pode ajudar as Ongs
           </h2>
           <p className="text-base font-normal">Categorias mais recorrentes</p>

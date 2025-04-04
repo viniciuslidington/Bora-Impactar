@@ -90,7 +90,7 @@ export default function SearchVol() {
               </p>
             </div>
           ) : isPending && isMobile ? (
-            <div className="flex flex-wrap gap-8">
+            <div className="flex w-full flex-wrap gap-8">
               {Array(6)
                 .fill(0)
                 .map((_, i) => {
@@ -106,7 +106,7 @@ export default function SearchVol() {
                 })}
             </div>
           ) : data.requests?.length > 0 && isMobile ? (
-            <div className="flex flex-col items-center gap-8">
+            <div className="flex w-full flex-col gap-8">
               {data.requests.map((post) => {
                 return (
                   <Posts

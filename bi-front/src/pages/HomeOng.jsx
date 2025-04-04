@@ -79,10 +79,10 @@ export default function Home() {
           </div>
           <Outlet />
         </div>
-        <div className="py-b-16 flex w-full max-w-[1366px] flex-col items-center gap-8 px-[123px]">
-          <div className="flex flex-col items-center gap-3">
-            <h2 className="text-2xl font-bold">
-              Encontrar recursos compartilhados por outras ONGs
+        <div className="flex w-full max-w-[1366px] flex-col items-center gap-6 pt-5 lg:gap-8 lg:py-16">
+          <div className="flex flex-col items-center gap-3 lg:gap-3">
+            <h2 className="text-center text-xl font-bold lg:text-2xl">
+              Encontre recursos compartilhados por outras ONGs
             </h2>
             <p className="text-base font-normal">Categorais Recorrentes</p>
           </div>
@@ -148,7 +148,7 @@ export default function Home() {
             </GridBox>
           </Grid>
           <Button
-            className="h-[64px] w-[256px] cursor-pointer rounded-sm border-3 border-solid border-[#232323b6] bg-none px-2 py-3 text-[18px] font-medium text-[#232323] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[rgba(27,46,53,0.075)] disabled:opacity-70"
+            className="h-[64px] w-full cursor-pointer rounded-sm border-3 border-solid border-[#232323b6] bg-none px-2 py-3 text-[18px] font-medium text-[#232323] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[rgba(27,46,53,0.075)] disabled:opacity-70 lg:w-[256px]"
             onClick={() => navigate("/ong/search")}
           >
             Ver todas publicações

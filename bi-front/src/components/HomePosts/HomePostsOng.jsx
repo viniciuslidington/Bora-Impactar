@@ -19,9 +19,9 @@ export default function HomePosts({ setModalSearch }) {
   const sortRef = useRef(querySort);
 
   return (
-    <div className="flex w-[1366px] max-w-full flex-col gap-8 px-4 pb-10 lg:px-[123px] lg:pb-16">
+    <div className="flex w-[1366px] max-w-full flex-col gap-8 pt-5 lg:pb-16">
       <span className="flex flex-col gap-1">
-        <h2 className="text-3xl font-bold lg:text-4xl">
+        <h2 className="text-2xl font-bold lg:text-4xl">
           Confira os repasses disponíveis de outras ONGs
         </h2>
         <p className="text-sm lg:text-[16px]">
