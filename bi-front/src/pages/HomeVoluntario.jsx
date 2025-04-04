@@ -25,22 +25,35 @@ export default function Home() {
   return (
     <div className="flex w-full flex-col items-center">
       <div
-        className="absolute top-[88px] left-0 -z-10 hidden h-[580px] w-full lg:flex"
+        className="absolute top-[88px] left-0 -z-10 hidden h-[624px] w-full lg:flex"
         style={{
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.64) 0%, rgba(255, 255, 255, 0.64) 100%),
-          linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #fff 64.5%),
+          radial-gradient(91.17% 122.83% at 73.39% 23.16%, rgba(255, 255, 255, 0.00) 0%, #FFF 58.12%),
           url('/homevoluntario.jpg')
         `,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
       ></div>{" "}
+      <div
+        className="absolute top-22 left-0 -z-9 h-[668px] w-full lg:hidden"
+        style={{
+          backgroundImage: `
+          linear-gradient(0deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.80) 100%),
+          radial-gradient(85.58% 119.73% at 87.05% 34.59%, rgba(255, 255, 255, 0.00) 0%, #FFF 62.54%),
+          url('/homevoluntario.jpg')
+        `,
+          backgroundSize: "auto 264px",
+          backgroundRepeat: "no-repeat",
+          backgroundPositionX: "60%",
+        }}
+      ></div>{" "}
       <div className="flex w-[1366px] max-w-full flex-col gap-6 px-4 py-10 lg:h-[580px] lg:px-[123px]">
         <img
-          src="/BoraImpactar.png"
+          src="/hubdedoacoes.png"
           alt="Logo"
-          className="w-4/5 lg:w-[351px]"
+          className="w-3/5 lg:w-[300px]"
         />
         <h1 className="text-3xl font-bold lg:text-[56px]">
           Encontre a Oportunidade Perfeita para Ajudar
@@ -60,7 +73,7 @@ export default function Home() {
           </Button>
         </div>
         <svg
-          className="mt-[36px] hidden h-12 w-12 cursor-pointer self-center fill-current text-[#292929] lg:flex"
+          className="mt-[36px] hidden h-12 w-12 shrink-0 cursor-pointer self-center fill-current text-[#292929] lg:flex"
           viewBox="0 0 48 48"
           onClick={scrollToComponent}
         >

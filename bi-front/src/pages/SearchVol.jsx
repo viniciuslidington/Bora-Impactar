@@ -59,7 +59,7 @@ export default function SearchVol() {
               </p>
             )}
           </span>
-          {isMobile <= 768 ? (
+          {isMobile ? (
             <FilterMobile showUrgency={true} />
           ) : (
             <Filter showUrgency={true}></Filter>
@@ -89,6 +89,14 @@ export default function SearchVol() {
                 Erro ao carregar solicitações
               </p>
             </div>
+          ) : isPending && isMobile ? (
+            <div className="flex flex-wrap gap-8">
+              {Array(6)
+                .fill(0)
+                .map((_, i) => {
+                  return <Posts key={i} isLoading={true} />;
+                })}
+            </div>
           ) : isPending ? (
             <div className="flex flex-col gap-8">
               {Array(6)
@@ -97,7 +105,7 @@ export default function SearchVol() {
                   return <SearchPostVol isLoading={true} key={i} />;
                 })}
             </div>
-          ) : isMobile ? (
+          ) : data.requests?.length > 0 && isMobile ? (
             <div className="flex flex-col items-center gap-8">
               {data.requests.map((post) => {
                 return (
@@ -116,7 +124,7 @@ export default function SearchVol() {
               })}
             </div>
           ) : (
-            <div className="flex h-full w-full items-center justify-center">
+            <div className="flex h-full w-full max-w-full items-center justify-center">
               <p className="text-[18px]">Nenhuma publicação encontrada!</p>
             </div>
           )}
