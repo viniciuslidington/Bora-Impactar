@@ -16,15 +16,7 @@ export default function Ong() {
         <Profile />
       </Header>
       {isPending ? (
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            height: "80vh",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <div className="flex h-[80vh] w-full items-center justify-center">
           <l-ring-2
             size="64"
             stroke="6"

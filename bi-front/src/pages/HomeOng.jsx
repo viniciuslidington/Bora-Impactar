@@ -57,13 +57,13 @@ export default function Home() {
           position: "top-right",
         }}
       />
-      <div className="flex w-full max-w-[1366px] flex-col items-center gap-16 px-[123px] py-16">
+      <div className="flex w-full max-w-full flex-col items-center gap-16 px-4 py-16 lg:max-w-[1366px] lg:px-[123px]">
         <div className="flex w-full flex-col items-center gap-12">
-          <div className="flex gap-4">
+          <div className="flex w-full gap-4 lg:w-auto">
             <NavLink
               to={"solicitacoes"}
               className={({ isActive }) =>
-                `flex h-12 w-[256px] items-center justify-center rounded border-b-4 text-[20px] font-bold text-[#292929] transition-all duration-100 ease-in-out ${isActive ? "border-[#2288c9] bg-[#eaeaea]" : "border-[#bcbcbc] bg-[#d0d0d0] hover:bg-[#eaeaea]"}`
+                `flex h-12 w-1/2 items-center justify-center rounded border-b-4 text-[20px] font-bold text-[#292929] transition-all duration-100 ease-in-out lg:w-[256px] ${isActive ? "border-[#2288c9] bg-[#eaeaea]" : "border-[#bcbcbc] bg-[#d0d0d0] hover:bg-[#eaeaea]"}`
               }
             >
               Solicitações
@@ -71,7 +71,7 @@ export default function Home() {
             <NavLink
               to={"repasse"}
               className={({ isActive }) =>
-                `flex h-12 w-[256px] items-center justify-center rounded border-b-4 text-[20px] font-bold text-[#292929] transition-all duration-100 ease-in-out ${isActive ? "border-[#2288c9] bg-[#eaeaea]" : "border-[#bcbcbc] bg-[#d0d0d0] hover:bg-[#eaeaea]"}`
+                `flex h-12 w-1/2 items-center justify-center rounded border-b-4 text-[20px] font-bold text-[#292929] transition-all duration-100 ease-in-out lg:w-[256px] ${isActive ? "border-[#2288c9] bg-[#eaeaea]" : "border-[#bcbcbc] bg-[#d0d0d0] hover:bg-[#eaeaea]"}`
               }
             >
               Repasse

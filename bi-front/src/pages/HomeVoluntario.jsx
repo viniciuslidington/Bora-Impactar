@@ -29,7 +29,7 @@ export default function Home() {
         style={{
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.64) 0%, rgba(255, 255, 255, 0.64) 100%),
-          radial-gradient(91.17% 122.83% at 73.39% 23.16%, rgba(255, 255, 255, 0.00) 0%, #FFF 58.12%),
+          radial-gradient(91.17% 122.83% at 73.39% 28.16%, rgba(255, 255, 255, 0.00) 0%, #FFF 58.12%),
           url('/homevoluntario.jpg')
         `,
           backgroundSize: "cover",
@@ -53,7 +53,8 @@ export default function Home() {
         <img
           src="/hubdedoacoes.png"
           alt="Logo"
-          className="w-3/5 lg:w-[300px]"
+          className="-mt-4 w-3/5 cursor-pointer lg:mt-0 lg:w-[300px]"
+          onClick={() => navigate("/")}
         />
         <h1 className="text-3xl font-bold lg:text-[56px]">
           Encontre a Oportunidade Perfeita para Ajudar

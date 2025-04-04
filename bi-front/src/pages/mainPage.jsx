@@ -45,7 +45,8 @@ export default function MainPage() {
         <img
           src="/hubdedoacoes.png"
           alt="Logo"
-          className="mt-16 w-3/5 lg:mt-0 lg:w-[300px]"
+          className="mt-12 w-3/5 cursor-pointer lg:mt-0 lg:w-[300px]"
+          onClick={() => navigate("/")}
         />
         <h1 className="text-4xl font-bold lg:text-[56px]">
           Doe hoje, transforme vidas para sempre!
