@@ -37,14 +37,14 @@ export default function Home() {
         }}
       ></div>{" "}
       <div
-        className="absolute top-22 left-0 -z-9 h-[668px] w-full lg:hidden"
+        className="absolute top-22 left-0 -z-9 h-[264px] w-full lg:hidden"
         style={{
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.80) 100%),
           radial-gradient(85.58% 119.73% at 87.05% 34.59%, rgba(255, 255, 255, 0.00) 0%, #FFF 62.54%),
           url('/homevoluntario.jpg')
         `,
-          backgroundSize: "auto 264px",
+          backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPositionX: "60%",
         }}

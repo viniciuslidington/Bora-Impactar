@@ -26,14 +26,14 @@ export default function MainPage() {
         }}
       ></div>{" "}
       <div
-        className="absolute top-0 left-0 -z-9 h-[668px] w-full lg:hidden"
+        className="absolute top-0 left-0 -z-9 h-[450px] w-full lg:hidden"
         style={{
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.80) 100%),
           radial-gradient(859.77% 86.13% at 55% 33.66%, rgba(255, 255, 255, 0.00) 0%, #FFF 69.23%),
           url('/heroImage.jpg')
         `,
-          backgroundSize: "auto 450px",
+          backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPositionX: "90%",
         }}
@@ -52,7 +52,7 @@ export default function MainPage() {
           Doe hoje, transforme vidas para sempre!
         </h1>
         <p className="w-[816px] max-w-full text-justify text-sm leading-[1.8] lg:text-start lg:text-base">
-          No Bora Impactar, você pode doar recursos diretamente para ONGs que
+          No Hub de Doações, você pode doar recursos diretamente para ONGs que
           transformam vidas e comunidades todos os dias. Conecte-se a causas que
           precisam de você e ajude a construir um futuro mais justo e solidário.{" "}
           <span className="hidden lg:inline">
@@ -199,7 +199,7 @@ export default function MainPage() {
       </div>
       <div className="flex w-[1366px] max-w-full flex-col items-center justify-center gap-6 px-4 py-16 lg:gap-12 lg:px-[123px]">
         <h3 className="text-2xl font-medium lg:text-4xl">
-          Faça parte dessa mudança. Bora Impactar!
+          Faça parte dessa mudança!
         </h3>
         <div className="flex w-full justify-center gap-4 lg:gap-8">
           <Button

@@ -3,7 +3,6 @@ import Button from "../Button/Button";
 import Post from "./SolicitacaoPost";
 import { ModalContext } from "../contexts/ModalContext";
 import { formatarString } from "../../utils/formatString";
-import styles from "./ongPosts.module.css";
 import {
   useSolicitacoes,
   useHandleError,
@@ -68,17 +67,18 @@ export default function OngPosts() {
         Encontre oportunidades! Aqui, ONGs publicam solicitações de diversas
         atividades para os voluntários
       </p>
-      <div className={styles.ongPosts}>
+      <div className="flex w-full flex-wrap gap-4">
         <Button
           className="flex h-[48px] w-[172px] cursor-pointer items-center justify-center gap-4 rounded-sm border-none bg-[#294bb6] px-2 py-3 text-base font-medium text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
           onClick={() => setModalAdicionarSolicitacao(true)}
         >
-          Adicionar <span className={styles.plusIcon}>+</span>
+          Adicionar <span className="text-2xl">+</span>
         </Button>
         <select
           name="sortPosts"
           value={sortPosts}
-          onChange={(e) => setSortPosts(e.target.value)} //Adicionar tipo no futuro
+          onChange={(e) => setSortPosts(e.target.value)}
+          className="h-12 w-[196px] rounded border-2 border-[#9c9c9c] px-1 text-[#232323]"
         >
           <option value="data">Data de Publicação</option>
           <option value="expiracao">Prestes a Expirar</option>
@@ -98,7 +98,7 @@ export default function OngPosts() {
             className="absolute top-1/2 right-2 -translate-y-1/2"
           />
         </div>
-        <div className={styles.postsList}>
+        <div className="flex min-h-[250px] w-full flex-col items-center gap-2 rounded bg-[#eaeaea] p-3">
           {isError ? (
             <div className="flex h-full items-center justify-center">
               <p className="text-red-500">Erro ao carregar solicitações</p>
@@ -131,7 +131,7 @@ export default function OngPosts() {
               <p>Nenhuma publicação encontrada</p>
             </div>
           )}
-          <p className={styles.verMais} onClick={handleVerMais}>
+          <p className="cursor-pointer underline" onClick={handleVerMais}>
             {posts.length > 8 && verMaisTxt}
           </p>
         </div>
