@@ -70,7 +70,7 @@ export default function SearchVol() {
             <select
               name=""
               id=""
-              className="h-12 rounded border-2 border-gray-400 text-gray-600 outline-gray-600 lg:w-48"
+              className="h-12 w-48 rounded border-2 border-gray-400 text-gray-600 outline-gray-600"
               value={sortRef.current}
               onChange={(e) => {
                 const newValue = e.target.value;

@@ -91,7 +91,7 @@ export default function Home() {
         </svg>
       </div>
       <div
-        className="flex w-full max-w-[1366px] flex-col items-center gap-6 px-4 pt-5 pb-16 lg:gap-8 lg:px-[123px] lg:py-16"
+        className="flex w-full max-w-[1366px] flex-col items-center gap-6 px-4 pt-5 pb-12 lg:gap-8 lg:px-[123px] lg:py-16"
         ref={scrollTo}
       >
         <div className="flex flex-col items-center gap-2 lg:gap-3">

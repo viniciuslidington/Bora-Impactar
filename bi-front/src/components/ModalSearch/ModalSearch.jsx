@@ -77,8 +77,8 @@ export default function ModalSearch({ solicitacao = false }) {
           alt="Imagem da publicação"
           className="h-[264px] w-full flex-shrink-0 rounded border border-[#9c9c9c81] object-cover lg:h-[336px] lg:w-[336px]"
         />
-        <div className="flex h-full w-full max-w-full flex-col justify-start gap-6 pb-2 lg:h-[336px] lg:max-w-[calc(100%-360px)] lg:gap-5 lg:pb-0">
-          <p className="line-clamp-3 max-w-full text-xl font-semibold break-words opacity-95 lg:line-clamp-2 lg:text-3xl">
+        <div className="flex h-full w-full max-w-full flex-col justify-start gap-6 py-2 lg:h-[336px] lg:max-w-[calc(100%-360px)] lg:gap-5 lg:pb-0">
+          <p className="line-clamp-3 max-w-full shrink-0 text-xl font-semibold break-words opacity-95 lg:line-clamp-2 lg:text-3xl">
             {title}
           </p>
           <span className="flex flex-row flex-wrap items-center gap-2 opacity-95 lg:flex-nowrap">
@@ -97,11 +97,13 @@ export default function ModalSearch({ solicitacao = false }) {
               </>
             )}
             <p className="max-w-full rounded bg-[#eaeaea] p-1 text-sm lg:bg-transparent lg:p-0 lg:text-base">
-              {dataExpiracao} para expirar
+              {dataExpiracao === "Postagem Expirada"
+                ? dataExpiracao
+                : `${dataExpiracao} para expirar`}
             </p>
           </span>
           <div className="relative max-h-[124px] max-w-full lg:h-auto lg:max-h-none">
-            <p className="h-auto max-h-[124px] max-w-full overflow-scroll break-words whitespace-normal opacity-70 lg:max-h-[196px] lg:overflow-auto">
+            <p className="h-auto max-h-[124px] max-w-full overflow-auto break-words whitespace-pre-line opacity-70 lg:max-h-[196px] lg:overflow-auto">
               {description}
             </p>
           </div>

@@ -19,7 +19,7 @@ export default function HomePosts({ setModalSearch }) {
   const sortRef = useRef(querySort);
 
   return (
-    <div className="flex w-[1366px] max-w-full flex-col gap-8 pt-5 lg:pb-16">
+    <div className="flex w-[1366px] max-w-full flex-col gap-8 lg:pb-16">
       <span className="flex flex-col gap-1">
         <h2 className="text-2xl font-bold lg:text-4xl">
           Confira os repasses disponíveis de outras ONGs
@@ -30,7 +30,7 @@ export default function HomePosts({ setModalSearch }) {
         </p>
       </span>
       <div className="flex flex-col gap-8">
-        <span className="flexwrap flex gap-4 lg:gap-8">
+        <span className="flex flex-wrap gap-4 lg:gap-8">
           <select
             name=""
             id=""
