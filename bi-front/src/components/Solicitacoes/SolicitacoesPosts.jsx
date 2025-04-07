@@ -50,6 +50,8 @@ export default function OngPosts() {
     setSelectedId(id);
   }
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
   useEffect(() => {
     setPostVisiveis(8);
     setSelectedId("");
@@ -60,6 +62,17 @@ export default function OngPosts() {
       handleError(error); // Usando a função utilitária para lidar com erros
     }
   }, [isError, error, handleError]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize); // Adiciona o listener
+    return () => {
+      window.removeEventListener("resize", handleResize); // Remove o listener ao desmontar
+    };
+  }, []);
 
   return (
     <>
@@ -123,6 +136,7 @@ export default function OngPosts() {
                   handleEditar={handleEditar}
                   selected={selectedId === post.id ? true : false}
                   setSelectedId={setSelectedId}
+                  isMobile={isMobile}
                 ></Post>
               );
             })

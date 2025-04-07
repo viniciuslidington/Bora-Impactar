@@ -3,7 +3,13 @@ import Button from "../Button/Button";
 import PostSelected from "./SolicitacaoEditar";
 import { formatarData, calcularTempoRestante } from "../../utils/formatDate";
 
-export default function Post({ selected, post, handleEditar, setSelectedId }) {
+export default function Post({
+  selected,
+  post,
+  handleEditar,
+  setSelectedId,
+  isMobile,
+}) {
   const dataPublicacao = new Date(post.createdAt);
   const dataExpiracao = new Date(post.expirationDate);
 
@@ -24,6 +30,9 @@ export default function Post({ selected, post, handleEditar, setSelectedId }) {
     <div
       className="relative flex w-full items-center gap-2 rounded bg-white p-2 lg:gap-4"
       style={postExpirado ? { pointerEvents: "none", opacity: 0.5 } : null}
+      onClick={() => {
+        isMobile && handleEditar(post.id);
+      }}
     >
       <img
         src={post.post_Imagem || "/placeholder-image.jpg"}
@@ -57,4 +66,5 @@ Post.propTypes = {
   post: PropTypes.object.isRequired,
   handleEditar: PropTypes.func.isRequired,
   setSelectedId: PropTypes.node.isRequired,
+  isMobile: PropTypes.bool,
 };

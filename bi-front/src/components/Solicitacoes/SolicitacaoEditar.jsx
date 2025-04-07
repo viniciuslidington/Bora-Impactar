@@ -134,11 +134,11 @@ export default function PostSelected({
 
   return (
     <>
-      <div className="relative z-11 flex w-full max-w-[1120px] items-start gap-6 rounded bg-white p-4">
-        <span className="flex flex-col gap-1">
+      <div className="relative z-11 flex w-full max-w-[1120px] flex-col items-start gap-6 rounded bg-white p-4 lg:flex-row">
+        <span className="flex max-w-full flex-col gap-1">
           <p className="text-[14px] opacity-60">Imagem</p>
           <div
-            className={`relative flex h-[350px] w-[350px] cursor-pointer items-center justify-center rounded ${errors.image ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+            className={`relative flex aspect-square h-full w-full cursor-pointer items-center justify-center rounded lg:h-[350px] lg:w-[350px] ${errors.image ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
             onClick={() => setModalImage(true)}
           >
             {post.post_Imagem && !preview && (
@@ -175,13 +175,13 @@ export default function PostSelected({
             />
           </div>
         </span>
-        <div className="flex flex-wrap items-start justify-between gap-y-[10px]">
-          <span className="flex flex-col gap-1">
+        <div className="flex flex-wrap items-start gap-4 gap-y-[10px] pb-2 lg:gap-[30px] lg:pb-0">
+          <span className="flex w-full flex-col gap-1 lg:w-auto">
             <p className="text-[14px] opacity-60">Titulo</p>
             <input
               type="text"
               placeholder="Informe um título breve e claro..."
-              className={`w-[269px] rounded bg-[#eaeaea] p-2 ${errors.title ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+              className={`w-full rounded bg-[#eaeaea] p-2 lg:w-[269px] ${errors.title ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
               {...register("title", {
                 required: "Título é obrigatório",
                 minLength: {
@@ -195,10 +195,10 @@ export default function PostSelected({
               })}
             />
           </span>
-          <span className="flex flex-col gap-1">
+          <span className="flex w-[calc(50%-8px)] flex-col gap-1 lg:w-auto">
             <p className="text-[14px] opacity-60">Categoria</p>
             <select
-              className={`max-h-10 w-[163px] rounded border-2 p-1 ${errors.category ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
+              className={`h-10 w-full rounded border-2 p-1 lg:w-[163px] ${errors.category ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
               {...register("category", { required: "Categoria é obrigatório" })}
             >
               <option value="" disabled={true} selected={true}>
@@ -221,21 +221,21 @@ export default function PostSelected({
               <option value="OUTROS">Outros</option>
             </select>
           </span>
-          <span className="flex flex-col gap-1">
+          <span className="flex w-[calc(50%-8px)] flex-col gap-1 lg:w-auto">
             <p className="text-[14px] opacity-60">{expiracaoFormatada}</p>
             <Button
-              className="h-10 w-[163px] cursor-pointer rounded border-2 border-red-400 bg-red-400 text-white transition-all duration-100 hover:bg-red-300"
+              className="h-10 w-full cursor-pointer rounded border-2 border-red-400 bg-red-400 text-white transition-all duration-100 hover:bg-red-300 lg:w-[163px]"
               onClick={() => setModalEncerrar(true)}
             >
               Encerrar
             </Button>
           </span>
-          <span className="flex flex-col gap-1">
+          <span className="flex w-full flex-col gap-1 lg:w-auto">
             <p className="text-[14px] opacity-60">E-mail para contato</p>
             <input
               type="text"
               placeholder="exemplo@email.com"
-              className={`w-[269px] rounded p-2 ${errors.ong_Email ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+              className={`w-full rounded p-2 lg:w-[269px] ${errors.ong_Email ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
               {...register("ong_Email", {
                 required: "E-mail é obrigatório",
                 pattern: {
@@ -245,12 +245,12 @@ export default function PostSelected({
               })}
             />
           </span>
-          <span className="flex flex-col gap-1">
+          <span className="flex w-[calc(50%-8px)] flex-col gap-1 lg:w-auto">
             <p className="text-[14px] opacity-60">Número para contato</p>
             <input
               type="tel"
               placeholder="99 99999-9999"
-              className={`w-[196px] rounded p-2 ${errors.ong_Phone ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+              className={`w-full rounded p-2 lg:w-[163px] ${errors.ong_Phone ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
               {...register("ong_Phone", {
                 required: "Número de telefone é obrigatório",
                 pattern: {
@@ -260,10 +260,10 @@ export default function PostSelected({
               })}
             />
           </span>
-          <span className="flex flex-col gap-1">
+          <span className="flex w-[calc(50%-8px)] flex-col gap-1 lg:w-auto">
             <p className="text-[14px] opacity-60">Urgência</p>
             <select
-              className={`max-h-10 max-w-[163px] rounded border-2 p-1 ${errors.urgency ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
+              className={`h-10 w-full rounded border-2 p-1 lg:w-[163px] ${errors.urgency ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
               {...register("urgency", { required: true })}
             >
               <option value="" disabled={true} selected={true}>
@@ -292,15 +292,15 @@ export default function PostSelected({
             />
           </span>
 
-          <span className="absolute right-4 bottom-4 flex items-start gap-5">
+          <span className="right-4 bottom-4 flex w-full items-start gap-4 lg:absolute lg:w-auto lg:gap-5">
             <Button
-              className="h-12 w-[180px] cursor-pointer rounded border-2 border-red-400 text-red-400 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.12)] transition-all duration-100 hover:bg-red-100"
+              className="h-12 w-[calc(50%-8px)] cursor-pointer rounded border-2 border-red-400 text-red-400 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.12)] transition-all duration-100 hover:bg-red-100 lg:w-[180px]"
               onClick={() => setSelectedId("")}
             >
               Cancelar
             </Button>
             <Button
-              addClassName="w-[180px]"
+              addClassName="w-[calc(50%-8px)] lg:w-[180px]"
               onClick={async () => {
                 const isValid = await validate();
                 if (isValid) {

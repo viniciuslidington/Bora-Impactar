@@ -97,9 +97,7 @@ export default function ModalSearch({ solicitacao = false }) {
               </>
             )}
             <p className="max-w-full rounded bg-[#eaeaea] p-1 text-sm lg:bg-transparent lg:p-0 lg:text-base">
-              {dataExpiracao === "Postagem Expirada"
-                ? dataExpiracao
-                : `${dataExpiracao} para expirar`}
+              {dataExpiracao}
             </p>
           </span>
           <div className="relative max-h-[124px] max-w-full lg:h-auto lg:max-h-none">
