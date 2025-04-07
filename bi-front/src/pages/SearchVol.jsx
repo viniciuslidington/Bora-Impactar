@@ -81,7 +81,7 @@ export default function SearchVol() {
               <option value="recentes">Recentes</option>
               <option value="expirar">Prestes a Expirar</option>
             </select>
-            <Pagination totalPages={data?.totalPages} />
+            <Pagination totalPages={data?.totalPages} isMobile={isMobile} />
           </div>
           {isError ? (
             <div className="flex h-full w-full items-center justify-center">
@@ -129,7 +129,7 @@ export default function SearchVol() {
             </div>
           )}
           <span className="flex w-full justify-end">
-            <Pagination totalPages={data?.totalPages} />
+            <Pagination totalPages={data?.totalPages} isMobile={isMobile} />
           </span>
         </div>
         {modalSearch && <ModalSearch solicitacao={true} />}

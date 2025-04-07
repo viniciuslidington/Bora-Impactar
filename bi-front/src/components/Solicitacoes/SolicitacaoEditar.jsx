@@ -201,7 +201,7 @@ export default function PostSelected({
               className={`h-10 w-full rounded border-2 p-1 lg:w-[163px] ${errors.category ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
               {...register("category", { required: "Categoria é obrigatório" })}
             >
-              <option value="" disabled={true} selected={true}>
+              <option value="" disabled={true}>
                 Selecionar
               </option>
               <option value="ELETRODOMESTICOS_E_MOVEIS">
@@ -266,7 +266,7 @@ export default function PostSelected({
               className={`h-10 w-full rounded border-2 p-1 lg:w-[163px] ${errors.urgency ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
               {...register("urgency", { required: true })}
             >
-              <option value="" disabled={true} selected={true}>
+              <option value="" disabled={true}>
                 Selecionar
               </option>
               <option value="HIGH">Alta</option>

@@ -122,7 +122,7 @@ export default function ModaAdicionar() {
           <span className="flex flex-col gap-1">
             <p className="text-[14px] opacity-60">Imagem</p>
             <div
-              className={`relative flex h-[350px] w-[350px] cursor-pointer items-center justify-center rounded ${errors.image ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+              className={`relative flex aspect-square w-full cursor-pointer items-center justify-center rounded lg:h-[350px] lg:w-[350px] ${errors.image ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
               onClick={() => setModalImage(true)}
             >
               {preview && (
@@ -181,8 +181,9 @@ export default function ModaAdicionar() {
                 {...register("category", {
                   required: "Categoria é obrigatório",
                 })}
+                defaultValue=""
               >
-                <option value="" disabled={true} selected={true}>
+                <option value="" disabled={true}>
                   Selecionar
                 </option>
                 <option value="ELETRODOMESTICOS_E_MOVEIS">
@@ -207,8 +208,9 @@ export default function ModaAdicionar() {
               <select
                 className={`h-10 w-full rounded border-2 p-1 lg:w-[163px] ${errors.expirationDuration ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
                 {...register("expirationDuration", { required: true })}
+                defaultValue=""
               >
-                <option value="" disabled={true} selected={true}>
+                <option value="" disabled={true}>
                   Selecionar
                 </option>
                 <option value="7 dias">7 dias</option>

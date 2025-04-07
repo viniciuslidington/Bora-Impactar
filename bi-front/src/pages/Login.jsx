@@ -51,7 +51,7 @@ export default function Login() {
       <Toaster
         toastOptions={{
           style: { borderRadius: "4px" },
-          position: "top-right",
+          position: window.innerWidth <= 768 ? "top-center" : "top-right",
         }}
       />
       <Link to={"/"}>

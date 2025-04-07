@@ -54,7 +54,7 @@ export default function Home() {
         }}
         toastOptions={{
           style: { borderRadius: "4px", backgroundColor: "#cef0ff" },
-          position: "top-right",
+          position: window.innerWidth <= 768 ? "top-center" : "top-right",
         }}
       />
       <div className="flex w-full max-w-full flex-col items-center gap-12 px-4 py-12 lg:max-w-[1366px] lg:gap-16 lg:px-[123px] lg:py-16">
