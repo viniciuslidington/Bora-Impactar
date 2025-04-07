@@ -55,7 +55,7 @@ export default function Login() {
         }}
       />
       <Link to={"/"}>
-        <img src="./hubdedoacoes.png" alt="BoraImpactarLogo" className="w-48" />
+        <img src="./hubdedoacoes.png" alt="Logo" className="w-52" />
       </Link>
       <div className="flex max-w-[90%] flex-col items-center justify-center gap-4 rounded-sm bg-white px-12 py-8 shadow-md">
         <h2 className="text-2xl font-bold">Entrar como ONG</h2>

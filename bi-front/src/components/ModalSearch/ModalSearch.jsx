@@ -45,13 +45,13 @@ export default function ModalSearch({ solicitacao = false }) {
 
   return (
     <div
-      className="fixed inset-0 z-10 flex items-center justify-center bg-[rgba(0,0,0,0.25)] px-4 lg:px-0"
+      className="fixed inset-0 z-30 flex items-center justify-center bg-[rgba(0,0,0,0.25)] px-4 lg:px-0"
       onClick={(e) => {
         modalOverlay.current === e.target && setModalSearch(null);
       }}
       ref={modalOverlay}
     >
-      <div className="relative z-11 flex max-h-[90vh] w-full max-w-full flex-col items-center gap-4 rounded bg-white p-4 lg:h-auto lg:max-w-[1120px] lg:flex-row lg:flex-wrap lg:items-start lg:gap-6 lg:p-8">
+      <div className="relative z-31 flex max-h-[90vh] w-full max-w-full flex-col items-center gap-4 rounded bg-white p-4 lg:h-auto lg:max-w-[1120px] lg:flex-row lg:flex-wrap lg:items-start lg:gap-6 lg:p-8">
         <div className="flex w-full items-center gap-2 lg:relative">
           <img
             src={ong_Imagem || "/placeholder-image.jpg"}
