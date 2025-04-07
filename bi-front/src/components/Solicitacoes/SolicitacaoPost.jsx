@@ -28,7 +28,7 @@ export default function Post({ selected, post, handleEditar, setSelectedId }) {
       <img
         src={post.post_Imagem || "/placeholder-image.jpg"}
         alt="Imagem do Post"
-        className="mr-2 h-13 w-18 rounded border border-[#eaeaea] object-cover object-center"
+        className="mr-2 h-13 w-18 shrink-0 rounded border border-[#eaeaea] object-cover object-center"
       />
       <p className="w-[224px] overflow-hidden text-ellipsis whitespace-nowrap">
         {post.title}
