@@ -50,6 +50,8 @@ export default function OngPosts() {
     setSelectedId(id);
   }
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
   useEffect(() => {
     setPostVisiveis(8);
     setSelectedId("");
@@ -61,6 +63,17 @@ export default function OngPosts() {
     }
   }, [isError, error, handleError]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize); // Adiciona o listener
+    return () => {
+      window.removeEventListener("resize", handleResize); // Remove o listener ao desmontar
+    };
+  }, []);
+
   return (
     <>
       <p>
@@ -69,7 +82,7 @@ export default function OngPosts() {
       </p>
       <div className="flex w-full flex-wrap gap-4">
         <Button
-          className="flex h-[48px] w-[172px] cursor-pointer items-center justify-center gap-4 rounded-sm border-none bg-[#294bb6] px-2 py-3 text-base font-medium text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
+          className="flex h-[48px] w-[calc(50%-8px)] cursor-pointer items-center justify-center gap-4 rounded-sm border-none bg-[#294bb6] px-2 py-3 text-base font-medium text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70 lg:w-[172px]"
           onClick={() => setModalAdicionarSolicitacao(true)}
         >
           Adicionar <span className="text-2xl">+</span>
@@ -78,19 +91,19 @@ export default function OngPosts() {
           name="sortPosts"
           value={sortPosts}
           onChange={(e) => setSortPosts(e.target.value)}
-          className="h-12 w-[196px] rounded border-2 border-[#9c9c9c] px-1 text-[#232323]"
+          className="h-12 w-[calc(50%-8px)] rounded border-2 border-[#9c9c9c] px-1 text-[#232323] lg:w-[196px]"
         >
           <option value="data">Data de Publicação</option>
           <option value="expiracao">Prestes a Expirar</option>
           <option value="alfabetica">Ordem Alfabética</option>
         </select>
-        <div className="relative">
+        <div className="relative w-full lg:w-auto">
           <input
             type="text"
             value={searchPosts}
             onChange={(e) => setSearchPosts(e.target.value)}
             placeholder="Pesquisar Publicação"
-            className="h-12 w-[300px] rounded border-2 border-[#9c9c9c] px-2 pr-8 text-base text-[#232323]"
+            className="h-12 w-full rounded border-2 border-[#9c9c9c] px-2 pr-8 text-base text-[#232323] lg:w-[300px]"
           />
           <img
             src="/search.svg"
@@ -123,6 +136,7 @@ export default function OngPosts() {
                   handleEditar={handleEditar}
                   selected={selectedId === post.id ? true : false}
                   setSelectedId={setSelectedId}
+                  isMobile={isMobile}
                 ></Post>
               );
             })

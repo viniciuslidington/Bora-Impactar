@@ -57,8 +57,8 @@ export default function Home() {
           position: "top-right",
         }}
       />
-      <div className="flex w-full max-w-full flex-col items-center gap-16 px-4 py-16 lg:max-w-[1366px] lg:px-[123px]">
-        <div className="flex w-full flex-col items-center gap-12">
+      <div className="flex w-full max-w-full flex-col items-center gap-12 px-4 py-12 lg:max-w-[1366px] lg:gap-16 lg:px-[123px] lg:py-16">
+        <div className="flex w-full flex-col items-center gap-8 lg:gap-12">
           <div className="flex w-full gap-4 lg:w-auto">
             <NavLink
               to={"solicitacoes"}
@@ -79,7 +79,7 @@ export default function Home() {
           </div>
           <Outlet />
         </div>
-        <div className="flex w-full max-w-[1366px] flex-col items-center gap-6 pt-5 lg:gap-8 lg:py-16">
+        <div className="flex w-full max-w-[1366px] flex-col items-center gap-6 lg:gap-8 lg:py-16">
           <div className="flex flex-col items-center gap-3 lg:gap-3">
             <h2 className="text-center text-xl font-bold lg:text-2xl">
               Encontre recursos compartilhados por outras ONGs
