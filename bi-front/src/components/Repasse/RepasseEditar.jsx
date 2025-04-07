@@ -174,7 +174,7 @@ export default function PostSelected({
             />
           </div>
         </span>
-        <div className="flex flex-wrap items-start gap-4 gap-y-[10px] pb-2 lg:gap-x-[30px] lg:pb-0">
+        <div className="flex flex-wrap items-start gap-x-4 gap-y-[10px] pb-2 lg:gap-x-[30px] lg:pb-0">
           <span className="flex w-full flex-col gap-1 lg:w-auto">
             <p className="text-[14px] opacity-60">Titulo</p>
             <input
