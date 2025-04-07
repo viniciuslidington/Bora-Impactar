@@ -13,11 +13,11 @@ const prisma = new PrismaClient();
 
 router.post("/", async (req, res) => {
     const { email, password } = req.body;
-    console.log('BODY: ', req.body);
+    
     try {
       let response;
       try {
-        
+        console.log('X'); 
         response = await fetch("https://bora-impactar-prd.setd.rdmapps.com.br/api/login.json", {
           method: "POST",
           headers: {
@@ -29,35 +29,43 @@ router.post("/", async (req, res) => {
         console.error("Network error:", fetchError);
         return res.status(500).json({ error: "External service unavailable" });
       }
-  
+      console.log('Y'); 
       if (!response.ok) {
         const errorResponse = await response.json();
         console.error("Failed to login:", errorResponse);
         return res.status(response.status).json({ error: errorResponse.message || "Invalid login or password" });
       }
-  
       const data = await response.json();
       const processedData = processData(data.ngo);
-  
       await prisma.oNGdata.upsert({
         where: { id: processedData.id },
         update: processedData,
         create: processedData,
       });
-  
+      try {
+
+        data.ngo.description = '';
+        data.ngo.gallery_images_url = [];
+        data.ngo.causes = [];
+        data.ngo.sustainable_development_goals = [];
+      } catch (e) {
+        console.error("Error trimming data:", e);        
+      }
+
+
       const token = jwt.sign({ email, user: data.user.name, userData: data }, process.env.SECRET_KEY, { expiresIn: "1h" });
-  
       res.cookie("token", token, {
         httpOnly: true,
         secure: false,         // Disable for HTTP (temporary!)
         sameSite: 'lax',       // Or 'strict' if you're not using cross-site auth
         path: '/'
       });
+ 
+      //console.log(token); 
       //   httpOnly: true,
       //   secure: process.env.NODE_ENV === "production",
       //   sameSite: "Strict",
       // });
-  
       return res.status(200).json(data);
     } catch (error) {
       console.error("Error during login:", error);
@@ -65,23 +73,23 @@ router.post("/", async (req, res) => {
     }
   });
 
+
 router.get("/", async (req, res) => {
-    const token = req.cookies.token;
+//  console.log('req.cookies'); 
+
+  const token = req.cookies.token;
     
-    console.log("Received Token: " + token);
     
     if (!token) {
       return res.status(401).json({ error: "Token não fornecido" });
     }
-    console.log("SECRET: ");
-    console.log("SECRET_KEY " + process.env.SECRET_KEY);
 
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       if (err) {
         return res.status(401).json({ error: "Token inválido" });
       }
   
-      console.log("Token decodificado: ", decoded); // Verifique a estrutura
+//      console.log("Token decodificado: ", decoded); // Verifique a estrutura
   
       // Retorna um objeto com `user`, garantindo que `name` esteja presente
       res.json({user: decoded.user, userData: decoded.userData });
