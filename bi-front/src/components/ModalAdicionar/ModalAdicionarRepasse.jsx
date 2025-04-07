@@ -155,7 +155,7 @@ export default function ModaAdicionar() {
             </div>
           </span>
           <div className="flex flex-wrap gap-x-4 gap-y-[10px] lg:gap-x-6">
-            <span className="flex w-full flex-col gap-1">
+            <span className="flex w-full flex-col gap-1 lg:w-auto">
               <p className="text-[14px] opacity-60">Titulo</p>
               <input
                 type="text"
