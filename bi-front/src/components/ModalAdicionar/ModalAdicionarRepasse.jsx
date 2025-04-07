@@ -118,7 +118,7 @@ export default function ModaAdicionar() {
         }}
         ref={modalOverlay}
       >
-        <div className="relative z-11 flex w-full max-w-[1120px] items-start gap-6 rounded bg-white p-8">
+        <div className="relative z-11 flex max-h-[100vh] w-full max-w-[1120px] flex-col items-start gap-6 overflow-y-auto rounded bg-white p-8 lg:flex-row">
           <span className="flex flex-col gap-1">
             <p className="text-[14px] opacity-60">Imagem</p>
             <div
@@ -154,13 +154,13 @@ export default function ModaAdicionar() {
               />
             </div>
           </span>
-          <div className="flex flex-wrap gap-x-6 gap-y-[10px]">
-            <span className="flex flex-col gap-1">
+          <div className="flex flex-wrap gap-x-4 gap-y-[10px] lg:gap-x-6">
+            <span className="flex w-full flex-col gap-1">
               <p className="text-[14px] opacity-60">Titulo</p>
               <input
                 type="text"
                 placeholder="Informe um título breve e claro..."
-                className={`w-[269px] rounded bg-[#eaeaea] p-2 ${errors.title ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+                className={`w-full rounded bg-[#eaeaea] p-2 lg:w-[269px] ${errors.title ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
                 {...register("title", {
                   required: "Título é obrigatório",
                   minLength: {
@@ -174,10 +174,10 @@ export default function ModaAdicionar() {
                 })}
               />
             </span>
-            <span className="flex flex-col gap-1">
+            <span className="flex w-[calc(50%-8px)] flex-col gap-1 lg:w-auto">
               <p className="text-[14px] opacity-60">Categoria</p>
               <select
-                className={`h-10 w-[163px] rounded border-2 p-1 ${errors.category ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
+                className={`h-10 w-full rounded border-2 p-1 lg:w-[163px] ${errors.category ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
                 {...register("category", {
                   required: "Categoria é obrigatório",
                 })}
@@ -202,10 +202,10 @@ export default function ModaAdicionar() {
                 <option value="OUTROS">Outros</option>
               </select>
             </span>
-            <span className="flex flex-col gap-1">
+            <span className="flex w-[calc(50%-8px)] flex-col gap-1 lg:w-auto">
               <p className="text-[14px] opacity-60">Tempo de publicação</p>
               <select
-                className={`h-10 w-[163px] rounded border-2 p-1 ${errors.expirationDuration ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
+                className={`h-10 w-full rounded border-2 p-1 lg:w-[163px] ${errors.expirationDuration ? "border-transparent bg-red-100 outline-2 outline-red-200" : "border-[#9c9c9c]"}`}
                 {...register("expirationDuration", { required: true })}
               >
                 <option value="" disabled={true} selected={true}>
@@ -217,12 +217,12 @@ export default function ModaAdicionar() {
                 <option value="12 semanas">90 dias</option>
               </select>
             </span>
-            <span className="flex flex-col gap-1">
+            <span className="flex w-full flex-col gap-1 lg:w-auto">
               <p className="text-[14px] opacity-60">E-mail para contato</p>
               <input
                 type="text"
                 placeholder="exemplo@email.com"
-                className={`w-[269px] rounded p-2 ${errors.ong_Email ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+                className={`w-full rounded p-2 lg:w-[269px] ${errors.ong_Email ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
                 {...register("ong_Email", {
                   required: "E-mail é obrigatório",
                   pattern: {
@@ -232,12 +232,12 @@ export default function ModaAdicionar() {
                 })}
               />
             </span>
-            <span className="flex flex-col gap-1">
+            <span className="flex w-[calc(50%-8px)] flex-col gap-1 lg:w-auto">
               <p className="text-[14px] opacity-60">Número para contato</p>
               <input
                 type="tel"
                 placeholder="99 99999-9999"
-                className={`w-[163px] rounded p-2 ${errors.ong_Phone ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
+                className={`w-full rounded p-2 lg:w-[163px] ${errors.ong_Phone ? "bg-red-100 outline-2 outline-red-200" : "bg-[#eaeaea]"}`}
                 {...register("ong_Phone", {
                   required: "Número de telefone é obrigatório",
                   pattern: {
@@ -264,15 +264,15 @@ export default function ModaAdicionar() {
                 })}
               />
             </span>
-            <span className="absolute right-8 bottom-8 flex items-start gap-5">
+            <span className="mt-2 flex w-full items-start gap-5 lg:absolute lg:right-8 lg:bottom-8 lg:mt-0 lg:w-auto">
               <Button
-                className="h-12 w-[180px] cursor-pointer rounded border-2 border-red-400 text-red-400 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.12)] transition-all duration-100 hover:bg-red-100"
+                className="h-12 w-[calc(50%-8px)] cursor-pointer rounded border-2 border-red-400 text-red-400 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.12)] transition-all duration-100 hover:bg-red-100 lg:w-[180px]"
                 onClick={() => setModalAdicionarRepasse(false)}
               >
                 Cancelar
               </Button>
               <Button
-                addClassName="w-[180px]"
+                addClassName="w-[calc(50%-8px)] lg:w-[180px]"
                 onClick={async () => {
                   const isValid = await validate();
                   if (isValid) {
