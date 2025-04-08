@@ -5,7 +5,7 @@ import Button from "../components/Button/Button";
 import { useCallback, useEffect, useState } from "react";
 import { useLogin, useUserData } from "../services/authService";
 import { Toaster } from "react-hot-toast";
-import boraImpactarImg from "../assets/BoraImpactar.png";
+import hubDoacoesImg from "../assets/hubdedoacoes.png";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -52,11 +52,11 @@ export default function Login() {
       <Toaster
         toastOptions={{
           style: { borderRadius: "4px" },
-          position: "top-right",
+          position: window.innerWidth <= 768 ? "top-center" : "top-right",
         }}
       />
       <Link to={"/"}>
-        <img src={boraImpactarImg} alt="BoraImpactarLogo" className="w-64" />
+        <img src={hubDoacoesImg} alt="Logo" className="w-52" />
       </Link>
       <div className="flex max-w-[90%] flex-col items-center justify-center gap-4 rounded-sm bg-white px-12 py-8 shadow-md">
         <h2 className="text-2xl font-bold">Entrar como ONG</h2>

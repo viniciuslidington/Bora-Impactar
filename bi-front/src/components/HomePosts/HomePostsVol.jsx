@@ -19,22 +19,22 @@ export default function HomePosts({ setModalSearch }) {
   const sortRef = useRef(querySort);
 
   return (
-    <div className="flex w-[1366px] flex-col gap-8 px-[123px] pb-16">
+    <div className="flex w-[1366px] max-w-full flex-col gap-8 px-4 pb-12 lg:px-[123px] lg:pb-16">
       <span className="flex flex-col gap-1">
-        <h2 className="text-[36px] font-bold">
+        <h2 className="text-3xl font-bold lg:text-4xl">
           Confira mais solicitações de ONGs
         </h2>
-        <p className="text-[16px]">
+        <p className="text-sm lg:text-[16px]">
           Acompanhe as publicações e veja como você pode contribuir para causas
           que fazem a diferença
         </p>
       </span>
       <div className="flex flex-col gap-8">
-        <span className="flex gap-8">
+        <span className="flex flex-wrap gap-4 lg:gap-8">
           <select
             name=""
             id=""
-            className="h-12 w-48 rounded border-2 border-[#9c9c9c] text-gray-600 outline-gray-600"
+            className="order-2 h-12 w-48 rounded border-2 border-[#9c9c9c] text-gray-600 outline-gray-600"
             value={sortRef.current}
             onChange={(e) => {
               const newValue = e.target.value;
@@ -46,9 +46,9 @@ export default function HomePosts({ setModalSearch }) {
             <option value="expirar">Prestes a Expirar</option>
           </select>
           <SearchBar
-            container={"relative"}
+            container={"relative lg:w-auto w-full"}
             className={
-              "h-12 w-[512px] rounded-sm border-2 border-[#9c9c9c] bg-white p-3 pr-11 text-base"
+              "h-12 w-full rounded-sm border-2 border-[#9c9c9c] bg-white p-3 pr-11 text-base lg:w-[512px]"
             }
             placeholder={"Pesquisar demandas das ONGs..."}
           />
