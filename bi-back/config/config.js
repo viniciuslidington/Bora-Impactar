@@ -16,8 +16,8 @@ const listOfCategory = [
 const expirationMapping = {
   "7 dias": 7,
   "2 semanas": 14,
-  "4 semanas": 28,
-  "12 semanas": 84,
+  "4 semanas": 30,
+  "12 semanas": 90,
 };
 
 const listOfUrgency = ["LOW", "MEDIUM", "HIGH"];
