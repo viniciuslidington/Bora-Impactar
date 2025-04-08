@@ -66,6 +66,7 @@ export default function PostSelected({
     formData.append("description", data.description);
     formData.append("ong_Email", data.ong_Email);
     formData.append("ong_Phone", data.ong_Phone);
+    formData.append("ong_Imagem", data.userData.ngo?.logo_photo_url);
     formData.append("id", Number(post.id));
     // Se houver imagem no formulário
     if (data.image !== initialValues.image) {
