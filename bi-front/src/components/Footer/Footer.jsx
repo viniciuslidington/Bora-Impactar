@@ -18,7 +18,7 @@ export default function Footer() {
           <h3 className="text-[20px] font-bold text-white">Links Rápidos</h3>
           <ul className="flex list-none flex-col gap-3 text-white underline">
             <Link to={"/"}>
-              <li>MainPage</li>
+              <li>Página Inicial</li>
             </Link>
             <Link to={"/voluntario/home"}>
               <li>Sou Voluntário</li>
