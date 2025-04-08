@@ -51,7 +51,7 @@ export default function ModaAdicionar() {
     formData.append("description", dataForm.description);
     formData.append("ong_Id", data?.userData.ngo.id);
     formData.append("ong_Nome", data?.userData.ngo.name);
-    formData.append("ong_Imagem", data?.userData.ngo.gallery_images_url[0]);
+    formData.append("ong_Imagem", data?.userData.ngo.logo_photo_url);
     formData.append("ong_Email", dataForm.ong_Email);
     formData.append("ong_Phone", dataForm.ong_Phone);
     formData.append("expirationDuration", dataForm.expirationDuration);

@@ -15,10 +15,7 @@ export default function Profile() {
   const [dropdown, setDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
-  const logoUrl =
-    authData?.userData?.ngo?.gallery_images_url[0] || placeholderImg;
-  const img1Url =
-    authData?.userData?.ngo?.gallery_images_url[1] || placeholderImg;
+  const logoUrl = authData?.userData?.ngo?.logo_photo_url || placeholderImg;
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -54,12 +51,14 @@ export default function Profile() {
           <div className="absolute top-20 z-10 -translate-x-9 transform rounded-sm border-2 border-[#92deff79] bg-[#cef0ff] shadow-md">
             <div className="flex flex-wrap items-center gap-2 border-b-2 border-[#92deff79] p-3">
               <img
-                src={img1Url}
+                src={logoUrl}
                 alt="userLogo"
                 className="h-14 w-14 rounded-full object-cover object-center"
               />
               <div className="flex flex-col justify-between">
-                <p className="max-w-[208px] truncate">{authData.user}</p>
+                <p className="max-w-[208px] truncate">
+                  {authData.userData.ngo.name}
+                </p>
                 <p className="max-w-[208px] truncate">
                   {authData.userData.user.email}
                 </p>
