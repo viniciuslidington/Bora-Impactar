@@ -32,12 +32,15 @@ export default function Profile() {
 
   if (authData) {
     return (
-      <div className="flex flex-row" ref={dropdownRef}>
+      <div
+        className="flex w-[calc(60%-16px)] flex-row lg:w-auto"
+        ref={dropdownRef}
+      >
         <div
           className="flex h-22 cursor-pointer items-center gap-3"
           onClick={() => setDropdown(!dropdown)}
         >
-          <p className="max-w-[196px] truncate text-sm font-semibold text-white">
+          <p className="truncate text-sm font-semibold text-white lg:max-w-[196px]">
             {authData.userData.ngo.name}
           </p>
           {/* o chat tava crente que  border-radius: 50% era rounded-full, não consegui achar outro */}
@@ -48,7 +51,7 @@ export default function Profile() {
           />
         </div>
         {dropdown && (
-          <div className="absolute top-20 z-10 -translate-x-9 transform rounded-sm border-2 border-[#92deff79] bg-[#cef0ff] shadow-md">
+          <div className="absolute top-24 left-0 z-10 w-full transform rounded-sm border-2 border-[#92deff79] bg-[#cef0ff] shadow-md lg:top-20 lg:left-auto lg:w-auto lg:-translate-x-9">
             <div className="flex flex-wrap items-center gap-2 border-b-2 border-[#92deff79] p-3">
               <img
                 src={logoUrl}
@@ -65,14 +68,14 @@ export default function Profile() {
               </div>
             </div>
             <button
-              className="flex w-full cursor-pointer items-center gap-4 border-none bg-none p-5 transition-all duration-100 hover:bg-[#f8fdff]"
+              className="flex w-full cursor-pointer items-center gap-4 border-none bg-none p-5 transition-all duration-100 hover:bg-[#f8fdff] active:bg-[#f8fdff]"
               onClick={() => navigate("/ong/home/solicitacoes")}
             >
               <img src={homeImg} alt="homeIcon" className="h-7 w-7" />{" "}
               <p className="text-base font-semibold no-underline">Home</p>
             </button>
             <button
-              className="flex w-full cursor-pointer items-center gap-4 rounded-br-sm rounded-bl-sm border-none bg-none p-5 transition-all duration-100 hover:bg-[#f8fdff]"
+              className="flex w-full cursor-pointer items-center gap-4 rounded-br-sm rounded-bl-sm border-none bg-none p-5 transition-all duration-100 hover:bg-[#f8fdff] active:bg-[#f8fdff]"
               onClick={() => logout()}
             >
               <img src={logoutImg} alt="logoutIcon" className="h-7 w-7" />{" "}

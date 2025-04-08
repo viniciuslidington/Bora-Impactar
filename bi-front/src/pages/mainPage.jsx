@@ -6,7 +6,7 @@ import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
 import Profile from "../components/Profile/Profile";
 import { useUserData } from "../services/authService";
-import boraImpactarImg from "../assets/BoraImpactar.png";
+import hubDoacoesImg from "../assets/hubdedoacoes.png";
 import heroImg from "../assets/heroImage.jpg";
 import roupasImg from "../assets/Roupas.jpg";
 import materiasEducativosImg from "../assets/MateriasEducativos.jpg";
@@ -25,7 +25,7 @@ export default function MainPage() {
   return (
     <div className="flex w-full flex-col items-center">
       <div
-        className="absolute top-0 left-0 -z-10 h-[668px] w-full"
+        className="absolute top-0 left-0 -z-10 hidden h-[712px] w-full lg:flex"
         style={{
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.64) 0%, rgba(255, 255, 255, 0.64) 100%),
@@ -36,30 +36,50 @@ export default function MainPage() {
           backgroundRepeat: "no-repeat",
         }}
       ></div>{" "}
+      <div
+        className="absolute top-0 left-0 -z-9 h-[450px] w-full lg:hidden"
+        style={{
+          backgroundImage: `
+          linear-gradient(0deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.80) 100%),
+          radial-gradient(859.77% 86.13% at 55% 33.66%, rgba(255, 255, 255, 0.00) 0%, #FFF 69.23%),
+          url('/heroImage.jpg')
+        `,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPositionX: "90%",
+        }}
+      ></div>{" "}
       <Header>
         <Profile />
       </Header>
-      <div className="flex w-[1366px] max-w-full flex-col justify-center gap-6 px-[123px] py-10">
-        <img src={boraImpactarImg} alt="Logo" className="w-[351px]" />
-        <h1 className="text-[56px] font-bold">
+      <div className="flex w-[1366px] max-w-full flex-col justify-center gap-6 px-4 pt-10 pb-5 lg:gap-8 lg:px-[123px] lg:py-10">
+        <img
+          src={hubDoacoesImg}
+          alt="Logo"
+          className="mt-12 w-3/5 cursor-pointer lg:mt-0 lg:w-[300px]"
+          onClick={() => navigate("/")}
+        />
+        <h1 className="text-4xl font-bold lg:text-[56px]">
           Doe hoje, transforme vidas para sempre!
         </h1>
-        <p className="w-[816px] max-w-full leading-[1.8]">
-          No Bora Impactar, você pode doar recursos diretamente para ONGs que
+        <p className="w-[816px] max-w-full text-justify text-sm leading-[1.8] lg:text-start lg:text-base">
+          No Hub de Doações, você pode doar recursos diretamente para ONGs que
           transformam vidas e comunidades todos os dias. Conecte-se a causas que
-          precisam de você e ajude a construir um futuro mais justo e solidário.
-          Juntos, podemos gerar um impacto real. Vem fazer parte dessa rede de
-          transformação!
+          precisam de você e ajude a construir um futuro mais justo e solidário.{" "}
+          <span className="hidden lg:inline">
+            Juntos, podemos gerar um impacto real. Vem fazer parte dessa rede de
+            transformação!
+          </span>
         </p>
-        <div className="flex gap-8">
+        <div className="flex w-full justify-center gap-4 lg:justify-start lg:gap-8">
           <Button
-            className="h-[80px] w-[256px] cursor-pointer rounded-sm border-none bg-[#294bb6] px-2 py-3 text-[18px] font-bold text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
+            className="h-16 w-1/2 cursor-pointer rounded-sm border-none bg-[#294bb6] px-2 py-3 text-[18px] font-bold text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70 lg:h-[80px] lg:w-[256px]"
             onClick={() => navigate("/voluntario/home")}
           >
             Sou Voluntário
           </Button>
           <Button
-            className="h-[80px] w-[256px] cursor-pointer rounded-sm border-3 border-solid border-[#009fe3] bg-transparent px-2 py-3 text-[18px] font-[600] text-[#009fe3] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#4eb3df13] disabled:opacity-70"
+            className="h-16 w-1/2 cursor-pointer rounded-sm border-3 border-solid border-[#009fe3] bg-transparent px-2 py-3 text-[18px] font-[600] text-[#009fe3] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#4eb3df13] disabled:opacity-70 lg:h-[80px] lg:w-[256px]"
             onClick={() =>
               data ? navigate("/ong/home/solicitacoes") : navigate("/login")
             }
@@ -67,7 +87,7 @@ export default function MainPage() {
             Sou ONG
           </Button>
         </div>
-        <div className="mt-10 flex w-full flex-nowrap justify-center gap-8 self-center">
+        <div className="mt-8 hidden w-full flex-nowrap justify-center gap-8 self-center lg:flex">
           <div className="flex h-[116px] flex-1 flex-col items-center justify-center rounded-sm bg-[#009fe3] shadow-md">
             <span className="text-4xl font-bold text-white [text-shadow:0px_4px_4px_rgba(0,0,0,0.25)]">
               Doar
@@ -94,8 +114,10 @@ export default function MainPage() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center gap-8 px-[20px] py-10 md:px-[123px]">
-        <h2 className="text-5xl font-medium">Ajude as causas das ONGs</h2>
+      <div className="flex max-w-full flex-col items-center gap-6 px-4 py-10 lg:gap-8 lg:px-[123px]">
+        <h2 className="text-3xl font-medium lg:text-5xl">
+          Ajude as causas das ONGs
+        </h2>
         {/* controlando largura total do grid */}
         <Grid>
           <GridBox
@@ -143,16 +165,16 @@ export default function MainPage() {
           </GridBox>
         </Grid>
         <Button
-          className="h-[64px] w-[256px] cursor-pointer rounded-sm border-3 border-solid border-[#232323b6] bg-none px-2 py-3 text-[18px] font-medium text-[#232323] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[rgba(27,46,53,0.075)] disabled:opacity-70"
+          className="h-[64px] w-full cursor-pointer rounded-sm border-3 border-solid border-[#232323b6] bg-none px-2 py-3 text-[18px] font-medium text-[#232323] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[rgba(27,46,53,0.075)] disabled:opacity-70 lg:w-[256px]"
           onClick={() => navigate("/voluntario/home")}
         >
           Ver outras categorias
         </Button>
       </div>
-      <div className="mt-10 flex h-[460px] w-full justify-center bg-[#d9d9d9]">
-        <div className="flex w-[1366px] flex-col items-center justify-center gap-10 p-[40px_123px]">
-          <h2 className="text-[48px] font-medium">Como funciona?</h2>
-          <div className="flex flex-col gap-12 lg:flex-row">
+      <div className="mt-5 flex w-full max-w-full justify-center bg-[#d9d9d9] lg:mt-10 lg:h-[460px]">
+        <div className="flex w-[1366px] flex-col items-center justify-center gap-10 px-4 py-10 lg:px-[123px]">
+          <h2 className="text-4xl font-medium lg:text-5xl">Como funciona?</h2>
+          <div className="flex flex-col gap-6 lg:flex-row lg:gap-12">
             <div className="flex flex-col items-center gap-4">
               <img src={lupaImg} alt="recursos" className="w-[80px]" />
               <h3 className="text-[24px] font-bold">Veja os pedidos</h3>
@@ -186,19 +208,19 @@ export default function MainPage() {
           </div>
         </div>
       </div>
-      <div className="flex w-[1366px] flex-col items-center justify-center gap-12 p-[64px_123px]">
-        <h3 className="text-[36px] font-medium">
-          Faça parte dessa mudança. Bora Impactar!
+      <div className="flex w-[1366px] max-w-full flex-col items-center justify-center gap-6 px-4 py-16 lg:gap-12 lg:px-[123px]">
+        <h3 className="text-2xl font-medium lg:text-4xl">
+          Faça parte dessa mudança!
         </h3>
-        <div className="flex gap-8">
+        <div className="flex w-full justify-center gap-4 lg:gap-8">
           <Button
-            className="h-[80px] w-[256px] cursor-pointer rounded-sm border-none bg-[#294bb6] px-2 py-3 text-[18px] font-bold text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70"
+            className="h-16 w-1/2 cursor-pointer rounded-sm border-none bg-[#294bb6] px-2 py-3 text-[18px] font-bold text-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#335fee] disabled:opacity-70 lg:h-[80px] lg:w-[256px]"
             onClick={() => navigate("/voluntario/home")}
           >
             Sou Voluntário
           </Button>
           <Button
-            className="h-[80px] w-[256px] cursor-pointer rounded-sm border-3 border-solid border-[#009fe3] bg-transparent px-2 py-3 text-[18px] font-[600] text-[#009fe3] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#4eb3df13] disabled:opacity-70"
+            className="h-16 w-1/2 cursor-pointer rounded-sm border-3 border-solid border-[#009fe3] bg-transparent px-2 py-3 text-[18px] font-[600] text-[#009fe3] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-100 ease-in hover:bg-[#4eb3df13] disabled:opacity-70 lg:h-[80px] lg:w-[256px]"
             onClick={() =>
               data ? navigate("/ong/home/solicitacoes") : navigate("/login")
             }

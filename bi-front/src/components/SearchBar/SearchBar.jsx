@@ -18,13 +18,16 @@ export default function SearchBar({
 
   return (
     <div
-      className={container ?? "absolute left-1/2 -translate-x-1/2 transform"}
+      className={
+        container ??
+        "relative order-3 w-full lg:absolute lg:left-1/2 lg:order-2 lg:w-auto lg:-translate-x-1/2 lg:transform"
+      }
     >
       <input
         type="text"
         className={
           className ??
-          "h-12 w-[500px] rounded-sm border-none bg-white p-3 pr-11 text-base"
+          "h-12 w-full rounded-sm border-none bg-white p-3 pr-11 text-base lg:w-[500px]"
         }
         placeholder={placeholder}
         value={input}

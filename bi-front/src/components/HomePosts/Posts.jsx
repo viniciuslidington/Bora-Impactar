@@ -52,7 +52,7 @@ export default function Posts({ data = {}, isLoading = false, onClick }) {
     </div>
   ) : (
     <div
-      className="flex max-w-[352px] flex-1 basis-[calc(33.333%-32px)] cursor-pointer flex-col rounded border-2 border-[#9c9c9c] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] transition-all duration-100 hover:scale-101"
+      className="flex max-w-full flex-1 basis-[calc(33.333%-32px)] cursor-pointer flex-col rounded border-2 border-[#9c9c9c] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] transition-all duration-100 hover:scale-101 lg:max-w-[352px]"
       onClick={onClick}
     >
       <img
@@ -85,7 +85,7 @@ export default function Posts({ data = {}, isLoading = false, onClick }) {
           <p>{calcularTempoDesdePublicacao(createdAt)}</p>
         </span>
         <p
-          className="w-[308px] overflow-hidden text-[14px] break-words text-ellipsis opacity-70"
+          className="w-full overflow-hidden text-[14px] break-words text-ellipsis opacity-70 lg:w-[308px]"
           style={{
             display: "-webkit-box",
             WebkitLineClamp: 2,
