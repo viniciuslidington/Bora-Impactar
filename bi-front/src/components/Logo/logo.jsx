@@ -9,7 +9,7 @@ export default function Logo({ className }) {
     <img
       src={logo}
       alt="Logo"
-      className={className}
+      className={`${className} cursor-pointer`}
       onClick={() => navigate("/")}
     />
   );
