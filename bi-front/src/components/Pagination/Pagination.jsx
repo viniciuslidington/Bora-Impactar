@@ -15,7 +15,7 @@ const getPaginationItems = (currentPage, totalPages) => {
   }
 };
 
-const Pagination = ({ totalPages = 1, homePag = false }) => {
+const Pagination = ({ totalPages = 1, homePag = false, isMobile = false }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search); // Converte a string da URL em um objeto manipulável
   const queryPage = searchParams.get("page") || 1;
@@ -50,24 +50,35 @@ const Pagination = ({ totalPages = 1, homePag = false }) => {
       </button>
 
       {/* Itens de paginação */}
-      {items.map((item, index) => (
-        <span key={index}>
-          {item === "..." ? (
-            <span className="px-3 py-1">...</span>
-          ) : (
-            <button
-              onClick={() => onPageChange(item)}
-              className={`cursor-pointer rounded px-3 py-1 ${
-                currentPage === item
-                  ? "border-2 border-[#009fe3] bg-[#009fe3] text-white outline-white"
-                  : "border-2 border-gray-300 text-gray-700 outline-gray-500 transition-colors duration-100 hover:border-[#009fe3] hover:bg-[#009fe3] hover:text-white"
-              }`}
-            >
-              {item}
-            </button>
-          )}
-        </span>
-      ))}
+      {!isMobile ? (
+        items.map((item, index) => (
+          <span key={index}>
+            {item === "..." ? (
+              <span className="px-3 py-1">...</span>
+            ) : (
+              <button
+                onClick={() => onPageChange(item)}
+                className={`cursor-pointer rounded px-3 py-1 ${
+                  currentPage === item
+                    ? "border-2 border-[#009fe3] bg-[#009fe3] text-white outline-white"
+                    : "border-2 border-gray-300 text-gray-700 outline-gray-500 transition-colors duration-100 hover:border-[#009fe3] hover:bg-[#009fe3] hover:text-white"
+                }`}
+              >
+                {item}
+              </button>
+            )}
+          </span>
+        ))
+      ) : (
+        <button
+          onClick={() => onPageChange(currentPage)}
+          className={
+            "cursor-pointer rounded border-2 border-[#009fe3] bg-[#009fe3] px-3 py-1 text-white outline-white"
+          }
+        >
+          {currentPage}
+        </button>
+      )}
 
       {/* Botão Próximo */}
       <button
@@ -84,6 +95,7 @@ const Pagination = ({ totalPages = 1, homePag = false }) => {
 Pagination.propTypes = {
   totalPages: PropTypes.number,
   homePag: PropTypes.bool,
+  isMobile: PropTypes.bool,
 };
 
 export default Pagination;

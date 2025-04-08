@@ -21,9 +21,9 @@ function calcularTempoRestante(dataExpiracao) {
   );
 
   let resposta = null;
-  if (diasRestantes > 0) {
+  if (diasRestantes > 1) {
     resposta = `${diasRestantes} dias restantes`;
-  } else if (horasRestantes > 0) {
+  } else if (horasRestantes > 1) {
     resposta = `${horasRestantes} horas restantes`;
   } else {
     resposta = "1 hora restante";
