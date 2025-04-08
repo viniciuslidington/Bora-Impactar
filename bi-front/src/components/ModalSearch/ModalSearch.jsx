@@ -57,7 +57,11 @@ export default function ModalSearch({ solicitacao = false }) {
       <div className="relative z-11 flex w-full max-w-[1120px] flex-wrap gap-6 rounded bg-white p-8">
         <div className="relative flex w-full items-center gap-2">
           <img
-            src={ong_Imagem || placeholderImg}
+            src={
+              ong_Imagem === "undefined" || ong_Imagem === undefined
+                ? placeholderImg
+                : ong_Imagem
+            }
             alt="Foto de perfil"
             className="h-16 w-16 rounded-full border-1 border-[#9c9c9c81] object-cover"
           />{" "}

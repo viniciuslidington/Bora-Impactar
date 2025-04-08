@@ -13,7 +13,6 @@ const prisma = new PrismaClient();
 
 router.post("/", async (req, res) => {
     const { email, password } = req.body;
-    
     try {
       let response;
       try {

@@ -39,7 +39,7 @@ export default function PostSelected({
     category: post.category,
     urgency: post.urgency,
     description: post.description,
-    image: post.ong_Imagem,
+    image: post.post_Imagem,
     ong_Phone: post.ong_Phone,
     ong_Email: post.ong_Email,
   };
@@ -69,7 +69,7 @@ export default function PostSelected({
     formData.append("ong_Phone", data.ong_Phone);
     formData.append("id", Number(post.id));
     // Se houver imagem no formulário
-    if (data.image) {
+    if (data.image !== initialValues.image) {
       formData.append("image", data.image); // Acessa o arquivo corretamente
     }
     salvar(formData);
