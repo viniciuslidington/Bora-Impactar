@@ -42,7 +42,7 @@ export default function MainPage() {
           backgroundImage: `
           linear-gradient(0deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.80) 100%),
           radial-gradient(859.77% 86.13% at 55% 33.66%, rgba(255, 255, 255, 0.00) 0%, #FFF 69.23%),
-          url('/heroImage.jpg')
+          url(${heroImg})
         `,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",

@@ -37,7 +37,7 @@ export default function Profile() {
         ref={dropdownRef}
       >
         <div
-          className="flex h-22 cursor-pointer items-center gap-3"
+          className="flex cursor-pointer items-center gap-3 lg:h-22"
           onClick={() => setDropdown(!dropdown)}
         >
           <p className="truncate text-sm font-semibold text-white lg:max-w-[196px]">
@@ -51,7 +51,7 @@ export default function Profile() {
           />
         </div>
         {dropdown && (
-          <div className="absolute top-24 left-0 z-10 w-full transform rounded-sm border-2 border-[#92deff79] bg-[#cef0ff] shadow-md lg:top-20 lg:left-auto lg:w-auto lg:-translate-x-9">
+          <div className="absolute top-20 left-0 z-10 w-full transform rounded-sm border-2 border-[#92deff79] bg-[#cef0ff] shadow-md lg:top-20 lg:left-auto lg:w-auto lg:-translate-x-9">
             <div className="flex flex-wrap items-center gap-2 border-b-2 border-[#92deff79] p-3">
               <img
                 src={logoUrl}
