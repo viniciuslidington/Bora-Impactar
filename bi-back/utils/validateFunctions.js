@@ -123,9 +123,5 @@ export const validatePartialUpdate = (data) => {
     return "ong_Nome não pode ser editado";
   }
 
-  if (ong_Imagem) {
-    return "ong_Imagem não pode ser editado";
-  }
-
   return null;
 };

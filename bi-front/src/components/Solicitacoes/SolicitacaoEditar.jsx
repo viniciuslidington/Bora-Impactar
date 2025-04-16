@@ -12,12 +12,14 @@ import ModalEncerrar from "../ModalEncerrar/ModalEncerrar";
 import ModalImage from "../ModalImage/ModalImage";
 import ModalImageOnline from "../ModalImageOnline/ModalImageOnline";
 import editImg from "../../assets/edit.svg";
+import { useUserData } from "../../services/authService";
 
 export default function PostSelected({
   expiracaoFormatada,
   setSelectedId,
   post,
 }) {
+  const { data: userData } = useUserData();
   const { mutate: salvar } = useEditSolicitacoes();
   const { mutate: remover } = useDelSolicitacoes();
   const [preview, setPreview] = useState(null);
@@ -68,7 +70,7 @@ export default function PostSelected({
     formData.append("ong_Email", data.ong_Email);
     formData.append("ong_Phone", data.ong_Phone);
     formData.append("id", Number(post.id));
-    formData.append("ong_Imagem", data.userData.ngo?.logo_photo_url);
+    formData.append("ong_Imagem", userData.userData.ngo.logo_photo_url);
     // Se houver imagem no formulário
     if (data.image !== initialValues.image) {
       formData.append("image", data.image); // Acessa o arquivo corretamente
