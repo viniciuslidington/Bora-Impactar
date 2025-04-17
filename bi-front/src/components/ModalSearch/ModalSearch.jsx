@@ -39,13 +39,13 @@ export default function ModalSearch({ solicitacao = false }) {
 
   return (
     <div
-      className="fixed inset-0 z-30 flex items-center justify-center bg-[rgba(0,0,0,0.25)] px-4 lg:px-0"
+      className="fixed inset-0 z-30 flex items-center justify-center bg-[rgba(0,0,0,0.25)]"
       onClick={(e) => {
         modalOverlay.current === e.target && closeModal();
       }}
       ref={modalOverlay}
     >
-      <div className="relative z-31 flex max-h-[90vh] w-full max-w-full flex-col items-center gap-4 rounded bg-white p-4 lg:h-auto lg:max-w-[1120px] lg:flex-row lg:flex-wrap lg:items-start lg:gap-6 lg:p-8">
+      <div className="relative z-31 flex h-screen w-full max-w-full flex-col items-center gap-4 rounded bg-white p-4 lg:h-auto lg:max-w-[1120px] lg:flex-row lg:flex-wrap lg:items-start lg:gap-6 lg:p-8">
         {isPending ? (
           <span className="relative flex h-[90vh] w-full items-center justify-center lg:h-[424px]">
             <l-ring-2
@@ -106,8 +106,11 @@ export default function ModalSearch({ solicitacao = false }) {
               className="h-[264px] w-full flex-shrink-0 rounded border border-[#9c9c9c81] object-cover lg:h-[336px] lg:w-[336px]"
             />
             <div className="relative flex h-full w-full max-w-full flex-col justify-start gap-6 py-2 lg:h-[336px] lg:max-w-[calc(100%-360px)] lg:gap-5 lg:pb-0">
-              <ShareBtn className="absolute top-1 right-0 lg:top-auto lg:bottom-0" />
-              <p className="line-clamp-3 max-w-full shrink-0 text-xl font-semibold break-words opacity-95 lg:line-clamp-2 lg:text-3xl">
+              <ShareBtn
+                className="absolute top-1 right-0 -mr-[6px] lg:top-auto lg:bottom-0"
+                size={48}
+              />
+              <p className="line-clamp-3 max-w-[calc(100%-48px)] shrink-0 text-xl font-semibold break-words opacity-95 lg:line-clamp-2 lg:text-3xl">
                 {data?.title}
               </p>
               <span className="flex flex-row flex-wrap items-center gap-2 opacity-95 lg:flex-nowrap">
@@ -129,8 +132,19 @@ export default function ModalSearch({ solicitacao = false }) {
                   {dataExpiracao}
                 </p>
               </span>
-              <div className="relative max-h-[124px] max-w-full lg:h-auto lg:max-h-none">
-                <p className="h-auto max-h-[124px] max-w-full overflow-auto break-words whitespace-pre-line opacity-70 lg:max-h-[196px] lg:overflow-auto">
+              <div className="relative max-w-full lg:h-auto lg:max-h-none">
+                <p
+                  className={`h-auto max-w-full overflow-auto break-words whitespace-pre-line opacity-70 lg:overflow-auto`}
+                  style={
+                    window.innerWidth <= 768
+                      ? {
+                          maxHeight: `calc(100vh - ${data.title.length < 27 ? "596px" : "624px"})`,
+                        }
+                      : {
+                          maxHeight: `${data.title.length < 47 ? "180px" : "140px"}`,
+                        }
+                  }
+                >
                   {data?.description}
                 </p>
               </div>

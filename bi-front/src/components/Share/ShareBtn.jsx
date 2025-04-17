@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export default function ShareBtn({ size = 32, className }) {
+export default function ShareBtn({ size = 38, className }) {
   const handleShare = async () => {
     if (navigator.share) {
       try {

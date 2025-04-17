@@ -37,7 +37,7 @@ export default function Profile() {
         ref={dropdownRef}
       >
         <div
-          className="flex cursor-pointer items-center gap-3 lg:h-22"
+          className="flex max-w-full cursor-pointer items-center gap-3 lg:h-22"
           onClick={() => setDropdown(!dropdown)}
         >
           <p className="truncate text-sm font-semibold text-white lg:max-w-[196px]">

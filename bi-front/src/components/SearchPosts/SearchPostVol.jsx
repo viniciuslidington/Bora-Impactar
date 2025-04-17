@@ -83,7 +83,7 @@ export default function SearchPostVol({ data = {}, isLoading = false }) {
       <div className="relative flex w-full items-center gap-2">
         <img
           src={
-            ong_Imagem === "undefined" || ong_Imagem === undefined
+            ong_Imagem === "undefined" || ong_Imagem
               ? placeholderImg
               : ong_Imagem
           }
