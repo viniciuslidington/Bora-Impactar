@@ -109,6 +109,7 @@ export default function ModalSearch({ solicitacao = false }) {
               <ShareBtn
                 className="absolute top-1 right-0 -mr-[6px] lg:top-auto lg:bottom-0"
                 size={48}
+                title={data?.title}
               />
               <p className="line-clamp-3 max-w-[calc(100%-48px)] shrink-0 text-xl font-semibold break-words opacity-95 lg:line-clamp-2 lg:text-3xl">
                 {data?.title}

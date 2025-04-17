@@ -1,13 +1,18 @@
 import PropTypes from "prop-types";
 
-export default function ShareBtn({ size = 38, className }) {
+export default function ShareBtn({ size = 38, className, title }) {
   const handleShare = async () => {
+    const url = new URL(window.location.href);
+    const postParam = url.searchParams.get("post");
+    const shareUrl = postParam
+      ? `${url.origin}${url.pathname}?post=${postParam}`
+      : url.origin;
+
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Confere aí!",
-          text: "Achei isso massa:",
-          url: window.location.href,
+          title: title,
+          url: shareUrl,
         });
       } catch (err) {
         console.error("Erro ao compartilhar:", err);
@@ -51,6 +56,7 @@ export default function ShareBtn({ size = 38, className }) {
 }
 
 ShareBtn.propTypes = {
+  title: PropTypes.string,
   size: PropTypes.string,
   className: PropTypes.string,
 };
