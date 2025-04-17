@@ -41,7 +41,7 @@ export default function Profile() {
           onClick={() => setDropdown(!dropdown)}
         >
           <p className="truncate text-sm font-semibold text-white lg:max-w-[196px]">
-            {authData.userData.ngo.name}
+            {authData?.userData?.ngo?.name}
           </p>
           {/* o chat tava crente que  border-radius: 50% era rounded-full, não consegui achar outro */}
           <img

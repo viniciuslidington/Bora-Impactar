@@ -1,9 +1,8 @@
 import PropTypes from "prop-types";
 import { calcularTempoRestante, formatarData } from "../../utils/formatDate";
 import UrgencyIcon from "../UrgencyIcon/UrgencyIcon";
-import { useContext, useEffect } from "react";
-import { ModalContext } from "../contexts/ModalContext";
 import placeholderImg from "../../assets/placeholder-image.jpg";
+import { useOpenById } from "../../utils/queryUpdate";
 
 export default function SearchPostVol({ data = {}, isLoading = false }) {
   const {
@@ -16,7 +15,10 @@ export default function SearchPostVol({ data = {}, isLoading = false }) {
     ong_Nome,
     ong_Imagem,
     post_Imagem,
+    id,
   } = data;
+
+  const openById = useOpenById();
 
   const categorias = {
     ELETRODOMESTICOS_E_MOVEIS: "Eletrodomésticos e Móveis",
@@ -35,12 +37,6 @@ export default function SearchPostVol({ data = {}, isLoading = false }) {
     MEDIUM: "Urgência Média",
     LOW: "Urgência Baixa",
   };
-
-  const { setModalSearch } = useContext(ModalContext);
-
-  useEffect(() => {
-    return setModalSearch(null);
-  }, [setModalSearch]);
 
   return isLoading ? (
     <div className="flex w-[768px] animate-pulse cursor-pointer flex-wrap gap-2 rounded-sm border-2 border-[#9C9C9C] bg-white p-4 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] transition-all duration-200 ease-in-out hover:scale-101">
@@ -82,7 +78,7 @@ export default function SearchPostVol({ data = {}, isLoading = false }) {
             }
           : {}
       }
-      onClick={() => setModalSearch(data)}
+      onClick={() => openById(id)}
     >
       <div className="relative flex w-full items-center gap-2">
         <img

@@ -4,7 +4,7 @@ import GridBox from "../components/GridBox/GridBox";
 import { Toaster } from "react-hot-toast";
 import HomePosts from "../components/HomePosts/HomePostsOng";
 import Button from "../components/Button/Button";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { ModalContext } from "../components/contexts/ModalContext";
 import ModalAdicionarSol from "../components/ModalAdicionar/ModalAdicionarSolicitacao";
 import ModalAdicionarRep from "../components/ModalAdicionar/ModalAdicionarRepasse";
@@ -54,6 +54,19 @@ export default function Home() {
     setModalImage,
     setModalImageOnline,
   ]);
+
+  const searchParams = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search],
+  ); // Converte a string da URL em um objeto manipulável
+
+  useEffect(() => {
+    if (searchParams.get("post")) {
+      setModalSearch(true);
+    } else {
+      setModalSearch(null);
+    }
+  }, [setModalSearch, searchParams]);
 
   return (
     <>

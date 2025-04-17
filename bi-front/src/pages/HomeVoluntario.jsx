@@ -3,7 +3,7 @@ import Grid from "../components/Grid/Grid";
 import GridBox from "../components/GridBox/GridBox";
 import Button from "../components/Button/Button";
 import HomePosts from "../components/HomePosts/HomePostsVol";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useMemo, useRef } from "react";
 import { ModalContext } from "../components/contexts/ModalContext";
 import ModalSearch from "../components/ModalSearch/ModalSearch";
 import hubDoacoesImg from "../assets/hubdedoacoes.png";
@@ -32,6 +32,19 @@ export default function Home() {
     setModalSearch(false);
     return () => setModalSearch(false);
   }, [location, setModalSearch]);
+
+  const searchParams = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search],
+  ); // Converte a string da URL em um objeto manipulável
+
+  useEffect(() => {
+    if (searchParams.get("post")) {
+      setModalSearch(true);
+    } else {
+      setModalSearch(null);
+    }
+  }, [setModalSearch, searchParams]);
 
   return (
     <div className="flex w-full flex-col items-center">

@@ -3,9 +3,9 @@ import FilterMobile from "../components/Filter/FilterMobile";
 import SearchPostVol from "../components/SearchPosts/SearchPostVol";
 import { useSearchSolicitacao } from "../services/searchService";
 import Pagination from "../components/Pagination/Pagination.jsx";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useQueryUpdate } from "../utils/queryUpdate";
+import { useOpenById, useQueryUpdate } from "../utils/queryUpdate";
 import { ModalContext } from "../components/contexts/ModalContext";
 import ModalSearch from "../components/ModalSearch/ModalSearch";
 import Posts from "../components/HomePosts/Posts.jsx";
@@ -15,8 +15,13 @@ export default function SearchVol() {
 
   const updateQuery = useQueryUpdate();
 
+  const openById = useOpenById();
+
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search); // Converte a string da URL em um objeto manipulável
+  const searchParams = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search],
+  ); // Converte a string da URL em um objeto manipulável
 
   const querySort = searchParams.get("sort") || "recentes";
   const sortRef = useRef(querySort);
@@ -26,8 +31,12 @@ export default function SearchVol() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
-    return setModalSearch(null);
-  }, [setModalSearch]);
+    if (searchParams.get("post")) {
+      setModalSearch(true);
+    } else {
+      setModalSearch(null);
+    }
+  }, [setModalSearch, searchParams]);
 
   // Atualiza o estado `isMobile` quando a largura da tela muda
   useEffect(() => {
@@ -112,7 +121,7 @@ export default function SearchVol() {
                   <Posts
                     data={post}
                     key={post.id}
-                    onClick={() => setModalSearch(post)}
+                    onClick={() => openById(post.id)}
                   />
                 );
               })}

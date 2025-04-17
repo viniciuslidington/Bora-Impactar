@@ -1,16 +1,17 @@
 import { useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { useQueryUpdateHome } from "../../utils/queryUpdate";
+import { useOpenById, useQueryUpdateHome } from "../../utils/queryUpdate";
 import { useSearchSolicitacao } from "../../services/searchService";
 import Pagination from "../Pagination/Pagination";
 import SearchBar from "../SearchBar/SearchBar";
 import Posts from "./Posts";
-import PropTypes from "prop-types";
 
-export default function HomePosts({ setModalSearch }) {
+export default function HomePosts() {
   const { data, isPending, isError } = useSearchSolicitacao();
 
   const updateQuery = useQueryUpdateHome();
+
+  const openById = useOpenById();
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search); // Converte a string da URL em um objeto manipulável
@@ -74,7 +75,7 @@ export default function HomePosts({ setModalSearch }) {
                 <Posts
                   data={post}
                   key={post.id}
-                  onClick={() => setModalSearch(post)}
+                  onClick={() => openById(post.id)}
                 />
               );
             })}
@@ -89,7 +90,3 @@ export default function HomePosts({ setModalSearch }) {
     </div>
   );
 }
-
-HomePosts.propTypes = {
-  setModalSearch: PropTypes.func,
-};

@@ -80,5 +80,37 @@ const useCleanFilter = () => {
 
   return queryUpdate;
 };
+const useOpenById = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
 
-export { useQueryUpdate, useQueryUpdateHome, useCleanFilter };
+  const queryUpdate = (value) => {
+    const updatedParams = new URLSearchParams(searchParams);
+
+    updatedParams.set("post", value);
+
+    setSearchParams(updatedParams); // Atualiza a URL
+  };
+
+  return queryUpdate;
+};
+const useCloseById = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const queryUpdate = () => {
+    const updatedParams = new URLSearchParams(searchParams);
+
+    updatedParams.delete("post");
+
+    setSearchParams(updatedParams); // Atualiza a URL
+  };
+
+  return queryUpdate;
+};
+
+export {
+  useQueryUpdate,
+  useQueryUpdateHome,
+  useCleanFilter,
+  useOpenById,
+  useCloseById,
+};
