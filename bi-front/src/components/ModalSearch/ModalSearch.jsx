@@ -7,6 +7,7 @@ import { useSolicitacaoById } from "../../services/searchService";
 import { useCloseById } from "../../utils/queryUpdate";
 import { useRef } from "react";
 import "ldrs/ring2";
+import ShareBtn from "../Share/ShareBtn";
 
 export default function ModalSearch({ solicitacao = false }) {
   const modalOverlay = useRef();
@@ -77,8 +78,7 @@ export default function ModalSearch({ solicitacao = false }) {
             <div className="flex w-full items-center gap-2 lg:relative">
               <img
                 src={
-                  data?.ong_Imagem === "undefined" ||
-                  data?.ong_Imagem === undefined
+                  data?.ong_Imagem || data?.ong_Imagem === "undefined"
                     ? placeholderImg
                     : data?.ong_Imagem
                 }
@@ -105,7 +105,8 @@ export default function ModalSearch({ solicitacao = false }) {
               alt="Imagem da publicação"
               className="h-[264px] w-full flex-shrink-0 rounded border border-[#9c9c9c81] object-cover lg:h-[336px] lg:w-[336px]"
             />
-            <div className="flex h-full w-full max-w-full flex-col justify-start gap-6 py-2 lg:h-[336px] lg:max-w-[calc(100%-360px)] lg:gap-5 lg:pb-0">
+            <div className="relative flex h-full w-full max-w-full flex-col justify-start gap-6 py-2 lg:h-[336px] lg:max-w-[calc(100%-360px)] lg:gap-5 lg:pb-0">
+              <ShareBtn className="absolute top-1 right-0 lg:top-auto lg:bottom-0" />
               <p className="line-clamp-3 max-w-full shrink-0 text-xl font-semibold break-words opacity-95 lg:line-clamp-2 lg:text-3xl">
                 {data?.title}
               </p>
