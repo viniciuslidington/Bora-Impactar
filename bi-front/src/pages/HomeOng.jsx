@@ -106,7 +106,7 @@ export default function Home() {
             <h2 className="text-center text-xl font-bold lg:text-2xl">
               Encontre recursos compartilhados por outras ONGs
             </h2>
-            <p className="text-base font-normal">Categorais Recorrentes</p>
+            <p className="text-base font-normal">Categorias Recorrentes</p>
           </div>
           <Grid>
             <GridBox

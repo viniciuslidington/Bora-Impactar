@@ -122,7 +122,7 @@ export default function Home() {
           <h2 className="text-center text-xl font-bold lg:text-2xl">
             Saiba como você pode ajudar as Ongs
           </h2>
-          <p className="text-base font-normal">Categorias mais recorrentes</p>
+          <p className="text-base font-normal">Categorias Recorrentes</p>
         </div>
         <Grid>
           <GridBox

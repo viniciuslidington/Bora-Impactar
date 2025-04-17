@@ -108,10 +108,10 @@ export default function ModalSearch({ solicitacao = false }) {
             <div className="relative flex h-full w-full max-w-full flex-col justify-start gap-6 py-2 lg:h-[336px] lg:max-w-[calc(100%-360px)] lg:gap-5 lg:pb-0">
               <ShareBtn
                 className="absolute top-1 right-0 -mr-[6px] lg:top-auto lg:bottom-0"
-                size={48}
+                size={window.innerWidth <= 768 ? 48 : 40}
                 title={data?.title}
               />
-              <p className="line-clamp-3 max-w-[calc(100%-48px)] shrink-0 text-xl font-semibold break-words opacity-95 lg:line-clamp-2 lg:text-3xl">
+              <p className="line-clamp-3 max-w-[calc(100%-52px)] shrink-0 text-xl font-semibold break-words opacity-95 lg:line-clamp-2 lg:text-3xl">
                 {data?.title}
               </p>
               <span className="flex flex-row flex-wrap items-center gap-2 opacity-95 lg:flex-nowrap">
