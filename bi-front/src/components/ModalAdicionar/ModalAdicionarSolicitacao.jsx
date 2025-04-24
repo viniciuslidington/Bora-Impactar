@@ -130,7 +130,7 @@ export default function ModaAdicionar() {
                 <img
                   src={preview}
                   alt="Prévia da imagem"
-                  className="h-full w-full rounded object-cover"
+                  className="max-h-full w-screen max-w-full rounded object-cover"
                 />
               )}
               {!preview && (

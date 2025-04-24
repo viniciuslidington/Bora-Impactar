@@ -10,8 +10,13 @@ import repasseRoutes from "./services/repasse.js";
 import serchRoutes from "./services/searchrepasse.js";
 import solicitacoesRoutes from "./services/solicitacoes.js";
 import searchSolicitacoesRoutes from "./services/searchsolicitacoes.js";
+import solicitacaobyidRoutes from "./services/solicitacaoById.js";
+import repassebyidRoutes from "./services/repasseById.js";
 import cloudinaryRoutes from "./services/upload.js";
 import verifyToken from "./config/VerifyToken.js";
+
+// Importando tarefa de cleanup
+import "./services/cleanupExpiredPosts.js";
 
 const PORTBACKEND = 3017;
 const PORTFRONT = 3007;
@@ -20,41 +25,45 @@ const app = express();
 app.use(express.json());
 //app.use(cors({ credentials: true, origin: `http://localhost` }));
 const allowedOrigins = [
-	'http://localhost',
-	'http://localhost:5173',
-	'http://localhost:3000',
-	'http://localhost/cinconecta',
-	'https://cinconecta-client', 
-	'http://cinboraimpactar.cin.ufpe.br',
-	'http://vm-cinboraimpactar.cin.ufpe.br',
-	'https://cinboraimpactar.cin.ufpe.br',
-	'https://vm-cinboraimpactar.cin.ufpe.br'
-  ]
-  
-app.use(cors({
-origin: function (origin, callback) {
-  if (!origin || allowedOrigins.includes(origin)) {
-  callback(null, true)
-  } else {
-  console.log('Blocked by CORS:', origin)
-  callback(new Error('Not allowed by CORS'))
-  }
-},
-credentials: true
-}));
+  "http://localhost",
+  "http://localhost:5173",
+  "http://localhost:3007",
+  "http://localhost/cinconecta",
+  "https://cinconecta-client",
+  "http://cinboraimpactar.cin.ufpe.br",
+  "http://vm-cinboraimpactar.cin.ufpe.br",
+  "https://cinboraimpactar.cin.ufpe.br",
+  "https://vm-cinboraimpactar.cin.ufpe.br",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.log("Blocked by CORS:", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 app.use(cookieParser());
 
 // Rotas públicas (agora com o prefixo /api)
 app.use("/api/login", loginRoutes);
 app.use("/api/logout", logoutRoutes);
+app.use("/api/search-solicitacao", searchSolicitacoesRoutes);
+app.use("/api/search-solicitacaobyid", solicitacaobyidRoutes);
 
 // Rotas protegidas (verifyToken é o método de autenticar, agora com o prefixo /api)
 app.use("/api/data", verifyToken, dataRoutes);
 app.use("/api/repasse", verifyToken, repasseRoutes);
+app.use("/api/search-repassebyid", verifyToken, repassebyidRoutes);
 app.use("/api/search-repasse", verifyToken, serchRoutes);
 app.use("/api/solicitacao", verifyToken, solicitacoesRoutes);
-app.use("/api/search-solicitacao", searchSolicitacoesRoutes);
 app.use("/api/upload", verifyToken, cloudinaryRoutes);
 
 // Definindo a porta 3017
