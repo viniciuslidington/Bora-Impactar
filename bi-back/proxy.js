@@ -15,6 +15,9 @@ import repassebyidRoutes from "./services/repasseById.js";
 import cloudinaryRoutes from "./services/upload.js";
 import verifyToken from "./config/VerifyToken.js";
 
+// Importando tarefa de cleanup
+import "./services/cleanupExpiredPosts.js";
+
 const PORTBACKEND = 3017;
 const PORTFRONT = 3007;
 
