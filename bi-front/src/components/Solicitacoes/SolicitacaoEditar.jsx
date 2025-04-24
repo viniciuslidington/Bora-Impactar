@@ -149,14 +149,14 @@ export default function PostSelected({
               <img
                 src={post.post_Imagem}
                 alt="Imagem original"
-                className="h-full w-full rounded object-cover"
+                className="max-h-full w-screen max-w-full rounded object-cover"
               />
             )}
             {preview && (
               <img
                 src={preview}
                 alt="Prévia da imagem"
-                className="h-full w-full rounded object-cover"
+                className="max-h-full w-screen max-w-full rounded object-cover"
               />
             )}
             {!preview && !post.post_Imagem && (

@@ -73,7 +73,7 @@ export default function Posts({ data = {}, isLoading = false, onClick }) {
         <span className="flex items-center gap-2">
           <img
             src={
-              ong_Imagem === "undefined" || ong_Imagem === undefined
+              ong_Imagem === "undefined" || ong_Imagem
                 ? placeholderImg
                 : ong_Imagem
             }

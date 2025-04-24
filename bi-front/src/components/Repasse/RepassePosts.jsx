@@ -123,7 +123,7 @@ export default function OngPosts() {
                 stroke-length="0.25"
                 bg-opacity="0.1"
                 speed="0.8"
-                color="#009fe3;"
+                color="#009fe3"
               ></l-ring-2>
             </div>
           ) : posts.length > 0 ? (
