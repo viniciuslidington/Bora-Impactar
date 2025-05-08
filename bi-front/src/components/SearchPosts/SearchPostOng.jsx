@@ -71,9 +71,9 @@ export default function SearchPostVol({ data = {}, isLoading = false }) {
       <div className="relative flex w-full items-center gap-2">
         <img
           src={
-            ong_Imagem === "undefined" || ong_Imagem
-              ? placeholderImg
-              : ong_Imagem
+            ong_Imagem || ong_Imagem !== "undefined"
+              ? ong_Imagem
+              : placeholderImg
           }
           alt=""
           className="h-14 w-14 rounded-[50%] border border-[#9c9c9c81] object-cover"
