@@ -78,7 +78,7 @@ export default function ModalSearch({ solicitacao = false }) {
             <div className="flex w-full items-center gap-2 lg:relative">
               <img
                 src={
-                  data?.ong_Imagem || data?.ong_Imagem !== "undefined"
+                  data?.ong_Imagem && data?.ong_Imagem !== "undefined"
                     ? data?.ong_Imagem
                     : placeholderImg
                 }
